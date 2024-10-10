@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -16,18 +17,17 @@ class DogFactory extends Factory
      */
     public function definition(): array
     {
-        $created_at = fake()->dateTimeBetween('-1 year', 'now');
+
         return [
             'nom' => fake()->name(),
             'race' => fake()->word(),
             'age' => fake()->numberBetween(1, 20),
             'poids' => fake()->numberBetween(1, 70),
-            'besoins_spe' => fake()->sentence(),
+            'besoins_speciaux' => fake()->sentence(),
             'comportement' => fake()->sentence(),
-            'sterilise' => fake()->randomElement(['oui', 'non']),
+            'user_id' => fake()->numberBetween(1, 40),
+            'sterilise' => fake()->randomElement([true, false]),
             'sexe' => fake()->randomElement(['M', 'F']),
-            'created_at' => $created_at,
-            'updated_at' => $created_at
         ];
     }
 }

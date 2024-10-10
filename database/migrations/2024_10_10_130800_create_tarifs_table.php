@@ -13,7 +13,12 @@ return new class extends Migration
     {
         Schema::create('tarifs', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->string('nom')->index();
+            $table->decimal('prix',8,2)->index();
+            $table->dateTime('created_at')->useCurrent();
+            $table->dateTime('updated_at')->useCurrent()->useCurrentOnUpdate();
+            $table->foreignId('user_id')->constrained('users')->onDelete('restrict');
+            $table->foreignId('prestation_id')->constrained('prestations')->onDelete('restrict');
         });
     }
 

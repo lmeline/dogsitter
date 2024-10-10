@@ -13,17 +13,17 @@ return new class extends Migration
     {
         Schema::create('dogs', function (Blueprint $table) {
             $table->id();
-            $table->string('nom',70);
-            $table->string('race',30);
-            $table->integer('age');
-            $table->integer('poids');
-            $table->text('comportement');
-            $table->text('besoins_spe');
-            $table->enum('sexe', ['M', 'F']);
-            $table->boolean('sterilise')->default(false);
-            $table->text('description');
-            $table->string('url_image')->nullable();
-            $table->timestamps();
+            $table->string('nom',70)->index()->nullable(false);
+            $table->string('race',70)->index()->nullable(false);
+            $table->integer('age')->index()->nullable(false);
+            $table->integer('poids')->nullable(false);
+            $table->text('comportement')->nullable(true);
+            $table->text('besoins_speciaux')->nullable(true);
+            $table->enum('sexe', ['M', 'F'])->index();
+            $table->boolean('sterilise')->index()->default(false);
+            $table->foreignId('user_id')->constrained('users')->onDelete('restrict');
+            $table->dateTime('created_at')->useCurrent();
+            $table->dateTime('updated_at')->useCurrent()->useCurrentOnUpdate();
         });
     }
 

@@ -13,7 +13,9 @@ return new class extends Migration
     {
         Schema::create('abonnements', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->enum('type',['mensuel', 'trimestriel', 'annuel']);
+            $table->dateTime('created_at')->useCurrent();
+            $table->dateTime('updated_at')->useCurrent()->useCurrentOnUpdate();
         });
     }
 
