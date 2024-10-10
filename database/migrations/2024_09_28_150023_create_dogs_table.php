@@ -20,7 +20,7 @@ return new class extends Migration
             $table->text('comportement');
             $table->text('besoins_spe');
             $table->enum('sexe', ['M', 'F']);
-            $table->boolean('sterilise', ['oui', 'non']);
+            $table->boolean('sterilise');
             //$table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });

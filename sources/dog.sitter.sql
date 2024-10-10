@@ -1,139 +1,139 @@
-CREATE TABLE utilisateurs(
-   id BIGINT AUTO_INCREMENT PRIMARY KEY(id_user),
-   nom VARCHAR(70),
-   prenom VARCHAR(70),
-   email VARCHAR(70),
-   mot_de_passe VARCHAR(50),
-   type VARCHAR(50),
-   telephone VARCHAR(50),
-   date_naissance DATE,
-   url_profil VARCHAR(50),
-   adresse VARCHAR(50),
-   ville VARCHAR(50),
-   code_postal VARCHAR(50),
-   description VARCHAR(50),
-   experience VARCHAR(50),
-   service VARCHAR(50),
-   disponibilité_jour VARCHAR(50),
-   note_moyenne DECIMAL(15,2),
-   nombre_avis INT,
-   created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-   updated_at DATETIME DEFAULT CURRENT_TIMESTAMP on_update CURRENT_TIMESTAMP,
-);
+-- CREATE TABLE utilisateurs(
+--    id BIGINT AUTO_INCREMENT PRIMARY KEY(id_user),
+--    nom VARCHAR(70),
+--    prenom VARCHAR(70),
+--    email VARCHAR(70),
+--    mot_de_passe VARCHAR(50),
+--    type VARCHAR(50),
+--    telephone VARCHAR(50),
+--    date_naissance DATE,
+--    url_profil VARCHAR(50),
+--    adresse VARCHAR(50),
+--    ville VARCHAR(50),
+--    code_postal VARCHAR(50),
+--    description VARCHAR(50),
+--    experience VARCHAR(50),
+--    service VARCHAR(50),
+--    disponibilité_jour VARCHAR(50),
+--    note_moyenne DECIMAL(15,2),
+--    nombre_avis INT,
+--    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+--    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP on_update CURRENT_TIMESTAMP,
+-- );
 
-CREATE TABLE chiens(
-   Id_chien INT,
-   nom VARCHAR(70),
-   date_naissance DATE,
-   sexe BYTE,
-   sterilise LOGICAL,
-   comportement TEXT,
-   race VARCHAR(70),
-   URL_profil VARCHAR(50),
-   poids DECIMAL(8,2),
-   besoins_speciaux TEXT,
-   created_at DATETIME,
-   updated_at DATETIME,
-   id_user INT NOT NULL,
-   PRIMARY KEY(Id_chien),
-   FOREIGN KEY(id_user) REFERENCES utilisateurs(id_user)
-);
+-- CREATE TABLE chiens(
+--    Id_chien INT,
+--    nom VARCHAR(70),
+--    date_naissance DATE,
+--    sexe BYTE,
+--    sterilise LOGICAL,
+--    comportement TEXT,
+--    race VARCHAR(70),
+--    URL_profil VARCHAR(50),
+--    poids DECIMAL(8,2),
+--    besoins_speciaux TEXT,
+--    created_at DATETIME,
+--    updated_at DATETIME,
+--    id_user INT NOT NULL,
+--    PRIMARY KEY(Id_chien),
+--    FOREIGN KEY(id_user) REFERENCES utilisateurs(id_user)
+-- );
 
-CREATE TABLE paiements(
-   Id_paiement COUNTER,
-   montant VARCHAR(50),
-   date_paiement DATETIME,
-   methode_paiement VARCHAR(50),
-   created_at DATETIME,
-   updated_at DATETIME,
-   PRIMARY KEY(Id_paiement)
-);
+-- CREATE TABLE paiements(
+--    Id_paiement COUNTER,
+--    montant VARCHAR(50),
+--    date_paiement DATETIME,
+--    methode_paiement VARCHAR(50),
+--    created_at DATETIME,
+--    updated_at DATETIME,
+--    PRIMARY KEY(Id_paiement)
+-- );
 
-CREATE TABLE abonnements(
-   id_abonnement VARCHAR(50),
-   abonnement_type VARCHAR(50),
-   created_at DATETIME,
-   updated_at DATETIME,
-   id_user INT NOT NULL,
-   PRIMARY KEY(id_abonnement),
-   UNIQUE(id_user),
-   FOREIGN KEY(id_user) REFERENCES utilisateurs(id_user)
-);
+-- CREATE TABLE abonnements(
+--    id_abonnement VARCHAR(50),
+--    abonnement_type VARCHAR(50),
+--    created_at DATETIME,
+--    updated_at DATETIME,
+--    id_user INT NOT NULL,
+--    PRIMARY KEY(id_abonnement),
+--    UNIQUE(id_user),
+--    FOREIGN KEY(id_user) REFERENCES utilisateurs(id_user)
+-- );
 
-CREATE TABLE messages(
-   id_message VARCHAR(50),
-   contenu VARCHAR(50),
-   date_envoi DATETIME,
-   lu LOGICAL,
-   created_at DATETIME,
-   updated_at DATETIME,
-   id_user INT NOT NULL,
-   PRIMARY KEY(id_message),
-   FOREIGN KEY(id_user) REFERENCES utilisateurs(id_user)
-);
+-- CREATE TABLE messages(
+--    id_message VARCHAR(50),
+--    contenu VARCHAR(50),
+--    date_envoi DATETIME,
+--    lu LOGICAL,
+--    created_at DATETIME,
+--    updated_at DATETIME,
+--    id_user INT NOT NULL,
+--    PRIMARY KEY(id_message),
+--    FOREIGN KEY(id_user) REFERENCES utilisateurs(id_user)
+-- );
 
-CREATE TABLE statuts(
-   id_statuts VARCHAR(50),
-   statut VARCHAR(50),
-   PRIMARY KEY(id_statuts)
-);
+-- CREATE TABLE statuts(
+--    id_statuts VARCHAR(50),
+--    statut VARCHAR(50),
+--    PRIMARY KEY(id_statuts)
+-- );
 
-CREATE TABLE tarifs(
-   id_tarif VARCHAR(50),
-   nom VARCHAR(50),
-   prix DECIMAL(8,2),
-   created_at DATETIME,
-   updated_at DATETIME,
-   id_user INT NOT NULL,
-   PRIMARY KEY(id_tarif),
-   FOREIGN KEY(id_user) REFERENCES utilisateurs(id_user)
-);
+-- CREATE TABLE tarifs(
+--    id_tarif VARCHAR(50),
+--    nom VARCHAR(50),
+--    prix DECIMAL(8,2),
+--    created_at DATETIME,
+--    updated_at DATETIME,
+--    id_user INT NOT NULL,
+--    PRIMARY KEY(id_tarif),
+--    FOREIGN KEY(id_user) REFERENCES utilisateurs(id_user)
+-- );
 
-CREATE TABLE prestations(
-   Id_reservation COUNTER,
-   debut_date DATETIME,
-   fin_date DATETIME,
-   total_prix VARCHAR(50),
-   id_statut INT,
-   created_at DATETIME,
-   updated_at DATETIME,
-   id_statuts VARCHAR(50) NOT NULL,
-   id_user INT NOT NULL,
-   id_tarif VARCHAR(50) NOT NULL,
-   id_user_1 INT NOT NULL,
-   PRIMARY KEY(Id_reservation),
-   FOREIGN KEY(id_statuts) REFERENCES statuts(id_statuts),
-   FOREIGN KEY(id_user) REFERENCES utilisateurs(id_user),
-   FOREIGN KEY(id_tarif) REFERENCES tarifs(id_tarif),
-   FOREIGN KEY(id_user_1) REFERENCES utilisateurs(id_user)
-);
+-- CREATE TABLE prestations(
+--    Id_reservation COUNTER,
+--    debut_date DATETIME,
+--    fin_date DATETIME,
+--    total_prix VARCHAR(50),
+--    id_statut INT,
+--    created_at DATETIME,
+--    updated_at DATETIME,
+--    id_statuts VARCHAR(50) NOT NULL,
+--    id_user INT NOT NULL,
+--    id_tarif VARCHAR(50) NOT NULL,
+--    id_user_1 INT NOT NULL,
+--    PRIMARY KEY(Id_reservation),
+--    FOREIGN KEY(id_statuts) REFERENCES statuts(id_statuts),
+--    FOREIGN KEY(id_user) REFERENCES utilisateurs(id_user),
+--    FOREIGN KEY(id_tarif) REFERENCES tarifs(id_tarif),
+--    FOREIGN KEY(id_user_1) REFERENCES utilisateurs(id_user)
+-- );
 
-CREATE TABLE avis(
-   Id_avis COUNTER,
-   note INT,
-   commentaire VARCHAR(50),
-   created_at DATETIME,
-   updated_at VARCHAR(50),
-   id_user INT NOT NULL,
-   Id_reservation INT NOT NULL,
-   PRIMARY KEY(Id_avis),
-   UNIQUE(Id_reservation),
-   FOREIGN KEY(id_user) REFERENCES utilisateurs(id_user),
-   FOREIGN KEY(Id_reservation) REFERENCES prestations(Id_reservation)
-);
+-- CREATE TABLE avis(
+--    Id_avis COUNTER,
+--    note INT,
+--    commentaire VARCHAR(50),
+--    created_at DATETIME,
+--    updated_at VARCHAR(50),
+--    id_user INT NOT NULL,
+--    Id_reservation INT NOT NULL,
+--    PRIMARY KEY(Id_avis),
+--    UNIQUE(Id_reservation),
+--    FOREIGN KEY(id_user) REFERENCES utilisateurs(id_user),
+--    FOREIGN KEY(Id_reservation) REFERENCES prestations(Id_reservation)
+-- );
 
-CREATE TABLE est_associe(
-   Id_paiement INT,
-   id_abonnement VARCHAR(50),
-   PRIMARY KEY(Id_paiement, id_abonnement),
-   FOREIGN KEY(Id_paiement) REFERENCES paiements(Id_paiement),
-   FOREIGN KEY(id_abonnement) REFERENCES abonnements(id_abonnement)
-);
+-- CREATE TABLE est_associe(
+--    Id_paiement INT,
+--    id_abonnement VARCHAR(50),
+--    PRIMARY KEY(Id_paiement, id_abonnement),
+--    FOREIGN KEY(Id_paiement) REFERENCES paiements(Id_paiement),
+--    FOREIGN KEY(id_abonnement) REFERENCES abonnements(id_abonnement)
+-- );
 
-CREATE TABLE reçoit(
-   id_user INT,
-   id_message VARCHAR(50),
-   PRIMARY KEY(id_user, id_message),
-   FOREIGN KEY(id_user) REFERENCES utilisateurs(id_user),
-   FOREIGN KEY(id_message) REFERENCES messages(id_message)
-);
+-- CREATE TABLE reçoit(
+--    id_user INT,
+--    id_message VARCHAR(50),
+--    PRIMARY KEY(id_user, id_message),
+--    FOREIGN KEY(id_user) REFERENCES utilisateurs(id_user),
+--    FOREIGN KEY(id_message) REFERENCES messages(id_message)
+-- );
