@@ -20,8 +20,9 @@ return new class extends Migration
             $table->text('comportement');
             $table->text('besoins_spe');
             $table->enum('sexe', ['M', 'F']);
-            $table->boolean('sterilise');
-            //$table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->boolean('sterilise')->default(false);
+            $table->text('description');
+            $table->string('url_image')->nullable();
             $table->timestamps();
         });
     }
