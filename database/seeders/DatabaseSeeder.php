@@ -17,6 +17,7 @@ class DatabaseSeeder extends Seeder
         UserSeeder::class,
         Postseeder::class,
         DogSeeder::class,
+        TarifSeeder::class,
       ]);
     }
 }

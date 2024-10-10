@@ -15,10 +15,9 @@ return new class extends Migration
             $table->id();
             $table->string('nom')->index();
             $table->decimal('prix',8,2)->index();
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->dateTime('created_at')->useCurrent();
             $table->dateTime('updated_at')->useCurrent()->useCurrentOnUpdate();
-            $table->foreignId('user_id')->constrained('users')->onDelete('restrict');
-            $table->foreignId('prestation_id')->constrained('prestations')->onDelete('restrict');
         });
     }
 

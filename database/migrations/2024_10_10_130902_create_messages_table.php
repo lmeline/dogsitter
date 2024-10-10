@@ -13,6 +13,11 @@ return new class extends Migration
     {
         Schema::create('messages', function (Blueprint $table) {
             $table->id();
+            $table->string('contenu');
+            $table->dateTime('date_envoi');
+            $table->boolean('lu')->default(false);
+            $table->foreignId('expediteur_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreignId('destinataire_id')->references('id')->on('users')->onDelete('cascade');
             $table->dateTime('created_at')->useCurrent();
             $table->dateTime('updated_at')->useCurrent()->useCurrentOnUpdate();
         });

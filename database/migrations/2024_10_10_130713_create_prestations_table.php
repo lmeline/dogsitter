@@ -13,6 +13,13 @@ return new class extends Migration
     {
         Schema::create('prestations', function (Blueprint $table) {
             $table->id();
+            $table->dateTime('date_debut');
+            $table->dateTime('date_fin');
+            $table->decimal('prix',8,2);
+            $table->decimal('quantite',8,2);
+            $table->decimal('prix_total',8,2);
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->foreignId('statut_id')->constrained('statuts')->onDelete('cascade');    
             $table->dateTime('created_at')->useCurrent();
             $table->dateTime('updated_at')->useCurrent()->useCurrentOnUpdate();
         });

@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('abonnements', function (Blueprint $table) {
             $table->id();
             $table->enum('type',['mensuel', 'trimestriel', 'annuel']);
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->dateTime('created_at')->useCurrent();
             $table->dateTime('updated_at')->useCurrent()->useCurrentOnUpdate();
         });

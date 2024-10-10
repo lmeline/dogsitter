@@ -13,8 +13,12 @@ return new class extends Migration
     {
         Schema::create('paiements', function (Blueprint $table) {
             $table->id();
+            $table->decimal('montant',8,2);
+            $table->dateTime('date_paiement');
+            $table->enum('montant_paiement', ['paypal', 'CB', 'cheque']);
             $table->dateTime('created_at')->useCurrent();
             $table->dateTime('updated_at')->useCurrent()->useCurrentOnUpdate();
+            $table->foreignId('abonnement_id')->constrained('abonnements')->onDelete('cascade');
         });
     }
 
