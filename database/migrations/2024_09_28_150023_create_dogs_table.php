@@ -20,6 +20,7 @@ return new class extends Migration
             $table->text('comportement')->nullable(true);
             $table->text('besoins_speciaux')->nullable(true);
             $table->enum('sexe', ['M', 'F'])->index();
+            $table->string('photo')->nullable();
             $table->boolean('sterilise')->index()->default(false);
             $table->foreignId('user_id')->constrained('users')->onDelete('restrict');
             $table->dateTime('created_at')->useCurrent();

@@ -3,7 +3,9 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -49,5 +51,20 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function prestations(): BelongsToMany
+    {
+        return $this->belongsToMany(Prestation::class, 'users_presentations');
+    }
+    
+    public function avis(): HasMany
+    {
+        return $this->hasMany(Avis::class, 'users_aviss');
+    }
+
+    public function abonnements(): BelongsTo
+    {
+        return $this->belongsTo(Abonnement::class);
     }
 }

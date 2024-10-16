@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('aviss', function (Blueprint $table) {
             $table->id();
+            $table->text('commentaire');
+            $table->foreingId('prestation_id')->constrained('prestations')->onDelete('cascade');
             $table->dateTime('created_at')->useCurrent();
             $table->dateTime('updated_at')->useCurrent()->useCurrentOnUpdate();
         });

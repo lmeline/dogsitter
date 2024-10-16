@@ -24,7 +24,7 @@
 -- CREATE TABLE chiens(
 --    Id_chien INT,
 --    nom VARCHAR(70),
---    date_naissance DATE,
+--    age INT,
 --    sexe BYTE,
 --    sterilise LOGICAL,
 --    comportement TEXT,

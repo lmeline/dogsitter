@@ -19,6 +19,20 @@ return new class extends Migration
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
+            $table->enum('role', ['admin', 'user','dogsitter'])->default('user');
+            $table->string('prenom',70);
+            $table->date('date_naissance');
+            $table->string('photo')->nullable();
+            $table->string('numero_telephone');
+            $table->string('ville',70);
+            $table->string('code_postal',20);
+            $table->string('adresse');
+            $table->text('description')->nullable();
+            $table->text('experience')->nullable();
+            $table->text('service')->nullable();
+            $table->text('disponibilite_jour')->nullable();
+            $table->float('note_moyenne',3,2)->nullable();
+            $table->integer('nb_notes')->nullable();
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {
