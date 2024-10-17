@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Models;
-
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -66,5 +65,20 @@ class User extends Authenticatable
     public function abonnements(): BelongsTo
     {
         return $this->belongsTo(Abonnement::class);
+    }
+
+    public function tarifs(): HasMany
+    {
+        return $this->hasMany(Tarif::class);
+    }
+
+    public function messagesEnvoyes(): HasMany
+    {
+        return $this->hasMany(Message::class, 'expediteur_id');
+    }
+
+    public function messagesRecus(): HasMany
+    {
+        return $this->hasMany(Message::class, 'destinataire_id');
     }
 }

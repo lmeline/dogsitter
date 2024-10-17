@@ -19,6 +19,7 @@ return new class extends Migration
             $table->dateTime('created_at')->useCurrent();
             $table->dateTime('updated_at')->useCurrent()->useCurrentOnUpdate();
             $table->foreignId('abonnement_id')->constrained('abonnements')->onDelete('cascade');
+        
         });
     }
 

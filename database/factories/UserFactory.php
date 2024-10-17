@@ -23,12 +23,48 @@ class UserFactory extends Factory
      */
     public function definition(): array
     {
+
+        $role = fake()->randomElement(['admin', 'user','dogsitter']);
+        if($role=='dogsitter')
+            {
+                $note_moyenne = fake()->numberBetween(0, 5);
+                $nb_notes = fake()->numberBetween(0, 5);
+                $abonnement_id = fake()->numberBetween(1, 3);
+                $service = fake()->sentence();
+                $disponibilite_jour = fake()->sentence();
+                $experience = fake()->sentence();
+                $description = fake()->sentence();
+            } else {
+                $note_moyenne = null;
+                $nb_notes = null;
+                $abonnement_id = null;
+                $service = null;
+                $disponibilite_jour = null;
+                $experience = null;
+                $description = null;
+            }
+
         return [
             'name' => fake()->name(),
             'email' => fake()->unique()->safeEmail(),
             'email_verified_at' => now(),
             'password' => static::$password ??= Hash::make('password'),
             'remember_token' => Str::random(10),
+            'prenom' => fake()->firstName(),
+            'date_naissance'=>fake()->date(),
+            'ville' => fake()->city(),
+            'code_postal' => fake()->postcode(),
+            'adresse' => fake()->streetAddress(),
+            'numero_telephone' => fake()->phoneNumber(),
+            'experience' => $experience,
+            'description' => $description,
+            'service' => $service,
+            'disponibilite_jour' => $disponibilite_jour,
+            'note_moyenne' => $note_moyenne,
+            'nb_notes' => $nb_notes,
+            'abonnement_id' =>$abonnement_id,
+            'role' => $role,
+
         ];
     }
 

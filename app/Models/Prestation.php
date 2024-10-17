@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+
 class Prestation extends Model
 {
     use HasFactory;
@@ -15,14 +17,9 @@ class Prestation extends Model
         return $this->belongsToMany(User::class, 'users_presentations');
     }
 
-    public function avis()
+    public function aviss():HasOne
     {
         return $this->hasOne(Avis::class);
-    }
-
-    public function statut():HasMany
-    {
-        return $this->hasMany(Statut::class);
     }
 
     public function tarifs():HasMany

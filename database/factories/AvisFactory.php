@@ -17,7 +17,8 @@ class AvisFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'commentaire' => fake()->sentence(),
+            'prestation_id' => fake()->numberBetween(1, 40),
         ];
     }
 }

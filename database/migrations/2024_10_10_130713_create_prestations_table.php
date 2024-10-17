@@ -18,7 +18,7 @@ return new class extends Migration
             $table->decimal('prix',8,2);
             $table->decimal('quantite',8,2);
             $table->decimal('prix_total',8,2);
-            $table->foreignId('statut_id')->constrained('statuts')->onDelete('cascade');    
+            $table->enum('statut', ['en cours', 'termine', 'annule', 'en attente de paiement']); 
             $table->dateTime('created_at')->useCurrent();
             $table->dateTime('updated_at')->useCurrent()->useCurrentOnUpdate();
         });
