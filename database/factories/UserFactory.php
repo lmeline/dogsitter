@@ -24,7 +24,7 @@ class UserFactory extends Factory
     public function definition(): array
     {
 
-        $role = fake()->randomElement(['admin', 'user','dogsitter']);
+        $role = fake()->randomElement(['admin', 'proprietaire','dogsitter']);
         if($role=='dogsitter')
             {
                 $note_moyenne = fake()->numberBetween(0, 5);
@@ -45,7 +45,7 @@ class UserFactory extends Factory
             }
 
         return [
-            'name' => fake()->name(),
+            'name' => fake()->lastName(),
             'email' => fake()->unique()->safeEmail(),
             'email_verified_at' => now(),
             'password' => static::$password ??= Hash::make('password'),
@@ -59,6 +59,7 @@ class UserFactory extends Factory
             'experience' => $experience,
             'description' => $description,
             'service' => $service,
+            'photo'=>fake()->imageUrl(),
             'disponibilite_jour' => $disponibilite_jour,
             'note_moyenne' => $note_moyenne,
             'nb_notes' => $nb_notes,

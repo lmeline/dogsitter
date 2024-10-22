@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Avis extends Model
 {
+    protected $table = 'aviss';
+    
     use HasFactory;
 
     public function user(): BelongsTo

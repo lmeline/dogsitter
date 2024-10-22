@@ -62,7 +62,7 @@ class User extends Authenticatable
         return $this->hasMany(Avis::class, 'users_aviss');
     }
 
-    public function abonnements(): BelongsTo
+    public function abonnement(): BelongsTo
     {
         return $this->belongsTo(Abonnement::class);
     }

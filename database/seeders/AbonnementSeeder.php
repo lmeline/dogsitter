@@ -19,10 +19,6 @@ class AbonnementSeeder extends Seeder
             'prix' => 19.99,
         ],
         [
-            'nom' => 'trimestriel',
-            'prix' => 39.99,
-        ],
-        [
             'nom' => 'pas d\'abonnement',
             'prix'=>null,
         ],

@@ -19,10 +19,10 @@ return new class extends Migration
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
-            $table->enum('role', ['admin', 'user','dogsitter'])->default('user');
+            $table->enum('role', ['admin', 'proprietaire','dogsitter'])->default('proprietaire');
             $table->string('prenom',70);
             $table->date('date_naissance');
-            $table->string('photo')->nullable();
+            $table->string('photo');
             $table->string('numero_telephone');
             $table->string('ville',70);
             $table->string('code_postal',20);
