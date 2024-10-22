@@ -29,3 +29,7 @@ route::get('/profilclient/{id}',[ClientController::class,'show'])->name('clients
 route::get('/', function (){
     return view('index');
 });
+
+route::get('/presta', function (){
+    return view('prestations.create');
+});

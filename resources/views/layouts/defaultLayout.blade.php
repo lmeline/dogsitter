@@ -22,10 +22,10 @@
     
             <!-- Call to Action button (optional) -->
             <div class="flex gap-4">
-                <a href="#" class="bg-gray-600 hover:bg-green-700 text-white py-2 px-4 rounded-lg transition duration-300">
+                <a href="{{ route('register') }}" class="bg-gray-600 hover:bg-green-700 text-white py-2 px-4 rounded-lg transition duration-300">
                     S'inscrire
                 </a>
-                <a href="#" class="bg-gray-600 hover:bg-green-700 text-white py-2 px-4 rounded-lg transition duration-300">
+                <a href="{{ route('login') }}" class="bg-gray-600 hover:bg-green-700 text-white py-2 px-4 rounded-lg transition duration-300">
                     Se connecter
                 </a>
             </div>
