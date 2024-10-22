@@ -1,6 +1,7 @@
 
 
     @extends('layouts.defaultLayout')
+    @section('title', 'Bienvenue sur Patte à patte')
     @section('content')
     
     <!-- Hero Section -->
@@ -42,6 +43,5 @@
             </div>
         </div>
     </section>
-    
 
 @endsection
