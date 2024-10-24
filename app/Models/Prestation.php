@@ -26,6 +26,11 @@ class Prestation extends Model
     {
         return $this->hasMany(Tarif::class);
     }
+
+    public function dogs():HasMany
+    {
+        return $this->hasMany(Dog::class);
+    }
 }
 
 

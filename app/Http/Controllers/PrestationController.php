@@ -7,5 +7,10 @@ use Illuminate\Http\Request;
 
 class PrestationController extends Controller
 {
+  public function create()
+  {
+    return view('prestation.create');
+  }
+
   
 }
