@@ -4,6 +4,8 @@
     @section('title', 'Bienvenue sur Patte à patte')
     @section('content')
     
+    
+
     <!-- Hero Section -->
     <section class="bg-blue-600 text-white py-20 bg-gray-100 text-gray-800">
         <div class="container mx-auto text-center">
@@ -13,7 +15,10 @@
             <a href="#" class="bg-white text-blue-600 py-3 px-6 rounded-lg font-semibold hover:bg-gray-200 transition duration-300">En savoir plus</a>
         </div>
     </section>
-
+    <div>
+        <a href="{{route('register')}}?client=false">dogsitter</a>
+        <a href="{{route('register')}}?client=true">client</a> 
+    </div>
     <!-- Features Section -->
     <section class="py-16">
         <div class="container mx-auto">

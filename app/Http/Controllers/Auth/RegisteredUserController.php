@@ -17,9 +17,10 @@ class RegisteredUserController extends Controller
     /**
      * Display the registration view.
      */
-    public function create(): View
+    public function create(Request $request): View
     {
-        return view('auth.register');
+        $client = $request->query('client');
+        return view('auth.register',compact('client'));
     }
 
     /**
@@ -31,13 +32,54 @@ class RegisteredUserController extends Controller
     {
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
+            'prenom' => ['required', 'string', 'max:70'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
+            'telephone' => ['required', 'string', 'max:15'],
+            'adresse' => ['required', 'string', 'max:255'],
+            'code_postal' => ['required', 'string', 'max:20'],
+            'ville' => ['required', 'string', 'max:70'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
         $user = User::create([
             'name' => $request->name,
+            'prenom' => $request->prenom,
             'email' => $request->email,
+            'numero_telephone' => $request->telephone,
+            'adresse' => $request->adresse,
+            'code_postal' => $request->code_postal,
+            'ville' => $request->ville,
+            'password' => Hash::make($request->password),
+        ]);
+
+        event(new Registered($user));
+
+        Auth::login($user);
+
+        return redirect(route('dashboard', absolute: false));
+    }
+
+    public function storedogsitter(Request $request): RedirectResponse
+    {
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'prenom' => ['required', 'string', 'max:70'],
+            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
+            'telephone' => ['required', 'string', 'max:15'],
+            'adresse' => ['required', 'string', 'max:255'],
+            'code_postal' => ['required', 'string', 'max:20'],
+            'ville' => ['required', 'string', 'max:70'],
+            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+        ]);
+
+        $user = User::create([
+            'name' => $request->name,
+            'prenom' => $request->prenom,
+            'email' => $request->email,
+            'numero_telephone' => $request->telephone,
+            'adresse' => $request->adresse,
+            'code_postal' => $request->code_postal,
+            'ville' => $request->ville,
             'password' => Hash::make($request->password),
         ]);
 
