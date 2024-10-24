@@ -5,11 +5,11 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 
-class ProfilUserController extends Controller
+class ProfilDogsitterController extends Controller
 {
     public function index()
     {
-       $users = User::all();
+       $users = User::where('role', 'dogsitter')->get();
        return view('users.index', compact('users'));
     }
 

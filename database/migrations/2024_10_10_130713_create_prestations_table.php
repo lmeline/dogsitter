@@ -13,12 +13,15 @@ return new class extends Migration
     {
         Schema::create('prestations', function (Blueprint $table) {
             $table->id();
-            $table->dateTime('date_debut');
-            $table->dateTime('date_fin');
+            $table->dateTime('date_debut')->nullable();
+            $table->dateTime('date_fin')->nullable();
+            $table->dateTime('heure_debut')->nullable();
+            $table->dateTime('heure_fin')->nullable();
             $table->decimal('prix',8,2);
             $table->decimal('quantite',8,2);
             $table->decimal('prix_total',8,2);
             $table->enum('statut', ['en cours', 'termine', 'annule', 'en attente de paiement']); 
+            $table->foreignId('prestationtype_id')->nullable()->constrained('prestationtypes');
             $table->dateTime('created_at')->useCurrent();
             $table->dateTime('updated_at')->useCurrent()->useCurrentOnUpdate();
         });

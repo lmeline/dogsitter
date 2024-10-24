@@ -3,7 +3,8 @@
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DogController;
-use App\Http\Controllers\ProfilUserController;
+use App\Http\Controllers\PrestationController;
+use App\Http\Controllers\ProfilDogsitterController;
 use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Route;
 
@@ -22,14 +23,11 @@ require __DIR__.'/auth.php';
 
 Route::get('/dogs',[DogController::class,'index'])->name('dogs.index');
 Route::get('/dogs/{id}',[DogController::class,'show'])->name('dogs.show');
-route::get('/profilusers',[ProfilUserController::class,'index'])->name('users.index');
-route::get('/profilusers/{id}',[ProfilUserController::class,'show'])->name('users.show');
-route::get('/profilclient',[ClientController::class,'index'])->name('clients.index');
+route::get('/accueildogsitters',[ProfilDogsitterController::class,'index'])->name('users.index');
+route::get('/profildogsitters/{id}',[ProfilDogsitterController::class,'show'])->name('users.show');
+route::get('/accueilclients',[ClientController::class,'index'])->name('clients.index');
 route::get('/profilclient/{id}',[ClientController::class,'show'])->name('clients.show');
 route::get('/', function (){
     return view('index');
 });
-
-route::get('/presta', function (){
-    return view('prestations.create');
-});
+Route::get('/prestations/{id}/create',[PrestationController::class,'create'])->name('prestations.create');

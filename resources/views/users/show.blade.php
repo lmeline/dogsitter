@@ -61,6 +61,10 @@
             <p class="text-gray-600">Note Moyenne: {{ $user->note_moyenne }} / 5</p>
             <p class="text-gray-600">Nombre de Notes: {{ $user->nb_notes }}</p>
         </div>
+        <div class="mt-6">
+            <h2 class="text-xl font-semibold text-gray-700 mb-2"> Prendre rendez-vous </h2>
+            <a href="{{ route('prestations.create', $user->id) }}" class="block bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 hover:bg-blue-50"> cliquez ici </a>
+        </div>
     </div>
 
 @endsection

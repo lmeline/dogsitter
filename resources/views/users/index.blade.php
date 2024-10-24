@@ -6,7 +6,7 @@
         <h1 class="text-4xl font-bold text-center text-blue-700 mb-10">Liste des Dogsitters</h1>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            @foreach ( $users->where('role', 'dogsitter') as $user )
+            @foreach ( $users as $user )
             <a href="{{ route('users.show', $user->id) }}" class="block bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 hover:bg-blue-50">
                 <div class="flex items-center">
                     <!-- Texte avec nom et prénom -->

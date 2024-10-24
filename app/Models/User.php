@@ -81,4 +81,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Message::class, 'destinataire_id');
     }
+
+    public function prestationtypes(): BelongsToMany
+    {
+        return $this->belongsToMany(Prestationtype::class, 'users_prestationtypes')->withPivot('prix');
+    }
 }

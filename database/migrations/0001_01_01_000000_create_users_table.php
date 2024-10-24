@@ -20,13 +20,16 @@ return new class extends Migration
             $table->rememberToken();
             $table->timestamps();
             $table->enum('role', ['admin', 'proprietaire','dogsitter'])->default('proprietaire');
-            $table->string('prenom',70);
-            $table->date('date_naissance');
-            $table->string('photo');
-            $table->string('numero_telephone');
-            $table->string('ville',70);
-            $table->string('code_postal',20);
-            $table->string('adresse');
+            $table->string('prenom',70)->nullable();
+            $table->date('date_naissance')->nullable();
+            $table->string('photo')->nullable();
+            $table->string('numero_telephone')->nullable();
+            $table->string('ville',70)->nullable();
+            $table->string('code_postal',20)->nullable();
+            $table->string('adresse')->nullable();
+
+
+
             $table->text('description')->nullable();
             $table->text('experience')->nullable();
             $table->text('service')->nullable();
