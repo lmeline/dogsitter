@@ -22,6 +22,7 @@ class DatabaseSeeder extends Seeder
         AvisSeeder::class,
         DogSeeder::class,
         TarifSeeder::class,
+        UserprestationtypeSeeder::class
       ]);
     }
 }

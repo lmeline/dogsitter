@@ -24,4 +24,5 @@ class DogController extends Controller
         return view('dogs.create');
     }
 
+
 }

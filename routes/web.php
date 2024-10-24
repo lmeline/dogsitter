@@ -30,4 +30,6 @@ route::get('/profilclient/{id}',[ClientController::class,'show'])->name('clients
 route::get('/', function (){
     return view('index');
 });
+
 Route::get('/prestations/{id}/create',[PrestationController::class,'create'])->name('prestations.create');
+Route::get('/ajoutchien',[DogController::class,'create'])->name('dogs.create');
