@@ -25,77 +25,144 @@
                 </div>
     
                 <div>
-                <x-input-label for="prenom" :value="__('Prenom')" />
-                <x-text-input id="prenom"  class="block mt-1 w-full" type="text" name="prenom" :value="old('prenom')" required autofocus autocomplete="prenom" />
-                <x-input-error :messages="$errors->get('prenom')" class="mt-2" />
+                    <x-input-label for="race" :value="__('Race de chien')" />
+                
+                    <select id="race" name="race" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-900 dark:border-gray-700">
+                        <option value="">-- Choisissez une race --</option>
+                        <option value="Labrador Retriever">Labrador Retriever</option>
+                        <option value="Berger Allemand">Berger Allemand</option>
+                        <option value="Golden Retriever">Golden Retriever</option>
+                        <option value="Bulldog">Bulldog</option>
+                        <option value="Beagle">Beagle</option>
+                        <option value="Caniche">Caniche</option>
+                        <option value="Chihuahua">Chihuahua</option>
+                        <option value="Shih Tzu">Shih Tzu</option>
+                        <option value="Rottweiler">Rottweiler</option>
+                        <option value="Bouledogue Français">Bouledogue Français</option>
+                        <option value="Cocker Spaniel">Cocker Spaniel</option>
+                        <option value="Schnauzer">Schnauzer</option>
+                        <option value="Yorkshire Terrier">Yorkshire Terrier</option>
+                        <option value="Dachshund">Dachshund</option>
+                        <option value="Mastin Espagnol">Mastin Espagnol</option>
+                        <option value="Dalmatien">Dalmatien</option>
+                        <option value="Border Collie">Border Collie</option>
+                        <option value="Bichon Frisé">Bichon Frisé</option>
+                        <option value="Akita">Akita</option>
+                        <option value="Chow Chow">Chow Chow</option>
+                        <option value="Husky Sibérien">Husky Sibérien</option>
+                        <option value="Shiba Inu">Shiba Inu</option>
+                        <option value="Pitbull">Pitbull</option>
+                        <option value="Jack Russell Terrier">Jack Russell Terrier</option>
+                        <option value="Pug">Pug</option>
+                        <option value="Weimaraner">Weimaraner</option>
+                        <option value="Cavalier King Charles Spaniel">Cavalier King Charles Spaniel</option>
+                        <option value="Lhassa Apso">Lhassa Apso</option>
+                        <option value="Chesapeake Bay Retriever">Chesapeake Bay Retriever</option>
+                        <option value="Boxer">Boxer</option>
+                        <option value="Great Dane">Great Dane</option>
+                        <option value="Saint-Bernard">Saint-Bernard</option>
+                        <option value="Bernese Mountain Dog">Bernese Mountain Dog</option>
+                        <option value="English Setter">English Setter</option>
+                        <option value="American Staffordshire Terrier">American Staffordshire Terrier</option>
+                        <option value="Newfoundland">Newfoundland</option>
+                        <option value="Scottish Terrier">Scottish Terrier</option>
+                        <option value="Whippet">Whippet</option>
+                        <option value="Tibetan Mastiff">Tibetan Mastiff</option>
+                        <option value="Vizsla">Vizsla</option>
+                        <option value="Rottweiler">Rottweiler</option>
+                        <option value="Shikoku">Shikoku</option>
+                        <option value="Papillon">Papillon</option>
+                        <option value="American Bulldog">American Bulldog</option>
+                        <option value="Basset Hound">Basset Hound</option>
+                        <option value="Bloodhound">Bloodhound</option>
+                        <option value="Saluki">Saluki</option>
+                        <option value="Great Pyrenees">Great Pyrenees</option>
+                        <option value="American Foxhound">American Foxhound</option>
+                        <option value="Basenji">Basenji</option>
+                        <option value="Belgian Malinois">Belgian Malinois</option>
+                        <option value="Cairn Terrier">Cairn Terrier</option>
+                        <option value="Gordon Setter">Gordon Setter</option>
+                        <option value="Dogo Argentino">Dogo Argentino</option>
+                        <option value="Fox Terrier">Fox Terrier</option>
+                        <option value="Irish Setter">Irish Setter</option>
+                        <option value="Norfolk Terrier">Norfolk Terrier</option>
+                        <option value="Pekingese">Pekingese</option>
+                        <option value="Schipperke">Schipperke</option>
+                        <option value="Tenterfield Terrier">Tenterfield Terrier</option>
+                        <option value="Yorkshire Terrier">Yorkshire Terrier</option>
+                        <option value="Autre">Autre</option>
+                    </select>
+                    <x-input-error :messages="$errors->get('race')" class="mt-2" />
                 </div>
             </div>
          
-            <!-- Email Address -->
             <div class="mt-4">
-                <x-input-label for="email" :value="__('Email')" />
-                <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autocomplete="username" />
-                <x-input-error :messages="$errors->get('email')" class="mt-2" />
+                <x-input-label for="age" :value="__('Age')" />
+                
+                <select id="age" name="age" class="block mt-1 w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                    @for ($i = 1; $i <= 25; $i++)
+                        <option value="{{ $i }}" {{ old('age') == $i ? 'selected' : '' }}>
+                            {{ $i }} an{{ $i > 1 ? 's' : '' }}
+                        </option>
+                    @endfor
+                </select>
+            
+                <x-input-error :messages="$errors->get('age')" class="mt-2" />
             </div>
+            
+            <div class="mt-4">
+                <x-input-label for="poids" :value="__('Poids')" />
+                
+                <select id="poids" name="poids" class="block mt-1 w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                    @for ($i = 1; $i <= 70; $i++)
+                        <option value="{{ $i }}" {{ old('poids') == $i ? 'selected' : '' }}>
+                            {{ $i }} kg
+                        </option>
+                    @endfor
+                    <option value="plus"> plus</option>
+                </select>
+                <x-input-error :messages="$errors->get('poids')" class="mt-2" />
+            </div>
+            
     
             <div class="mt-4">
-                <x-input-label for="telephone" :value="__('Numero de telephone')" />
-                <x-text-input id="telephone" class="block mt-1 w-full" type="text" name="telephone" :value="old('telephone')" required autocomplete="username" />
-                <x-input-error :messages="$errors->get('telephone')" class="mt-2" />
+                <x-input-label for="comportement" :value="__('Comportement')" />
+                <textarea id="comportement" name="comportement" rows="4" class="block mt-1 w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-900 dark:border-gray-700" required autocomplete="comportement">{{ old('comportement') }}</textarea>
+                <x-input-error :messages="$errors->get('comportement')" class="mt-2" />
             </div>
+            
+            <div class= "mt-4">
+                
+                <x-input-label for="besoin_speciaux" :value="__('Besoin Spéciaux')" />
+                <textarea id="besoin_speciaux" name="besoin_speciaux" rows="4" class="block mt-1 w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-900 dark:border-gray-700" required autofocus autocomplete="besoin_speciaux">{{ old('besoin_speciaux') }}</textarea>
+                <x-input-error :messages="$errors->get('besoin_speciaux')" class="mt-2" />
+            </div>
+            
     
+            <div>
+                <x-input-label for="sexe" :value="__('Sexe')" />
+                <x-text-input id="sexe" class="block mt-1 w-full" type="text" name="sexe" :value="old('sexe')" required autofocus autocomplete="sexe" />
+                <x-input-error :messages="$errors->get('sexe')" class="mt-2" />
+            </div>
+        
+            <div class="block mt-4">
+                <label for="sterilise" class="inline-flex items-center cursor-pointer">
+                    <input id="sterilise" type="checkbox" class="sr-only peer" name="sterilise">
+                    <div class="w-12 h-6 bg-gray-200 rounded-full peer-checked:bg-indigo-600 transition-colors duration-300 dark:bg-gray-700 relative">
+                        <span class="absolute left-0.5 top-0.5 w-5 h-5 bg-white rounded-full shadow-md transform transition-transform duration-300peer-checked:translate-x-6"></span>
+                    </div>
+                    <span class="ml-3 text-sm text-gray-600 dark:text-gray-400">{{ __('Stérilisé') }}</span>
+                </label>
+            </div>
+            
+
             <div class="mt-4">
-                <x-input-label for="adresse" :value="__('adresse')" />
-                <x-text-input id="adresse" class="block mt-1 w-full" type="text" name="adresse" :value="old('adresse')" required autocomplete="username" />
-                <x-input-error :messages="$errors->get('adresse')" class="mt-2" />
+                <button class="mx-4 px-4 py-2 bg-blue-600 text-white font-semibold rounded-md shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 transition duration-200 ease-in-out">
+                {{ __('Register') }}
+                </button>
+
             </div>
-    
-            <div class="flex w-full gap-2 mt-4">
-                <div>
-                <x-input-label for="code_postal" :value="__('Code postal')" />
-                <x-text-input id="code_postal" class="block mt-1 w-full" type="text" name="code_postal" :value="old('code_postal')" required autofocus autocomplete="code_postal" />
-                <x-input-error :messages="$errors->get('code_postal')" class="mt-2" />
-                </div>
-    
-                <div>
-                <x-input-label for="ville" :value="__('Ville')" />
-                <x-text-input id="ville" class="block mt-1 w-full" type="text" name="ville" :value="old('ville')" required autofocus autocomplete="ville" />
-                <x-input-error :messages="$errors->get('ville')" class="mt-2" />
-                </div>
-            </div>
-    
-            <!-- Password -->
-            <div class="mt-4">
-                <x-input-label for="password" :value="__('Password')" />
-    
-                <x-text-input id="password" class="block mt-1 w-full"
-                                type="password"
-                                name="password"
-                                required autocomplete="new-password" />
-    
-                <x-input-error :messages="$errors->get('password')" class="mt-2" />
-            </div>
-    
-            <!-- Confirm Password -->
-            <div class="mt-4">
-                <x-input-label for="password_confirmation" :value="__('Confirm Password')" />
-    
-                <x-text-input id="password_confirmation" class="block mt-1 w-full"
-                                type="password"
-                                name="password_confirmation" required autocomplete="new-password" />
-    
-                <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
-            </div>
-    
-            <div class="flex items-center justify-end mt-4">
-                <a class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800" href="{{ route('login') }}">
-                    {{ __('Already registered?') }}
-                </a>
-    
-                <x-primary-button class="ms-4">
-                    {{ __('Register') }}
-                </x-primary-button>
-            </div>
+
         </form>
     </div>
    
