@@ -56,7 +56,7 @@ class RegisteredUserController extends Controller
 
         Auth::login($user);
 
-        return redirect(route('dashboard', absolute: false));
+        return redirect()->intended(route('register.dog'));
     }
 
     public function storedogsitter(Request $request): RedirectResponse
@@ -87,6 +87,6 @@ class RegisteredUserController extends Controller
 
         Auth::login($user);
 
-        return redirect(route('dashboard', absolute: false));
+        return redirect(route('register.dog', Auth::user()));
     }
 }

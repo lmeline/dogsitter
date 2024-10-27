@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Dog;
+use App\Models\User;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class DogController extends Controller
 {
@@ -24,5 +27,13 @@ class DogController extends Controller
         return view('dogs.create');
     }
 
+    public function registerdog()
+    {
+        $user = Auth::user();
+        if ($user == null) {
+            return redirect(route('login'));
+        } 
+        return view('auth.registerdog', compact('user'));
+    }
 
 }

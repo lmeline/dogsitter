@@ -16,8 +16,8 @@
         </div>
     </section>
     <div>
-        <a href="{{route('register')}}?client=false">dogsitter</a>
         <a href="{{route('register')}}?client=true">client</a> 
+        <a href="{{route('register')}}?client=false">dogsitter</a>
     </div>
     <!-- Features Section -->
     <section class="py-16">

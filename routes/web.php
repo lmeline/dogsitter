@@ -33,3 +33,5 @@ route::get('/', function (){
 
 Route::get('/prestations/{id}/create',[PrestationController::class,'create'])->name('prestations.create');
 Route::get('/ajoutchien',[DogController::class,'create'])->name('dogs.create');
+
+Route::get('/register/dog',[DogController::class,'registerdog'])->name('register.dog');
