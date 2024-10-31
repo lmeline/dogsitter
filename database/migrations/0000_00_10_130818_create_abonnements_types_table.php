@@ -11,10 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('prestationtypes', function (Blueprint $table) {
+        Schema::create('abonnements_types', function (Blueprint $table) {
             $table->id();
             $table->string('nom');
-            $table->timestamps();
+            $table->decimal('prix',8,2)->nullable();
+            $table->dateTime('created_at')->useCurrent();
+            $table->dateTime('updated_at')->useCurrent()->useCurrentOnUpdate();
         });
     }
 
@@ -23,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('prestationtypes');
+        Schema::dropIfExists('abonnements');
     }
 };

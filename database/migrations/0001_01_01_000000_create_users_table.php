@@ -36,7 +36,7 @@ return new class extends Migration
             $table->text('disponibilite_jour')->nullable();
             $table->float('note_moyenne',3,2)->nullable();
             $table->integer('nb_notes')->nullable();
-            $table->foreignId('abonnement_id')->nullable()->constrained('abonnements');
+            $table->foreignId('abonnement_type_id')->nullable()->constrained('abonnements_types');
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {

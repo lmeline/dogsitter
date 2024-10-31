@@ -14,7 +14,7 @@ class PrestationtypeSeeder extends Seeder
      */
     public function run(): void
     {
-       DB ::table('prestationtypes')->insert([
+       DB ::table('prestations_types')->insert([
             [
                 'nom' => 'garde de chien',
             ],

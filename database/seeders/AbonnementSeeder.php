@@ -13,7 +13,7 @@ class AbonnementSeeder extends Seeder
      */
     public function run(): void
     {
-        DB::table('abonnements')->insert([
+        DB::table('abonnements_types')->insert([
         [
             'nom' => 'mensuel',
             'prix' => 19.99,

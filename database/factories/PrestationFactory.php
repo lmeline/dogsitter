@@ -3,6 +3,8 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use App\Models\User;
+use App\Models\PrestationType;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Model>
@@ -16,7 +18,15 @@ class PrestationFactory extends Factory
      */
     public function definition(): array
     {
+
+        $proprietaires = User::where('role', 'proprietaire')->pluck('id')->toArray();
+        $dogsitters = User::where('role', 'dogsitter')->pluck('id')->toArray();
+        $prestations_types = PrestationType::all()->pluck('id')->toArray();
+
         return [
+            'proprietaire_id' => fake()->randomElement($proprietaires),
+            'dogsitter_id' => fake()->randomElement($dogsitters),
+            'prestation_type_id' => fake()->randomElement($prestations_types),
             'date_fin'=> fake()->date($format = 'Y-m-d', $max = 'now'),
             'date_debut'=> fake()->date($format = 'Y-m-d', $max = 'now'),
             'prix' => fake()->numberBetween(1, 100),

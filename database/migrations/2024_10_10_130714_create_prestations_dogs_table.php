@@ -11,11 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('tarifs', function (Blueprint $table) {
+        Schema::create('prestations_dogs', function (Blueprint $table) {
             $table->id();
-            $table->string('nom')->index();
-            $table->decimal('prix',8,2)->index();
-            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->foreignId('prestation_id')->constrained('prestations')->onDelete('restrict');
+            $table->foreignId('dog_id')->constrained('dogs')->onDelete('restrict');
             $table->dateTime('created_at')->useCurrent();
             $table->dateTime('updated_at')->useCurrent()->useCurrentOnUpdate();
         });
@@ -26,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('tarifs');
+        Schema::dropIfExists('presentations');
     }
 };

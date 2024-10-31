@@ -15,14 +15,13 @@ class DatabaseSeeder extends Seeder
     {
     
       $this->call([
-        PrestationtypeSeeder::class,
+        PrestationTypeSeeder::class,
         AbonnementSeeder::class,
         UserSeeder::class,
         PrestationSeeder::class,
         AvisSeeder::class,
         DogSeeder::class,
-        TarifSeeder::class,
-        UserprestationtypeSeeder::class
+        UserPrestationTypeSeeder::class
       ]);
     }
 }

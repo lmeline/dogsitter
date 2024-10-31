@@ -29,7 +29,7 @@ class UserFactory extends Factory
             {
                 $note_moyenne = fake()->numberBetween(0, 5);
                 $nb_notes = fake()->numberBetween(0, 5);
-                $abonnement_id = fake()->numberBetween(1, 3);
+                $abonnement_type_id = fake()->numberBetween(1, 3);
                 $service = fake()->sentence();
                 $disponibilite_jour = fake()->sentence();
                 $experience = fake()->sentence();
@@ -37,7 +37,7 @@ class UserFactory extends Factory
             } else {
                 $note_moyenne = null;
                 $nb_notes = null;
-                $abonnement_id = null;
+                $abonnement_type_id = null;
                 $service = null;
                 $disponibilite_jour = null;
                 $experience = null;
@@ -63,7 +63,7 @@ class UserFactory extends Factory
             'disponibilite_jour' => $disponibilite_jour,
             'note_moyenne' => $note_moyenne,
             'nb_notes' => $nb_notes,
-            'abonnement_id' =>$abonnement_id,
+            'abonnement_type_id' =>$abonnement_type_id,
             'role' => $role,
 
         ];

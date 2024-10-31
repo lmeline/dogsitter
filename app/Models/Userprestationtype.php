@@ -4,13 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Relations\Pivot;
 
-class Userprestationtype extends Pivot
+class UserPrestationType extends Pivot
 {
-    protected $table = 'users_prestationtypes'; // Spécifie la table pivot explicitement
+    protected $table = 'users_prestations_types'; // Spécifie la table pivot explicitement
 
     protected $fillable = [
         'user_id',
-        'prestationtype_id',
+        'prestation_type_id',
         'prix',
     ];
 

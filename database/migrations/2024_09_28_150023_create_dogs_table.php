@@ -22,7 +22,7 @@ return new class extends Migration
             $table->enum('sexe', ['M', 'F'])->index();
             $table->string('photo')->nullable();
             $table->boolean('sterilise')->index()->default(false);
-            $table->foreignId('user_id')->constrained('users')->onDelete('restrict');
+            $table->foreignId('proprietaire_id')->constrained('users')->onDelete('restrict');
             $table->dateTime('created_at')->useCurrent();
             $table->dateTime('updated_at')->useCurrent()->useCurrentOnUpdate();
         });
