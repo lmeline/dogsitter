@@ -15,10 +15,17 @@
             <a href="#" class="bg-white text-blue-600 py-3 px-6 rounded-lg font-semibold hover:bg-gray-200 transition duration-300">En savoir plus</a>
         </div>
     </section>
-    <div>
-        <a href="{{route('register')}}?client=true">client</a> 
-        <a href="{{route('register')}}?client=false">dogsitter</a>
+    <div class="flex space-x-4 mt-4">
+        <a href="{{ route('register') }}?proprietaire=true" 
+           class="px-6 py-2 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75 transition duration-300">
+           Proprietaire
+        </a>
+        <a href="{{ route('register') }}?proprietaire=false" 
+           class="px-6 py-2 bg-green-500 text-white font-semibold rounded-lg shadow-md hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-opacity-75 transition duration-300">
+           Dogsitter
+        </a>
     </div>
+    
     <!-- Features Section -->
     <section class="py-16">
         <div class="container mx-auto">

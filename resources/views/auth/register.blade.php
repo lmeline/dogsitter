@@ -1,13 +1,13 @@
 <x-guest-layout>
 
-    <div x-data="{client: {{$client}}}">
+    <div x-data="{proprietaire: {{$proprietaire}}}">
 
         <div class="flex items-center justify-evenly mt-4 w-full">
-            <button @click="client = true" type="button" class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5" :class="client ? 'bg-gray-100 dark:bg-gray-900' : ''"> client</button>
-            <button @click="client = false" type="button" class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5" :class="client ? '' : 'bg-gray-100 dark:bg-gray-900'"> dogsitter</button>
+            <button @click="proprietaire = true" type="button" class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5" :class="proprietaire ? 'bg-gray-100 dark:bg-gray-900' : ''"> proprietaire</button>
+            <button @click="proprietaire = false" type="button" class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5" :class="proprietaire ? '' : 'bg-gray-100 dark:bg-gray-900'"> dogsitter</button>
         </div>
         
-        <form x-show="client" method="POST" action="{{ route('register') }}">
+        <form x-show="proprietaire" method="POST" action="{{ route('register') }}">
             @csrf
 
             <!-- Name -->
@@ -44,6 +44,12 @@
                 <x-input-error :messages="$errors->get('adresse')" class="mt-2" />
             </div>
 
+            <div class="mt-4">
+                 <label for="date_naissance" class="block text-gray-700 font-bold mb-2">Date de naissance</label>
+                 <input type="date" id="date_naissance" name="date_naissance" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500" required>
+                 <x-input-error :messages="$errors->get('date_naissance')" class="mt-2" />
+            </div>
+    
             <div class="flex w-full gap-2 mt-4">
                 <div>
                 <x-input-label for="code_postal" :value="__('Code postal')" />

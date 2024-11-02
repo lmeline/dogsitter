@@ -7,20 +7,35 @@
     <title>@yield('title')</title>
     @vite('resources/css/app.css')
 </head>
-<body class="relative min-h-[100vh]">
-    <header class=" text-white sticky top-0 z-50 shadow-md bg-slate-600 bg-opacity-80" >
+<body class="flex flex-col min-h-screen">
+
+    <!-- Bandeau utilisateur connecté -->
+    @auth
+    <div class="bg-blue-700 text-white py-3 shadow-md">
+        <div class="container mx-auto flex items-center justify-between">
+            <div>
+                Bonjour, {{ Auth::user()->name }} !
+            </div>
+      
+        </div>
+    </div>
+    @endauth
+
+    <!-- Header -->
+    <header class="text-white sticky top-0 z-50 shadow-md bg-slate-600 bg-opacity-80">
         <nav class="container mx-auto flex items-center justify-between p-4">
             <!-- Logo -->
             <div class="text-2xl font-bold">
-                <a href="#" class="text-white hover:text-gray-300 transition duration-300">
+                <a href="{{ route('dogs.index') }}" class="text-white hover:text-gray-300 transition duration-300">
                     Patte à patte
                 </a>
             </div>
-    
-            <!-- Menu Items -->
-            <input type="text" class="rounded-md w-96" placeholder="Rechercher...">
-    
-            <!-- Call to Action button (optional) -->
+
+            <!-- Search Bar -->
+            <input type="text" class="rounded-md w-96 dark:text-black" placeholder="Rechercher...">
+
+            <!-- Action Buttons pour les non-connectés -->
+            @guest
             <div class="flex gap-4">
                 <a href="{{ route('register') }}?client=true" class="bg-gray-600 hover:bg-green-700 text-white py-2 px-4 rounded-lg transition duration-300">
                     S'inscrire
@@ -29,16 +44,21 @@
                     Se connecter
                 </a>
             </div>
+            @endguest
         </nav>
     </header>
-    
-    <main class="pb-48">
+
+    <!-- Main Content -->
+    <main class="flex-grow pb-20">
         @yield('content')
-    </main >
-    <footer class="bg-gray-900 text-white py-6 absolute w-full bottom-0">
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-6">
         <div class="container mx-auto text-center">
             <p>&copy; 2024 MyWebsite. Tous droits réservés.</p>
         </div>
     </footer>
+
 </body>
 </html>

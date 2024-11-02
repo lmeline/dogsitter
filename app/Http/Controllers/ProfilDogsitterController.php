@@ -9,18 +9,25 @@ class ProfilDogsitterController extends Controller
 {
     public function index()
     {
-       $users = User::where('role', 'dogsitter')->get();
-       return view('users.index', compact('users'));
+       $dogsitters = User::where('role', 'dogsitter')->get();
+       return view('dogsitters.index', compact('dogsitters'));
     }
 
     public function show($id)
     {
-        $user = User::find($id);
-        return view('users.show', compact('user'));
+        $dogsitter = User::find($id);
+        
+        if (!$dogsitter || $dogsitter->role !== 'dogsitter') {
+            
+            return redirect()->route('errorPage')->with('error', 'Profil non autorisé ou inexistant');
+        }
+        
+    return view('dogsitters.show', compact('dogsitter'));
+
     }
 
     public function create()
     {
-        return view('users.create');
+        return view('dogsitters.create');
     }
 }

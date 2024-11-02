@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -19,8 +20,8 @@ class RegisteredUserController extends Controller
      */
     public function create(Request $request): View
     {
-        $client = $request->query('client');
-        return view('auth.register',compact('client'));
+        $proprietaire = $request->query('proprietaire');
+        return view('auth.register',compact('proprietaire'));
     }
 
     /**
@@ -39,6 +40,14 @@ class RegisteredUserController extends Controller
             'code_postal' => ['required', 'string', 'max:20'],
             'ville' => ['required', 'string', 'max:70'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'date_naissance' => ['required','date',
+                function($attribute, $value, $fail) {
+                    $age = Carbon::parse($value)->age;
+                    if ($age < 18) {
+                        $fail('Vous devez avoir au moins 18 ans pour soumettre ce formulaire.');
+                    }
+                }
+            ],
         ]);
 
         $user = User::create([
@@ -47,6 +56,7 @@ class RegisteredUserController extends Controller
             'email' => $request->email,
             'numero_telephone' => $request->telephone,
             'adresse' => $request->adresse,
+            'date_naissance' => $request->date_naissance,
             'code_postal' => $request->code_postal,
             'ville' => $request->ville,
             'password' => Hash::make($request->password),
@@ -70,6 +80,14 @@ class RegisteredUserController extends Controller
             'code_postal' => ['required', 'string', 'max:20'],
             'ville' => ['required', 'string', 'max:70'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'date_naissance' => ['required','date',
+                function($attribute, $value, $fail) {
+                    $age = Carbon::parse($value)->age;
+                    if ($age < 18) {
+                        $fail('Vous devez avoir au moins 18 ans pour soumettre ce formulaire.');
+                    }
+                }
+            ],
         ]);
 
         $user = User::create([
@@ -78,6 +96,7 @@ class RegisteredUserController extends Controller
             'email' => $request->email,
             'numero_telephone' => $request->telephone,
             'adresse' => $request->adresse,
+            'date_naissance' => $request->date_naissance,
             'code_postal' => $request->code_postal,
             'ville' => $request->ville,
             'password' => Hash::make($request->password),
