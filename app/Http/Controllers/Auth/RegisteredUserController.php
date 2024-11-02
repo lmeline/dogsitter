@@ -40,14 +40,7 @@ class RegisteredUserController extends Controller
             'code_postal' => ['required', 'string', 'max:20'],
             'ville' => ['required', 'string', 'max:70'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
-            'date_naissance' => ['required','date',
-                function($attribute, $value, $fail) {
-                    $age = Carbon::parse($value)->age;
-                    if ($age < 18) {
-                        $fail('Vous devez avoir au moins 18 ans pour soumettre ce formulaire.');
-                    }
-                }
-            ],
+            'date_naissance' => ['required','date','before:18 year ago'],
         ]);
 
         $user = User::create([
@@ -80,14 +73,8 @@ class RegisteredUserController extends Controller
             'code_postal' => ['required', 'string', 'max:20'],
             'ville' => ['required', 'string', 'max:70'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
-            'date_naissance' => ['required','date',
-                function($attribute, $value, $fail) {
-                    $age = Carbon::parse($value)->age;
-                    if ($age < 18) {
-                        $fail('Vous devez avoir au moins 18 ans pour soumettre ce formulaire.');
-                    }
-                }
-            ],
+            'date_naissance' => ['required','date','before:18 year ago'],
+           
         ]);
 
         $user = User::create([

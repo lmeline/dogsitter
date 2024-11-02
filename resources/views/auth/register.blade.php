@@ -25,6 +25,11 @@
                 </div>
             </div>
          
+            <div class="mt-4">
+                <x-input-label for="date_naissance" :value="__('Date de naissance')" />
+                <x-text-input id="date_naissance" class="block mt-1 w-full" type="date" name="date_naissance" :value="old('date_naissance')" required autocomplete="date_naissance" />
+                <x-input-error :messages="$errors->get('date_naissance')" class="mt-2" />
+            </div>
             <!-- Email Address -->
             <div class="mt-4">
                 <x-input-label for="email" :value="__('Email')" />
@@ -44,12 +49,7 @@
                 <x-input-error :messages="$errors->get('adresse')" class="mt-2" />
             </div>
 
-            <div class="mt-4">
-                 <label for="date_naissance" class="block text-gray-700 font-bold mb-2">Date de naissance</label>
-                 <input type="date" id="date_naissance" name="date_naissance" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500" required>
-                 <x-input-error :messages="$errors->get('date_naissance')" class="mt-2" />
-            </div>
-    
+        
             <div class="flex w-full gap-2 mt-4">
                 <div>
                 <x-input-label for="code_postal" :value="__('Code postal')" />
@@ -99,7 +99,7 @@
             </div>
         </form>
 
-        <form x-show="!client" method="POST" action="{{ route('registerdogsitter') }}">
+        <form x-show="!proprietaire" method="POST" action="{{ route('registerdogsitter') }}">
             @csrf
 
             <!-- Name -->
@@ -118,6 +118,13 @@
             </div>
 
             <div class="mt-4">
+                <x-input-label for="date_naissance" :value="__('Date de naissance')" />
+                <x-text-input id="date_naissance" class="block mt-1 w-full" type="date" name="date_naissance" :value="old('date_naissance')" required autocomplete="date_naissance" />
+                <x-input-error :messages="$errors->get('date_naissance')" class="mt-2" />
+            </div>
+        
+
+            <div class="mt-4">
                 <x-input-label for="email" :value="__('Email')" />
                 <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autocomplete="username" />
                 <x-input-error :messages="$errors->get('email')" class="mt-2" />
@@ -130,7 +137,7 @@
             </div>
             
             <div class="mt-4">
-                <x-input-label for="description" :value="__('Description')" />
+                <x-input-label for="description" :value="__('A propos de moi ')" />
                 <x-text-input id="description" class="block mt-1 w-full" type="text" name="description" :value="old('description')" required autocomplete="description" />
                 <x-input-error :messages="$errors->get('description')" class="mt-2" />
             </div>
