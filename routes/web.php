@@ -24,11 +24,11 @@ require __DIR__.'/auth.php';
 Route::get('/dogs',[DogController::class,'index'])->name('dogs.index');
 Route::get('/dogs/{id}',[DogController::class,'show'])->name('dogs.show');
 
-route::get('/accueildogsitters',[ProfilDogsitterController::class,'index'])->name('dogsitters.index');
-route::get('/profildogsitters/{id}',[ProfilDogsitterController::class,'show'])->name('dogsitters.show');
+route::get('/dogsitters',[ProfilDogsitterController::class,'index'])->name('dogsitters.index');
+route::get('/dogsitters/{id}',[ProfilDogsitterController::class,'show'])->name('dogsitters.show');
 
-route::get('/accueilproprietaires',[ProprietaireController::class,'index'])->name('proprietaires.index');
-route::get('/profilproprietaire/{id}',[ProprietaireController::class,'show'])->name('proprietaires.show');
+route::get('/proprietaires',[ProprietaireController::class,'index'])->name('proprietaires.index');
+route::get('/proprietaires/{id}',[ProprietaireController::class,'show'])->name('proprietaires.show');
 
 route::get('/', function (){
     return view('index');
