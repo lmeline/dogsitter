@@ -21,7 +21,7 @@ return new class extends Migration
             $table->timestamps();
             $table->enum('role', ['admin', 'proprietaire','dogsitter'])->default('proprietaire');
             $table->string('prenom',70);
-            $table->date('date_naissance')->nullable();
+            $table->date('date_naissance');
             $table->string('photo')->nullable();
             $table->string('numero_telephone');
             $table->string('ville',70);

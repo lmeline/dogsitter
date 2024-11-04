@@ -19,9 +19,9 @@ class RegisteredUserController extends Controller
      * Display the registration view.
      */
     public function create(Request $request): View
-    {
+    {     
         $proprietaire = $request->query('proprietaire');
-        return view('auth.register',compact('proprietaire'));
+        return view('auth.register',compact('proprietaire'));   
     }
 
     /**

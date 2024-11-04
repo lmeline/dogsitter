@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Prestation;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -16,13 +17,15 @@ class ProfilDogsitterController extends Controller
     public function show($id)
     {
         $dogsitter = User::find($id);
-        
+        $prestations = Prestation::where('dogsitter_id', $id)->with('avis')->get();
+
         if (!$dogsitter || $dogsitter->role !== 'dogsitter') {
             
-            return redirect()->route('errorPage')->with('error', 'Profil non autorisé ou inexistant');
+            return redirect()->route('index');
+            
         }
         
-    return view('dogsitters.show', compact('dogsitter'));
+    return view('dogsitters.show', compact('dogsitter','prestations'));
 
     }
 

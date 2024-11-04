@@ -32,7 +32,7 @@ route::get('/profilproprietaire/{id}',[ProprietaireController::class,'show'])->n
 
 route::get('/', function (){
     return view('index');
-});
+})->name('index');
 
 Route::get('/prestations/{id}/create',[PrestationController::class,'create'])->name('prestations.create');
 Route::get('/ajoutchien',[DogController::class,'create'])->name('dogs.create');

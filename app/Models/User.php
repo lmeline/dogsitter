@@ -25,6 +25,7 @@ class User extends Authenticatable
         'numero_telephone',
         'adresse',
         'code_postal',
+        'date_naissance',
         'ville',
         'password',
     ];
@@ -57,10 +58,16 @@ class User extends Authenticatable
         ];
     }
 
-    public function prestations(): BelongsToMany
+    public function prestationsAsproprietaire(): HasMany
     {
-        return $this->belongsToMany(Prestation::class, 'users_presentations');
+        return $this->hasMany(Prestation::class,'proprietaire_id');
     }
+
+    public function prestationsAsdogsitter(): HasMany
+    {
+        return $this->hasMany(Prestation::class,'dogsitter_id');
+    }
+
     
     public function avis(): HasMany
     {
@@ -72,10 +79,6 @@ class User extends Authenticatable
         return $this->belongsTo(Abonnement::class);
     }
 
-    public function tarifs(): HasMany
-    {
-        return $this->hasMany(Tarif::class);
-    }
 
     public function messagesEnvoyes(): HasMany
     {

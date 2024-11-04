@@ -45,6 +45,12 @@
                     <a href="{{ route('prestations.create', $dogsitter->id) }}" class="inline-block bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 text-sm">cliquez ici</a>
 
                 <h3 class="text-xl font-semibold mb-2 text-gray-800 pt-2">Avis clients</h3>
+                @foreach ($prestations as $prestation)
+                    @if($prestation->avis)
+                    <h3>{{ $prestation->proprietaire->name.' '. $prestation->proprietaire->prenom.' '.$prestation->avis->created_at }}</h3>
+                    <p class="text-gray-700 mb-4">{{ $prestation->avis->commentaire }}</p>
+                    @endif
+                @endforeach
 
             </div>
         </div>
