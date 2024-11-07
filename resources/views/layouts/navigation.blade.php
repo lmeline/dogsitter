@@ -11,11 +11,31 @@
                 </div>
 
                 <!-- Navigation Links -->
+                @if (Auth::check() && Auth::user()->role === 'proprietaire')
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
                 </div>
+            @else
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link :href="route('dogsitters.accueilDogsitter')" :active="request()->routeIs('dogsitters.accueilDogsitter')">
+                        {{ __('Accueil') }}
+                    </x-nav-link>
+                </div>
+            @endif
+            
+                {{-- <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+                        {{ __('Dashboard') }}
+                    </x-nav-link>
+                </div> --}}
+                
+                {{-- <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link :href="route('dogsitters.accueilDogsitter')" :active="request()->routeIs('dogsitters.accueilDogsitter')">
+                        {{ __('Accueil') }}
+                    </x-nav-link>
+                </div> --}}
             </div>
 
             <!-- Settings Dropdown -->
