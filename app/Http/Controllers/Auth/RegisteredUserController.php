@@ -64,6 +64,7 @@ class RegisteredUserController extends Controller
 
     public function storedogsitter(Request $request): RedirectResponse
     {
+        
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'prenom' => ['required', 'string', 'max:70'],
@@ -72,12 +73,16 @@ class RegisteredUserController extends Controller
             'adresse' => ['required', 'string', 'max:255'],
             'code_postal' => ['required', 'string', 'max:20'],
             'ville' => ['required', 'string', 'max:70'],
+            'experience' => ['required', 'string', 'max:255'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
             'date_naissance' => ['required','date','before:18 year ago'],
            
         ]);
 
+        $role = 'dogsitter';
+
         $user = User::create([
+            'role' => $role,
             'name' => $request->name,
             'prenom' => $request->prenom,
             'email' => $request->email,
@@ -86,6 +91,7 @@ class RegisteredUserController extends Controller
             'date_naissance' => $request->date_naissance,
             'code_postal' => $request->code_postal,
             'ville' => $request->ville,
+            'experience' => $request->experience,
             'password' => Hash::make($request->password),
         ]);
 
@@ -93,6 +99,6 @@ class RegisteredUserController extends Controller
 
         Auth::login($user);
 
-        return redirect(route('register.dog', Auth::user()));
+        return redirect(route('dogsitters.accueilDogsitter', Auth::user()));
     }
 }
