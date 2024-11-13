@@ -47,7 +47,7 @@
                 <label for="chien" class="block text-gray-700 font-bold mb-2">Choix du chien</label>
                 <select id="chien" name="chien" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500" required>
                     <option value="">Sélectionner un chien</option>
-                    @foreach($client->dogs as $dog)
+                    @foreach($proprietaire->dogs as $dog)
                         <option value="">{{ $dog->nom }}</option>
                     @endforeach
                 </select>

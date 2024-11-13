@@ -12,8 +12,8 @@
         </div>
 
         <div class="mb-6">
-            <label for="breed" class="block text-gray-700 font-bold mb-2">Race du chien</label>
-            <input type="text" id="breed" name="breed" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500" required>
+            <label for="race" class="block text-gray-700 font-bold mb-2">Race du chien</label>
+            <input type="text" id="race" name="race" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500" required>
         </div>
 
         <div class="mb-6">

@@ -18,9 +18,9 @@ class PrestationController extends Controller
   public function create($id)
   {
     $dogsitter = User::find($id);
-    $client = Auth::user();
+    $proprietaire = Auth::user();
     
-    return view('prestations.create', compact('dogsitter','client'));
+    return view('prestations.create', compact('dogsitter','proprietaire'));
   }
 
  public function store() {
@@ -37,7 +37,7 @@ class PrestationController extends Controller
 // affiche les orestation que le dogsitter 
 // planning du mec 
 // cliquer un crenaux horaire
-// liste des prestations (liste derooulante)
+// liste des prestations (liste deroulante)
 // afficher le tarif
 // bouton valider
 // puisse annuler 
