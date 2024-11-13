@@ -37,3 +37,35 @@ class DogController extends Controller
     }
 
 }
+
+
+public function storeregisterdog(Request $request): RedirectResponse
+{
+    // Validation des données
+    $request->validate([
+        'name' => ['required', 'string', 'max:255'],
+        'race' => ['required', 'string', 'max:255'],
+        'age' => ['required', 'integer'], // Age devrait être un entier
+        'poids' => ['required', 'numeric'], // Poids pourrait être un nombre
+        'sexe' => ['required', 'in:male,female'], // Exemple de validation pour un sexe spécifique
+        'description' => ['nullable', 'string', 'max:1000'], // Description peut être plus longue et est optionnelle
+        'besoins_speciaux' => ['nullable', 'string', 'max:1000'], // Besoins spéciaux peuvent être optionnels
+        'sterilise' => ['required', 'boolean'], // Sterilisé devrait être un booléen
+    ]);
+
+    // Création du chien
+    $dog = Dog::create([
+        'nom' => $request->name,
+        'race' => $request->race,
+        'age' => $request->age,
+        'poids' => $request->poids,
+        'sexe' => $request->sexe,
+        'description' => $request->description ?? '', // Si la description est vide, mettre une chaîne vide
+        'besoins_speciaux' => $request->besoins_speciaux ?? '', // Idem pour les besoins spéciaux
+        'sterilise' => $request->sterilise,
+        'proprietaire_id' => Auth::id(), // Utiliser l'ID de l'utilisateur connecté
+    ]);
+
+    // Redirection après la création avec un message de succès
+    return redirect()->route('dogs.index')->with('success', 'Le chien a été ajouté avec succès.');
+}
