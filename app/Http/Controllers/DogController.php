@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\Dog;
 use App\Models\User;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\RedirectResponse;
 
 class DogController extends Controller
 {
@@ -36,10 +38,7 @@ class DogController extends Controller
         return view('auth.registerdog', compact('user'));
     }
 
-}
-
-
-public function storeregisterdog(Request $request): RedirectResponse
+    public function storeregisterdog(Request $request): RedirectResponse
 {
     // Validation des données
     $request->validate([
@@ -47,8 +46,8 @@ public function storeregisterdog(Request $request): RedirectResponse
         'race' => ['required', 'string', 'max:255'],
         'age' => ['required', 'integer'], // Age devrait être un entier
         'poids' => ['required', 'numeric'], // Poids pourrait être un nombre
-        'sexe' => ['required', 'in:male,female'], // Exemple de validation pour un sexe spécifique
-        'description' => ['nullable', 'string', 'max:1000'], // Description peut être plus longue et est optionnelle
+        'sexe' => ['required', 'string'], // Exemple de validation pour un sexe spécifique
+        'comportement' => ['nullable', 'string', 'max:1000'], // Description peut être plus longue et est optionnelle
         'besoins_speciaux' => ['nullable', 'string', 'max:1000'], // Besoins spéciaux peuvent être optionnels
         'sterilise' => ['required', 'boolean'], // Sterilisé devrait être un booléen
     ]);
@@ -60,12 +59,18 @@ public function storeregisterdog(Request $request): RedirectResponse
         'age' => $request->age,
         'poids' => $request->poids,
         'sexe' => $request->sexe,
-        'description' => $request->description ?? '', // Si la description est vide, mettre une chaîne vide
+        'comportement' => $request->comportement ?? '', // Si la description est vide, mettre une chaîne vide
         'besoins_speciaux' => $request->besoins_speciaux ?? '', // Idem pour les besoins spéciaux
         'sterilise' => $request->sterilise,
         'proprietaire_id' => Auth::id(), // Utiliser l'ID de l'utilisateur connecté
     ]);
 
+    event(new Registered($dog));
+
     // Redirection après la création avec un message de succès
     return redirect()->route('dogs.index')->with('success', 'Le chien a été ajouté avec succès.');
 }
+
+}
+
+
