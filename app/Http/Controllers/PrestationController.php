@@ -26,9 +26,7 @@ class PrestationController extends Controller
  public function store() {
   $prestation = new Prestation();
   $prestation->date_debut = request('date');
-  $prestation-> date_fin = request('date');
-  $prestation->heure_debut = request('heure_debut');
-  $prestation->heure_fin = request('heure_fin');
+ 
  
  }
   

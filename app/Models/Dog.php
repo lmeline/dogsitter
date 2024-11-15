@@ -11,12 +11,12 @@ class Dog extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name',
+        'nom',
         'age',
         'race',
         'poids',
         'comportement',
-        'besoin_speciaux',
+        'besoins_speciaux',
         'sexe',
         'sterilise',
         'proprietaire_id',

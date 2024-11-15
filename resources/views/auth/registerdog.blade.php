@@ -19,9 +19,9 @@
             <!-- Name -->
             <div class="flex w-full gap-2 mt-4">
                 <div>
-                <x-input-label for="name" :value="__('Nom')" />
-                <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
-                <x-input-error :messages="$errors->get('name')" class="mt-2" />
+                <x-input-label for="nom" :value="__('Nom')" />
+                <x-text-input id="nom" class="block mt-1 w-full" type="text" name="nom" :value="old('nom')" required autofocus autocomplete="nom" />
+                <x-input-error :messages="$errors->get('nom')" class="mt-2" />
                 </div>
     
                 <div>

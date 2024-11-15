@@ -42,6 +42,8 @@ Route::get('/prestations/{id}/create',[PrestationController::class,'create'])->n
 Route::get('/ajoutchien',[DogController::class,'create'])->name('dogs.create');
 
 Route::get('/register/dog',[DogController::class,'registerdog'])->name('register.dog');
+Route::post('/register/dog', [DogController::class, 'storeregisterdog'])
+->name('storeregisterdog');
 
 
 Route::get('/error', function() {

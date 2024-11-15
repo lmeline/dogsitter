@@ -40,21 +40,22 @@ class DogController extends Controller
 
     public function storeregisterdog(Request $request): RedirectResponse
 {
+ 
     // Validation des données
     $request->validate([
-        'name' => ['required', 'string', 'max:255'],
+        'nom' => ['required', 'string', 'max:255'],
         'race' => ['required', 'string', 'max:255'],
-        'age' => ['required', 'integer'], // Age devrait être un entier
-        'poids' => ['required', 'numeric'], // Poids pourrait être un nombre
-        'sexe' => ['required', 'string'], // Exemple de validation pour un sexe spécifique
-        'comportement' => ['nullable', 'string', 'max:1000'], // Description peut être plus longue et est optionnelle
-        'besoins_speciaux' => ['nullable', 'string', 'max:1000'], // Besoins spéciaux peuvent être optionnels
-        'sterilise' => ['required', 'boolean'], // Sterilisé devrait être un booléen
+        'age' => ['required', 'integer'], 
+        'poids' => ['required', 'numeric'], 
+        'sexe' => ['required', 'string'], 
+        'comportement' => ['nullable', 'string', 'max:1000'], 
+        'besoins_speciaux' => ['nullable', 'string', 'max:1000'], 
+        'sterilise' => ['required', 'boolean'], 
     ]);
 
     // Création du chien
-    $dog = Dog::create([
-        'nom' => $request->name,
+    Dog::create([
+        'nom' => $request->nom,
         'race' => $request->race,
         'age' => $request->age,
         'poids' => $request->poids,
@@ -65,12 +66,9 @@ class DogController extends Controller
         'proprietaire_id' => Auth::id(), // Utiliser l'ID de l'utilisateur connecté
     ]);
 
-    event(new Registered($dog));
-
+ 
     // Redirection après la création avec un message de succès
-    return redirect()->route('dogs.index')->with('success', 'Le chien a été ajouté avec succès.');
+    return redirect()->route('dashboard')->with('success', 'Le chien a été ajouté avec succès.');
 }
 
 }
-
-

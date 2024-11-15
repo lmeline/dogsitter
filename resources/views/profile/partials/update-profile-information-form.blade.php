@@ -31,10 +31,11 @@
             </div> 
         </div>
         <div class="mt-4">
-            <x-input-label for="telephone" :value="__('Telephone number')" />
-            <x-text-input id="telephone" class="block mt-1 w-full" type="text" name="telephone" :value="old('telephone', $user->numero_telephone)" required autocomplete="username" />
-            <x-input-error :messages="$errors->get('telephone')" class="mt-2" />
+            <x-input-label for="numero_telephone" :value="__('Telephone number')" />
+            <x-text-input id="numero_telephone" class="block mt-1 w-full" type="text" name="numero_telephone" :value="old('numero_telephone', $user->numero_telephone)" required autocomplete="telephone" />
+            <x-input-error :messages="$errors->get('numero_telephone')" class="mt-2" />
         </div>
+        
 
         <div class="mt-4">
             <x-input-label for="adresse" :value="__('Adresse')" />
