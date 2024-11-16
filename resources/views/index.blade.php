@@ -1,6 +1,6 @@
 
 
-    @extends('layouts.defaultLayout')
+    @extends('layouts.partials.defaultLayout')
     @section('title', 'Bienvenue sur Patte à patte')
     @section('content')
     

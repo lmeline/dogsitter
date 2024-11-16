@@ -1,4 +1,4 @@
-@extends('layouts.defaultLayout')
+@extends('layouts.debartLayout')
 
 @section('content')
 
@@ -27,6 +27,7 @@
             
             </a>
             @endforeach
+            
         </div>
     </div>
    

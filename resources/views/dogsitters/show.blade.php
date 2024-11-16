@@ -1,4 +1,4 @@
-@extends('layouts.defaultLayout')
+@extends('layouts.partials.defaultLayout')
 
 @section('content')
 
