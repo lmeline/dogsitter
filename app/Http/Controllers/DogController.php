@@ -50,7 +50,6 @@ class DogController extends Controller
         'sexe' => ['required', 'string'], 
         'comportement' => ['nullable', 'string', 'max:1000'], 
         'besoins_speciaux' => ['nullable', 'string', 'max:1000'], 
-        'sterilise' => ['required', 'boolean'], 
     ]);
 
     // Création du chien
@@ -62,7 +61,7 @@ class DogController extends Controller
         'sexe' => $request->sexe,
         'comportement' => $request->comportement ?? '', // Si la description est vide, mettre une chaîne vide
         'besoins_speciaux' => $request->besoins_speciaux ?? '', // Idem pour les besoins spéciaux
-        'sterilise' => $request->sterilise,
+        'sterilise' => $request->sterilise ? true : false,
         'proprietaire_id' => Auth::id(), // Utiliser l'ID de l'utilisateur connecté
     ]);
 

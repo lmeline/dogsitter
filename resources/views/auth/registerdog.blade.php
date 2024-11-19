@@ -13,7 +13,7 @@
         </div>
         
     
-        <form x-show="open"  method="POST" action="{{ route('register') }}">
+        <form x-show="open"  method="POST" action="{{ route('storeregisterdog') }}">
             @csrf
     
             <!-- Name -->
@@ -127,32 +127,29 @@
     
             <div class="mt-4">
                 <x-input-label for="comportement" :value="__('Comportement')" />
-                <textarea id="comportement" name="comportement" rows="4" class="block mt-1 w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-900 dark:border-gray-700" required autocomplete="comportement">{{ old('comportement') }}</textarea>
+                <textarea id="comportement" name="comportement" rows="4" class="block mt-1 w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-900 dark:border-gray-700" autocomplete="comportement">{{ old('comportement') }}</textarea>
                 <x-input-error :messages="$errors->get('comportement')" class="mt-2" />
             </div>
             
             <div class= "mt-4">
                 
-                <x-input-label for="besoin_speciaux" :value="__('Besoin Spéciaux')" />
-                <textarea id="besoin_speciaux" name="besoin_speciaux" rows="4" class="block mt-1 w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-900 dark:border-gray-700" required autofocus autocomplete="besoin_speciaux">{{ old('besoin_speciaux') }}</textarea>
-                <x-input-error :messages="$errors->get('besoin_speciaux')" class="mt-2" />
+                <x-input-label for="besoins_speciaux" :value="__('Besoin Spéciaux')" />
+                <textarea id="besoins_speciaux" name="besoins_speciaux" rows="4" class="block mt-1 w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-900 dark:border-gray-700" autofocus autocomplete="besoin_speciaux">{{ old('besoin_speciaux') }}</textarea>
+                <x-input-error :messages="$errors->get('besoins_speciaux')" class="mt-2" />
             </div>
             
     
             <div>
                 <x-input-label for="sexe" :value="__('Sexe')" />
-                <x-text-input id="sexe" class="block mt-1 w-full" type="text" name="sexe" :value="old('sexe')" required autofocus autocomplete="sexe" />
+                <select id="sexe" class="block mt-1 w-full" type="text" name="sexe" :value="old('sexe')" required autofocus autocomplete="sexe">
+                    <option value="M" {{ old('sexe') == 'M' ? 'selected' : '' }}>Male</option>
+                    <option value="F" {{ old('sexe') == 'F' ? 'selected' : '' }}>Femelle</option>
+                </select>
                 <x-input-error :messages="$errors->get('sexe')" class="mt-2" />
             </div>
         
             <div class="block mt-4">
-                <label for="sterilise" class="inline-flex items-center cursor-pointer">
-                    <input id="sterilise" type="checkbox" class="sr-only peer" name="sterilise">
-                    <div class="w-12 h-6 bg-gray-200 rounded-full peer-checked:bg-indigo-600 transition-colors duration-300 dark:bg-gray-700 relative">
-                        <span class="absolute left-0.5 top-0.5 w-5 h-5 bg-white rounded-full shadow-md transform transition-transform duration-300peer-checked:translate-x-6"></span>
-                    </div>
-                    <span class="ml-3 text-sm text-gray-600 dark:text-gray-400">{{ __('Stérilisé') }}</span>
-                </label>
+                    <input id="sterilise" type="checkbox" name="sterilise">
             </div>
             
 
