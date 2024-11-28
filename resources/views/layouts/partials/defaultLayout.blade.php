@@ -49,7 +49,7 @@
     </header>
 
     <!-- Main Content -->
-    <main class="flex-grow pb-20">
+    <main class="flex-grow pb-1">
         @yield('content')
     </main>
 

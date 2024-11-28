@@ -164,5 +164,58 @@
         </div>
     </section>
     
-
+    <section class="py-5 bg-green">
+        <div class="container mx-auto">
+            <h2 class="text-4xl font-bold text-center mb-12">Nos Informations et Services</h2>
+            
+            <div class="flex flex-wrap justify-between space-y-4 md:space-y-0">
+                <!-- Informations légales et politiques -->
+                <ul class="flex-1 p-4">
+                    <h3 class="text-xl font-bold mb-4">Informations légales et politiques</h3>
+                    <li><a href="#" class="text-blue-600 hover:underline">Mentions légales</a></li>
+                    <li><a href="#" class="text-blue-600 hover:underline">Conditions générales d'utilisation (CGU)</a></li>
+                    <li><a href="#" class="text-blue-600 hover:underline">Politique de confidentialité</a></li>
+                    <li><a href="#" class="text-blue-600 hover:underline">Politique de cookies</a></li>
+                </ul>
+    
+                <!-- Aide et support -->
+                <ul class="flex-1 p-4">
+                    <h3 class="text-xl font-bold mb-4">Aide et support</h3>
+                    <li><a href="#" class="text-blue-600 hover:underline">Contact</a></li>
+                    <li><a href="#" class="text-blue-600 hover:underline">Aide / FAQ</a></li>
+                    <li><a href="#" class="text-blue-600 hover:underline">Plan du site</a></li>
+                    <li><a href="#" class="text-blue-600 hover:underline">Nous contacter</a></li>
+                </ul>
+    
+                <!-- À propos de l'entreprise -->
+                <ul class="flex-1 p-4">
+                    <h3 class="text-xl font-bold mb-4">À propos de l'entreprise</h3>
+                    <li><a href="#" class="text-blue-600 hover:underline">À propos / Qui sommes-nous ?</a></li>
+                    <li><a href="#" class="text-blue-600 hover:underline">Carrières / Recrutement</a></li>
+                    <li><a href="#" class="text-blue-600 hover:underline">Presse / Partenaires</a></li>
+                    <li><a href="#" class="text-blue-600 hover:underline">Devenir dog sitter</a></li>
+                </ul>
+    
+                <!-- Contenu et actualités -->
+                <ul class="flex-1 p-4">
+                    <h3 class="text-xl font-bold mb-4">Contenu et actualités</h3>
+                    <li><a href="#" class="text-blue-600 hover:underline">Blog / Actualités</a></li>
+                    <li><a href="#" class="text-blue-600 hover:underline">Newsletter</a></li>
+                    <li><a href="#" class="text-blue-600 hover:underline">Conseils pour les propriétaires de chiens</a></li>
+                    <li><a href="#" class="text-blue-600 hover:underline">Avis clients</a></li>
+                </ul>
+            </div>
+    
+            <!-- Réseaux sociaux -->
+            <div class="text-center mt-4">
+                <h3 class="text-xl font-bold mb-4">Réseaux sociaux et communauté</h3>
+                <div class="flex justify-center space-x-2">
+                    <a href="#" aria-label="Facebook"><img src="path/to/facebook-icon.svg" alt="Facebook" class="w-6 h-6"></a>
+                    <a href="#" aria-label="Instagram"><img src="path/to/instagram-icon.svg" alt="Instagram" class="w-6 h-6"></a>
+                    <a href="#" aria-label="Twitter"><img src="path/to/twitter-icon.svg" alt="Twitter" class="w-6 h-6"></a>
+                    <a href="#" aria-label="LinkedIn"><img src="path/to/linkedin-icon.svg" alt="LinkedIn" class="w-6 h-6"></a>
+                </div>
+            </div>
+        </div>
+    </section>
 @endsection
