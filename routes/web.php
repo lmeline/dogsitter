@@ -39,7 +39,8 @@ route::get('/', function (){
 })->name('index');
 
 Route::get('/prestations/create/{id}',[PrestationController::class,'create'])->name('prestations.create');
-Route::get('profile/ajoutchien',[DogController::class,'create'])->name('dogs.create');
+Route::get('profile
+ /ajoutchien',[DogController::class,'create'])->name('dogs.create');
 
 Route::get('/register/dog',[DogController::class,'registerdog'])->name('register.dog');
 Route::post('/register/dog', [DogController::class, 'storeregisterdog'])->name('storeregisterdog');
