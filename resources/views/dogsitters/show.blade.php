@@ -2,34 +2,37 @@
 
 @section('content')
 
-    <div class="min-h-screen bg-gray-100 flex flex-col items-center">
+    <div class="  flex flex-col items-center">
         <!-- Bandeau supérieur -->
-        <div class="bg-blue-600 text-white py-10 w-full flex items-center justify-center">
-            <div class="text-center">
-                <img src="{{ $dogsitter->photo }}" alt="{{ $dogsitter->name }}" class="w-24 h-24 rounded-full mx-auto mb-4 border-4 border-white">
-                <h1 class="text-3xl font-bold">{{ $dogsitter->name }} {{ $dogsitter->prenom }}</h1>
-
-                <p class="text-lg">Développeur Web | Passionné de technologie</p>
-            </div>
-        </div>
+      <div class="bg-pink text-black py-10 w-full flex items-center">
+    <!-- Photo à gauche -->
+    <div class="flex-shrink-0 mr-8">
+        <img src="{{ $dogsitter->photo }}" alt="{{ $dogsitter->name }}" class="w-40 h-40 rounded-full border-4 border-white">
+    </div>
     
+    <!-- Texte aligné en bas à droite -->
+    <div class="flex flex-col justify-end">
+        <h1 class="text-3xl font-bold">{{ $dogsitter->name }} {{ $dogsitter->prenom }}</h1>
+    </div>
+</div>
+
         <!-- Contenu en deux colonnes avec ligne de séparation -->
-        <div class="flex flex-col md:flex-row w-full mt-8 px-8">
+        <div class="flex flex-col md:flex-row w-full">
             <!-- Colonne de gauche -->
-            <div class="w-full md:w-1/2 bg-gray-50 p-6 md:pr-12">
-                <h2 class="text-2xl font-semibold mb-4 text-gray-800">Informations personnelles</h2>
-                <p class="text-gray-700 mb-2"><strong>Ville :</strong> {{ $dogsitter->ville }}</p>
-                <p class="text-gray-700 mb-2"><strong>Disponibilité  :</strong> {{$dogsitter->disponibilite_jour }} </p>
-                <p class="text-gray-700 mb-2"><strong>Contact :</strong> Envoyer un message </p>
-                <p class="text-gray-700 mb-2"><strong> Nombre de notes :</strong> {{ $dogsitter->nb_notes }}</p>
-                <p class="text-gray-700 mb-2"><strong> Note /5 :</strong> {{ $dogsitter->note_moyenne }}</p>
+            <div class="w-full md:w-1/2 bg-gray p-6 md:pl-12">
+                <h2 class="text-2xl font-semibold mb-4 text-black ">Informations personnelles</h2>
+                <p class=" mb-2"><strong>Ville :</strong> {{ $dogsitter->ville }}</p>
+                <p class=" mb-2"><strong>Disponibilité  :</strong> {{$dogsitter->disponibilite_jour }} </p>
+                <p class=" mb-2"><strong>Contact :</strong> Envoyer un message </p>
+                <p class=" mb-2"><strong> Nombre de notes :</strong> {{ $dogsitter->nb_notes }}</p>
+                <p class=" mb-2"><strong> Note /5 :</strong> {{ $dogsitter->note_moyenne }}</p>
             </div>
     
             <!-- Ligne de séparation -->
-            <div class="hidden md:block w-px bg-gray-300"></div>
+            <div class="hidden md:block w-px bg-gray"></div>
     
             <!-- Colonne de droite -->
-            <div class="w-full md:w-1/2 bg-white p-6 md:pl-12">
+            <div class="w-full md:w-1/2 bg-green p-6 md:pl-12">
                 <h2 class="text-2xl font-semibold mb-4 text-gray-800">À propos de moi</h2>
                 <p class="text-gray-700 mb-4">
                     {{ $dogsitter->description }}

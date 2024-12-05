@@ -22,11 +22,11 @@
     @endauth
 
     <!-- Header -->
-    <header class="text-white sticky top-0 z-50 shadow-md bg-slate-600 bg-opacity-80">
+    <header class="text-black sticky top-0 z-50 shadow-md bg-slate-600 bg-opacity-80">
         <nav class="container mx-auto flex items-center justify-between p-4">
             <!-- Logo -->
             <div class="text-2xl font-bold">
-                <a href="{{ route('index') }}" class="text-white hover:text-gray-300 transition duration-300">
+                <a href="{{ route('index') }}" class="text-white hover:text-green transition duration-300">
                     Patte à patte
                 </a>
             </div>
