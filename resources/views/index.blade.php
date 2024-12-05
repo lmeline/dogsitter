@@ -4,77 +4,111 @@
     
     <!-- Hero Section -->
     <section class="bg-green text-black py-20 bg-gray-100 text-gray-800">
-        <div class="container mx-auto text-center">
-            <h1 class="text-5xl font-bold mb-4">Bienvenue sur Patte à patte</h1>
-            <p class="text-xl mb-8">Le Dog Sitting de Confiance pour Votre Compagnon à Quatre Pattes <br>
-                Votre chien mérite les meilleurs soins, même en votre absence.</p>
-            <div class="container mx-auto mt-8 flex items-start space-x-8">
-                <!-- Image -->
-                <div class="w-1/3">
-                    <img src="{{ asset('images/test.jpg') }}" alt="Dog Sitting" class="w-full rounded-lg">
+            <div class="container mx-auto">
+                <!-- Titre Principal -->
+                <div class="text-center mb-12">
+                    <h1 class="text-5xl font-bold mb-4">Bienvenue sur Patte à Patte</h1>
+                    <p class="text-xl">
+                        Le Dog Sitting de Confiance pour Votre Compagnon à Quatre Pattes <br>
+                        Votre chien mérite les meilleurs soins, même en votre absence.
+                    </p>
                 </div>
-                <div class="w-2/3 bg-gray p-8 rounded-lg shadow-md">
-                    <form action="#" method="POST" class="space-y-6">
-                        <!-- Besoin -->
-                        <div>
-                            <label class="text-lg font-semibold mb-2 block">Votre besoin</label>
-                            <div class="flex space-x-4 ">
-                                <button type="button" class="p-3 bg-green  rounded-lg hover:bg-gray-200 transition">Garde d'animaux</button>
-                                <button type="button" class="p-3 bg-green rounded-lg hover:bg-gray-200 transition">Promenades</button>
+        
+                <!-- Conteneur Principal -->
+                <div class="flex flex-col lg:flex-row items-center lg:items-start lg:space-x-8">
+                    <!-- Image -->
+                    <div class="w-full lg:w-1/3 mb-8 lg:mb-0">
+                        <img src="{{ asset('images/test.jpg') }}" alt="Dog Sitting" class="w-full rounded-lg">
+                    </div>
+        
+                    <!-- Contenu Formulaire -->
+                    <div class="w-full lg:w-2/3 bg-gray p-8 rounded-lg shadow-md">
+                        <!-- Formulaire -->
+                        <form action="#" method="POST" class="space-y-6">
+                            <!-- Besoin -->
+                            <div class="flex justify-between items-center">
+                                <label class="text-lg font-semibold w-1/4">Votre besoin</label>
+                                <div class="grid grid-cols-2 gap-4 w-3/4">
+                                    <button 
+                                        type="button" 
+                                        class="p-6 text-xl bg-green rounded-lg hover:bg-pink transition font-semibold">
+                                        Garde d'animaux
+                                    </button>
+                                    <button 
+                                        type="button" 
+                                        class="p-6 text-xl bg-green rounded-lg hover:bg-pink transition font-semibold">
+                                        Promenades
+                                    </button>
+                                </div>
+                            </div>
+        
+                            <!-- Localisation -->
+                            <div class="flex justify-between items-center">
+                                <label for="location" class="text-lg font-semibold w-1/4">Location</label>
+                                <input 
+                                    type="text" 
+                                    id="location" 
+                                    name="location" 
+                                    placeholder="Entrez votre code postal ou ville" 
+                                    class="w-3/4 p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green"
+                                    required
+                                >
+                            </div>
+        
+                            <!-- Date -->
+                            <div class="flex justify-between items-center">
+                                <label for="date" class="text-lg font-semibold w-1/4">Date</label>
+                                <input 
+                                    type="date" 
+                                    id="date" 
+                                    name="date" 
+                                    class="w-3/4 p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green"
+                                    required
+                                >
+                            </div>
+        
+                            <!-- Bouton de soumission -->
+                            <div class="flex justify-between items-center">
+                                <div class="w-1/4"></div>
+                                <button 
+                                    type="submit" 
+                                    class="w-3/4 bg-green py-3 px-6 rounded-lg font-semibold hover:bg-pink transition">
+                                    Trouver mon dogsitter
+                                </button>
+                            </div>
+                        </form>
+        
+                        <!-- Rejoignez notre communauté (Déplacé en dessous du formulaire) -->
+                        
+                        <div class="bg-gray-50 p-6 rounded-lg pt-12">
+                            <h2 class="text-3xl font-bold text-black mb-4 text-center">Rejoignez notre communauté</h2>
+                            <p class="text-lg text-black mb-6">
+                                Que vous soyez un propriétaire cherchant les meilleurs soins pour votre animal 
+                                ou un dogsitter passionné prêt à offrir vos services, inscrivez-vous dès aujourd'hui !
+                            </p>
+                            <div class="flex justify-center space-x-4">
+                                <a href="{{ route('register') }}?proprietaire=true" 
+                                    class="px-6 py-3 bg-pink text-white text-lg font-bold rounded-lg shadow-lg hover:bg-blue focus:outline-none focus:ring-4 focus:ring-blue focus:ring-opacity-75 transition duration-300">
+                                    Je suis propriétaire
+                                </a>
+                                <a href="{{ route('register') }}?proprietaire=false" 
+                                    class="px-6 py-3 bg-green text-white text-lg font-bold rounded-lg shadow-lg hover:bg-green focus:outline-none focus:ring-4 focus:ring-green focus:ring-opacity-75 transition duration-300">
+                                    Je suis dogsitter
+                                </a>
                             </div>
                         </div>
-                        <!-- Localisation -->
-                        <div>
-                            <label for="location" class="text-lg font-semibold mb-2 block">Location </label>
-                            <input 
-                                type="text" 
-                                id="location" 
-                                name="location" 
-                                placeholder="Entrez votre code postal ou ville" 
-                                class="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green"
-                                required
-                            >
-                        </div>
-                        <!-- Date -->
-                        <div>
-                            <label for="date" class="text-lg font-semibold mb-2 block">Date</label>
-                            <input 
-                                type="date" 
-                                id="date" 
-                                name="date" 
-                                class="w-full p-3 border rounded-lg"
-                                required
-                            >
-                        </div>
-                        <!-- Bouton de soumission -->
-                        <div class="text-center">
-                            <button 
-                                type="submit" 
-                                class="w-full bg-green py-3 px-6 rounded-lg font-semibold hover:bg-blue-700 transition">
-                                Trouver mon dogsitter
-                            </button>
-                        </div>
-                    </form>
-                </div>    
-        </div>
-    </section>
-    <div class="flex space-x-4 mt-4">
-        <a href="{{ route('register') }}?proprietaire=true" 
-           class="px-6 py-2 bg-pink text-white font-semibold rounded-lg shadow-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75 transition duration-300">
-           Proprietaire
-        </a>
-        <a href="{{ route('register') }}?proprietaire=false" 
-           class="px-6 py-2 bg-pink text-white font-semibold rounded-lg shadow-md hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-opacity-75 transition duration-300">
-           Dogsitter
-        </a>
-    </div>
+                    </div>    
+                </div>
+            </div>
+        </section>
+        
+<!-- Features Section -->
+
     <section class="py-16 bg-gray">
         <div class="container mx-auto">
-            <p class="text-center mb-12">
-                Chez patte à patte, nous savons qu’il est difficile de laisser votre chien. 
-                C’est pourquoi nous proposons un dog-sitting personnalisé et sécurisé, pour que vous partiez sereinement, 
-                votre compagnon bien pris en charge !
-            </p>
+            <h4 class="text-center mb-12 text-3xl ">
+                Chez <strong>Patte à patte</strong>, nous savons qu’il est difficile de laisser votre chien. C’est pourquoi nous proposons un dog-sitting personnalisé et sécurisé, pour que vous partiez sereinement, votre compagnon bien pris en charge !
+            </h4>
     
             <!-- Propriétaire -->
             <div class="bg-green p-6 rounded-lg shadow-lg text-center w-full mb-8">
