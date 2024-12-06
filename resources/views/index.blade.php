@@ -22,9 +22,9 @@
                     </div>
         
                     <!-- Contenu Formulaire -->
-                    <div class="w-full lg:w-2/3 bg-gray p-8 rounded-lg shadow-md">
+                    <div class="w-full lg:w-2/3 rounded-lg">
                         <!-- Formulaire -->
-                        <form action="#" method="POST" class="space-y-6">
+                        <form action="#" method="POST" class="space-y-6 bg-gray shadow md p-8 rounded-md">
                             <!-- Besoin -->
                             <div class="flex justify-between items-center">
                                 <label class="text-lg font-semibold w-1/4">Votre besoin</label>
@@ -80,7 +80,7 @@
         
                         <!-- Rejoignez notre communauté (Déplacé en dessous du formulaire) -->
                         
-                        <div class="bg-gray-50 p-6 rounded-lg pt-12">
+                        <div class="bg-gray-50 p-6 bg-gray shadow md p-8 rounded-md mt-12">
                             <h2 class="text-3xl font-bold text-black mb-4 text-center">Rejoignez notre communauté</h2>
                             <p class="text-lg text-black mb-6">
                                 Que vous soyez un propriétaire cherchant les meilleurs soins pour votre animal 
