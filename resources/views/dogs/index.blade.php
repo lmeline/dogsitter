@@ -1,38 +1,11 @@
-{{-- <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Dogs</title>
-</head>
-<body>
-    @foreach ( $dogs as $dog )
+@extends('layouts.partials.default-layout')
 
-        <a href="{{ route('dogs.show', $dog->id) }}">{{ $dog->nom }} </a>
-
-        <p>{{ $dog->race }}</p>
-
-        <p>{{ $dog->age }}</p>
-        
-    @endforeach
-</body>
-</html> 
- --}}
-
- <!DOCTYPE html>
- <html lang="en">
- <head>
-     <meta charset="UTF-8">
-     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-     <title>Dogs</title>
-     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
- </head>
- <body class="bg-blue-100 text-gray-800">
-     <div class="container mx-auto py-10">
-         <h1 class="text-4xl font-bold text-center text-blue-700 mb-10">Liste des Chiens</h1>
- 
+@section('content')
+     <div class="container  mx-auto py-10">
+         <h1 class="text-4xl font-bold  text-black mb-10">Liste des Chiens</h1>
+         <p class="text-lg text-gray-700 mb-10">
+            Nombre total de chiens : <span class="font-semibold text-blue-600">{{ $dogs->count() }}</span>
+        </p>
          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
              @foreach ( $dogs as $dog )
              <!-- Lien autour de tout le bloc pour le rendre cliquable -->
@@ -47,6 +20,5 @@
              @endforeach
          </div>
      </div>
- </body>
- </html>
- 
+
+@endsection

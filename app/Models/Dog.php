@@ -22,7 +22,7 @@ class Dog extends Model
         'proprietaire_id',
     ];
 
-    public function user(): BelongsTo
+    public function proprietaire(): BelongsTo
     {
         return $this->belongsTo(User::class,'proprietaire_id');
     }

@@ -9,37 +9,64 @@
                         <x-application-logo class="block h-9 w-auto fill-current text-gray-800 dark:text-gray-200" />
                     </a>
                 </div>
-
                 <!-- Navigation Links -->
+                    <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                        <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+                            {{ __('Publicite du site') }}
+                        </x-nav-link>
+                    </div>
                 @if (Auth::check() && Auth::user()->role === 'proprietaire')
-                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                        {{ __('Dashboard') }}
-                    </x-nav-link>
-                </div>
-            @else
-                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('dogsitters.accueilDogsitter')" :active="request()->routeIs('dogsitters.accueilDogsitter')">
-                        {{ __('Accueil') }}
-                    </x-nav-link>
-                </div>
-            @endif
-            
-                {{-- <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                        {{ __('Dashboard') }}
-                    </x-nav-link>
-                </div> --}}
+                    {{-- <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                        <x-nav-link :href="route('proprietaires.index')" :active="request()->routeIs('proprietaires.index')">
+                            {{ __('Proprietaire') }}
+                        </x-nav-link>
+                    </div> --}}
+                    <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                        <x-nav-link :href="route('proprietaires.message')" :active="request()->routeIs('proprietaires.message')">
+                            {{ __('Messages') }}
+                        </x-nav-link>
+                    </div>
+                    <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                        <x-nav-link :href="route('proprietaires.trouvezSonDogsitter')" :active="request()->routeIs('proprietaires.trouvezSonDogsitter')">
+                            {{ __('Trouvez son dogsitter') }}
+                        </x-nav-link>
+                    </div>
                 
-                {{-- <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('dogsitters.accueilDogsitter')" :active="request()->routeIs('dogsitters.accueilDogsitter')">
-                        {{ __('Accueil') }}
-                    </x-nav-link>
-                </div> --}}
+                @else
+                    <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                        <x-nav-link :href="route('dogsitters.PageAccueilDogsitter')" :active="request()->routeIs('dogsitters.PageAccueilDogsitter')">
+                            {{ __('Accueil') }}
+                        </x-nav-link>
+                    </div>
+
+                    <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                        <x-nav-link :href="route('dogsitters.PageAccueilDogsitter')" :active="request()->routeIs('dogsitters.PageAccueilDogsitter')">
+                            {{ __('Messages') }}
+                        </x-nav-link>
+                    </div>
+
+                    <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                        <x-nav-link :href="route('dogsitters.PageAccueilDogsitter')" :active="request()->routeIs('dogsitters.PageAccueilDogsitter')">
+                            {{ __('Mes rendez-vous') }}
+                        </x-nav-link>
+                    </div>
+                    <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                        <x-nav-link :href="route('dogsitters.PageAccueilDogsitter')" :active="request()->routeIs('dogsitters.PageAccueilDogsitter')">
+                            {{ __('Mon Profil') }}
+                        </x-nav-link>
+                    </div>
+                @endif
             </div>
 
             <!-- Settings Dropdown -->
             <div class="hidden sm:flex sm:items-center sm:ms-6">
+
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link :href="route('proprietaires.index')" :active="request()->routeIs('proprietaires.index')">
+                        {{ __('Mon profil') }}
+                    </x-nav-link>
+                </div>
+                
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
                         <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none transition ease-in-out duration-150">
@@ -52,10 +79,14 @@
                             </div>
                         </button>
                     </x-slot>
-
+                   
                     <x-slot name="content">
-                        <x-dropdown-link :href="route('profile.edit')">
+                        <x-dropdown-link :href="route('proprietaires.index')">
                             {{ __('Profile') }}
+                        </x-dropdown-link>
+                       
+                        <x-dropdown-link :href="route('profile.edit')">
+                            {{ __('Parameters') }}
                         </x-dropdown-link>
 
                         <!-- Authentication -->

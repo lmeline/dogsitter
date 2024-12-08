@@ -12,6 +12,7 @@ class ProfilDogsitterController extends Controller
     {
        $dogsitters = User::where('role', 'dogsitter')->get();
        return view('dogsitters.index', compact('dogsitters'));
+       
     }
 
     public function show($id)

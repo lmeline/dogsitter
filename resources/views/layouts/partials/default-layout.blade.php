@@ -7,21 +7,9 @@
     <title>@yield('title')</title>
     @vite('resources/css/app.css')
 </head>
-<body class="flex flex-col min-h-screen">
+<body class="flex flex-col bg-gris text-black min-h-screen">
 
-    <!-- Bandeau utilisateur connecté -->
-    @auth
-    <div class="bg-blue-700 text-white py-3 shadow-md">
-        <div class="container mx-auto flex items-center justify-between">
-            <div>
-                Bonjour, {{ Auth::user()->name }} !
-            </div>
-      
-        </div>
-    </div>
-    @endauth
-
-    <!-- Header -->
+    <!-- header -->
     <header class="text-black sticky top-0 z-50 shadow-md bg-slate-600 bg-opacity-80">
         <nav class="container mx-auto flex items-center justify-between p-4">
             <!-- Logo -->
@@ -31,10 +19,19 @@
                 </a>
             </div>
 
-            <!-- Search Bar -->
+    <!-- Bandeau utilisateur connecté -->
+            @auth
+            <div class=" text-white py-3 ">
+                <div class="container mx-auto flex items-center justify-between">
+                    <div>
+                       <a href="{{ route('dashboard') }}">Bonjour, {{ Auth::user()->name }} !</a> 
+                    </div>
+              
+                </div>
+            </div>
+            @endauth
 
-
-            <!-- Action Buttons pour les non-connectés -->
+    <!-- Action Buttons pour les non-connectés -->
             @guest
             <div class="flex gap-4">
                 <a href="{{ route('register') }}?proprietaire=true" class="bg-gray hover:bg-green text-white py-2 px-4 rounded-lg transition duration-300">

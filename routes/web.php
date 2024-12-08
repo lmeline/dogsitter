@@ -13,8 +13,21 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::get('/dogsitter/accueil', function () {
-    return view('dogsitters.accueilDogsitter');
+    return view('dogsitters.PageAccueilDogsitter');
 })->middleware(['auth', 'verified'])->name('dogsitters.accueilDogsitter');
+
+Route::get('/proprietaire/accueil', function () {
+    return view('proprietaires.PageAccueilProprietaire');
+})->middleware(['auth', 'verified'])->name('proprietaires.PageAccueilProprietaire');
+
+Route::get('/proprietaire/message', function () {
+    return view('proprietaires.message');
+})->middleware(['auth', 'verified'])->name('proprietaires.message');
+
+Route::get('/proprietaire/trouvezsondogsitter', function () {
+    return view('proprietaires.trouvezSonDogsitter');
+})->middleware(['auth', 'verified'])->name('proprietaires.trouvezSonDogsitter');
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -39,8 +52,7 @@ route::get('/', function (){
 })->name('index');
 
 Route::get('/prestations/create/{id}',[PrestationController::class,'create'])->name('prestations.create');
-Route::get('profile
- /ajoutchien',[DogController::class,'create'])->name('dogs.create');
+Route::get('profile/ajoutchien',[DogController::class,'create'])->name('dogs.create');
 
 Route::get('/register/dog',[DogController::class,'registerdog'])->name('register.dog');
 Route::post('/register/dog', [DogController::class, 'storeregisterdog'])->name('storeregisterdog');

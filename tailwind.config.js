@@ -18,7 +18,7 @@ export default {
             colors: {
                 'pink': '#d6c9c9',
                 'green': '#bbcac1',
-                'gray': '#d9d9d9'
+                'gris': '#d9d9d9'
             },
         },
     },

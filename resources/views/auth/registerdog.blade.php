@@ -27,7 +27,7 @@
                 <div>
                     <x-input-label for="race" :value="__('Race de chien')" />
                 
-                    <select id="race" name="race" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-900 dark:border-gray-700">
+                    <select id="race" name="race" class="block w-full mt-1 border-black-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-black-900 dark:border-black-700">
                         <option value="">-- Choisissez une race --</option>
                         <option value="Labrador Retriever">Labrador Retriever</option>
                         <option value="Berger Allemand">Berger Allemand</option>
@@ -99,7 +99,7 @@
             <div class="mt-4">
                 <x-input-label for="age" :value="__('Age')" />
                 
-                <select id="age" name="age" class="block mt-1 w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                <select id="age" name="age" class="block mt-1 w-full border-black-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
                     @for ($i = 1; $i <= 25; $i++)
                         <option value="{{ $i }}" {{ old('age') == $i ? 'selected' : '' }}>
                             {{ $i }} an{{ $i > 1 ? 's' : '' }}
@@ -113,7 +113,7 @@
             <div class="mt-4">
                 <x-input-label for="poids" :value="__('Poids')" />
                 
-                <select id="poids" name="poids" class="block mt-1 w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                <select id="poids" name="poids" class="block mt-1 w-full border-black-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
                     @for ($i = 1; $i <= 70; $i++)
                         <option value="{{ $i }}" {{ old('poids') == $i ? 'selected' : '' }}>
                             {{ $i }} kg
@@ -127,14 +127,14 @@
     
             <div class="mt-4">
                 <x-input-label for="comportement" :value="__('Comportement')" />
-                <textarea id="comportement" name="comportement" rows="4" class="block mt-1 w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-900 dark:border-gray-700" autocomplete="comportement">{{ old('comportement') }}</textarea>
+                <textarea id="comportement" name="comportement" rows="4" class="block mt-1 w-full border-black-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-black-900 dark:border-black-700" autocomplete="comportement">{{ old('comportement') }}</textarea>
                 <x-input-error :messages="$errors->get('comportement')" class="mt-2" />
             </div>
             
             <div class= "mt-4">
                 
                 <x-input-label for="besoins_speciaux" :value="__('Besoin Spéciaux')" />
-                <textarea id="besoins_speciaux" name="besoins_speciaux" rows="4" class="block mt-1 w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-900 dark:border-gray-700" autofocus autocomplete="besoin_speciaux">{{ old('besoin_speciaux') }}</textarea>
+                <textarea id="besoins_speciaux" name="besoins_speciaux" rows="4" class="block mt-1 w-full border-black-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-black-900 dark:border-black-700" autofocus autocomplete="besoin_speciaux">{{ old('besoin_speciaux') }}</textarea>
                 <x-input-error :messages="$errors->get('besoins_speciaux')" class="mt-2" />
             </div>
             

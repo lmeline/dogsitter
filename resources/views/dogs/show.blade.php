@@ -1,26 +1,6 @@
-{{-- <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>profil chien</title>
-</head>
-<body>
-    {{$dog->user->name}}
-</body>
-</html> --}}
+@extends('layouts.partials.default-layout')
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Profil du Chien</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-</head>
-<body class="bg-blue-100 text-gray-800">
+@section('content')
     <div class="container mx-auto py-10">
         <div class="max-w-md mx-auto bg-white rounded-lg shadow-md overflow-hidden">
             <div class="p-6">
@@ -45,5 +25,4 @@
             </div>
         </div>
     </div>
-</body>
-</html>
+@endsection

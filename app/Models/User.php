@@ -58,7 +58,7 @@ class User extends Authenticatable
     }
     public function dogs(): HasMany
     {
-        return $this->hasMany(Dog::class);
+        return $this->hasMany(Dog::class, 'proprietaire_id');
     }
     public function prestationsAsproprietaire(): HasMany
     {

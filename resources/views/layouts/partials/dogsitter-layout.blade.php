@@ -1,4 +1,4 @@
-@extends('layouts.debartLayout')
+@extends('layouts.depart-layout')
 
 @section('barre')
     <nav class="container mx-auto flex items-center justify-between">

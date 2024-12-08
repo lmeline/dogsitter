@@ -99,6 +99,6 @@ class RegisteredUserController extends Controller
 
         Auth::login($user);
 
-        return redirect(route('dogsitters.accueilDogsitter', Auth::user()));
+        return redirect(route('dogsitters.PageAccueilDogsitter', Auth::user()));
     }
 }

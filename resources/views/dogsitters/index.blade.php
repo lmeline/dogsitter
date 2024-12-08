@@ -1,4 +1,4 @@
-@extends('layouts.debartLayout')
+@extends('layouts.depart-layout')
 
 @section('content')
 

@@ -1,34 +1,9 @@
-@extends('layouts.defaultLayout')
+@extends('layouts.partials.default-layout')
 
 @section('content')
 
-    <!-- Bandeau de navigation -->
-    <header class="bg-blue-600 text-white p-4 shadow-md">
-        <div class="container mx-auto flex justify-between items-center">
-            <!-- Logo / Titre du site -->
-            <div class="text-2xl font-bold">
-                Dogsitter
-            </div>
-            <!-- Liens de navigation -->
-            <nav>
-                <ul class="flex space-x-8">
-                    <li>
-                        <a href="/dashboard" class="hover:text-gray-300">Accueil</a>
-                    </li>
-                    <li>
-                        <a href="/profilusers" class="hover:text-gray-300">Trouvez son dogsitter</a>
-                    </li>
-                    <li>
-                        <a href="/messages" class="hover:text-gray-300">Messages</a>
-                    </li>
-                </ul>
-            </nav>
-        </div>
-    </header>
-
-    <!-- Contenu de la page -->
     <div class="container mx-auto py-10">
-        <h1 class="text-4xl font-bold text-center text-blue-700 mb-10">Liste des propriétaires</h1>
+        <h1 class="text-4xl font-bold text-center  mb-10">Liste des propriétaires</h1>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             @foreach ($proprietaires->where('role', 'proprietaire') as $proprietaire)

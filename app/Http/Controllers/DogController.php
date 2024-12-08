@@ -59,10 +59,10 @@ class DogController extends Controller
         'age' => $request->age,
         'poids' => $request->poids,
         'sexe' => $request->sexe,
-        'comportement' => $request->comportement ?? '', // Si la description est vide, mettre une chaîne vide
-        'besoins_speciaux' => $request->besoins_speciaux ?? '', // Idem pour les besoins spéciaux
+        'comportement' => $request->comportement ?? '', 
+        'besoins_speciaux' => $request->besoins_speciaux ?? '', 
         'sterilise' => $request->sterilise ? true : false,
-        'proprietaire_id' => Auth::id(), // Utiliser l'ID de l'utilisateur connecté
+        'proprietaire_id' => Auth::id(),
     ]);
 
  
