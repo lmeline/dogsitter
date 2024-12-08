@@ -14,7 +14,7 @@ Route::get('/dashboard', function () {
 
 Route::get('/dogsitter/accueil', function () {
     return view('dogsitters.PageAccueilDogsitter');
-})->middleware(['auth', 'verified'])->name('dogsitters.accueilDogsitter');
+})->middleware(['auth', 'verified'])->name('dogsitters.PageAccueilDogsitter');
 
 Route::get('/proprietaire/accueil', function () {
     return view('proprietaires.PageAccueilProprietaire');
@@ -28,6 +28,9 @@ Route::get('/proprietaire/trouvezsondogsitter', function () {
     return view('proprietaires.trouvezSonDogsitter');
 })->middleware(['auth', 'verified'])->name('proprietaires.trouvezSonDogsitter');
 
+Route::get('/pageprofil', function () {
+    return view('profile');
+})->middleware(['auth', 'verified'])->name('profile');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -46,6 +49,8 @@ route::get('/dogsitters/{id}',[ProfilDogsitterController::class,'show'])->name('
 
 route::get('/proprietaires',[ProprietaireController::class,'index'])->name('proprietaires.index');
 route::get('/proprietaires/{id}',[ProprietaireController::class,'show'])->name('proprietaires.show');
+
+
 
 route::get('/', function (){
     return view('index');

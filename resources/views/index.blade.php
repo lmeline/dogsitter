@@ -44,7 +44,7 @@
         
                             <!-- Localisation -->
                             <div class="flex justify-between items-center">
-                                <label for="location" class="text-lg font-semibold w-1/4">Location</label>
+                                <label for="location" class="text-lg font-semibold w-1/4">Localisation</label>
                                 <input 
                                     type="text" 
                                     id="location" 

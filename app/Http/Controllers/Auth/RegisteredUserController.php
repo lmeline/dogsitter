@@ -76,6 +76,7 @@ class RegisteredUserController extends Controller
             'experience' => ['required', 'string', 'max:255'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
             'date_naissance' => ['required','date','before:18 year ago'],
+            'description' => ['required','string','max:255'],
            
         ]);
 
@@ -93,6 +94,7 @@ class RegisteredUserController extends Controller
             'ville' => $request->ville,
             'experience' => $request->experience,
             'password' => Hash::make($request->password),
+            'description' => $request->description,
         ]);
 
         event(new Registered($user));

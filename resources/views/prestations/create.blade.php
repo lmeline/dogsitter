@@ -1,20 +1,13 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Prise de Rendez-vous </title>
-    <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="bg-gray-100">
+@extends('layouts.partials.default-layout')
+@section('content')
     <div class="container mx-auto py-10">
-        <h1 class="text-4xl font-bold text-center text-blue-700 mb-10">Prise de Rendez-vous {{ $dogsitter->name }}</h1>
+        <h1 class="text-4xl font-bold text-center text-black mb-10">Prise de Rendez-vous {{ $dogsitter->name }}</h1>
 
         <!-- Formulaire de rendez-vous -->
-        <form action="#" method="POST" class="bg-white p-8 rounded-lg shadow-md max-w-lg mx-auto" id="appointment-form">
+        <form action="#" method="POST" class="bg-green p-8 rounded-lg shadow-md max-w-lg mx-auto" id="appointment-form">
             <div class="mb-6">
                 <label for="date" class="block text-gray-700 font-bold mb-2">Date du rendez-vous</label>
-                <input type="date" id="date" name="date" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500" required>
+                <input type="date" id="date" name="date" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-gray-500" required>
             </div>
 
             <div class="mb-6">
@@ -45,7 +38,7 @@
             <!-- Choix du chien -->
             <div class="mb-6">
                 <label for="chien" class="block text-gray-700 font-bold mb-2">Choix du chien</label>
-                <select id="chien" name="chien" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500" required>
+                <select id="chien" name="chien" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-green" required>
                     <option value="">Sélectionner un chien</option>
                     @foreach($proprietaire->dogs as $dog)
                         <option value="">{{ $dog->nom }}</option>
@@ -55,7 +48,7 @@
 
             <!-- Bouton de soumission -->
             <div class="text-center">
-                <button type="submit" class="bg-blue-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors duration-300">
+                <button type="submit" class="bg-gris text-white font-bold py-2 px-4 rounded-lg hover:bg-pink transition-colors duration-300">
                     Prendre Rendez-vous
                 </button>
             </div>
@@ -101,5 +94,4 @@
             }
         }
     </script>
-</body>
-</html>
+@endsection
