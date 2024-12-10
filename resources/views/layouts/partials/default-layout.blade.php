@@ -53,7 +53,7 @@
     <!-- Footer -->
     <footer class="bg-black text-white py-6">
         <div class="container mx-auto text-center">
-            <p>&copy; 2024 MyWebsite. Tous droits réservés.</p>
+            <p>&copy; 2024 Patte à patte. Tous droits réservés.</p>
         </div>
     </footer>
 

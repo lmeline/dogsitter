@@ -48,7 +48,7 @@
 
             <!-- Bouton de soumission -->
             <div class="text-center">
-                <button type="submit" class="bg-gris text-white font-bold py-2 px-4 rounded-lg hover:bg-pink transition-colors duration-300">
+                <button type="submit" class="bg-gris text-black py-3 px-6 rounded-lg font-semibold hover:bg-pink transition-colors duration-300">
                     Prendre Rendez-vous
                 </button>
             </div>

@@ -18,7 +18,7 @@
                 <div class="flex flex-col lg:flex-row items-center lg:items-start lg:space-x-8">
                     <!-- Image -->
                     <div class="w-full lg:w-1/3 mb-8 lg:mb-0">
-                        <img src="{{ asset('images/test.jpg') }}" alt="Dog Sitting" class="w-full rounded-lg">
+                        <img src="{{ asset('images/pax.jpg') }}" alt="Dog Sitting" class="w-full rounded-lg">
                     </div>
         
                     <!-- Contenu Formulaire -->
@@ -197,7 +197,7 @@
         </div>
     </section>
     
-    <section class="py-5 bg-green">
+    <section class="py-5 bg-gray-600 text-white">
         <div class="container mx-auto">
             <h2 class="text-4xl font-bold text-center mb-5">Nos Informations et Services</h2>
             
@@ -243,10 +243,10 @@
             <div class="text-center mt-4">
                 <h3 class="text-xl font-bold mb-4">Réseaux sociaux et communauté</h3>
                 <div class="flex justify-center space-x-2">
-                    <a href="#" aria-label="Facebook"><img src="path/to/facebook-icon.svg" alt="Facebook" class="w-6 h-6"></a>
-                    <a href="#" aria-label="Instagram"><img src="path/to/instagram-icon.svg" alt="Instagram" class="w-6 h-6"></a>
-                    <a href="#" aria-label="Twitter"><img src="path/to/twitter-icon.svg" alt="Twitter" class="w-6 h-6"></a>
-                    <a href="#" aria-label="LinkedIn"><img src="path/to/linkedin-icon.svg" alt="LinkedIn" class="w-6 h-6"></a>
+                    <a href="#" aria-label="Facebook"><img src="{{ asset('images/facebook_logo.png') }}" alt="Facebook" class="w-6 h-6"></a>
+                    <a href="#" aria-label="Instagram"><img src="{{ asset('images/instagram_logo.jpg') }}" alt="Instagram" class="w-6 h-6"></a>
+                    {{-- <a href="#" aria-label="Twitter"><img src="{{ asset('images/linkedIn_logo.png') }}" alt="Twitter" class="w-6 h-6"></a> --}}
+                    <a href="#" aria-label="LinkedIn"><img src="{{ asset('images/linkedIn_logo.png') }}" alt="LinkedIn" class="w-6 h-6"></a>
                 </div>
             </div>
         </div>
