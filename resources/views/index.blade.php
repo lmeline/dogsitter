@@ -243,10 +243,10 @@
             <div class="text-center mt-4">
                 <h3 class="text-xl font-bold mb-4">Réseaux sociaux et communauté</h3>
                 <div class="flex justify-center space-x-2">
-                    <a href="#" aria-label="Facebook"><img src="{{ asset('images/facebook_logo.png') }}" alt="Facebook" class="w-6 h-6"></a>
-                    <a href="#" aria-label="Instagram"><img src="{{ asset('images/instagram_logo.jpg') }}" alt="Instagram" class="w-6 h-6"></a>
+                    <a href="https://www.facebook.com/loise.meline" aria-label="Facebook"><img src="{{ asset('images/facebook_logo.png') }}" alt="Facebook" class="w-6 h-6"></a>
+                    <a href="https://www.instagram.com/loise.mln" aria-label="Instagram"><img src="{{ asset('images/instagram_logo.jpg') }}" alt="Instagram" class="w-6 h-6"></a>
                     {{-- <a href="#" aria-label="Twitter"><img src="{{ asset('images/linkedIn_logo.png') }}" alt="Twitter" class="w-6 h-6"></a> --}}
-                    <a href="#" aria-label="LinkedIn"><img src="{{ asset('images/linkedIn_logo.png') }}" alt="LinkedIn" class="w-6 h-6"></a>
+                    <a href="https://www.linkedin.com/in/loïse-meline-777830271/" aria-label="LinkedIn"><img src="{{ asset('images/linkedIn_logo.png') }}" alt="LinkedIn" class="w-6 h-6"></a>
                 </div>
             </div>
         </div>
