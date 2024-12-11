@@ -201,7 +201,7 @@
         <div class="container mx-auto">
             <h2 class="text-4xl font-bold text-center mb-5">Nos Informations et Services</h2>
             
-            <div class="flex flex-wrap justify-between space-y-4 md:space-y-0">
+            <div class="flex flex-wrap justify-between space-y-4 md:space-y-0 text-center">
                 <!-- Informations légales et politiques -->
                 <ul class="flex-1 p-4">
                     <h3 class="text-xl font-bold mb-4">Informations légales et politiques</h3>
@@ -213,7 +213,7 @@
     
                 <!-- Aide et support -->
                 <ul class="flex-1 p-4">
-                    <h3 class="text-xl font-bold mb-4">Aide et support</h3>
+                    <h3 class="text-xl font-bold mb-11">Aide et support</h3>
                     <li><a href="#" class="hover:underline">Contact</a></li>
                     <li><a href="#" class="hover:underline">Aide / FAQ</a></li>
                     <li><a href="#" class="hover:underline">Plan du site</a></li>
@@ -222,7 +222,7 @@
     
                 <!-- À propos de l'entreprise -->
                 <ul class="flex-1 p-4">
-                    <h3 class="text-xl font-bold mb-4">À propos de l'entreprise</h3>
+                    <h3 class="text-xl font-bold mb-11">À propos de l'entreprise</h3>
                     <li><a href="#" class="hover:underline">À propos / Qui sommes-nous ?</a></li>
                     <li><a href="#" class="hover:underline">Carrières / Recrutement</a></li>
                     <li><a href="#" class="hover:underline">Presse / Partenaires</a></li>
@@ -231,7 +231,7 @@
     
                 <!-- Contenu et actualités -->
                 <ul class="flex-1 p-4">
-                    <h3 class="text-xl font-bold mb-4">Contenu et actualités</h3>
+                    <h3 class="text-xl font-bold mb-11">Contenu et actualités</h3>
                     <li><a href="#" class="hover:underline">Blog / Actualités</a></li>
                     <li><a href="#" class="hover:underline">Newsletter</a></li>
                     <li><a href="#" class="hover:underline">Conseils pour les propriétaires de chiens</a></li>
@@ -240,15 +240,15 @@
             </div>
     
             <!-- Réseaux sociaux -->
-            <div class="text-center mt-4">
+            {{-- <div class="text-center mt-4">
                 <h3 class="text-xl font-bold mb-4">Réseaux sociaux et communauté</h3>
                 <div class="flex justify-center space-x-2">
                     <a href="https://www.facebook.com/loise.meline" aria-label="Facebook"><img src="{{ asset('images/facebook_logo.png') }}" alt="Facebook" class="w-6 h-6"></a>
                     <a href="https://www.instagram.com/loise.mln" aria-label="Instagram"><img src="{{ asset('images/instagram_logo.jpg') }}" alt="Instagram" class="w-6 h-6"></a>
-                    {{-- <a href="#" aria-label="Twitter"><img src="{{ asset('images/linkedIn_logo.png') }}" alt="Twitter" class="w-6 h-6"></a> --}}
+                    {{-- <a href="#" aria-label="Twitter"><img src="{{ asset('images/linkedIn_logo.png') }}" alt="Twitter" class="w-6 h-6"></a> 
                     <a href="https://www.linkedin.com/in/loïse-meline-777830271/" aria-label="LinkedIn"><img src="{{ asset('images/linkedIn_logo.png') }}" alt="LinkedIn" class="w-6 h-6"></a>
                 </div>
-            </div>
+            </div> --}}
         </div>
     </section>
 @endsection

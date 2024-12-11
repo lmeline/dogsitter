@@ -3,8 +3,8 @@
     <div x-data="{proprietaire: {{$proprietaire}}}">
 
         <div class="flex items-center justify-evenly mt-4 w-full">
-            <button @click="proprietaire = true" type="button" class="text-gray dark:text-gray hover:bg-gray-300 dark:hover:bg-gray focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray rounded-lg text-sm p-2.5" :class="proprietaire ? 'bg-gray-200 dark:bg-gray' : ''"> proprietaire</button>
-            <button @click="proprietaire = false" type="button" class="text-gray dark:text-gray hover:bg-gray-300 dark:hover:bg-gray focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray rounded-lg text-sm p-2.5" :class="proprietaire ? '' : 'bg-gray-200 dark:bg-gray'"> dogsitter</button>
+            <button @click="proprietaire = true" type="button" class="text-gray dark:text-white hover:bg-gray-300 dark:hover:bg-pink focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray rounded-lg text-sm p-2.5" :class="proprietaire ? 'bg-gray-200 dark:bg-pink' : ''"> proprietaire</button>
+            <button @click="proprietaire = false" type="button" class="text-gray dark:text-white hover:bg-gray-300 dark:hover:bg-pink focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray rounded-lg text-sm p-2.5" :class="proprietaire ? '' : 'bg-gray-200 dark:bg-pink'"> dogsitter</button>
         </div>
         
         <form x-show="proprietaire" method="POST" action="{{ route('register') }}">
@@ -89,7 +89,7 @@
             </div>
 
             <div class="flex items-center justify-end mt-4">
-                <a class="underline text-sm text-gray dark:text-gray hover:text-gray dark:hover:text-gray rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray" href="{{ route('login') }}">
+                <a class="underline text-sm text-gray dark:text-white hover:text-gray dark:hover:text-white rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray" href="{{ route('login') }}">
                     {{ __('Already registered?') }}
                 </a>
 
@@ -194,7 +194,7 @@
             </div>
 
             <div class="flex items-center justify-end mt-4">
-                <a class="underline text-sm text-gray dark:text-gray hover:text-gray dark:hover:text-gray rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray" href="{{ route('login') }}">
+                <a class="underline text-sm text-gray dark:text-white hover:text-gray dark:hover:text-white rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray" href="{{ route('login') }}">
                     {{ __('Already registered?') }}
                 </a>
 
