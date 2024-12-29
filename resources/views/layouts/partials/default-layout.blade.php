@@ -7,14 +7,14 @@
     <title>@yield('title')</title>
     @vite('resources/css/app.css')
 </head>
-<body class="flex flex-col bg-gris text-black min-h-screen">
+<body class="flex flex-col text-black min-h-screen">
 
     <!-- header -->
-    <header class="text-black sticky top-0 z-50 shadow-md bg-slate-600 bg-opacity-80">
+    <header class="text-black sticky top-0 z-50 shadow-md bg-gray">
         <nav class="container mx-auto flex items-center justify-between p-4">
             <!-- Logo -->
             <div class="text-2xl font-bold">
-                <a href="{{ route('index') }}" class="text-white hover:text-green transition duration-300">
+                <a href="{{ route('index') }}" class="text-black hover:text-green transition duration-300">
                     Patte à patte
                 </a>
             </div>
@@ -34,10 +34,10 @@
     <!-- Action Buttons pour les non-connectés -->
             @guest
             <div class="flex gap-4">
-                <a href="{{ route('register') }}?proprietaire=true" class="bg-gray hover:bg-green text-white py-2 px-4 rounded-lg transition duration-300">
+                <a href="{{ route('register') }}?proprietaire=true" class="bg-gray hover:bg-green text-black py-2 px-4 rounded-lg transition duration-300">
                     S'inscrire
                 </a>
-                <a href="{{ route('login') }}" class="bg-gray hover:bg-green text-white py-2 px-4 rounded-lg transition duration-300">
+                <a href="{{ route('login') }}" class="bg-gray hover:bg-green text-black py-2 px-4 rounded-lg transition duration-300">
                     Se connecter
                 </a>
             </div>

@@ -13,12 +13,10 @@ export default {
     theme: {
         extend: {
             fontFamily: {
-                sans: ['Figtree', ...defaultTheme.fontFamily.sans],
-            },
+                sans: ['Annie Use Your Telescope', ...defaultTheme.fontFamily.sans],
+              },
             colors: {
-                'pink': '#d6c9c9',
-                'green': '#bbcac1',
-                'gris': '#d9d9d9'
+              
             },
         },
     },

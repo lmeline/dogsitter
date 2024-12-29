@@ -1,66 +1,201 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+@extends('layouts.partials.default-layout')
+@section('title', 'Bienvenue sur Patte à Patte')
+@section('content')
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+<!-- Hero Section -->
+<section class="bg-gradient-to-r from-pink-100 via-yellow-100 to-orange-100 text-black py-20 text-gris">
+    <div class="container mx-auto">
+        <!-- Titre Principal -->
+        <div class="text-center text-black mb-12">
+            <h1 class="text-5xl font-bold mb-4">Bienvenue sur Patte à Patte</h1>
+            <p class="text-xl">
+                Le Dog Sitting de Confiance pour Votre Compagnon à Quatre Pattes <br>
+                Votre chien mérite les meilleurs soins, même en votre absence.
+            </p>
+        </div>
 
-## About Laravel
+        <!-- Conteneur Principal -->
+        <div class="flex flex-col lg:flex-row items-center lg:items-start lg:space-x-8">
+            <!-- Image -->
+            <div class="w-full lg:w-1/3 mb-8 lg:mb-0">
+                <img src="{{ asset('images/pax.jpg') }}" alt="Dog Sitting" class="w-full rounded-lg shadow-md">
+            </div>
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+            <!-- Contenu Formulaire -->
+            <div class="w-full lg:w-2/3 text-black rounded-lg">
+                <!-- Rejoignez notre communauté -->
+                <div class="bg-white p-6 bg-gray-100 shadow-md p-8 rounded-md mt-12">
+                    <h2 class="text-3xl font-bold text-black mb-4 text-center">Rejoignez notre communauté</h2>
+                    <p class="text-lg text-black mb-6">
+                        Que vous soyez un propriétaire cherchant les meilleurs soins pour votre animal
+                        ou un dogsitter passionné prêt à offrir vos services, inscrivez-vous dès aujourd'hui !
+                    </p>
+                    <div class="flex justify-center space-x-4">
+                        <a href="{{ route('register') }}?proprietaire=true"
+                            class="px-6 py-3 bg-red-300 text-white text-lg font-bold rounded-lg shadow-lg hover:bg-red-200 focus:outline-none focus:ring-4 focus:ring-red-100 focus:ring-opacity-75 transition duration-300">
+                            Je suis propriétaire
+                        </a>
+                        <a href="{{ route('register') }}?proprietaire=false"
+                            class="px-6 py-3 bg-green-300 text-white text-lg font-bold rounded-lg shadow-lg hover:bg-green-200 focus:outline-none focus:ring-4 focus:ring-green-100 focus:ring-opacity-75 transition duration-300">
+                            Je suis dogsitter
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+<!-- Features Section -->
+<section class="py-16 bg-gradient-to-r from-yellow-100 via-pink-100 to-orange-100 bg-opacity-60">
+    <div class="container mx-auto">
+        <h4 class="text-center mb-12 text-3xl text-gray-800">
+            Chez <strong>Patte à patte</strong>, nous savons qu’il est difficile de laisser votre chien. C’est pourquoi nous proposons un dog-sitting personnalisé et sécurisé, pour que vous partiez sereinement, votre compagnon bien pris en charge !
+        </h4>
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+        <!-- Propriétaire -->
+        <div class="p-6 rounded-lg shadow-lg text-center w-full mb-8 bg-white">
+            <h3 class="text-2xl font-semibold mb-4 text-red-400">Propriétaire</h3>
+            <p class="text-gray-600">
+                Parce que le bien-être de votre chien est notre priorité, confiez-le à un dog sitter attentionné qui veille à ses besoins, à son confort, et à son équilibre émotionnel.
+                Qu'il s'agisse de promenades stimulantes, de jeux ou de moments de calme, votre compagnon bénéficiera d’un environnement sécurisé et bienveillant, comme s’il était chez vous.
+            </p>
+        </div>
 
-## Learning Laravel
+        <!-- Dogsitter -->
+        <div class="p-6 rounded-lg shadow-lg text-center w-full bg-white">
+            <h3 class="text-2xl font-semibold mb-4 text-green-400">Dogsitter</h3>
+            <p class="text-gray-600 mb-4">
+                Vous adorez les chiens et souhaitez un métier qui vous passionne ? Devenez dog sitter et profitez d’une activité flexible et enrichissante.
+                Offrez des soins, de l'attention et des moments de joie aux chiens tout en gagnant la confiance de leurs propriétaires.
+                Faites de votre amour pour les animaux un véritable atout au quotidien !
+            </p>
+        </div>
+    </div>
+</section>
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+<!-- How it works Section -->
+<section class="py-16 bg-gradient-to-r from-pink-100 via-yellow-100 to-orange-100">
+    <div class="container mx-auto">
+        <h2 class="text-4xl font-bold text-center mb-12 text-white">Comment ça fonctionne ?</h2>
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <!-- Feature 1 -->
+            <div class="bg-white p-6 rounded-lg shadow-lg text-center">
+                <h3 class="text-2xl font-semibold mb-4 text-red-300">Créer votre profil gratuitement</h3>
+                <p class="text-gray-600 mb-4"> Inscrivez-vous en quelques minutes, complétez les informations sur votre chien, et découvrez les dog sitters disponibles près de chez vous.</p>
+            </div>
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+            <!-- Feature 2 -->
+            <div class="bg-white p-6 rounded-lg shadow-lg text-center">
+                <h3 class="text-2xl font-semibold mb-4 text-gray-400">Choississez votre dogsitter</h3>
+                <p class="text-gray-600 mb-4">Parcourez les profils détaillés des dog sitters, lisez les avis d’autres propriétaires, et sélectionnez celui qui correspond le mieux aux besoins de votre compagnon.</p>
+            </div>
 
-## Laravel Sponsors
+            <!-- Feature 3 -->
+            <div class="bg-white p-6 rounded-lg shadow-lg text-center">
+                <h3 class="text-2xl font-semibold mb-4 text-green-300">Reservez et partez l'esprit tranquille</h3>
+                <p class="text-gray-600 mb-4">Planifiez les dates, échangez avec le dog sitter, et suivez les mises à jour en temps réel pendant la garde, tout en bénéficiant de notre assurance et de notre assistance 24h/24.</p>
+            </div>
+        </div>
+    </div>
+</section>
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+<!-- Subscriptions Section -->
+<section class="py-16 bg-gradient-to-r from-orange-100 via-pink-100 to-yellow-100">
+    <div class="container mx-auto">
+        <h2 class="text-4xl font-bold text-center mb-12 text-gray-800">Nos Abonnements</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <!-- Subscription 1 -->
+            <div class="bg-white p-6 rounded-lg shadow-lg text-left">
+                <h3 class="text-2xl font-semibold mb-4 text-center text-red-300">Abonnement Standard</h3>
+                <ul class="mb-4">
+                    <li class="font-semibold">Mensuel: <span class="font-normal">29 € par mois</span></li>
+                    <li class="font-semibold">Annuel: <span class="font-normal">290 € par an (2 mois offerts)</span></li>
+                </ul>
+                <ul class="space-y-2">
+                    <li class="font-semibold">Services inclus:</li>
+                    <li>- Profil complet avec photo, description, et avis clients</li>
+                    <li>- 10 annonces actives pour des services (garde, promenade)</li>
+                    <li>- Visibilité standard dans les résultats de recherche</li>
+                    <li>- Accès aux statistiques de base (visites de profil, clics)</li>
+                    <li>- Réception d'avis et évaluations clients</li>
+                </ul>
+            </div>
 
-### Premium Partners
+            <!-- Subscription 2 -->
+            <div class="bg-white p-6 rounded-lg shadow-lg text-left">
+                <h3 class="text-2xl font-semibold mb-4 text-center text-green-300">Abonnement Premium</h3>
+                <ul class="mb-4">
+                    <li class="font-semibold">Mensuel: <span class="font-normal">59 € par mois</span></li>
+                    <li class="font-semibold">Annuel: <span class="font-normal">590 € par an (2 mois offerts)</span></li>
+                </ul>
+                <ul class="space-y-2">
+                    <li class="font-semibold">Services inclus:</li>
+                    <li>- Profil optimisé avec galerie de photos, vidéos, et recommandations</li>
+                    <li>- Annonces illimitées pour proposer tous types de services</li>
+                    <li>- Visibilité maximale avec mise en avant dans les résultats de recherche</li>
+                    <li>- Badge "Dog Sitter Vérifié" (après vérification des références)</li>
+                    <li>- Promotion via newsletters et réseaux sociaux</li>
+                    <li>- Accès à des outils de marketing et campagnes publicitaires</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+<!-- Footer Section -->
+<section class="py-5 bg-gradient-to-r from-pink-100 via-orange-100 to-yellow-100 text-white">
+    <div class="container mx-auto">
+        <h2 class="text-4xl font-bold text-center mb-5">Nos Informations et Services</h2>
 
-## Contributing
+        <div class="flex flex-wrap justify-between space-y-4 md:space-y-0">
+            <!-- Informations légales et politiques -->
+            <ul class="flex-1 p-4">
+                <h3 class="text-xl font-bold mb-4">Informations légales et politiques</h3>
+                <li><a href="#" class="hover:underline">Mentions légales</a></li>
+                <li><a href="#" class="hover:underline">Conditions générales d'utilisation (CGU)</a></li>
+                <li><a href="#" class="hover:underline">Politique de confidentialité</a></li>
+                <li><a href="#" class="hover:underline">Politique de cookies</a></li>
+            </ul>
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+            <!-- Aide et support -->
+            <ul class="flex-1 p-4">
+                <h3 class="text-xl font-bold mb-4">Aide et support</h3>
+                <li><a href="#" class="hover:underline">Contact</a></li>
+                <li><a href="#" class="hover:underline">Aide / FAQ</a></li>
+                <li><a href="#" class="hover:underline">Plan du site</a></li>
+                <li><a href="#" class="hover:underline">Nous contacter</a></li>
+            </ul>
 
-## Code of Conduct
+            <!-- À propos de l'entreprise -->
+            <ul class="flex-1 p-4">
+                <h3 class="text-xl font-bold mb-4">À propos de l'entreprise</h3>
+                <li><a href="#" class="hover:underline">À propos / Qui sommes-nous ?</a></li>
+                <li><a href="#" class="hover:underline">Carrières / Recrutement</a></li>
+                <li><a href="#" class="hover:underline">Presse / Partenaires</a></li>
+                <li><a href="#" class="hover:underline">Devenir dog sitter</a></li>
+            </ul>
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+            <!-- Contenu et actualités -->
+            <ul class="flex-1 p-4">
+                <h3 class="text-xl font-bold mb-4">Contenu et actualités</h3>
+                <li><a href="#" class="hover:underline">Blog / Actualités</a></li>
+                <li><a href="#" class="hover:underline">Newsletter</a></li>
+                <li><a href="#" class="hover:underline">Conseils pour les propriétaires de chiens</a></li>
+                <li><a href="#" class="hover:underline">Avis clients</a></li>
+            </ul>
+        </div>
 
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+        <!-- Réseaux sociaux -->
+        <div class="text-center mt-4">
+            <h3 class="text-xl font-bold mb-4">Réseaux sociaux et communauté</h3>
+            <div class="flex justify-center space-x-2">
+                <a href="#" aria-label="Facebook"><img src="{{ asset('images/facebook_logo.png') }}" alt="Facebook" class="w-6 h-6"></a>
+                <a href="#" aria-label="Instagram"><img src="{{ asset('images/instagram_logo.jpg') }}" alt="Instagram" class="w-6 h-6"></a>
+                <a href="#" aria-label="LinkedIn"><img src="{{ asset('images/linkedIn_logo.png') }}" alt="LinkedIn" class="w-6 h-6"></a>
+            </div>
+        </div>
+    </div>
+</section>
+@endsection
