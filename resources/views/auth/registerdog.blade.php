@@ -4,10 +4,10 @@
         <div class="flex flex-col justify-center items-center mt-4 gap-2">
             <p class="text-2xl"> Voulez-vous ajouter votre chien ?  </p>
             <div class="flex gap-2">
-                <a href="{{ route('dashboard') }}"  class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ">
+                <a href="{{ route('dashboard') }}"  class="bg-red-600 hover:bg-red-400 text-white font-bold py-2 px-4 rounded ">
                     Passez cette étape
                 </a>
-                <button @click="open = true" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded "> Ajouter un chien</button>
+                <button @click="open = true" class="bg-orange-600 hover:bg-orange-400 text-white font-bold py-2 px-4 rounded "> Ajouter un chien</button>
             </div>
            
         </div>
@@ -20,15 +20,15 @@
             <div class="flex w-full gap-2 mt-4">
                 <div>
                 <x-input-label for="nom" :value="__('Nom')" />
-                <x-text-input id="nom" class="block mt-1 w-full" type="text" name="nom" :value="old('nom')" required autofocus autocomplete="nom" />
+                <x-text-input id="nom" class="block mt-1 w-full border border-red-300 focus:ring-red-500 focus:border-red-500 rounded" type="text" name="nom" :value="old('nom')" required autofocus autocomplete="nom" />
                 <x-input-error :messages="$errors->get('nom')" class="mt-2" />
                 </div>
     
                 <div>
                     <x-input-label for="race" :value="__('Race de chien')" />
                 
-                    <select id="race" name="race" class="block w-full mt-1 border-black-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-black-900 dark:border-black-700">
-                        <option value="">-- Choisissez une race --</option>
+                    <select id="race" name="race" class="block mt-1 w-full rounded border border-red-300 focus:ring-red-500 focus:border-red-500">
+                        <option value="">- Choisissez une race -</option>
                         <option value="Labrador Retriever">Labrador Retriever</option>
                         <option value="Berger Allemand">Berger Allemand</option>
                         <option value="Golden Retriever">Golden Retriever</option>
@@ -99,7 +99,7 @@
             <div class="mt-4">
                 <x-input-label for="age" :value="__('Age')" />
                 
-                <select id="age" name="age" class="block mt-1 w-full border-black-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                <select id="age" name="age" class="block mt-1 w-full border border-orange-300 focus:ring-orange-500 focus:border-orange-500 rounded-md">
                     @for ($i = 1; $i <= 25; $i++)
                         <option value="{{ $i }}" {{ old('age') == $i ? 'selected' : '' }}>
                             {{ $i }} an{{ $i > 1 ? 's' : '' }}
@@ -113,7 +113,7 @@
             <div class="mt-4">
                 <x-input-label for="poids" :value="__('Poids')" />
                 
-                <select id="poids" name="poids" class="block mt-1 w-full border-black-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                <select id="poids" name="poids" class="block mt-1 w-full border border-yellow-300 focus:ring-yellow-500 focus:border-yellow-500 rounded-md">
                     @for ($i = 1; $i <= 70; $i++)
                         <option value="{{ $i }}" {{ old('poids') == $i ? 'selected' : '' }}>
                             {{ $i }} kg
@@ -127,21 +127,21 @@
     
             <div class="mt-4">
                 <x-input-label for="comportement" :value="__('Comportement')" />
-                <textarea id="comportement" name="comportement" rows="4" class="block mt-1 w-full border-black-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-black-900 dark:border-black-700" autocomplete="comportement">{{ old('comportement') }}</textarea>
+                <textarea id="comportement" name="comportement" rows="4" class="block mt-1 w-full border border-pink-300 focus:ring-pink-500 focus:border-pink-500 rounded-md" autocomplete="comportement">{{ old('comportement') }}</textarea>
                 <x-input-error :messages="$errors->get('comportement')" class="mt-2" />
             </div>
             
             <div class= "mt-4">
                 
                 <x-input-label for="besoins_speciaux" :value="__('Besoin Spéciaux')" />
-                <textarea id="besoins_speciaux" name="besoins_speciaux" rows="4" class="block mt-1 w-full border-black-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-black-900 dark:border-black-700" autofocus autocomplete="besoin_speciaux">{{ old('besoin_speciaux') }}</textarea>
+                <textarea id="besoins_speciaux" name="besoins_speciaux" rows="4" class="block mt-1 w-full border border-pink-300 focus:ring-pink-500 focus:border-pink-500 rounded-md" autofocus autocomplete="besoin_speciaux">{{ old('besoin_speciaux') }}</textarea>
                 <x-input-error :messages="$errors->get('besoins_speciaux')" class="mt-2" />
             </div>
             
     
             <div>
                 <x-input-label for="sexe" :value="__('Sexe')" />
-                <select id="sexe" class="block mt-1 w-full" type="text" name="sexe" :value="old('sexe')" required autofocus autocomplete="sexe">
+                <select id="sexe" class="block mt-1 w-full border border-red-300 focus:ring-red-500 focus:border-red-500 rounded-md" type="text" name="sexe" :value="old('sexe')" required autofocus autocomplete="sexe">
                     <option value="M" {{ old('sexe') == 'M' ? 'selected' : '' }}>Male</option>
                     <option value="F" {{ old('sexe') == 'F' ? 'selected' : '' }}>Femelle</option>
                 </select>
@@ -149,12 +149,12 @@
             </div>
         
             <div class="block mt-4">
-                    <input id="sterilise" type="checkbox" name="sterilise">
+                    <input id="sterilise" type="checkbox" name="sterilise" >
             </div>
             
 
             <div class="mt-4">
-                <button class="mx-4 px-4 py-2 bg-blue-600 text-white font-semibold rounded-md shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 transition duration-200 ease-in-out">
+                <button class="mx-4 px-4 py-2 bg-yellow-600 text-white font-semibold rounded-md shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 transition duration-200 ease-in-out">
                 {{ __('Register') }}
                 </button>
 

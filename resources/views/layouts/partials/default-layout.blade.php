@@ -21,7 +21,7 @@
 
     <!-- Bandeau utilisateur connecté -->
             @auth
-            <div class=" text-white py-3 ">
+            <div class=" font-bold text-black py-3 ">
                 <div class="container mx-auto flex items-center justify-between">
                     <div>
                        <a href="{{ route('dashboard') }}">Bonjour, {{ Auth::user()->name }} !</a> 

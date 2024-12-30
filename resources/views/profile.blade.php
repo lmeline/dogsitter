@@ -2,7 +2,7 @@
 
 @section('content')
 <x-app-layout>
-    <div class="flex pt-10 flex-col items-center">
+    <div class="flex pt-10 flex-col items-center ">
         <!-- Bandeau supérieur -->
         <div class="bg-pink text-black py-10 w-full flex items-center">
             <!-- Photo à gauche -->

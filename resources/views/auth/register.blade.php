@@ -206,6 +206,7 @@
 
     </div>
 </x-guest-layout> --}}
+
 <x-guest-layout>
     <div x-data="{ proprietaire: true }" class="max-w-4xl mx-auto">
 

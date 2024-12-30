@@ -158,7 +158,7 @@
 <!-- Subscriptions Section -->
 <section class="py-16 bg-gradient-to-r from-orange-100 via-pink-100 to-yellow-100">
     <div class="container mx-auto">
-        <h2 class="text-4xl font-bold text-center mb-12 text-gray-800">Nos Abonnements</h2>
+        <h2 class="text-4xl font-bold text-center mb-12 text-gray-800">Nos Abonnements pour les dogsitters </h2>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
             <!-- Subscription 1 -->
             <div class="bg-white p-6 rounded-lg shadow-lg text-left">
