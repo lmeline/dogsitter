@@ -7,7 +7,7 @@
     <title>@yield('title')</title>
     @vite('resources/css/app.css')
 </head>
-<body class="flex flex-col text-black min-h-screen">
+<body class=" flex flex-col text-black min-h-screen">
 
     <!-- header -->
     <header class="text-black sticky top-0 z-50 shadow-md bg-gray">

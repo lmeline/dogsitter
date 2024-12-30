@@ -3,6 +3,8 @@
 @import 'tailwindcss/utilities';
 
 /* Par exemple dans resources/css/app.css */
+@import url('https://fonts.google.com/share?selection.family=Annie+Use+Your+Telescope');
+
 body {
     font-family: 'Annie Use Your Telescope', sans-serif;
 }

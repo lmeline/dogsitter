@@ -32,7 +32,7 @@
                 @endif
                
             </div>
-            <div class="hidden md:block w-px bg-gray"></div>
+            <div class="hidden md:block w-px bg-orange"></div>
             <div class="w-full md:w-1/2 bg-gris p-6 md:pl-12">
                 <h2 class="text-2xl font-semibold mb-4 text-gray-800">À propos de moi</h2>
 

@@ -1,5 +1,4 @@
 <x-guest-layout>
-    
     <div x-data="{ open: false }">
         <div class="flex flex-col justify-center items-center mt-4 gap-2">
             <p class="text-2xl"> Voulez-vous ajouter votre chien ?  </p>

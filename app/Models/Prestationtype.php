@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class PrestationType extends Model
 {
@@ -14,6 +15,11 @@ class PrestationType extends Model
     
     public function users():BelongsToMany {
         return $this->belongsToMany(User::class, 'users_prestations_types')->withPivot('prix');
+    }
+
+    public function prestations(): HasMany
+    {
+        return $this->hasMany(Prestation::class);
     }
 
 }

@@ -11,7 +11,21 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Prestation extends Model
 {
+
     use HasFactory;
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
+    protected $fillable = [
+        'date_debut',
+        'date_fin',
+        'dog_id',
+        'service_id',
+        'dogsitter_id',
+        'proprietaire_id',
+    ];
 
     public function proprietaire(): BelongsTo
     {
@@ -30,7 +44,12 @@ class Prestation extends Model
 
     public function dogs():HasMany
     {
-        return $this->hasMany(Dog::class);
+        return $this->hasMany(Dog::class,'prestations_dogs');
+    }
+
+    public function service(): BelongsTo
+    {
+        return $this->belongsTo(PrestationType::class, 'service_id');
     }
 }
 
