@@ -41,6 +41,7 @@ class RegisteredUserController extends Controller
             'ville' => ['required', 'string', 'max:70'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
             'date_naissance' => ['required','date','before:18 year ago'],
+            'photo' => ['required','string','max:255']
         ]);
 
         $user = User::create([
@@ -53,6 +54,7 @@ class RegisteredUserController extends Controller
             'code_postal' => $request->code_postal,
             'ville' => $request->ville,
             'password' => Hash::make($request->password),
+            'photo' => $request->photo
         ]);
 
         event(new Registered($user));
@@ -77,6 +79,7 @@ class RegisteredUserController extends Controller
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
             'date_naissance' => ['required','date','before:18 year ago'],
             'description' => ['required','string','max:255'],
+            'photo' => ['required','string','max:255']
            
         ]);
 
@@ -95,6 +98,7 @@ class RegisteredUserController extends Controller
             'experience' => $request->experience,
             'password' => Hash::make($request->password),
             'description' => $request->description,
+            'photo' => $request->photo
         ]);
 
         event(new Registered($user));

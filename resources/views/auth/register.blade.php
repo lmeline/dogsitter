@@ -286,7 +286,11 @@
                     <x-input-error :messages="$errors->get('ville')" class="mt-2" />
                 </div>
             </div>
-
+            <div class="mt-4">
+                <x-input-label for="photo" :value="__('Photo de profil')" />
+                <input type="file" id="photo" name="photo" class="block mt-1 w-full border border-pink-300 focus:ring-pink-500 focus:border-pink-500" />
+                <x-input-error :messages="$errors->get('photo')" class="mt-2" />
+            </div>
             <!-- Mot de passe -->
             <div class="mt-4">
                 <x-input-label for="password" :value="__('Password')" />
@@ -375,20 +379,28 @@
             <!-- Description de soi -->
             <div class="mt-4">
                 <x-input-label for="description" :value="__('A Propos de Moi ')" />
-                <textarea id="description" class="block mt-1 w-full border border-pink-300 focus:ring-pink-500 focus:border-pink-500" name="description" :value="old('description')" required autocomplete="description" rows="4"></textarea>
+                <textarea id="description" class="block mt-1 w-full border rounded border-pink-300 focus:ring-pink-500 focus:border-pink-500" name="description" :value="old('description')" required autocomplete="description" rows="4"></textarea>
                 <x-input-error :messages="$errors->get('description')" class="mt-2" />
             </div>
 
             <!-- Expérience avec les animaux -->
             <div class="mt-4">
                 <x-input-label for="experience" :value="__('Experience')" />
-                <textarea id="experience" class="block mt-1 w-full border border-pink-300 focus:ring-pink-500 focus:border-pink-500" name="experience" :value="old('experience')" required autocomplete="experience" rows="4"></textarea>
+                <textarea id="experience" class="block mt-1 w-full border rounded border-pink-300 focus:ring-pink-500 focus:border-pink-500" name="experience" :value="old('experience')" required autocomplete="experience" rows="4"></textarea>
                 <x-input-error :messages="$errors->get('experience')" class="mt-2" />
             </div>
+
+               <!-- Expérience avec les animaux -->
+            <div class="mt-4">
+                <x-input-label for="photo" :value="__('Photo de profil')" />
+                <input type="file" id="photo" name="photo" class="block mt-1 w-full rounded border rounded border-pink-300 focus:ring-pink-500 focus:border-pink-500" />
+                <x-input-error :messages="$errors->get('photo')" class="mt-2" />
+            </div>
+
             <!-- Mot de passe -->
             <div class="mt-4">
                 <x-input-label for="password" :value="__('Password')" />
-                <x-text-input id="password" class="block mt-1 w-full border border-red-300 focus:ring-red-500 focus:border-red-500" type="password" name="password" required autocomplete="new-password" />
+                <x-text-input id="password" class="block mt-1 w-full rounded border border-red-300 focus:ring-red-500 focus:border-red-500" type="password" name="password" required autocomplete="new-password" />
                 <x-input-error :messages="$errors->get('password')" class="mt-2" />
             </div>
 
