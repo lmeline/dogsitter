@@ -12,6 +12,10 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
+Route::get('/myprestations', function () {
+    return view('myprestations');
+})->middleware(['auth', 'verified'])->name('myprestations');
+
 Route::get('/dogsitter/accueil', function () {
     return view('dogsitters.PageAccueilDogsitter');
 })->middleware(['auth', 'verified'])->name('dogsitters.PageAccueilDogsitter');

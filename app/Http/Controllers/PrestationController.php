@@ -58,7 +58,7 @@ class PrestationController extends Controller
           'date_debut' => $request->input('date') . ' ' . $request->input('heure-debut'),
           'date_fin' => $request->input('date') . ' ' . $request->input('heure-fin'),
           'dog_id' => $request->input('dog'),
-          'service_id' => $request->input('service'),
+          'prestation_type_id' => $request->input('service'),
           'dogsitter_id' => $request->input('dogsitter_id'),
           'proprietaire_id' => Auth::id(),
       ]);

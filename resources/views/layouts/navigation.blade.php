@@ -15,6 +15,11 @@
                             {{ __('Publicite du site') }}
                         </x-nav-link>
                     </div>
+                    <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                        <x-nav-link :href="route('myprestations')" :active="request()->routeIs('myprestations')">
+                            {{ __('Mes prestations') }}
+                        </x-nav-link>
+                    </div>
                 @if (Auth::check() && Auth::user()->role === 'proprietaire')
                     <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                         <x-nav-link :href="route('proprietaires.message')" :active="request()->routeIs('proprietaires.message')">
