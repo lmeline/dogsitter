@@ -26,7 +26,7 @@
                             <td class="px-4 py-2">{{ $prestation->id }}</td>
                             <td class="px-4 py-2">{{ $prestation->proprietaire->name }}</td>
                             <td class="px-4 py-2">{{ $prestation->dogsitter->name }}</td>
-                            <td class="px-4 py-2">{{ $prestation->service ? $prestation->service->nom : 'N/A' }}</td>
+                            <td class="px-4 py-2">{{ $prestation->prestationtype ? $prestation->prestationtype->nom : 'N/A' }}</td>
                             <td class="px-4 py-2">{{ $prestation->date_debut }}</td>
                             <td class="px-4 py-2">{{ $prestation->date_fin }}</td>
                             <td class="px-4 py-2">{{ $prestation->statut }}</td>

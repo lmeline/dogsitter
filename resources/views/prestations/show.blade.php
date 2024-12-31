@@ -7,7 +7,7 @@
         <p><strong>ID:</strong> {{ $prestation->id }}</p>
         <p><strong>Propriétaire:</strong> {{ $prestation->proprietaire->name }}</p>
         <p><strong>Dogsitter:</strong> {{ $prestation->dogsitter->name }}</p>
-        <p><strong>Chien:</strong> {{ $prestation->dog->nom }}</p>
+        {{-- <p><strong>Chien:</strong> {{ $prestation->dog->nom }}</p> --}}
         <p><strong>Service:</strong> {{ $prestation->service ? $prestation->service->nom : 'N/A' }}</p>
         <p><strong>Date de début:</strong> {{ $prestation->date_debut }}</p>
         <p><strong>Date de fin:</strong> {{ $prestation->date_fin }}</p>

@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Dog;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\User;
 use App\Models\PrestationType;
@@ -22,6 +23,7 @@ class PrestationFactory extends Factory
         $proprietaires = User::where('role', 'proprietaire')->pluck('id')->toArray();
         $dogsitters = User::where('role', 'dogsitter')->pluck('id')->toArray();
         $prestations_types = PrestationType::all()->pluck('id')->toArray();
+        $dog = Dog::where('proprietaire_id', $proprietaires)->inRandomOrder()->first();
 
         return [
             'proprietaire_id' => fake()->randomElement($proprietaires),
@@ -33,7 +35,7 @@ class PrestationFactory extends Factory
             'quantite' => fake()->numberBetween(1, 100),
             'prix_total' => fake()->numberBetween(1, 100),
             'statut'=> fake()->randomElement(['en cours', 'termine', 'annule', 'en attente de paiement']),
-
+            'dog_id' => $dog ? $dog->id : null,
 
         ];
     }

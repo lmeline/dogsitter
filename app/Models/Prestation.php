@@ -47,9 +47,9 @@ class Prestation extends Model
         return $this->hasMany(Dog::class,'prestations_dogs');
     }
 
-    public function service(): BelongsTo
+    public function prestationType(): BelongsTo
     {
-        return $this->belongsTo(PrestationType::class, 'service_id');
+        return $this->belongsTo(Prestationtype::class, 'prestation_type_id');
     }
 }
 
