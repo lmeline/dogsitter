@@ -41,7 +41,7 @@ class RegisteredUserController extends Controller
             'ville' => ['required', 'string', 'max:70'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
             'date_naissance' => ['required','date','before:18 year ago'],
-            'photo' => ['required','string','max:255']
+            'photo' => ['nullable','string','max:255']
         ]);
 
         $user = User::create([
@@ -79,7 +79,7 @@ class RegisteredUserController extends Controller
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
             'date_naissance' => ['required','date','before:18 year ago'],
             'description' => ['required','string','max:255'],
-            'photo' => ['required','string','max:255']
+            'photo' => ['nullable','string','max:255']
            
         ]);
 

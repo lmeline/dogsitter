@@ -39,11 +39,10 @@ class PrestationController extends Controller
 
       // Validation des données
       $request->validate([
-          'date' => ['required', 'date'],
-          'heure-debut' => ['required', 'date_format:H:i'],
-          'heure-fin' => ['required', 'date_format:H:i', 'after:heure-debut'],
+          'date_debut' => ['required', 'date_format:H:i'],
+          'date_fin' => ['required', 'date_format:H:i', 'after:date_debut'],
           'dog' => ['required', 'exists:dogs,id'], // Vérifie que le chien existe dans la base
-          'service' => ['required', 'exists:prestationtypes,id'], // Vérifie que le service existe dans la base
+          'prestation_type_id' => ['required', 'exists:prestations_types,id'], // Vérifie que le service existe dans la base
           'dogsitter_id' => ['required', 'exists:users,id'],
       ]);
 
@@ -55,21 +54,24 @@ class PrestationController extends Controller
 
       // Création de la prestation
       $prestation = Prestation::create([
-          'date_debut' => $request->input('date') . ' ' . $request->input('heure-debut'),
-          'date_fin' => $request->input('date') . ' ' . $request->input('heure-fin'),
+          'date_debut' => $request->input('date') . ' ' . $request->input('date_debut'),
+          'date_fin' => $request->input('date') . ' ' . $request->input('date_fin'),
           'dog_id' => $request->input('dog'),
-          'prestation_type_id' => $request->input('service'),
+          'prestation_type_id' => $request->input('prestation_type_id'),
           'dogsitter_id' => $request->input('dogsitter_id'),
           'proprietaire_id' => Auth::id(),
+          'prix' => $prix,
+          'prix_total' => $prix, 
       ]);
         $prestation->save();
+
         if ($prestation) {
           return redirect()->route('prestations.index')->with('success', 'Prestation créée avec succès');
       } else {
           return redirect()->back()->with('error', 'Une erreur est survenue lors de la création de la prestation');
       }
-      //return redirect()->route('prestations.index')->with('success', 'Votre rendez-vous a été pris avec succès !');
   }
+  
     public function show($id)
   {
       // Récupérer la prestation par son ID
@@ -78,7 +80,19 @@ class PrestationController extends Controller
       // Retourner la vue avec la prestation
       return view('prestations.show', compact('prestation'));
   }
+
 }
+
+
+
+
+
+
+
+
+
+
+
 // affiche les orestation que le dogsitter 
 // planning du mec 
 // cliquer un crenaux horaire

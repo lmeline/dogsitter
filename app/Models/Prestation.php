@@ -22,9 +22,11 @@ class Prestation extends Model
         'date_debut',
         'date_fin',
         'dog_id',
-        'service_id',
+        'prestation_type_id',
         'dogsitter_id',
         'proprietaire_id',
+        'prix',
+        'prix_total',
     ];
 
     public function proprietaire(): BelongsTo
@@ -44,7 +46,7 @@ class Prestation extends Model
 
     public function dogs():HasMany
     {
-        return $this->hasMany(Dog::class,'prestations_dogs');
+        return $this->hasMany(Dog::class,'dog_id');
     }
 
     public function prestationType(): BelongsTo

@@ -39,6 +39,7 @@ class ProfileController extends Controller
              'code_postal' => $request->code_postal,
              'ville' => $request->ville,
              'email' => $request->email,
+             'photo' => $request->photo
          ]);
      
         

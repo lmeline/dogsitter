@@ -214,14 +214,14 @@
             <!-- Bouton Proprietaire - Rouge -->
             <button @click="proprietaire = true" type="button"
                     :class="proprietaire ? 'bg-red-600 text-white' : 'bg-gray-400 text-gray-800'"
-                    class="hover:bg-red-700 focus:outline-none focus:ring-4 focus:ring-red-200 dark:focus:ring-red-700 rounded-lg text-sm p-2.5 transition-colors duration-300">
+                    class=" font-bold hover:bg-red-700 focus:outline-none focus:ring-4 focus:ring-red-200 dark:focus:ring-red-700 rounded-lg text-sm p-2.5 transition-colors duration-300">
                 Proprietaire
             </button>
 
             <!-- Bouton Dogsitter - Jaune -->
             <button @click="proprietaire = false" type="button"
                     :class="!proprietaire ? 'bg-yellow-600 text-white' : 'bg-gray-400 text-gray-800'"
-                    class="hover:bg-yellow-700 focus:outline-none focus:ring-4 focus:ring-yellow-200 dark:focus:ring-yellow-700 rounded-lg text-sm p-2.5 transition-colors duration-300">
+                    class=" font-boldhover:bg-yellow-700 focus:outline-none focus:ring-4 focus:ring-yellow-200 dark:focus:ring-yellow-700 rounded-lg text-sm p-2.5 transition-colors duration-300">
                 Dogsitter
             </button>
         </div>

@@ -31,7 +31,8 @@ class User extends Authenticatable
         'role',
         'experience',
         'description',
-        'photo'
+        'photo',
+        'abonnement_type_id',
     ];
 
     /**
@@ -78,7 +79,7 @@ class User extends Authenticatable
 
     public function abonnement(): BelongsTo
     {
-        return $this->belongsTo(Abonnement::class);
+        return $this->belongsTo(Abonnement::class,);
     }
 
 

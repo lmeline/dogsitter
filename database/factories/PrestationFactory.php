@@ -1,5 +1,4 @@
 <?php
-
 namespace Database\Factories;
 
 use App\Models\Dog;
@@ -19,24 +18,34 @@ class PrestationFactory extends Factory
      */
     public function definition(): array
     {
+        // Sélectionner un propriétaire aléatoire
+        $proprietaire = User::where('role', 'proprietaire')->inRandomOrder()->first();
 
-        $proprietaires = User::where('role', 'proprietaire')->pluck('id')->toArray();
-        $dogsitters = User::where('role', 'dogsitter')->pluck('id')->toArray();
-        $prestations_types = PrestationType::all()->pluck('id')->toArray();
-        $dog = Dog::where('proprietaire_id', $proprietaires)->inRandomOrder()->first();
+        // Si le propriétaire n'a pas de chien, ne pas créer cette prestation
+        if ($proprietaire->dogs->isEmpty()) {
+            return [];
+        }
+
+        // Sélectionner un chien parmi ceux du propriétaire
+        $dog = $proprietaire->dogs->random();
+
+        // Sélectionner un dogsitter aléatoire
+        $dogsitter = User::where('role', 'dogsitter')->inRandomOrder()->first();
+
+        // Sélectionner un type de prestation aléatoire
+        $prestation_type = PrestationType::inRandomOrder()->first();
 
         return [
-            'proprietaire_id' => fake()->randomElement($proprietaires),
-            'dogsitter_id' => fake()->randomElement($dogsitters),
-            'prestation_type_id' => fake()->randomElement($prestations_types),
-            'date_fin'=> fake()->date($format = 'Y-m-d', $max = 'now'),
-            'date_debut'=> fake()->date($format = 'Y-m-d', $max = 'now'),
-            'prix' => fake()->numberBetween(1, 100),
-            'quantite' => fake()->numberBetween(1, 100),
-            'prix_total' => fake()->numberBetween(1, 100),
-            'statut'=> fake()->randomElement(['en cours', 'termine', 'annule', 'en attente de paiement']),
-            'dog_id' => $dog ? $dog->id : null,
-
+            'proprietaire_id' => $proprietaire->id, 
+            'dogsitter_id' => $dogsitter->id,  
+            'prestation_type_id' => $prestation_type->id,  
+            'date_debut' => $this->faker->dateTimeThisYear(),  
+            'date_fin' => $this->faker->dateTimeThisYear(),  
+            'prix' => $this->faker->randomFloat(2, 10, 100),  
+            'quantite' => $this->faker->numberBetween(1, 5),  
+            'prix_total' => $this->faker->randomFloat(2, 20, 200),  
+            'statut' => $this->faker->randomElement(['en cours', 'termine', 'annule', 'en attente de paiement']),
+            'dog_id' => $dog->id,  
         ];
     }
 }

@@ -64,6 +64,8 @@ Route::get('/prestations/create/{id}',[PrestationController::class,'create'])->n
 Route::get('/prestations',[PrestationController::class,'index'])->name('prestations.index');
 Route::post('/prestations/store', [PrestationController::class, 'store'])->name('prestations.store');
 Route::get('/prestations/{id}', [PrestationController::class, 'show'])->name('prestations.show');
+//Route::get('/prestations/hours', [PrestationController::class, 'getAvailableHours'])->name('prestations.hours');
+
 
 Route::get('profile/ajoutchien',[DogController::class,'create'])->name('dogs.create');
 

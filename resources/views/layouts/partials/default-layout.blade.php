@@ -7,10 +7,10 @@
     <title>@yield('title')</title>
     @vite('resources/css/app.css')
 </head>
-<body class=" flex flex-col text-black min-h-screen">
+<body class=" flex flex-col text-black min-h-screen bg-gray">
 
     <!-- header -->
-    <header class="text-black sticky top-0 z-50 shadow-md bg-gray">
+    <header class="text-black sticky top-0 z-50 backdrop-blur-lg bg-white/30">
         <nav class="container mx-auto flex items-center justify-between p-4">
             <!-- Logo -->
             <div class="text-2xl font-bold">
@@ -34,10 +34,10 @@
     <!-- Action Buttons pour les non-connectés -->
             @guest
             <div class="flex gap-4">
-                <a href="{{ route('register') }}?proprietaire=true" class="bg-gray hover:bg-green text-black py-2 px-4 rounded-lg transition duration-300">
+                <a href="{{ route('register') }}?proprietaire=true" class=" font-bold hover:bg-green text-black py-2 px-4 rounded-lg transition duration-300">
                     S'inscrire
                 </a>
-                <a href="{{ route('login') }}" class="bg-gray hover:bg-green text-black py-2 px-4 rounded-lg transition duration-300">
+                <a href="{{ route('login') }}" class=" font-bold hover:bg-green text-black py-2 px-4 rounded-lg transition duration-300">
                     Se connecter
                 </a>
             </div>

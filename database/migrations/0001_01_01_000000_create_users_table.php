@@ -14,19 +14,19 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('prenom',70);
+            $table->date('date_naissance');
+            $table->string('numero_telephone');
             $table->string('email')->unique();
+            $table->string('adresse');
+            $table->string('ville',70);
+            $table->string('code_postal',20);
+            $table->enum('role', ['admin', 'proprietaire','dogsitter'])->default('proprietaire');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
-            $table->enum('role', ['admin', 'proprietaire','dogsitter'])->default('proprietaire');
-            $table->string('prenom',70);
-            $table->date('date_naissance');
             $table->string('photo')->nullable();
-            $table->string('numero_telephone');
-            $table->string('ville',70);
-            $table->string('code_postal',20);
-            $table->string('adresse');
 
 
 

@@ -46,25 +46,25 @@ class UserFactory extends Factory
 
         return [
             'name' => fake()->lastName(),
-            'email' => fake()->unique()->safeEmail(),
-            'email_verified_at' => now(),
-            'password' => static::$password ??= Hash::make('password'),
-            'remember_token' => Str::random(10),
             'prenom' => fake()->firstName(),
             'date_naissance'=>fake()->date(),
+            'numero_telephone' => fake()->phoneNumber(),
+            'email' => fake()->unique()->safeEmail(),
+            'adresse' => fake()->streetAddress(),
             'ville' => fake()->city(),
             'code_postal' => fake()->postcode(),
-            'adresse' => fake()->streetAddress(),
-            'numero_telephone' => fake()->phoneNumber(),
-            'experience' => $experience,
+            'role' => $role,
             'description' => $description,
+            'experience' => $experience,
             'service' => $service,
+            'remember_token' => Str::random(10),
             'photo'=>fake()->imageUrl(),
             'disponibilite_jour' => $disponibilite_jour,
             'note_moyenne' => $note_moyenne,
             'nb_notes' => $nb_notes,
             'abonnement_type_id' =>$abonnement_type_id,
-            'role' => $role,
+            'email_verified_at' => now(),
+            'password' => static::$password ??= Hash::make('password'),
 
         ];
     }
