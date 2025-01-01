@@ -46,7 +46,7 @@ class Prestation extends Model
 
     public function dogs():HasMany
     {
-        return $this->hasMany(Dog::class,'dog_id');
+        return $this->hasMany(Dog::class);
     }
 
     public function prestationType(): BelongsTo

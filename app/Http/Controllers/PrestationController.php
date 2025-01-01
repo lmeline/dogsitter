@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Dog;
 use App\Models\Prestation;
 use Illuminate\Http\Request;
 use App\Models\User;
@@ -28,7 +29,8 @@ class PrestationController extends Controller
   {
     $dogsitter = User::find($id);
     $proprietaire = Auth::user();
-    $dogs = $proprietaire->dogs;
+    $dogs = Dog::find($id);
+
     return view('prestations.create', compact('dogsitter','proprietaire','dogs'));
   }
 
@@ -76,7 +78,7 @@ class PrestationController extends Controller
   {
       // Récupérer la prestation par son ID
       $prestation = Prestation::findOrFail($id);
-
+      
       // Retourner la vue avec la prestation
       return view('prestations.show', compact('prestation'));
   }

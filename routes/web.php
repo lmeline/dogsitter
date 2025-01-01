@@ -28,9 +28,9 @@ Route::get('/proprietaire/message', function () {
     return view('proprietaires.message');
 })->middleware(['auth', 'verified'])->name('proprietaires.message');
 
-Route::get('/proprietaire/trouvezsondogsitter', function () {
-    return view('proprietaires.trouvezSonDogsitter');
-})->middleware(['auth', 'verified'])->name('proprietaires.trouvezSonDogsitter');
+Route::get('/trouvezsondogsitter', function () {
+    return view('dogsitters.index');
+})->middleware(['auth', 'verified'])->name('dogsitters.index');
 
 Route::get('/pageprofil', function () {
     return view('profile');

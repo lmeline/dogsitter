@@ -9,7 +9,7 @@
                 <p><strong class="font-semibold text-gray-700">numéro de la prestation:</strong> {{ $prestation->id }}</p>
                 <p><strong class="font-semibold text-gray-700">Propriétaire:</strong> {{ $prestation->proprietaire->name }}</p>
                 <p><strong class="font-semibold text-gray-700">Dogsitter:</strong> {{ $prestation->dogsitter->name }}</p>
-                {{-- <p><strong class="font-semibold text-gray-700">Chien:</strong> {{ $prestation->dog->nom }}</p> --}}
+                <p><strong class="font-semibold text-gray-700">Chien:</strong> {{ $prestation->dog ? $prestation->dog->nom : 'N/A' }}</p>
                 <p><strong class="font-semibold text-gray-700">Service:</strong> {{ $prestation->prestationType ? $prestation->prestationType->nom : 'N/A' }}</p>
                 <p><strong class="font-semibold text-gray-700">Date de début:</strong> {{ $prestation->date_debut }}</p>
                 <p><strong class="font-semibold text-gray-700">Date de fin:</strong> {{ $prestation->date_fin }}</p>

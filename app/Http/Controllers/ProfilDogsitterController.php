@@ -18,13 +18,15 @@ class ProfilDogsitterController extends Controller
     public function show($id)
     {
         $dogsitter = User::find($id);
-        $prestations = Prestation::where('dogsitter_id', $id)->with('avis')->get();
-
+        
         if (!$dogsitter || $dogsitter->role !== 'dogsitter') {
             
             return redirect()->route('index');
             
         }
+    
+        
+    $prestations = Prestation::where('dogsitter_id', $id)->with('avis')->get();
         
     return view('dogsitters.show', compact('dogsitter','prestations'));
 

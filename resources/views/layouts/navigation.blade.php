@@ -27,7 +27,7 @@
                         </x-nav-link>
                     </div>
                     <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                        <x-nav-link :href="route('proprietaires.trouvezSonDogsitter')" :active="request()->routeIs('proprietaires.trouvezSonDogsitter')">
+                        <x-nav-link :href="route('dogsitters.index')" :active="request()->routeIs('dogsitters.index')">
                             {{ __('Trouvez son dogsitter') }}
                         </x-nav-link>
                     </div>

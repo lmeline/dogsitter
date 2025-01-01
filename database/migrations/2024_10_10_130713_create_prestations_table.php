@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('prestations', function (Blueprint $table) {
             $table->id();
             $table->foreignId('proprietaire_id')->constrained('users')->onDelete('restrict');
-            $table->foreignId('dog_id')->nullable()->constrained()->onDelete('restrict'); // Ajout du champ dog_id
+            $table->foreignId('dog_id')->nullable()->constrained('dogs')->onDelete('restrict'); // Ajout du champ dog_id
             $table->foreignId('dogsitter_id')->constrained('users')->onDelete('restrict');
             $table->foreignId('prestation_type_id')->nullable()->constrained('prestations_types');
             $table->dateTime('date_debut')->nullable();
