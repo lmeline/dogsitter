@@ -1,7 +1,7 @@
 <x-guest-layout>
     <div x-data="{ open: false }">
-        <div class="flex flex-col justify-center items-center mt-4 gap-2">
-            <p class="text-2xl"> Voulez-vous ajouter votre chien ?  </p>
+        <div class="flex flex-col justify-center items-center mt-4 gap-2 dark:text-white">
+            <p class="text-2xl pb-4"> Voulez-vous ajouter votre chien ?  </p>
             <div class="flex gap-2">
                 <a href="{{ route('dashboard') }}"  class="bg-red-600 hover:bg-red-400 text-white font-bold py-2 px-4 rounded ">
                     Passez cette étape
@@ -17,10 +17,11 @@
     
             <!-- Name -->
             <div class="flex w-full gap-2 mt-4">
+    
                 <div>
-                <x-input-label for="nom" :value="__('Nom')" />
-                <x-text-input id="nom" class="block mt-1 w-full border border-red-300 focus:ring-red-500 focus:border-red-500 rounded" type="text" name="nom" :value="old('nom')" required autofocus autocomplete="nom" />
-                <x-input-error :messages="$errors->get('nom')" class="mt-2" />
+                    <x-input-label for="nom" :value="__('Nom')" />
+                    <x-text-input id="nom" class=" block mt-1 w-full border border-red-300 focus:ring-red-500 focus:border-red-500 rounded" type="text" name="nom" :value="old('nom')" required autofocus autocomplete="nom" />
+                    <x-input-error :messages="$errors->get('nom')" class="mt-2" />
                 </div>
     
                 <div>

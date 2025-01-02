@@ -2,9 +2,9 @@
 
 @section('content')
 <x-app-layout>
-    <div class="flex pt-10 flex-col items-center ">
+    <div class="flex pt-10 flex-col items-center bg-pink-100">
         <!-- Bandeau supérieur -->
-        <div class="bg-pink text-black py-10 w-full flex items-center">
+        <div class="text-black py-10 w-full flex items-center">
             <!-- Photo à gauche -->
             <div class="flex-shrink-0 mr-8">
                 <!-- Affichage de la photo de profil de l'utilisateur connecté -->
@@ -18,9 +18,9 @@
         </div>
 
         <!-- Contenu en deux colonnes avec ligne de séparation -->
-        <div class="flex bg-green flex-col md:flex-row w-full">
+        <div class="flex bg-green-100 flex-col md:flex-row w-full">
             <!-- Colonne de gauche -->
-            <div class="w-full md:w-1/2 bg-gray p-6 md:pl-12">
+            <div class="w-full md:w-1/2 bg-gray-100 p-6 md:pl-12">
                 <h2 class="text-2xl font-semibold mb-4 text-black">Informations personnelles</h2>
                 <p class="mb-2"><strong>Ville :</strong> {{ Auth::user()->ville }}</p>
                 <p class="mb-2"><strong>Contact :</strong> Envoyer un message</p>
@@ -32,7 +32,7 @@
                 @endif
                
             </div>
-            <div class="hidden md:block w-px bg-orange"></div>
+            <div class="hidden md:block w-px bg-orange-100"></div>
             <div class="w-full md:w-1/2 bg-gris p-6 md:pl-12">
                 <h2 class="text-2xl font-semibold mb-4 text-gray-800">À propos de moi</h2>
 
