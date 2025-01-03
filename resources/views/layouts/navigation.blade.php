@@ -20,11 +20,18 @@
                             {{ __('Mes prestations') }}
                         </x-nav-link>
                     </div>
+        
                     <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                         <x-nav-link :href="route('messages.index')" :active="request()->routeIs('messages.index')">
                             {{ __('Mes Messages') }}
+                            @if (isset($unreadCount) && $unreadCount > 0)
+                                <span class="bg-red-500 text-white text-xs px-2 py-1 rounded-full ml-2">
+                                    {{ $unreadCount }}
+                                </span>
+                            @endif
                         </x-nav-link>
                     </div>
+                    
                 @if (Auth::check() && Auth::user()->role === 'proprietaire')               
                     <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                         <x-nav-link :href="route('dogsitters.index')" :active="request()->routeIs('dogsitters.index')">

@@ -21,7 +21,7 @@
             </ul>
         </div>
 
-        {{-- <div class="mt-6">
+        <div class="mt-6">
             <form action="{{ route('messages.addMessage', $thread->id) }}" method="POST">
                 @csrf
                 <textarea name="message" class="w-full p-4 border rounded-lg" placeholder="Écrire un message..." required></textarea>
@@ -29,6 +29,6 @@
                     Envoyer
                 </button>
             </form>
-        </div> --}}
+        </div>
     </div>
 </x-app-layout>

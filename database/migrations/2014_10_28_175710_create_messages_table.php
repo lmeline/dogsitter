@@ -20,12 +20,8 @@ class CreateMessagesTable extends Migration
             $table->integer('user_id')->unsigned();
             $table->text('body');
             $table->timestamps();
-  
-            // $table->string('contenu');
-            // $table->dateTime('date_envoi');
-            // $table->boolean('lu')->default(false);
-            // $table->foreignId('expediteur_id')->references('id')->on('users')->onDelete('cascade');
-            // $table->foreignId('destinataire_id')->references('id')->on('users')->onDelete('cascade');
+            $table->boolean('lu')->default(false);
+
            
         });
     }

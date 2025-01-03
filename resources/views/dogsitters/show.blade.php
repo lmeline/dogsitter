@@ -23,7 +23,12 @@
                 <h2 class="text-2xl font-semibold mb-4 text-black ">Informations personnelles</h2>
                 <p class=" mb-2"><strong>Ville :</strong> {{ $dogsitter->ville }}</p>
                 <p class=" mb-2"><strong>Disponibilité  :</strong> {{$dogsitter->disponibilite_jour }} </p>
-                <p class=" mb-2"><strong>Contact :</strong> Envoyer un message </p>
+                <form action="{{ route('messages.create', $dogsitter->id) }}" method="GET">
+                    @csrf
+                    <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition">
+                        Me contacter
+                    </button>
+                </form>
                 <p class=" mb-2"><strong> Nombre de notes :</strong> {{ $dogsitter->nb_notes }}</p>
                 <p class=" mb-2"><strong> Note /5 :</strong> {{ $dogsitter->note_moyenne }}</p>
             </div>
