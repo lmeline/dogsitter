@@ -20,12 +20,12 @@
                             {{ __('Mes prestations') }}
                         </x-nav-link>
                     </div>
-                @if (Auth::check() && Auth::user()->role === 'proprietaire')
                     <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                        <x-nav-link :href="route('proprietaires.message')" :active="request()->routeIs('proprietaires.message')">
-                            {{ __('Messages') }}
+                        <x-nav-link :href="route('messages.index')" :active="request()->routeIs('messages.index')">
+                            {{ __('Mes Messages') }}
                         </x-nav-link>
                     </div>
+                @if (Auth::check() && Auth::user()->role === 'proprietaire')               
                     <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                         <x-nav-link :href="route('dogsitters.index')" :active="request()->routeIs('dogsitters.index')">
                             {{ __('Trouvez son dogsitter') }}
@@ -37,13 +37,6 @@
                             {{ __('Accueil') }}
                         </x-nav-link>
                     </div>
-
-                    <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                        <x-nav-link :href="route('dogsitters.PageAccueilDogsitter')" :active="request()->routeIs('dogsitters.PageAccueilDogsitter')">
-                            {{ __('Messages') }}
-                        </x-nav-link>
-                    </div>
-
                     <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                         <x-nav-link :href="route('dogsitters.PageAccueilDogsitter')" :active="request()->routeIs('dogsitters.PageAccueilDogsitter')">
                             {{ __('Mes rendez-vous') }}

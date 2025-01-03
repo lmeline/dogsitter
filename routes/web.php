@@ -77,3 +77,12 @@ Route::get('/error', function() {
     return view('erreurs.unauthorized'); // Créez une vue simple d'erreur personnalisée
 })->name('errorPage');
 
+use App\Http\Controllers\MessageController;
+
+Route::middleware('auth')->group(function () {
+    Route::get('/messages', [MessageController::class, 'index'])->name('messages.index');
+    Route::get('/messages/create', [MessageController::class, 'create'])->name('messages.create');
+    Route::post('/messages', [MessageController::class, 'store'])->name('messages.store');
+    Route::get('/messages/{id}', [MessageController::class, 'show'])->name('messages.show');
+    Route::post('/messages/{id}', [MessageController::class, 'addMessage'])->name('messages.add');
+});

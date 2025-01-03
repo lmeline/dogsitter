@@ -2,6 +2,9 @@
 
 namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+
+use Cmgmyr\Messenger\Models\Message;
+use Cmgmyr\Messenger\Traits\Messagable;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -11,7 +14,7 @@ use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable;
+    use HasFactory, Notifiable, Messagable;
 
     /**
      * The attributes that are mass assignable.
@@ -82,19 +85,31 @@ class User extends Authenticatable
         return $this->belongsTo(Abonnement::class,);
     }
 
-
-    public function messagesEnvoyes(): HasMany
-    {
-        return $this->hasMany(Message::class, 'expediteur_id');
-    }
-
-    public function messagesRecus(): HasMany
-    {
-        return $this->hasMany(Message::class, 'destinataire_id');
-    }
-
     public function prestationtypes(): BelongsToMany
     {
         return $this->belongsToMany(Prestationtype::class, 'users_prestations_types','dogsitter_id','prestation_type_id')->withPivot('prix');
     }
+
+    public function threads()
+    {
+        return $this->belongsToMany(Thread::class, 'threads_users')->withTimestamps();
+    }
+
+    // Relation avec les messages envoyés par cet utilisateur
+    public function messages()
+    {
+        return $this->hasMany(Message::class);
+    }
+
+    // Si vous souhaitez filtrer par rôle (propriétaire ou dogsitter), vous pouvez ajouter une méthode de portée (scope)
+    public function scopeProprietaire($query)
+    {
+        return $query->where('role', 'proprietaire');
+    }
+
+    public function scopeDogsitter($query)
+    {
+        return $query->where('role', 'dogsitter');
+    }
+
 }
