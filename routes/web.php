@@ -50,6 +50,7 @@ Route::get('/dogs/{id}',[DogController::class,'show'])->name('dogs.show');
 
 route::get('/dogsitters',[ProfilDogsitterController::class,'index'])->name('dogsitters.index');
 route::get('/dogsitters/{id}',[ProfilDogsitterController::class,'show'])->name('dogsitters.show');
+Route::get('/dogsitters/filtrer', [ProfilDogsitterController::class, 'filter'])->name('dogsitters.filter');
 
 route::get('/proprietaires',[ProprietaireController::class,'index'])->name('proprietaires.index');
 route::get('/proprietaires/{id}',[ProprietaireController::class,'show'])->name('proprietaires.show');
@@ -82,7 +83,6 @@ use App\Http\Controllers\MessageController;
 Route::middleware('auth')->group(function () {
     Route::get('/messages', [MessageController::class, 'index'])->name('messages.index');
     Route::get('/messages/create/{dogsitterId}', [MessageController::class, 'createOrRedirectToThread'])->name('messages.create');
-    //Route::get('/messages/create/', [MessageController::class, 'create'])->name('messages.create');
     Route::get('/profile/{dogsitterId}/message', [MessageController::class, 'showProfile'])->name('messages.create');
 
     Route::post('/messages', [MessageController::class, 'store'])->name('messages.store');

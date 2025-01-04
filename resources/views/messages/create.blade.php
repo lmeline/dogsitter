@@ -6,13 +6,13 @@
     </x-slot>
 
     <div class="container mx-auto py-8 px-6">
-        <form action="{{ route('messages.store') }}" method="POST" class="bg-white shadow-lg rounded-lg p-6 space-y-6">
+        <form action="{{ route('messages.store') }}" method="POST" class="bg-white shadow-lg rounded-lg p-2 space-y-2">
             @csrf
 
             <!-- Message initial -->
             <div>
-                <label for="message" class="block text-sm font-medium text-gray-700 pb-2">Message</label>
-                <textarea name="message" id="message" class="block mt-1 w-full border border-gray-300 focus:ring-2 focus:ring-orange-500 focus:border-orange-500 rounded-lg p-3" rows="4" required>{{ old('message') }}</textarea>
+                <label for="message" class="block text-sm text-xl text-gray-700 pb-2">Message</label>
+                <textarea name="message" id="message" class="block mt-1 w-full border border-orange-300 focus:ring-2 focus:ring-orange-500 focus:border-orange-200 rounded-lg p-3" rows="4" required>{{ old('message') }}</textarea>
                 @error('message')
                     <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                 @enderror

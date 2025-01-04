@@ -3,7 +3,7 @@
 @section('content')
 
 <!-- Hero Section -->
-<section class="bg-gradient-to-r from-pink-100 via-yellow-100 to-orange-100 text-black py-20 text-gris">
+<section class="bg-gradient-to-r from-pink-100 via-yellow-100 to-orange-100 text-black py-20 text-gris backdrop-blur-md bg-white/70">
     <div class="container mx-auto">
         <!-- Titre Principal -->
         <div class="text-center text-black mb-12">
@@ -21,64 +21,10 @@
                 <img src="{{ asset('images/pax.jpg') }}" alt="Dog Sitting" class="w-2/3 lg:w-1/2 h-auto rounded-lg shadow-md">
             </div>
             
-                            {{-- <form action="#" method="POST" class="space-y-6 bg-gris shadow md p-8 rounded-md">
-                                <!-- Besoin -->
-                                <div class="flex justify-between items-center">
-                                    <label class="text-lg font-semibold w-1/4">Votre besoin</label>
-                                    <div class="grid grid-cols-2 gap-4 w-3/4">
-                                        <button 
-                                            type="button" 
-                                            class="p-6 text-xl bg-red rounded-lg hover:bg-pink transition font-semibold">
-                                            Garde d'animaux
-                                        </button>
-                                        <button 
-                                            type="button" 
-                                            class="p-6 text-xl bg-green rounded-lg hover:bg-pink transition font-semibold">
-                                            Promenades
-                                        </button>
-                                    </div>
-                                </div>
-            
-                                <!-- Localisation -->
-                                <div class="flex justify-between items-center">
-                                    <label for="location" class="text-lg font-semibold w-1/4">Localisation</label>
-                                    <input 
-                                        type="text" 
-                                        id="location" 
-                                        name="location" 
-                                        placeholder="Entrez votre code postal ou ville" 
-                                        class="w-3/4 p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green"
-                                        required
-                                    >
-                                </div>
-            
-                                <!-- Date -->
-                                <div class="flex justify-between items-center">
-                                    <label for="date" class="text-lg font-semibold w-1/4">Date</label>
-                                    <input 
-                                        type="date" 
-                                        id="date" 
-                                        name="date" 
-                                        class="w-3/4 p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green"
-                                        required
-                                    >
-                                </div>
-            
-                                <!-- Bouton de soumission -->
-                                <div class="flex justify-between items-center">
-                                    <div class="w-1/4"></div>
-                                    <button 
-                                        type="submit" 
-                                        class="w-3/4 bg-green py-3 px-6 rounded-lg font-semibold hover:bg-pink transition">
-                                        Trouver mon dogsitter
-                                    </button>
-                                </div>
-                            </form>  --}}
-
             <!-- Contenu Formulaire -->
             <div class="w-full lg:w-2/3 text-black rounded-lg">
                 <!-- Rejoignez notre communauté -->
-                <div class="bg-white p-6 bg-gray-100 shadow-md p-8 rounded-md mt-12">
+                <div class="p-6 backdrop-blur-md bg-white/70 shadow-md p-8 rounded-md mt-12">
                     <h2 class="text-3xl font-bold text-black mb-4 text-center">Rejoignez notre communauté</h2>
                     <p class="text-lg text-black mb-6">
                         Que vous soyez un propriétaire cherchant les meilleurs soins pour votre animal
@@ -108,7 +54,7 @@
         </h4>
 
         <!-- Propriétaire -->
-        <div class="p-6 rounded-lg shadow-lg text-center w-full mb-8 bg-white">
+        <div class="p-6 rounded-lg shadow-lg text-center w-full mb-8 backdrop-blur-md bg-white/70">
             <h3 class="text-2xl font-semibold mb-4 text-red-400">Propriétaire</h3>
             <p class="text-gray-600">
                 Parce que le bien-être de votre chien est notre priorité, confiez-le à un dog sitter attentionné qui veille à ses besoins, à son confort, et à son équilibre émotionnel.
@@ -117,7 +63,7 @@
         </div>
 
         <!-- Dogsitter -->
-        <div class="p-6 rounded-lg shadow-lg text-center w-full bg-white">
+        <div class="p-6 rounded-lg shadow-lg text-center w-full backdrop-blur-md bg-white/70">
             <h3 class="text-2xl font-semibold mb-4 text-green-600">Dogsitter</h3>
             <p class="text-gray-600 mb-4">
                 Vous adorez les chiens et souhaitez un métier qui vous passionne ? Devenez dog sitter et profitez d’une activité flexible et enrichissante.
@@ -135,19 +81,19 @@
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
             <!-- Feature 1 -->
-            <div class="bg-white p-6 rounded-lg shadow-lg text-center">
+            <div class=" p-6 rounded-lg shadow-lg text-center backdrop-blur-md bg-white/70">
                 <h3 class="text-2xl font-semibold mb-4 text-red-300">Créer votre profil gratuitement</h3>
                 <p class="text-gray-600 mb-4"> Inscrivez-vous en quelques minutes, complétez les informations sur votre chien, et découvrez les dog sitters disponibles près de chez vous.</p>
             </div>
 
             <!-- Feature 2 -->
-            <div class="bg-white p-6 rounded-lg shadow-lg text-center">
+            <div class=" p-6 rounded-lg shadow-lg text-center backdrop-blur-md bg-white/70">
                 <h3 class="text-2xl font-semibold mb-4 text-gray-400">Choississez votre dogsitter</h3>
                 <p class="text-gray-600 mb-4">Parcourez les profils détaillés des dog sitters, lisez les avis d’autres propriétaires, et sélectionnez celui qui correspond le mieux aux besoins de votre compagnon.</p>
             </div>
 
             <!-- Feature 3 -->
-            <div class="bg-white p-6 rounded-lg shadow-lg text-center">
+            <div class="p-6 rounded-lg shadow-lg text-center backdrop-blur-md bg-white/70">
                 <h3 class="text-2xl font-semibold mb-4 text-green-600">Reservez et partez l'esprit tranquille</h3>
                 <p class="text-gray-600 mb-4">Planifiez les dates, échangez avec le dog sitter, et suivez les mises à jour en temps réel pendant la garde, tout en bénéficiant de notre assurance et de notre assistance 24h/24.</p>
             </div>
@@ -161,7 +107,7 @@
         <h2 class="text-4xl font-bold text-center mb-12 text-gray-800">Nos Abonnements pour les dogsitters </h2>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
             <!-- Subscription 1 -->
-            <div class="bg-white p-6 rounded-lg shadow-lg text-left">
+            <div class=" p-6 rounded-lg shadow-lg text-left backdrop-blur-md bg-white/70">
                 <h3 class="text-2xl font-semibold mb-4 text-center text-red-300">Abonnement Standard</h3>
                 <ul class="mb-4">
                     <li class="font-semibold">Mensuel: <span class="font-normal">29 € par mois</span></li>
@@ -178,7 +124,7 @@
             </div>
 
             <!-- Subscription 2 -->
-            <div class="bg-white p-6 rounded-lg shadow-lg text-left">
+            <div class="p-6 rounded-lg shadow-lg text-left backdrop-blur-md bg-white/70">
                 <h3 class="text-2xl font-semibold mb-4 text-center text-green-600">Abonnement Premium</h3>
                 <ul class="mb-4">
                     <li class="font-semibold">Mensuel: <span class="font-normal">59 € par mois</span></li>

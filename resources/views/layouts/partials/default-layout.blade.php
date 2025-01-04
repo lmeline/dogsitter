@@ -7,37 +7,39 @@
     <title>@yield('title')</title>
     @vite('resources/css/app.css')
 </head>
-<body class=" flex flex-col text-black min-h-screen bg-gray-100">
+<body class="flex flex-col text-gray-800 min-h-screen bg-gradient-to-br from-green-100 via-blue-100 to-yellow-100">
 
     <!-- header -->
-    <header class="text-black sticky top-0 z-50 backdrop-blur-lg bg-white/30">
+    <header class="text-black sticky top-0 z-50 backdrop-blur-md bg-white/70">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
+
         <nav class="container mx-auto flex items-center justify-between p-4">
             <!-- Logo -->
-            <div class="text-2xl font-bold">
-                <a href="{{ route('index') }}" class="text-black hover:text-green transition duration-300">
+            <div class="text-2xl font-semibold">
+                <a href="{{ route('index') }}" class="text-gray-800 hover:text-green-600 transition duration-300">
                     Patte à patte
                 </a>
             </div>
 
-    <!-- Bandeau utilisateur connecté -->
+            <!-- Bandeau utilisateur connecté -->
             @auth
-            <div class=" font-bold text-black py-3 ">
+            <div class="font-semibold text-gray-800 py-3">
                 <div class="container mx-auto flex items-center justify-between">
                     <div>
-                       <a href="{{ route('dashboard') }}">Bonjour, {{ Auth::user()->name }} !</a> 
+                        <a href="{{ route('dashboard') }}" class="text-gray-800 hover:text-green-600 transition duration-300 ">Bonjour, {{ Auth::user()->name }} !</a>
                     </div>
-              
                 </div>
             </div>
             @endauth
 
-    <!-- Action Buttons pour les non-connectés -->
+            <!-- Action Buttons pour les non-connectés -->
             @guest
             <div class="flex gap-4">
-                <a href="{{ route('register') }}?proprietaire=true" class=" font-bold hover:bg-green text-black py-2 px-4 rounded-lg transition duration-300">
+                <a href="{{ route('register') }}?proprietaire=true" class="font-semibold text-white bg-gradient-to-r from-green-200 via-yellow-200 to-blue-200 py-2 px-4 rounded-lg transition duration-300 hover:bg-gradient-to-r hover:from-green-300 hover:via-yellow-300 hover:to-blue-300">
                     S'inscrire
                 </a>
-                <a href="{{ route('login') }}" class=" font-bold hover:bg-green text-black py-2 px-4 rounded-lg transition duration-300">
+                <a href="{{ route('login') }}" class="font-semibold text-white bg-gradient-to-r from-blue-200 via-yellow-200 to-green-200 py-2 px-4 rounded-lg transition duration-300 hover:bg-gradient-to-r hover:from-blue-300 hover:via-yellow-300 hover:to-green-300">
                     Se connecter
                 </a>
             </div>
@@ -51,11 +53,12 @@
     </main>
 
     <!-- Footer -->
-    <footer class="bg-black text-white py-6">
+    <footer class="bg-gradient-to-r from-blue-200 via-green-200 to-yellow-200 text-gray-800 py-6">
         <div class="container mx-auto text-center">
             <p>&copy; 2024 Patte à patte. Tous droits réservés.</p>
         </div>
     </footer>
+    
 
 </body>
 </html>
