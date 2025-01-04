@@ -32,7 +32,6 @@ return new class extends Migration
 
             $table->text('description')->nullable();
             $table->text('experience')->nullable();
-            $table->text('service')->nullable();
             $table->text('disponibilite_jour')->nullable();
             $table->float('note_moyenne',3,2)->nullable();
             $table->integer('nb_notes')->nullable();

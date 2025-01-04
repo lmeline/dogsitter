@@ -10,7 +10,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class PrestationType extends Model
 {
     protected $table = 'prestations_types'; // Spécifie la table pivot explicitement
-
+    
+    protected $fillable = ['nom'];
     use HasFactory;
     
     public function users():BelongsToMany {

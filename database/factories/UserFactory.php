@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\PrestationType;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
@@ -30,7 +31,6 @@ class UserFactory extends Factory
                 $note_moyenne = fake()->numberBetween(0, 5);
                 $nb_notes = fake()->numberBetween(0, 5);
                 $abonnement_type_id = fake()->numberBetween(1, 3);
-                $service = fake()->sentence();
                 $disponibilite_jour = fake()->sentence();
                 $experience = fake()->sentence();
                 $description = fake()->sentence();
@@ -38,7 +38,6 @@ class UserFactory extends Factory
                 $note_moyenne = null;
                 $nb_notes = null;
                 $abonnement_type_id = null;
-                $service = null;
                 $disponibilite_jour = null;
                 $experience = null;
                 $description = null;
@@ -56,7 +55,6 @@ class UserFactory extends Factory
             'role' => $role,
             'description' => $description,
             'experience' => $experience,
-            'service' => $service,
             'remember_token' => Str::random(10),
             'photo'=>fake()->imageUrl(),
             'disponibilite_jour' => $disponibilite_jour,
