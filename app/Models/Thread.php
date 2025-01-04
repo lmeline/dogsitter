@@ -30,4 +30,12 @@ class Thread extends BaseThread
     {
         return $this->participants->pluck('name');
     }
+
+    public function users()
+{
+    return $this->belongsToMany(User::class, 'participants')
+                ->withTimestamps()
+                ->whereNull('participants.deleted_at');
+}
+
 }

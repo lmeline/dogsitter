@@ -1,7 +1,15 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Messages de la conversation : ') }} {{ $thread->subject }}
+            
+            @if($thread->users->count() > 1)
+                @foreach($thread->users as $user)
+                    @if($user->id !== auth()->id())  {{-- Assurez-vous de ne pas afficher l'utilisateur connecté --}}
+                        {{ $user->name }}
+                        @break
+                    @endif
+                @endforeach
+            @endif
         </h2>
     </x-slot>
 

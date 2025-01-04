@@ -10,22 +10,29 @@ use Illuminate\Support\Facades\Auth;
 class MessageController extends Controller
 {
   
-    public function index()
+    public function index(Request $request)
     {
-        // Récupérer tous les threads de l'utilisateur
-        $threads = Thread::whereHas('participants', function ($query) {
-            $query->where('user_id', Auth::id());
-        })->latest()->get();
+        $search = $request->input('search');
     
-        // Calculer le nombre de messages non lus pour cet utilisateur
+        $threads = Thread::query()
+            ->whereHas('users', function ($query) use ($search) {
+                if ($search) {
+                    $query->where('name', 'like', '%' . $search . '%');
+                }
+            })
+            ->with(['users', 'messages' => function ($query) {
+                $query->latest();
+            }])
+            ->get();
+    
         $unreadCount = $threads->reduce(function ($carry, $thread) {
-            return $carry + $thread->messages()->where('lu', false)
-                                              ->where('user_id', '!=', Auth::id())
-                                              ->count();
+            return $carry + $thread->messages()
+                ->where('lu', false)
+                ->where('user_id', '!=', Auth::id())
+                ->count();
         }, 0);
     
-        // Passer $unreadCount à la vue
-        return view('messages.index', compact('threads', 'unreadCount'));
+        return view('messages.index', compact('threads', 'unreadCount', 'search'));
     }
     
     
@@ -49,7 +56,16 @@ class MessageController extends Controller
         // Passer le thread et ses messages à la vue
         return view('messages.show', compact('thread'));
     }
+    public function showProfile($dogsitterId)
+    {
+        // Récupérer le dogsitter en fonction de son ID
+        $dogsitter = User::findOrFail($dogsitterId);
     
+        // Passer la variable $dogsitter à la vue
+        return view('messages.create', compact('dogsitter'));
+    }
+    
+
 
     // Créer une nouvelle conversation
     public function create($dogsitterId)
@@ -87,6 +103,29 @@ class MessageController extends Controller
         // Rediriger vers le thread de messages
         return redirect()->route('messages.show', $thread->id);
     }
+
+    public function createOrRedirectToThread($dogsitterId)
+{
+    $user = Auth::user();
+
+    // Rechercher un thread existant entre l'utilisateur et le dogsitter
+    $thread = Thread::whereHas('users', function ($query) use ($user) {
+        $query->where('users.id', $user->id);
+    })
+    ->whereHas('users', function ($query) use ($dogsitterId) {
+        $query->where('users.id', $dogsitterId);
+    })
+    ->first();
+
+    if ($thread) {
+        // Rediriger vers le thread existant
+        return redirect()->route('messages.show', $thread->id);
+    }
+
+    // Créer un nouveau thread
+    return view('messages.create', ['dogsitterId' => $dogsitterId]);
+}
+
     
 
     // Ajouter un message à un thread existant
@@ -116,32 +155,38 @@ class MessageController extends Controller
 }
 
 
-    public function store(Request $request)
+public function store(Request $request)
 {
-    // Validation des champs du formulaire
-    $request->validate([
-        'subject' => 'required|string|max:255',
+    // Validation du message, participants et subject
+    $validated = $request->validate([
+        'subject' => 'nullable|string|max:255',  // Rendre le champ subject nullable
         'message' => 'required|string',
-        'participants' => 'required|array|min:1',
-        'participants.*' => 'exists:users,id',
+        'participants' => 'required|array',
+        'participants.*' => 'exists:users,id', // Validation pour les participants
     ]);
 
-    // Création du thread
+    // Si le sujet n'est pas fourni, utiliser le nom du dogsitter comme valeur par défaut
+    $subject = $validated['subject'] ?? $request->dogsitter->name;
+
+    // Créer la conversation (thread)
     $thread = Thread::create([
-        'subject' => $request->input('subject'),
+        'subject' => $subject,  // Utilisation du sujet validé ou du nom du dogsitter
     ]);
 
-    // Ajout du premier message
+    // Ajouter les participants au thread (y compris l'utilisateur actuel et les participants)
+    $thread->users()->attach([Auth::id(), ...$validated['participants']]);
+
+    // Ajouter le message initial dans cette conversation
     $thread->messages()->create([
         'user_id' => Auth::id(),
-        'body' => $request->input('message'),
+        'body' => $validated['message'],
+        'lu' => false,
     ]);
 
-    // Ajout des participants (y compris l'utilisateur authentifié)
-    $participants = array_merge($request->input('participants'), [Auth::id()]);
-    $thread->addParticipant($participants);
-
-    return redirect()->route('messages.index')->with('success', 'Conversation créée.');
+    // Rediriger vers la conversation
+    return redirect()->route('messages.show', $thread->id);
 }
+
+
 
 }

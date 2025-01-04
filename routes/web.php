@@ -81,7 +81,10 @@ use App\Http\Controllers\MessageController;
 
 Route::middleware('auth')->group(function () {
     Route::get('/messages', [MessageController::class, 'index'])->name('messages.index');
-    Route::get('/messages/create/{dogsitterId}', [MessageController::class, 'create'])->name('messages.create');
+    Route::get('/messages/create/{dogsitterId}', [MessageController::class, 'createOrRedirectToThread'])->name('messages.create');
+    //Route::get('/messages/create/', [MessageController::class, 'create'])->name('messages.create');
+    Route::get('/profile/{dogsitterId}/message', [MessageController::class, 'showProfile'])->name('messages.create');
+
     Route::post('/messages', [MessageController::class, 'store'])->name('messages.store');
     Route::get('/messages/{id}', [MessageController::class, 'show'])->name('messages.show');
     Route::post('/messages/{id}/add', [MessageController::class, 'addMessage'])->name('messages.addMessage');
