@@ -10,10 +10,10 @@ class ProfilDogsitterController extends Controller
 {
     public function index()
     {
-       $dogsitters = User::where('role', 'dogsitter')->get();
-       return view('dogsitters.index', compact('dogsitters'));
-       
+        $dogsitters = User::where('role', 'dogsitter')->paginate(20); // Utilisation de paginate() pour récupérer 20 dogsitters par page
+        return view('dogsitters.index', compact('dogsitters'));
     }
+    
 
     public function show($id)
     {

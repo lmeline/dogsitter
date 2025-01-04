@@ -8,34 +8,29 @@
         <div class="text-black py-10 w-full flex items-center bg-gradient-to-r from-red-200 to-orange-200 rounded-lg shadow-lg">
             <!-- Photo à gauche -->
             <div class="flex-shrink-0 mr-8">
-                <!-- Affichage de la photo de profil de l'utilisateur connecté -->
                 <img src="{{ Auth::user()->photo }}" alt="{{ Auth::user()->name }}" class="w-40 h-40 rounded-full border-4 border-white shadow-lg">
             </div>
             
-            <!-- Texte aligné en bas à droite -->
+            <!-- Texte aligné -->
             <div class="flex flex-col justify-end">
                 <h1 class="text-3xl font-bold text-gray-800">{{ Auth::user()->name }} {{ Auth::user()->prenom }}</h1>
             </div>
         </div>
 
-        <!-- Contenu en deux colonnes avec ligne de séparation -->
-        <div class="flex bg-white flex-col md:flex-row w-full mt-12 mb-12 px-6 md:px-12 space-y-6 md:space-y-0">
-
+        <!-- Contenu principal -->
+        <div class="flex flex-col md:flex-row w-full mt-12 mb-12 px-6 md:px-12 space-y-6 md:space-y-0 gap-x-6">
             <!-- Colonne de gauche -->
-            <div class="w-full md:w-1/2 bg-gradient-to-r from-yellow-100 to-orange-100 p-6 rounded-lg shadow-lg mb-6 md:mb-0">
+            <div class="w-full md:w-1/2 bg-gradient-to-r from-yellow-100 to-orange-100 p-6 rounded-lg shadow-lg">
                 <h2 class="text-2xl font-semibold mb-4 text-gray-800">Informations personnelles</h2>
                 <p class="mb-2"><strong>Ville :</strong> {{ Auth::user()->ville }}</p>
-                <p class="mb-2"><strong>Contact :</strong> Envoyer un message</p>
-                <p class="mb-2"><strong>Disponibilité:</strong> {{ Auth::user()->disponibilite_jour }}</p>
+                <p class="mb-2"><strong>Disponibilité :</strong> {{ Auth::user()->disponibilite_jour }}</p>
 
                 @if (Auth::user()->role === 'dogsitter')
                     <p class="mb-2"><strong>Nombre de notes :</strong> {{ Auth::user()->nb_notes }}</p>
                     <p class="mb-2"><strong>Note /5 :</strong> {{ Auth::user()->note_moyenne }}</p>
+                    <p class="mb-2"><strong>Tarifs </strong> {{ Auth::user()->prestationtypes->nom }} : {{ Auth::user()->prestationtypes->prix }} € / {{ Auth::user()->prestationtypes->duree }}h}}</p>
                 @endif
             </div>
-
-            <!-- Séparation pour mobile -->
-            <div class="hidden md:block w-px bg-orange-200"></div>
 
             <!-- Colonne de droite -->
             <div class="w-full md:w-1/2 bg-gradient-to-r from-green-100 to-pink-100 p-6 rounded-lg shadow-lg">
@@ -43,25 +38,25 @@
                 <p class="text-gray-700 mb-4">
                     Lorem ipsum dolor sit amet consectetur adipisicing elit. In aperiam sed aliquid iure vero fugit autem rem suscipit id voluptatum molestiae voluptate maiores libero eaque eum soluta ipsum ab sapiente laudantium quia, explicabo necessitatibus. Quae fugiat facere tempore aspernatur facilis perspiciatis officia quia temporibus? Laboriosam, eveniet.
                 </p>
-               
+                
                 @if (Auth::user()->role === 'proprietaire')
-                    <h3 class="text-xl font-semibold mb-2 text-gray-800 pt-2">Information sur mon toutou </h3>
+                    <h3 class="text-xl font-semibold mb-2 text-gray-800 pt-2">Information sur mon toutou</h3>
                     @foreach(Auth::user()->dogs as $dog)
-                        <span class="text-gray-800"> Nom: {{ $dog->nom }}</span><br>
-                        <span class="text-gray-800"> Race: {{ $dog->race }}</span><br>
-                        <span class="text-gray-800"> Âge: {{ $dog->age }} ans</span><br>
-                        <span class="text-gray-800"> Caractère: {{ $dog->comportement }}</span><br>
-                        <span class="text-gray-800"> Besoins spéciaux: {{ $dog->besoins_speciaux }}</span><br>
-                        <span class="text-gray-800"> Oui / Non: {{ $dog->sterilise }}</span><br>
-                        <span class="text-gray-800">{{ $dog->photo }}</span><br>
+                        <div class="mb-2 text-gray-800">
+                            <span><strong>Nom :</strong> {{ $dog->nom }}</span><br>
+                            <span><strong>Race :</strong> {{ $dog->race }}</span><br>
+                            <span><strong>Âge :</strong> {{ $dog->age }} ans</span><br>
+                            <span><strong>Caractère :</strong> {{ $dog->comportement }}</span><br>
+                            <span><strong>Besoins spéciaux :</strong> {{ $dog->besoins_speciaux }}</span><br>
+                            <span><strong>Stérilisation :</strong> {{ $dog->sterilise }}</span>
+                        </div>
                     @endforeach
-                    
-                <h3 class="text-xl font-semibold mb-2 text-gray-800">Ce que je recherche chez un dogsitter</h3>
-                <p>test de reussite</p>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. In deserunt nam beatae cupiditate ipsum deleniti iste, quod id fugiat repellat ipsa totam et quibusdam, vero, numquam voluptatem. Voluptatum nostrum laudantium ipsa magni sunt architecto veritatis cum. Molestias corrupti eveniet saepe. Nesciunt fuga repellendus laudantium nobis rem aliquam nostrum, vero tempora.</p>
+
+                    <h3 class="text-xl font-semibold mb-2 text-gray-800">Ce que je recherche chez un dogsitter</h3>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. In deserunt nam beatae cupiditate ipsum deleniti iste, quod id fugiat repellat ipsa totam et quibusdam, vero, numquam voluptatem.</p>
                 @endif
 
-                @if(Auth::user()->role === 'dogsitter')
+                @if (Auth::user()->role === 'dogsitter')
                     <h3 class="text-xl font-semibold mb-2 text-gray-800 pt-2">Expériences</h3>
                     <p class="text-gray-700 mb-4">{{ Auth::user()->experience }}</p>
 
@@ -83,7 +78,6 @@
                         @endif
                     @endforeach
                 @endif
-
             </div>
         </div>
     </div>

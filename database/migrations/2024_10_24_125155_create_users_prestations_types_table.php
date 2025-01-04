@@ -16,7 +16,8 @@ return new class extends Migration
             $table->decimal('prix',8,2);
             $table->foreignId('dogsitter_id')->constrained('users')->onDelete('cascade');
             $table->foreignId('prestation_type_id')->constrained('prestations_types')->onDelete('cascade'); 
-            $table->unique(['dogsitter_id', 'prestation_type_id']);  
+            $table->unique(['dogsitter_id', 'prestation_type_id']);
+            $table->decimal('duree',8,2);
             $table->timestamps();
         });
     }

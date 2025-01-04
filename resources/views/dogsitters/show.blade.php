@@ -34,10 +34,10 @@
             </form>
 
             <!-- Section Services -->
-            <h3 class="text-xl font-semibold text-gray-800 mt-6 mb-4">Services</h3>
+            <h3 class="text-xl font-semibold text-gray-800 mt-6 mb-4">Tarifs</h3>
             <ul class="list-disc pl-6 text-gray-700">
                 @foreach($dogsitter->prestationtypes as $prestationType)
-                    <li>{{ $prestationType->nom }} - {{ $prestationType->pivot->prix }} €</li>
+                    <li>{{ $prestationType->nom }} : {{ number_format($prestationType->pivot->prix,2)+0 }}€ / {{ number_format($prestationType->pivot->duree, 2) + 0 }}  heure{{ $prestationType->pivot->duree > 1 ? 's' : '' }} </li>
                 @endforeach
             </ul>
         </div>

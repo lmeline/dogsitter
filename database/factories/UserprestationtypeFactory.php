@@ -25,7 +25,8 @@ class UserprestationtypeFactory extends Factory
         return [
             'user_id' => User::factory(), 
             'prestation_type_id' => PrestationType::factory(), 
-            'prix' => $this->faker->randomFloat(2, 10, 100), 
+            'prix' => $this->faker->randomFloat(2, 10, 100),
+            'duree' => $this->faker->randomNumber(2),
         ];  
     }
 }

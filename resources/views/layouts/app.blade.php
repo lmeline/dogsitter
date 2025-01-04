@@ -8,8 +8,6 @@
         <title>{{ config('app.name', 'Laravel') }}</title>
 
         <!-- Fonts -->
-        {{-- <link rel="preconnect" href="https://fonts.google.com">
-        <link href="https://fonts.google.com/share?selection.family=Annie+Use+Your+Telescope" rel="stylesheet"> --}}
         <link rel="stylesheet" href="{{ mix('resources/css/app.css') }}">
 
         
@@ -18,7 +16,7 @@
 
     </head>
     <body class="font-sans antialiased">
-        <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
+        <div class="min-h-screen bg-gray-100 dark:bg-gray-700">
             @include('layouts.navigation')
 
             <!-- Page Heading -->
