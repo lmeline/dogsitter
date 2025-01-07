@@ -25,7 +25,7 @@
                             <span class="font-bold">{{ $message->user->name }} :</span>
                             <span class="text-sm text-gray-500">{{ $message->created_at->diffForHumans() }}</span>
                         </div>
-                        <p class="mt-2 text-gray-700">{{ $message->body }}</p>
+                        <p class="mt-2 text-gray-700">  {!! nl2br(e($message->body)) !!}</p>
                     </li>
                 @endforeach
             </ul>
