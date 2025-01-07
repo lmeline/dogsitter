@@ -70,40 +70,40 @@ class MessageController extends Controller
     // Créer une nouvelle conversation
     public function create($dogsitterId)
     {
-        // L'utilisateur qui initie la conversation est celui qui est actuellement connecté
-        $userId = Auth::id();
-    
         // Vérifier si un thread existe déjà entre l'utilisateur actuel et ce dogsitter
-        $existingThread = Thread::whereHas('participants', function($query) use ($userId, $dogsitterId) {
-            // Vérifie si le thread contient à la fois l'utilisateur actuel et le dogsitter
-            $query->where('user_id', $userId)
+        $existingThread = Thread::whereHas('participants', function ($query) use ($dogsitterId) {
+            $query->where('user_id', Auth::id())
                   ->orWhere('user_id', $dogsitterId);
-        })->first();
+        })
+        ->whereHas('participants', function ($query) use ($dogsitterId) {
+            $query->where('user_id', $dogsitterId);
+        })
+        ->first();
     
         // Si un thread existe, rediriger vers ce thread
         if ($existingThread) {
             return redirect()->route('messages.show', $existingThread->id);
         }
     
-        // Sinon, créer un nouveau thread
+        // Créer un nouveau thread si aucun n'existe
         $thread = Thread::create([
-            'subject' => 'Conversation avec ' . $dogsitterId,  // Sujet de la conversation
+            'subject' => 'Conversation avec ' . $dogsitterId,
         ]);
     
         // Ajouter les participants (l'utilisateur actuel et le dogsitter)
-        $thread->participants()->attach($userId);  // Ajout de l'utilisateur actuel
-        $thread->participants()->attach($dogsitterId);  // Ajout du dogsitter
+        $thread->participants()->attach(Auth::id());
+        $thread->participants()->attach($dogsitterId);
     
         // Créer le premier message de la conversation
         $message = new Message();
-        $message->user_id = $userId;
+        $message->user_id = Auth::id();
         $message->body = 'Bonjour, je souhaite vous contacter.';
-        $thread->messages()->save($message);  // Sauvegarder le message dans le thread
+        $thread->messages()->save($message);
     
         // Rediriger vers le thread de messages
         return redirect()->route('messages.show', $thread->id);
     }
-
+    
     public function createOrRedirectToThread($dogsitterId)
 {
     $user = Auth::user();

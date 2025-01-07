@@ -52,12 +52,12 @@
                             <div class="flex items-center space-x-4">
                                 <!-- Photo de profil de l'autre utilisateur -->
                                 <img src="{{ asset($otherUser->photo ?? 'images/default-avatar.jpg') }}" alt="{{ $otherUser->name }}" class="w-12 h-12 rounded-full object-cover">
-
                                 <div>
                                     <!-- Nom de l'autre utilisateur -->
                                     <span class="text-gray-800 font-medium">{{ $otherUser->name }}</span>
                                     <p class="text-gray-500 text-sm">
                                         @if ($lastMessage)
+                                        <strong>{{ $lastMessage->user->name }}:</strong>
                                             {{ Str::limit($lastMessage->body, 50) }}...
                                         @else
                                             <em>Aucun message dans ce thread</em>
