@@ -26,10 +26,22 @@
                 <p class="mb-2"><strong>Disponibilité :</strong> {{ Auth::user()->disponibilite_jour }}</p>
 
                 @if (Auth::user()->role === 'dogsitter')
-                    <p class="mb-2"><strong>Nombre de notes :</strong> {{ Auth::user()->nb_notes }}</p>
-                    <p class="mb-2"><strong>Note /5 :</strong> {{ Auth::user()->note_moyenne }}</p>
-                    <p class="mb-2"><strong>Tarifs </strong> {{ Auth::user()->prestationtypes->nom }} : {{ Auth::user()->prestationtypes->prix }} € / {{ Auth::user()->prestationtypes->duree }}h}}</p>
+                <p class="mb-2"><strong>Nombre de notes :</strong> {{ Auth::user()->nb_notes }}</p>
+                <p class="mb-2"><strong>Note /5 :</strong> {{ Auth::user()->note_moyenne }}</p>
+            
+                @if(optional(Auth::user()->role === 'dogsitter')->prestationtypes)
+                    <p class="mb-2">
+                        <strong>Tarifs </strong> 
+                        {{ optional(Auth::user()->prestationtypes)->nom }} : 
+                        {{ optional(Auth::user()->prestationtypes)->prix }} € / 
+                        {{ optional(Auth::user()->prestationtypes)->duree }}h
+                    </p>
+                @else
+                    <p class="mb-2">Aucun tarif défini.</p>
                 @endif
+            @endif
+            
+        
             </div>
 
             <!-- Colonne de droite -->

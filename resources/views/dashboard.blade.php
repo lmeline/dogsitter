@@ -1,38 +1,7 @@
-{{-- @extends('layouts.partials.default-layout')
+
+@extends('layouts.partials.default-layout')
 @section('content')
 <x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Page d\'Accueil universelle ') }}
-        </h2>
-    </x-slot>
-
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900 dark:text-gray-100">
-                    {{ __("des news du site ! ") }}
-                </div>
-            </div>
-        </div>
-    </div>
-</x-app-layout>
-@endsection --}}
-
-<!-- resources/views/home.blade.php -->
-<!-- resources/views/home.blade.php -->
-<!DOCTYPE html>
-<html lang="fr">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Accueil - Patte à Patte</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.0.0/dist/tailwind.min.css" rel="stylesheet">
-</head>
-
-<body class="bg-gray-50">
-
     <!-- Hero Section (Bannière Principale) -->
     <section class="bg-cover bg-center relative" style="background-image: url('images/banner.jpg'); height: 500px;">
         <div class="absolute inset-0 bg-black opacity-50"></div>
@@ -118,17 +87,7 @@
             </div>
         </div>
     </section>
-
-    <!-- Footer -->
-    <footer class="bg-gray-800 text-white py-8">
-        <div class="container mx-auto text-center">
-            <p>&copy; 2025 Dogsitter. Tous droits réservés.</p>
-            <p><a href="/" class="text-yellow-500">Politique de confidentialité</a> | <a href="/" class="text-yellow-500">Conditions d'utilisation</a></p>
-        </div>
-    </footer>
-
-</body>
-
-</html>
+</x-app-layout>
+@endsection
 
 

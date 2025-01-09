@@ -10,6 +10,9 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Abonnement extends Model
 {
     use HasFactory;
+
+    protected $table = 'abonnements_types';
+
     public function users(): HasMany
     {
         return $this->hasMany(User::class);

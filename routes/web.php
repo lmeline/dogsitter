@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AbonnementController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DogController;
 use App\Http\Controllers\PrestationController;
@@ -73,6 +74,8 @@ Route::get('profile/ajoutchien',[DogController::class,'create'])->name('dogs.cre
 Route::get('/register/dog',[DogController::class,'registerdog'])->name('register.dog');
 Route::post('/register/dog', [DogController::class, 'storeregisterdog'])->name('storeregisterdog');
 
+//Route::get('/choisir-abonnement', [AbonnementController::class, 'registerabonnement'])->name('register.abonnement');
+//Route::post('/choisir-abonnement', [AbonnementController::class, 'chooseAbonnement'])->name('abonnements.choose.store');
 
 Route::get('/error', function() {
     return view('erreurs.unauthorized'); // Créez une vue simple d'erreur personnalisée
