@@ -13,6 +13,6 @@ class PrestationSeeder extends Seeder
      */
     public function run(): void
     {
-        Prestation::factory(80)->create();
+        Prestation::factory(20)->create();
     }
 }

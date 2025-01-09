@@ -15,16 +15,26 @@ class AbonnementSeeder extends Seeder
     {
         DB::table('abonnements_types')->insert([
         [
-            'nom' => 'mensuel',
+            'nom' => 'Standard par mois ',
             'prix' => 19.99,
+            
+        ],
+        [
+            'nom' => 'Standard sur l\'année',
+            'prix' => 199.9,
+            
         ],
         [
             'nom' => 'pas d\'abonnement',
             'prix'=>null,
         ],
         [
-            'nom' => 'annuel',
-            'prix' => 250.99,
+            'nom' => 'Premium par mois',
+            'prix' => 39.99,
+        ],
+        [
+            'nom' => 'Premium sur l\'annee',
+            'prix' => 399.9,
         ]
         ]);
     }
