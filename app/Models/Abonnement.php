@@ -13,6 +13,10 @@ class Abonnement extends Model
 
     protected $table = 'abonnements_types';
 
+    protected $fillable = [
+        'id'
+    ]; 
+
     public function users(): HasMany
     {
         return $this->hasMany(User::class);

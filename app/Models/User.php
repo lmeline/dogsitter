@@ -82,7 +82,7 @@ class User extends Authenticatable
 
     public function abonnement(): BelongsTo
     {
-        return $this->belongsTo(Abonnement::class,);
+        return $this->belongsTo(Abonnement::class,'abonnement_type_id');
     }
 
     public function prestationtypes(): BelongsToMany

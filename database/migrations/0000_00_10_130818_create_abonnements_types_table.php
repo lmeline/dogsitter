@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('abonnements_types', function (Blueprint $table) {
             $table->id();
-            $table->string('nom');
+            $table->string('nom')->nullable();
             $table->decimal('prix',8,2)->nullable();
             $table->dateTime('created_at')->useCurrent();
             $table->dateTime('updated_at')->useCurrent()->useCurrentOnUpdate();

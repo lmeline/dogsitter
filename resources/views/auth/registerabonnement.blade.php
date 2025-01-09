@@ -1,4 +1,4 @@
-{{-- @extends('layouts.partials.default-layout')
+@extends('layouts.partials.default-layout')
 
 @section('content')
 <div class="container">
@@ -12,9 +12,9 @@
                         <h3>{{ $abonnement->nom }}</h3>
                         <p>Prix : {{ $abonnement->prix }} €</p>
                         
-                        <form method="POST" action="{{ route('abonnements.choose.store') }}">
+                        <form method="POST" action="{{ route('abonnements.choose') }}">
                             @csrf
-                            <input type="hidden" name="abonnement_id" value="{{ $abonnement->id }}">
+                            <input type="hidden" name="abonnements_types_id" value="{{ $abonnement->id }}">
                             <button type="submit" class="btn btn-primary">Choisir</button>
                         </form>
                     </div>
@@ -23,4 +23,4 @@
         @endforeach
     </div>
 </div>
-@endsection --}}
+@endsection

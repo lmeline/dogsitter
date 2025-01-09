@@ -105,6 +105,6 @@ class RegisteredUserController extends Controller
 
         Auth::login($user);
 
-        return redirect(route('dogsitters.PageAccueilDogsitter', Auth::user()));
+        return redirect()->intended(route('register.abonnement'));
     }
 }

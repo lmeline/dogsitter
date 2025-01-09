@@ -74,8 +74,8 @@ Route::get('profile/ajoutchien',[DogController::class,'create'])->name('dogs.cre
 Route::get('/register/dog',[DogController::class,'registerdog'])->name('register.dog');
 Route::post('/register/dog', [DogController::class, 'storeregisterdog'])->name('storeregisterdog');
 
-//Route::get('/choisir-abonnement', [AbonnementController::class, 'registerabonnement'])->name('register.abonnement');
-//Route::post('/choisir-abonnement', [AbonnementController::class, 'chooseAbonnement'])->name('abonnements.choose.store');
+Route::get('/choisir-abonnement', [AbonnementController::class, 'registerabonnement'])->name('register.abonnement');
+Route::post('/choisir-abonnement', [AbonnementController::class, 'chooseAbonnement'])->name('abonnements.choose');
 
 Route::get('/error', function() {
     return view('erreurs.unauthorized'); // Créez une vue simple d'erreur personnalisée
