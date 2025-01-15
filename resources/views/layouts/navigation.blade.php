@@ -12,7 +12,7 @@
                 <!-- Navigation Links -->
                     <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                         <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                            {{ __('Publicite du site') }}
+                            {{ __('Accueil') }}
                         </x-nav-link>
                     </div>
                     <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
@@ -39,11 +39,6 @@
                         </x-nav-link>
                     </div>
                 @else
-                    <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                        <x-nav-link :href="route('dogsitters.PageAccueilDogsitter')" :active="request()->routeIs('dogsitters.PageAccueilDogsitter')">
-                            {{ __('Accueil') }}
-                        </x-nav-link>
-                    </div>
                     <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                         <x-nav-link :href="route('dogsitters.PageAccueilDogsitter')" :active="request()->routeIs('dogsitters.PageAccueilDogsitter')">
                             {{ __('Mes rendez-vous') }}

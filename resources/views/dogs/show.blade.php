@@ -20,7 +20,7 @@
                     <h2 class="text-2xl font-semibold text-blue-500">Informations sur le Chien</h2>
                     <p class="text-gray-600 mt-2">Nom : {{ $dog->nom }}</p>
                     <p class="text-gray-600 mt-2">Race : {{ $dog->race }}</p>
-                    <p class="text-gray-600 mt-2">Âge : {{ $dog->age }} ans</p>
+                    <p class="text-gray-600 mt-2">Âge : {{ $dog->age }} an</p>
                 </div>
             </div>
         </div>

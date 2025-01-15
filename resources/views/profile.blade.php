@@ -20,7 +20,7 @@
         <!-- Contenu principal -->
         <div class="flex flex-col md:flex-row w-full mt-12 mb-12 px-6 md:px-12 space-y-6 md:space-y-0 gap-x-6">
             <!-- Colonne de gauche -->
-            <div class="w-full md:w-1/2 bg-gradient-to-r from-yellow-100 to-orange-100 p-6 rounded-lg shadow-lg">
+            <div class="w-full md:w-1/2 bg-gradient-to-r from-green-100 to-pink-100 p-6 rounded-lg shadow-lg">
                 <h2 class="text-2xl font-semibold mb-4 text-gray-800">Informations personnelles</h2>
                 <p class="mb-2"><strong>Ville :</strong> {{ Auth::user()->ville }}</p>
                 <p class="mb-2"><strong>Disponibilité :</strong> {{ Auth::user()->disponibilite_jour }}</p>
@@ -43,25 +43,31 @@
             </div>
 
             <!-- Colonne de droite -->
-            <div class="w-full md:w-1/2 bg-gradient-to-r from-green-100 to-pink-100 p-6 rounded-lg shadow-lg">
+            <div class="w-full md:w-1/2 bg-gradient-to-r from-yellow-100 to-orange-100 p-6 rounded-lg shadow-lg">
                 <h2 class="text-2xl font-semibold mb-4 text-gray-800">À propos de moi</h2>
                 <p class="text-gray-700 mb-4">
                     Lorem ipsum dolor sit amet consectetur adipisicing elit. In aperiam sed aliquid iure vero fugit autem rem suscipit id voluptatum molestiae voluptate maiores libero eaque eum soluta ipsum ab sapiente laudantium quia, explicabo necessitatibus. Quae fugiat facere tempore aspernatur facilis perspiciatis officia quia temporibus? Laboriosam, eveniet.
                 </p>
                 
                 @if (Auth::user()->role === 'proprietaire')
-                    <h3 class="text-xl font-semibold mb-2 text-gray-800 pt-2">Information sur mon toutou</h3>
+                    <h3 class="text-xl font-semibold mb-2 text-gray-800 pt-2 ">Information sur mon toutou</h3>
                     @foreach(Auth::user()->dogs as $dog)
-                        <div class="mb-2 text-gray-800">
-                            <span><strong>Nom :</strong> {{ $dog->nom }}</span><br>
-                            <span><strong>Race :</strong> {{ $dog->race }}</span><br>
-                            <span><strong>Âge :</strong> {{ $dog->age }} ans</span><br>
-                            <span><strong>Caractère :</strong> {{ $dog->comportement }}</span><br>
-                            <span><strong>Besoins spéciaux :</strong> {{ $dog->besoins_speciaux }}</span><br>
-                            <span><strong>Stérilisation :</strong> {{ $dog->sterilise }}</span>
+                        <div class="mb-4">
+                            <button 
+                                onclick="toggleDetails('dog-details-{{ $dog->id }}')" 
+                                class=" text-black w-80 h-10 bg-gradient-to-r from-yellow-300 to-pink-300 px-6 py-3 rounded-lg hover:from-yellow-400 hover:to-pink-400 transition ">
+                                Détails de {{ $dog->nom }}
+                            </button>
+                            <div id="dog-details-{{ $dog->id }}" class="hidden mt-2 bg-gray-100 p-4 rounded shadow-md">
+                                <span><strong>Nom :</strong> {{ $dog->nom }}</span><br>
+                                <span><strong>Race :</strong> {{ $dog->race }}</span><br>
+                                <span><strong>Âge :</strong> {{ $dog->age }} ans</span><br>
+                                <span><strong>Caractère :</strong> {{ $dog->comportement }}</span><br>
+                                <span><strong>Besoins spéciaux :</strong> {{ $dog->besoins_speciaux }}</span><br>
+                                <span><strong>Stérilisation :</strong> {{ $dog->sterilise }}</span>
+                            </div>
                         </div>
                     @endforeach
-
                     <h3 class="text-xl font-semibold mb-2 text-gray-800">Ce que je recherche chez un dogsitter</h3>
                     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. In deserunt nam beatae cupiditate ipsum deleniti iste, quod id fugiat repellat ipsa totam et quibusdam, vero, numquam voluptatem.</p>
                 @endif
@@ -92,4 +98,15 @@
         </div>
     </div>
 </x-app-layout>
+
+<script>
+    function toggleDetails(id) {
+        const details = document.getElementById(id);
+        if (details.classList.contains('hidden')) {
+            details.classList.remove('hidden');
+        } else {
+            details.classList.add('hidden');
+        }
+    }
+</script>
 @endsection

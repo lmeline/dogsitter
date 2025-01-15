@@ -1,3 +1,10 @@
+@php
+    $note = $dogsitter->note_moyenne; // Exemple de note moyenne
+    $fullStars = floor($note); // Nombre d'étoiles pleines
+    $halfStar = $note - $fullStars >= 0.5; // Si une demi-étoile est nécessaire
+    $emptyStars = 5 - $fullStars - ($halfStar ? 1 : 0); // Étoiles vides restantes
+@endphp
+
 @extends('layouts.partials.default-layout')
 
 @section('content')
@@ -23,12 +30,37 @@
             <p class="text-gray-700 mb-2"><strong>Ville :</strong> {{ $dogsitter->ville }}</p>
             <p class="text-gray-700 mb-2"><strong>Disponibilité :</strong> {{ $dogsitter->disponibilite_jour }}</p>
             <p class="text-gray-700 mb-2"><strong>Nombre de notes :</strong> {{ $dogsitter->nb_notes }}</p>
-            <p class="text-gray-700 mb-4"><strong>Note moyenne :</strong> {{ $dogsitter->note_moyenne }} / 5</p>
-
+            <p class="text-gray-700 mb-4">
+                <strong>Note moyenne :</strong>
+                <span class="flex items-center">
+                    {{-- Étoiles pleines --}}
+                    @for ($i = 0; $i < $fullStars; $i++)
+                        <svg class="w-6 h-6 text-yellow-500" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 .587l3.668 7.568 8.332 1.15-6.064 5.89 1.468 8.287L12 18.897l-7.404 4.585 1.468-8.287-6.064-5.89 8.332-1.15L12 .587z"/>
+                        </svg>
+                    @endfor
+            
+                    {{-- Demi-étoile --}}
+                    @if ($halfStar)
+                        <svg class="w-6 h-6 text-yellow-500" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 2.3l2.76 5.692 6.28.868-4.54 4.406 1.07 6.062L12 16.93V2.3z" fill="#FFD700"/>
+                            <path d="M11.999 2.3v14.629l-5.57 2.938 1.07-6.062-4.54-4.406 6.28-.868L12 2.3z" fill="#E0E0E0"/>
+                        </svg>
+                    @endif
+            
+                    {{-- Étoiles vides --}}
+                    @for ($i = 0; $i < $emptyStars; $i++)
+                        <svg class="w-6 h-6 text-gray-300" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 .587l3.668 7.568 8.332 1.15-6.064 5.89 1.468 8.287L12 18.897l-7.404 4.585 1.468-8.287-6.064-5.89 8.332-1.15L12 .587z"/>
+                        </svg>
+                    @endfor
+                </span>
+            </p>
+            
             <!-- Formulaire de contact -->
             <form action="{{ route('messages.create', $dogsitter->id) }}" method="GET">
                 @csrf
-                <button type="submit" class="w-full bg-gradient-to-r from-yellow-300 to-pink-300 text-white px-6 py-3 rounded-lg hover:from-yellow-400 hover:to-pink-400 transition">
+                <button type="submit" class="w-full bg-gradient-to-r from-yellow-300 to-pink-300 text-black px-6 py-3 rounded-lg hover:from-yellow-400 hover:to-pink-400 transition">
                     Me contacter
                 </button>
             </form>
@@ -61,7 +93,7 @@
         <!-- Section Prendre rendez-vous -->
         <div class="w-full bg-white p-6 rounded-lg shadow-lg mb-6">
             <h3 class="text-xl font-semibold text-gray-800 mb-4">Prendre rendez-vous</h3>
-            <a href="{{ route('prestations.create', $dogsitter->id) }}" class="inline-block bg-gradient-to-r from-yellow-300 to-pink-300 text-white px-6 py-3 rounded-lg hover:from-yellow-400 hover:to-pink-400 transition">
+            <a href="{{ route('prestations.create', $dogsitter->id) }}" class="inline-block bg-gradient-to-r from-yellow-300 to-pink-300 text-black px-6 py-3 rounded-lg hover:from-yellow-400 hover:to-pink-400 transition">
                 Cliquez ici pour prendre rendez-vous
             </a>
         </div>
