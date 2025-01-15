@@ -3,36 +3,44 @@
 @section('content')
 <x-app-layout>
     <div class="container mx-auto px-4 py-8">
-        <h1 class="text-3xl font-semibold mb-4">Détails de la Prestation</h1>
+        <h1 class="text-2xl font-semibold mb-4">Informations sur la Prestation</h1>
         
-        <div class="bg-white shadow-md rounded-lg p-6">
+        {{-- Ajout d'une classe de dégradé sur la carte --}}
+        <div class="p-6 rounded-lg shadow-md 
+            @switch($prestation->id % 5)
+                @case(0) bg-gradient-to-r from-pink-50 to-pink-100 @break
+                @case(1) bg-gradient-to-r from-red-50 to-red-100 @break
+                @case(2) bg-gradient-to-r from-orange-50 to-orange-100 @break
+                @case(3) bg-gradient-to-r from-green-50 to-green-100 @break
+                @case(4) bg-gradient-to-r from-yellow-50 to-yellow-100 @break
+            @endswitch"
+        >
             <div class="space-y-4">
                 @if(Auth::user()->role === 'dogsitter')
-                    <p><strong class="font-semibold text-gray-700">numéro de la prestation:</strong> {{ $prestation->id }}</p>
-                    <p><strong class="font-semibold text-gray-700">Propriétaire:</strong> {{ $prestation->proprietaire->name }}</p>
+                    <p><strong class="font-semibold text-gray-700">Numéro de la prestation :</strong> {{ $prestation->id }}</p>
+                    <p><strong class="font-semibold text-gray-700">Propriétaire :</strong> {{ $prestation->proprietaire->name }}</p>
                 @endif
                 @if(Auth::user()->role === 'proprietaire')
-                    <p><strong class="font-semibold text-gray-700">Dogsitter:</strong> {{ $prestation->dogsitter->name }}</p>
+                    <p><strong class="font-semibold text-gray-700">Dogsitter :</strong> {{ $prestation->dogsitter->name }}</p>
                 @endif
-                <p><strong class="font-semibold text-gray-700">Chiens:</strong>
+                <p><strong class="font-semibold text-gray-700">Chiens :</strong>
                     @foreach($prestation->prestationDogs as $prestationDog)
                        {{ $prestationDog->dog->nom }}
                     @endforeach
                 </p>
-                <p><strong class="font-semibold text-gray-700">Service:</strong> {{ $prestation->prestationType ? $prestation->prestationType->nom : 'N/A' }}</p>
-                <p><strong class="font-semibold text-gray-700">Date de début:</strong> {{ $prestation->formatted_date_debut }}</p>
-                <p><strong class="font-semibold text-gray-700">Date de fin:</strong> {{ $prestation->formatted_date_fin }}</p>
-                <p><strong class="font-semibold text-gray-700">Statut:</strong> {{ $prestation->statut }}</p>
-                <p><strong class="font-semibold text-gray-700">Prix:</strong>
+                <p><strong class="font-semibold text-gray-700">Service :</strong> {{ $prestation->prestationType ? $prestation->prestationType->nom : 'N/A' }}</p>
+                <p><strong class="font-semibold text-gray-700">Date de début :</strong> {{ $prestation->formatted_date_debut }}</p>
+                <p><strong class="font-semibold text-gray-700">Date de fin :</strong> {{ $prestation->formatted_date_fin }}</p>
+                <p><strong class="font-semibold text-gray-700">Statut :</strong> {{ $prestation->statut }}</p>
+                <p><strong class="font-semibold text-gray-700">Prix :</strong>
                     @foreach($prestation->prestationDogs as $prestationDog)
                         {{ $prestationDog->prix }} €
                     @endforeach
                 </p>
             </div>
-
-            <div class="mt-6">
-                <a href="{{ route('myprestations') }}" class="inline-block bg-blue-500 text-white px-6 py-2 rounded-md shadow-md hover:bg-blue-600 transition duration-200">Retour aux Prestations</a>
-            </div>
+        </div>
+        <div class="mt-6">
+            <a href="{{ route('myprestations') }}" class="bg-gradient-to-r from-yellow-300 to-pink-300 text-black px-6 py-3 rounded-lg hover:from-yellow-400 hover:to-pink-400 transition">Retour aux Prestations</a>
         </div>
     </div>
 </x-app-layout>
