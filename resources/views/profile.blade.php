@@ -76,15 +76,19 @@
                     <h3 class="text-xl font-semibold mb-2 text-gray-800 pt-2">Expériences</h3>
                     <p class="text-gray-700 mb-4">{{ Auth::user()->experience }}</p>
 
-                    <h3 class="text-xl font-semibold mb-2 text-gray-800">Services</h3>
+                    <h3 class="text-xl font-semibold mb-2 text-gray-800 pt-2">Services</h3>
                     <ul class="list-disc pl-6 text-gray-700 space-y-1">
                         @foreach (Auth::user()->prestationtypes as $prestationtype)
                             <li>{{$prestationtype->nom }}</li>
                         @endforeach
                     </ul>
-
+                    
                     <h3 class="text-xl font-semibold mb-2 text-gray-800 pt-2">Prendre rendez-vous</h3>
-                    <a href="{{ route('prestations.create', Auth::user()->id) }}" class="inline-block bg-gradient-to-r from-yellow-200 to-pink-300 text-white px-6 py-3 rounded-lg hover:from-yellow-300 hover:to-pink-400 transition text-sm">Cliquez ici</a>
+                    @if(Auth::id()!== Auth::user()->id)
+                        <a href="{{ route('prestations.create', Auth::user()->id) }}" class="inline-block bg-gradient-to-r from-yellow-200 to-pink-300 text-white px-6 py-3 rounded-lg hover:from-yellow-300 hover:to-pink-400 transition text-sm">Cliquez ici</a>
+                    @else
+                        <p class="text-gray-700 mb-4">Vous ne pouvez pas prendre rendez-vous avec vous-meme</p>
+                    @endif
 
                     <h3 class="text-xl font-semibold mb-2 text-gray-800 pt-2">Avis clients</h3>
                     @foreach (Auth::user()->prestationsAsdogsitter as $prestation)
