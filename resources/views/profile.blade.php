@@ -26,17 +26,17 @@
                 <p class="mb-2"><strong>Disponibilité :</strong> {{ Auth::user()->disponibilite_jour }}</p>
 
                 @if (Auth::user()->role === 'dogsitter')
-                <p class="mb-2"><strong>Nombre de notes :</strong> {{ Auth::user()->nb_notes }}</p>
-                <p class="mb-2"><strong>Note /5 :</strong> {{ Auth::user()->note_moyenne }}</p>
-            
-                    @if(optional(Auth::user()->role === 'dogsitter')->prestationtypes)
+                    <p class="mb-2"><strong>Nombre de notes :</strong> {{ Auth::user()->nb_notes }}</p>
+                    <p class="mb-2"><strong>Note /5 :</strong> {{ Auth::user()->note_moyenne }}</p>
+                    @foreach(Auth::user()->prestationtypes as $prestationtype)
                         <p class="mb-2">
-                            <strong>Tarifs </strong> 
-                            {{ optional(Auth::user()->prestationtypes)->nom }} : 
-                            {{ optional(Auth::user()->prestationtypes)->prix }} € / 
-                            {{ optional(Auth::user()->prestationtypes)->duree }}h
+                            <strong>Tarif de {{ $prestationtype->nom }} :</strong>
+                            {{ $prestationtype->pivot->prix }} € /
+                            {{ $prestationtype->pivot->duree }}h
                         </p>
-                    @else
+                    @endforeach
+                
+                    @if(Auth::user()->prestationtypes->isEmpty())
                         <p class="mb-2">Aucun tarif défini.</p>
                     @endif
                 @endif
@@ -78,7 +78,9 @@
 
                     <h3 class="text-xl font-semibold mb-2 text-gray-800">Services</h3>
                     <ul class="list-disc pl-6 text-gray-700 space-y-1">
-                        <li>{{ Auth::user()->service }}</li>
+                        @foreach (Auth::user()->prestationtypes as $prestationtype)
+                            <li>{{$prestationtype->nom }}</li>
+                        @endforeach
                     </ul>
 
                     <h3 class="text-xl font-semibold mb-2 text-gray-800 pt-2">Prendre rendez-vous</h3>
