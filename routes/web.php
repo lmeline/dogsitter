@@ -42,6 +42,11 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+Route::middleware(['auth'])->group(function () {
+    Route::get('/abonnement', [AbonnementController::class, 'show'])->name('abonnements.update');
+    Route::post('/abonnement', [AbonnementController::class, 'updateAbonnement'])->name('abonnements.update');
+});
+
 require __DIR__.'/auth.php';
 
 

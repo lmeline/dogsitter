@@ -77,11 +77,19 @@
                             <x-dropdown-link :href="route('profile')">
                                 {{ __('Profile') }}
                             </x-dropdown-link>
-            
+                            @if(Auth::user()->role === 'proprietaire')
+                                <x-dropdown-link :href="route('dogs.create')">
+                                    {{ __('Ajouter un chien') }}
+                                </x-dropdown-link>
+                            @endif
                             <x-dropdown-link :href="route('profile.edit')">
                                 {{ __('Parameters') }}
                             </x-dropdown-link>
-            
+                            @if(Auth::user()->role === 'dogsitter')
+                                <x-dropdown-link :href="route('abonnements.update')">
+                                    {{ __('Subcription') }}
+                                </x-dropdown-link>
+                            @endif
                             <!-- Authentication -->
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf

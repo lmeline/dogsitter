@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('nom')->nullable();
             $table->decimal('prix',8,2)->nullable();
+            $table->text('description')->nullable();
             $table->dateTime('created_at')->useCurrent();
             $table->dateTime('updated_at')->useCurrent()->useCurrentOnUpdate();
         });

@@ -7,7 +7,7 @@
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
         @foreach($abonnements_types as $index => $abonnement)
             @if($index != 4) <!-- Exclut l'abonnement avec l'index 1 (le deuxième abonnement) -->
-                <div class="bg-gradient-to-r from-red-200 via-orange-200 via-pink-200 to-green-200 text-white rounded-lg shadow-xl overflow-hidden">
+                <div class="bg-gradient-to-r from-red-200 via-orange-200 via-pink-200 to-green-200 rounded-lg shadow-xl overflow-hidden">
                     <div class="p-6">
                         <h3 class="text-2xl font-semibold mb-4">{{ $abonnement->nom }}</h3>
                         <h4 class="text-xl mb-4">Prix : {{ $abonnement->prix }} €</h4>
@@ -17,7 +17,7 @@
                         <form method="POST" action="{{ route('abonnements.choose') }}">
                             @csrf
                             <input type="hidden" name="abonnements_types_id" value="{{ $abonnement->id }}">
-                            <button type="submit" class="w-full bg-white text-blue-600 hover:bg-blue-600 hover:text-white py-2 px-4 rounded-lg font-semibold transition duration-300">
+                            <button type="submit" class="bg-gradient-to-r from-yellow-300 to-pink-300 text-white px-6 py-3 rounded-lg hover:from-yellow-400 hover:to-pink-400 transition w-full">
                                 Choisir cet abonnement
                             </button>
                         </form>

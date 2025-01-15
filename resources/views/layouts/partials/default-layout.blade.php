@@ -36,10 +36,10 @@
             <!-- Action Buttons pour les non-connectés -->
             @guest
             <div class="flex gap-4">
-                <a href="{{ route('register') }}?proprietaire=true" class="font-semibold text-black bg-gradient-to-r from-green-200 via-yellow-200 to-blue-200 py-2 px-4 rounded-lg transition duration-300 hover:bg-gradient-to-r hover:from-green-300 hover:via-yellow-300 hover:to-blue-300">
+                <a href="{{ route('register') }}?proprietaire=true" class="font-semibold text-black bg-gradient-to-r from-yellow-300 to-pink-300 px-6 py-3 rounded-lg hover:from-yellow-400 hover:to-pink-400 py-2 px-4 rounded-lg transition duration-300 hover:bg-gradient-to-r hover:from-green-300 hover:via-yellow-300 hover:to-blue-300">
                     S'inscrire
                 </a>
-                <a href="{{ route('login') }}" class="font-semibold text-black bg-gradient-to-r from-blue-200 via-yellow-200 to-green-200 py-2 px-4 rounded-lg transition duration-300 hover:bg-gradient-to-r hover:from-blue-300 hover:via-yellow-300 hover:to-green-300">
+                <a href="{{ route('login') }}" class="font-semibold text-black bg-gradient-to-r from-yellow-300 to-pink-300  px-6 py-3 rounded-lg hover:from-yellow-400 hover:to-pink-400 py-2 px-4 rounded-lg transition duration-300 hover:bg-gradient-to-r hover:from-blue-300 hover:via-yellow-300 hover:to-green-300">
                     Se connecter
                 </a>
             </div>

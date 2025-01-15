@@ -31,21 +31,38 @@ class AbonnementController extends Controller
         'abonnements_types_id' => 'required|exists:abonnements_types,id',
     ]);
 
-    // Récupérer l'utilisateur authentifié
     $user = Auth::user();
 
-    // Vérifiez si l'utilisateur existe (bien qu'il devrait être toujours authentifié)
     if (!$user) {
         return redirect(route('login'))->with('error', 'Veuillez vous connecter pour choisir un abonnement.');
     }
 
-    // Enregistrer l'ID de l'abonnement choisi dans la table users
-    $user->abonnement_type_id = $request->abonnements_types_id;  // Enregistrement de l'abonnement
-    $user->save();  // Sauvegarde de l'utilisateur dans la base de données
+   $user->update([
+       'abonnement_type_id' => $request->input('abonnement_type_id'),
+   ]);
 
     // Rediriger vers le tableau de bord après l'enregistrement
     return redirect()->route('dashboard');
 }
 
+public function updateAbonnement(Request $request)
+{
+    $request->validate([
+        'abonnement_type_id' => 'required|exists:abonnements_types,id',
+    ]);
+
+    $user = Auth::user();
     
+    $user->update([
+        'abonnement_type_id' => $request->input('abonnement_type_id'),
+    ]);
+
+    return redirect()->route('abonnements.update');
+}
+
+public function show(){
+    $user = Auth::user();
+    $abonnements_types = Abonnement::all();
+    return view('abonnements.update', compact('user', 'abonnements_types'));
+}
 }
