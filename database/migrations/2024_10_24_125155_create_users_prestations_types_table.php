@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('users_prestations_types', function (Blueprint $table) {
             $table->id();
-            $table->decimal('prix',8,2);
+            $table->decimal('prix',8,2)->default(0);
             $table->foreignId('dogsitter_id')->constrained('users')->onDelete('cascade');
             $table->foreignId('prestation_type_id')->constrained('prestations_types')->onDelete('cascade'); 
             $table->unique(['dogsitter_id', 'prestation_type_id']);

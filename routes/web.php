@@ -4,6 +4,7 @@ use App\Http\Controllers\AbonnementController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DogController;
 use App\Http\Controllers\PrestationController;
+use App\Http\Controllers\PrestationTypesController;
 use App\Http\Controllers\ProfilDogsitterController;
 use App\Http\Controllers\ProprietaireController;
 use GuzzleHttp\Client;
@@ -59,6 +60,9 @@ Route::get('/dogsitters/filtrer', [ProfilDogsitterController::class, 'filter'])-
 
 route::get('/proprietaires',[ProprietaireController::class,'index'])->name('proprietaires.index');
 route::get('/proprietaires/{id}',[ProprietaireController::class,'show'])->name('proprietaires.show');
+
+Route::get('/user-prestation/create', [PrestationTypesController::class, 'create'])->name('userPrestations.create');
+Route::post('/user-prestation', [PrestationTypesController::class, 'store'])->name('userPrestations.store');
 
 
 

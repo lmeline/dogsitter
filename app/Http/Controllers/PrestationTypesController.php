@@ -1,8 +1,11 @@
 <?php
 namespace App\Http\Controllers;
 
+use App\Models\PrestationType;
 use App\Models\User;
+use App\Models\UserPrestationType;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PrestationTypesController extends Controller
 {
@@ -19,5 +22,34 @@ class PrestationTypesController extends Controller
 
         // Retourner la vue avec les données
         return view('dogsitters.show', compact('dogsitter'));
+    }
+
+    public function create()
+    {
+        // Récupérer les types de prestations disponibles
+        $prestationtypes = PrestationType::all();
+
+        return view('userPrestations.create', compact('prestationtypes'));
+    }
+
+    // Stocker un nouveau tarif
+    public function store(Request $request)
+    {
+        $request->validate([
+            'prestation_type_id' => 'required|exists:prestations_types,id',
+            'prix' => 'required|numeric|min:0',
+            'dogsitter_id' => 'required|exists:users,id',
+            'duree' => 'required|numeric|min:1',
+        ]);
+
+        // Créer un tarif lié à l'utilisateur actuel
+        UserPrestationType::create([
+            'dogsitter_id' =>$request->dogsitter_id,
+            'prestation_type_id' => $request->prestation_type_id,
+            'prix' => $request->prix, // Utilisez "tarif" si c'est le nom de la colonne
+            'duree' => $request->duree
+        ]);
+
+        return redirect()->route('dashboard')->with('success', 'Tarif ajouté avec succès.');
     }
 }

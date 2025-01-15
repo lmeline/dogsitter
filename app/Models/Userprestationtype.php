@@ -9,10 +9,22 @@ class UserPrestationType extends Pivot
     protected $table = 'users_prestations_types'; // Spécifie la table pivot explicitement
 
     protected $fillable = [
-        'user_id',
+        'dogsitter_id',
         'prestation_type_id',
         'prix',
+        'duree',
+
     ];
 
     public $timestamps = false; 
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function prestationType()
+    {
+        return $this->belongsTo(PrestationType::class,'prestation_type_id');
+    }
 }

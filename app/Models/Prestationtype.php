@@ -22,5 +22,9 @@ class PrestationType extends Model
     {
         return $this->hasMany(Prestation::class);
     }
+    public function userPrestations()
+    {
+        return $this->hasMany(UserPrestationType::class, 'prestation_type_id');
+    }
 
 }

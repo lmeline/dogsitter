@@ -74,7 +74,7 @@
                             </x-dropdown-link>
                             @if(Auth::user()->role === 'proprietaire')
                                 <x-dropdown-link :href="route('dogs.create')">
-                                    {{ __('Ajouter un chien') }}
+                                    {{ __('Add a dog') }}
                                 </x-dropdown-link>
                             @endif
                             <x-dropdown-link :href="route('profile.edit')">
@@ -84,6 +84,10 @@
                                 <x-dropdown-link :href="route('abonnements.update')">
                                     {{ __('Subcription') }}
                                 </x-dropdown-link>
+                                <x-dropdown-link :href="route('userPrestations.create')">
+                                    {{ __('Prices and services') }}
+                                </x-dropdown-link>
+                                
                             @endif
                             <!-- Authentication -->
                             <form method="POST" action="{{ route('logout') }}">
