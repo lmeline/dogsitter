@@ -8,6 +8,7 @@
             <!-- Formulaire de rendez-vous -->
             <form action="{{ route('prestations.store') }}" method="POST" class="bg-green p-8 rounded-lg shadow-md max-w-lg mx-auto" id="appointment-form">
                 @csrf
+                <input type="hidden" name="dogsitter_id" value="{{ $dogsitter->id }}"/>
                 <!-- Date et heure de début -->
                 <div class="mb-6">
                     <label for="date_debut" class="block text-gray-700 font-bold mb-2">Date et heure de début</label>

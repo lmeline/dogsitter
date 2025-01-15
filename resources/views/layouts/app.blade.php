@@ -10,7 +10,6 @@
         <!-- Fonts -->
         <link rel="stylesheet" href="{{ mix('resources/css/app.css') }}">
 
-        
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
 

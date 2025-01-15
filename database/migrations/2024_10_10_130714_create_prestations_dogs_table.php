@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('prestation_id')->constrained('prestations')->onDelete('restrict');
             $table->foreignId('dog_id')->constrained('dogs')->onDelete('restrict');
+            $table->integer('prix');
             $table->dateTime('created_at')->useCurrent();
             $table->dateTime('updated_at')->useCurrent()->useCurrentOnUpdate();
         });

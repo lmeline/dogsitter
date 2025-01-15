@@ -21,11 +21,9 @@ class Prestation extends Model
     protected $fillable = [
         'date_debut',
         'date_fin',
-        'dog_id',
         'prestation_type_id',
         'dogsitter_id',
         'proprietaire_id',
-        'prix',
         'prix_total',
     ];
 
@@ -44,15 +42,16 @@ class Prestation extends Model
         return $this->hasOne(Avis::class);
     }
 
-    public function dogs():HasMany
-    {
-        return $this->hasMany(Dog::class);
-    }
-
     public function prestationType(): BelongsTo
     {
         return $this->belongsTo(Prestationtype::class, 'prestation_type_id');
     }
+
+    public function prestationDogs()
+    {
+        return $this->hasMany(PrestationDog::class, 'prestation_id');
+    }
+    
 }
 
 

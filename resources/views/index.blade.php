@@ -108,16 +108,15 @@
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
             <!-- Subscription 1 -->
             <div class=" p-6 rounded-lg shadow-lg text-left backdrop-blur-md bg-white/70">
-                <h3 class="text-2xl font-semibold mb-4 text-center text-red-300">Abonnement Standard</h3>
+                <h3 class="text-2xl font-semibold mb-4 text-center text-red-300">Abonnement / Mois</h3>
                 <ul class="mb-4">
                     <li class="font-semibold">Mensuel: <span class="font-normal">29 € par mois</span></li>
-                    <li class="font-semibold">Annuel: <span class="font-normal">290 € par an (2 mois offerts)</span></li>
                 </ul>
                 <ul class="space-y-2">
                     <li class="font-semibold">Services inclus:</li>
                     <li>- Profil complet avec photo, description, et avis clients</li>
                     <li>- 10 annonces actives pour des services (garde, promenade)</li>
-                    <li>- Visibilité standard dans les résultats de recherche</li>
+                    <li>- Visibilité dans les résultats de recherche</li>
                     <li>- Accès aux statistiques de base (visites de profil, clics)</li>
                     <li>- Réception d'avis et évaluations clients</li>
                 </ul>
@@ -125,19 +124,18 @@
 
             <!-- Subscription 2 -->
             <div class="p-6 rounded-lg shadow-lg text-left backdrop-blur-md bg-white/70">
-                <h3 class="text-2xl font-semibold mb-4 text-center text-green-600">Abonnement Premium</h3>
+                <h3 class="text-2xl font-semibold mb-4 text-center text-green-600">Abonnement / Annuel </h3>
                 <ul class="mb-4">
-                    <li class="font-semibold">Mensuel: <span class="font-normal">59 € par mois</span></li>
-                    <li class="font-semibold">Annuel: <span class="font-normal">590 € par an (2 mois offerts)</span></li>
+                    <li class="font-semibold">Annuel: <span class="font-normal">290 € par an (2 mois offerts)</span></li>
                 </ul>
                 <ul class="space-y-2">
                     <li class="font-semibold">Services inclus:</li>
-                    <li>- Profil optimisé avec galerie de photos, vidéos, et recommandations</li>
-                    <li>- Annonces illimitées pour proposer tous types de services</li>
-                    <li>- Visibilité maximale avec mise en avant dans les résultats de recherche</li>
-                    <li>- Badge "Dog Sitter Vérifié" (après vérification des références)</li>
-                    <li>- Promotion via newsletters et réseaux sociaux</li>
-                    <li>- Accès à des outils de marketing et campagnes publicitaires</li>
+                    <li>- Profil complet avec photo, description, et avis clients</li>
+                    <li>- 10 annonces actives pour des services (garde, promenade)</li>
+                    <li>- Visibilité avec mise en avant dans les résultats de recherche</li>
+                    <li>- Accès aux statistiques de base (visites de profil, clics)</li>
+                    <li>- Réception d'avis et évaluations clients</li>
+                   
                 </ul>
             </div>
         </div>

@@ -6,7 +6,7 @@
 
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
         @foreach($abonnements_types as $index => $abonnement)
-            @if($index != 3) <!-- Exclut l'abonnement avec l'index 1 (le deuxième abonnement) -->
+            @if($index != 4) <!-- Exclut l'abonnement avec l'index 1 (le deuxième abonnement) -->
                 <div class="bg-gradient-to-r from-red-200 via-orange-200 via-pink-200 to-green-200 text-white rounded-lg shadow-xl overflow-hidden">
                     <div class="p-6">
                         <h3 class="text-2xl font-semibold mb-4">{{ $abonnement->nom }}</h3>
