@@ -1,44 +1,47 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Messages ') }}
-        </h2>
-    </x-slot>
-
-    <div class="container mx-auto py-8">
-        <div class="bg-white shadow p-4 rounded-lg">
+@extends('layouts.partials.default-layout')
+@section('content')
+    <x-app-layout>
+        <x-slot name="header">
             <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-                @if($thread->users->count() > 1)
-                    @foreach($thread->users as $user)
-                        @if($user->id !== auth()->id())  {{-- Assurez-vous de ne pas afficher l'utilisateur connecté --}}
-                            {{ $user->name }} {{ $user->name }}
-                            @break
-                        @endif
-                    @endforeach
-                @endif
+            <a href="{{ route('messages.index') }}">{{ __('Messages ') }} </a> 
             </h2>
+        </x-slot>
 
-            <ul class="space-y-4 mt-4">
-                @foreach ($thread->messages as $message)
-                    <li class="bg-gray-100 p-4 rounded-lg">
-                        <div class="flex justify-between">
-                            <span class="font-bold">{{ $message->user->name }} :</span>
-                            <span class="text-sm text-gray-500">{{ $message->created_at->diffForHumans() }}</span>
-                        </div>
-                        <p class="mt-2 text-gray-700">  {!! nl2br(e($message->body)) !!}</p>
-                    </li>
-                @endforeach
-            </ul>
-        </div>
+        <div class="container mx-auto py-8">
+            <div class="bg-white shadow p-4 rounded-lg">
+                <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+                    @if($thread->users->count() > 1)
+                        @foreach($thread->users as $user)
+                            @if($user->id !== auth()->id())  {{-- Assurez-vous de ne pas afficher l'utilisateur connecté --}}
+                                {{ $user->name }} {{ $user->prenom }}
+                                @break
+                            @endif
+                        @endforeach
+                    @endif
+                </h2>
 
-        <div class="mt-6">
-            <form action="{{ route('messages.addMessage', $thread->id) }}" method="POST">
-                @csrf
-                <textarea name="message" class="w-full p-4 border rounded-lg" placeholder="Écrire un message..." required></textarea>
-                <button type="submit" class="inline-block bg-gradient-to-r from-yellow-300 to-pink-300 text-white px-6 py-3 rounded-lg hover:from-yellow-400 hover:to-pink-400 transition w-full">
-                    Envoyer
-                </button>
-            </form>
+                <ul class="space-y-4 mt-4">
+                    @foreach ($thread->messages as $message)
+                        <li class="bg-gray-100 p-4 rounded-lg">
+                            <div class="flex justify-between">
+                                <span class="font-bold">{{ $message->user->name }} :</span>
+                                <span class="text-sm text-gray-500">{{ $message->created_at->diffForHumans() }}</span>
+                            </div>
+                            <p class="mt-2 text-gray-700">  {!! nl2br(e($message->body)) !!}</p>
+                        </li>
+                    @endforeach
+                </ul>
+            </div>
+
+            <div class="mt-6">
+                <form action="{{ route('addMessage', $thread->id) }}" method="POST">
+                    @csrf
+                    <textarea name="message" class="w-full p-4 border border-white rounded-lg min-h-[70px] max-h-[300px]" placeholder="Écrire un message..." required></textarea>
+                    <button type="submit" class="inline-block bg-gradient-to-r  from-yellow-300 to-pink-300 px-6 py-3 rounded-lg hover:from-yellow-400 hover:to-pink-400 transition w-full">
+                        Envoyer
+                    </button>
+                </form>
+            </div>
         </div>
-    </div>
-</x-app-layout>
+    </x-app-layout>
+@endsection

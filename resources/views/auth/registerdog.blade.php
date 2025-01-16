@@ -149,7 +149,7 @@
             </div>
         
             <div class="block mt-4">
-                    <input id="sterilise" type="checkbox" name="sterilise" >
+                    <input id="sterilise" type="checkbox" name="sterilise" :value="Stérilisé">
             </div>
             
 

@@ -97,5 +97,5 @@ Route::middleware('auth')->group(function () {
 
     Route::post('/messages', [MessageController::class, 'store'])->name('messages.store');
     Route::get('/messages/{id}', [MessageController::class, 'show'])->name('messages.show');
-    Route::post('/messages/{id}/add', [MessageController::class, 'addMessage'])->name('messages.addMessage');
+    Route::post('/messages/{id}/add', [MessageController::class, 'addMessage'])->name('addMessage');
 });

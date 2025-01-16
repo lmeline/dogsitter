@@ -24,7 +24,7 @@
                         placeholder="Rechercher un utilisateur..." 
                         class="flex-grow mt-1 w-full border border-gray-300 focus:ring-2 focus:ring-orange-500 focus:border-orange-500 rounded-lg p-3"
                     />
-                    <button type="submit" class="bg-gradient-to-r from-yellow-300 to-pink-300 text-white px-6 py-3 rounded-lg hover:from-yellow-400 hover:to-pink-400 transition">
+                    <button type="submit" class="bg-gradient-to-r from-yellow-300 to-pink-300  px-6 py-3 rounded-lg hover:from-yellow-400 hover:to-pink-400 transition">
                         Rechercher
                     </button>
                 </div>

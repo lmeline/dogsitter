@@ -48,13 +48,6 @@
             </div>
             
             <div class="hidden sm:flex sm:items-center sm:ms-6">
-                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('profile')" :active="request()->routeIs('profile')">
-                        {{ __('Mon profil') }}
-                    </x-nav-link>
-                </div>
-                <!-- page de profil propriétaire avec menu deroulant -->
-                @if (request()->routeIs('profile'))
                     <x-dropdown align="right" width="48">
                         <x-slot name="trigger">
                             <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-black dark:text-gray-400  hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none transition ease-in-out duration-150">
@@ -69,22 +62,22 @@
                         </x-slot>
             
                         <x-slot name="content">
-                            <x-dropdown-link :href="route('profile')">
+                            <x-dropdown-link :href="route('profile')" :active="request()->routeIs('profile')">
                                 {{ __('Profile') }}
                             </x-dropdown-link>
                             @if(Auth::user()->role === 'proprietaire')
-                                <x-dropdown-link :href="route('dogs.create')">
+                                <x-dropdown-link :href="route('dogs.create')" :active="request()->routeIs('dogs.create')">
                                     {{ __('Add a dog') }}
                                 </x-dropdown-link>
                             @endif
-                            <x-dropdown-link :href="route('profile.edit')">
+                            <x-dropdown-link :href="route('profile.edit')" :active="request()->routeIs('profile.edit')">
                                 {{ __('Parameters') }}
                             </x-dropdown-link>
                             @if(Auth::user()->role === 'dogsitter')
-                                <x-dropdown-link :href="route('abonnements.update')">
+                                <x-dropdown-link :href="route('abonnements.update')" :active="request()->routeIs('abonnements.update')">
                                     {{ __('Subcription') }}
                                 </x-dropdown-link>
-                                <x-dropdown-link :href="route('userPrestations.create')">
+                                <x-dropdown-link :href="route('userPrestations.create')" :active="request()->routeIs('userPrestation.create')">
                                     {{ __('Prices and services') }}
                                 </x-dropdown-link>
                                 
@@ -93,7 +86,7 @@
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf
             
-                                <x-dropdown-link :href="route('logout')"
+                                <x-dropdown-link :href="route('logout')" 
                                         onclick="event.preventDefault();
                                                     this.closest('form').submit();">
                                     {{ __('Log Out') }}
@@ -101,7 +94,7 @@
                             </form>
                         </x-slot>
                     </x-dropdown>
-                @endif
+
             </div>
             <!-- Hamburger -->
             <div class="-me-2 flex items-center sm:hidden">
