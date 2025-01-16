@@ -74,7 +74,6 @@ class RaceSeeder extends Seeder
             'Pekingese',
             'Schipperke',
             'Tenterfield Terrier',
-            'Autre',
         ];
 
         foreach ($races as $race) {

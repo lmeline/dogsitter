@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Dog;
+use App\Models\Race;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Contracts\View\View;
@@ -26,7 +27,8 @@ class DogController extends Controller
 
     public function create()
     {
-        return view('dogs.create');
+        $races = Race::orderBy('nom')->get();
+        return view('dogs.create',compact('races'));
     }
 
     public function registerdog()

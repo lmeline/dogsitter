@@ -29,68 +29,10 @@
                 
                     <select id="race" name="race" class="block mt-1 w-full rounded border border-red-300 focus:ring-red-500 focus:border-red-500">
                         <option value="">- Choisissez une race -</option>
-                        <option value="Labrador Retriever">Labrador Retriever</option>
-                        <option value="Berger Allemand">Berger Allemand</option>
-                        <option value="Golden Retriever">Golden Retriever</option>
-                        <option value="Bulldog">Bulldog</option>
-                        <option value="Beagle">Beagle</option>
-                        <option value="Caniche">Caniche</option>
-                        <option value="Chihuahua">Chihuahua</option>
-                        <option value="Shih Tzu">Shih Tzu</option>
-                        <option value="Rottweiler">Rottweiler</option>
-                        <option value="Bouledogue Français">Bouledogue Français</option>
-                        <option value="Cocker Spaniel">Cocker Spaniel</option>
-                        <option value="Schnauzer">Schnauzer</option>
-                        <option value="Yorkshire Terrier">Yorkshire Terrier</option>
-                        <option value="Dachshund">Dachshund</option>
-                        <option value="Mastin Espagnol">Mastin Espagnol</option>
-                        <option value="Dalmatien">Dalmatien</option>
-                        <option value="Border Collie">Border Collie</option>
-                        <option value="Bichon Frisé">Bichon Frisé</option>
-                        <option value="Akita">Akita</option>
-                        <option value="Chow Chow">Chow Chow</option>
-                        <option value="Husky Sibérien">Husky Sibérien</option>
-                        <option value="Shiba Inu">Shiba Inu</option>
-                        <option value="Pitbull">Pitbull</option>
-                        <option value="Jack Russell Terrier">Jack Russell Terrier</option>
-                        <option value="Pug">Pug</option>
-                        <option value="Weimaraner">Weimaraner</option>
-                        <option value="Cavalier King Charles Spaniel">Cavalier King Charles Spaniel</option>
-                        <option value="Lhassa Apso">Lhassa Apso</option>
-                        <option value="Chesapeake Bay Retriever">Chesapeake Bay Retriever</option>
-                        <option value="Boxer">Boxer</option>
-                        <option value="Great Dane">Great Dane</option>
-                        <option value="Saint-Bernard">Saint-Bernard</option>
-                        <option value="Bernese Mountain Dog">Bernese Mountain Dog</option>
-                        <option value="English Setter">English Setter</option>
-                        <option value="American Staffordshire Terrier">American Staffordshire Terrier</option>
-                        <option value="Newfoundland">Newfoundland</option>
-                        <option value="Scottish Terrier">Scottish Terrier</option>
-                        <option value="Whippet">Whippet</option>
-                        <option value="Tibetan Mastiff">Tibetan Mastiff</option>
-                        <option value="Vizsla">Vizsla</option>
-                        <option value="Rottweiler">Rottweiler</option>
-                        <option value="Shikoku">Shikoku</option>
-                        <option value="Papillon">Papillon</option>
-                        <option value="American Bulldog">American Bulldog</option>
-                        <option value="Basset Hound">Basset Hound</option>
-                        <option value="Bloodhound">Bloodhound</option>
-                        <option value="Saluki">Saluki</option>
-                        <option value="Great Pyrenees">Great Pyrenees</option>
-                        <option value="American Foxhound">American Foxhound</option>
-                        <option value="Basenji">Basenji</option>
-                        <option value="Belgian Malinois">Belgian Malinois</option>
-                        <option value="Cairn Terrier">Cairn Terrier</option>
-                        <option value="Gordon Setter">Gordon Setter</option>
-                        <option value="Dogo Argentino">Dogo Argentino</option>
-                        <option value="Fox Terrier">Fox Terrier</option>
-                        <option value="Irish Setter">Irish Setter</option>
-                        <option value="Norfolk Terrier">Norfolk Terrier</option>
-                        <option value="Pekingese">Pekingese</option>
-                        <option value="Schipperke">Schipperke</option>
-                        <option value="Tenterfield Terrier">Tenterfield Terrier</option>
-                        <option value="Yorkshire Terrier">Yorkshire Terrier</option>
-                        <option value="Autre">Autre</option>
+                        @foreach ($races as $race )
+                            <option value="{{ $race->nom }}"> {{ $race->nom }}</option>
+                        @endforeach
+                        <option value="Autre"> Autre</option>
                     </select>
                     <x-input-error :messages="$errors->get('race')" class="mt-2" />
                 </div>
