@@ -91,7 +91,8 @@
             </div>
         
             <div class="block mt-4">
-                    <input id="sterilise" type="checkbox" name="sterilise" :value="Stérilisé">
+                    <input id="sterilise" type="checkbox" name="sterilise" class="rounded-full h-[1.1rem] w-[1.1rem]">
+                   <label for="sterilise"> Stérilisé</label>
             </div>
             
 

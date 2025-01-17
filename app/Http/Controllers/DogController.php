@@ -33,11 +33,12 @@ class DogController extends Controller
 
     public function registerdog()
     {
+        $races = Race::orderBy('nom')->get();
         $user = Auth::user();
         if ($user == null) {
             return redirect(route('login'));
         } 
-        return view('auth.registerdog', compact('user'));
+        return view('auth.registerdog', compact('user','races'));
     }
 
     public function storeregisterdog(Request $request): RedirectResponse
