@@ -56,7 +56,7 @@
     <footer class="bg-gradient-to-r from-blue-200 via-green-200 to-yellow-200 text-gray-800 py-6">
         <div class="container mx-auto text-center">
             <p>&copy; 2024 Patte à patte. Tous droits réservés.</p>
-            <p><a href="/" class="text-yellow-500">Politique de confidentialité</a> | <a href="/" class="text-yellow-500">Conditions d'utilisation</a></p>
+            <p><a href="/politique-de-confidentialite" class="text-yellow-500">Politique de confidentialité</a> | <a href="/conditions-utilisation" class="text-yellow-500">Conditions générales d'utilisation</a></p>
         </div>
     </footer>
     

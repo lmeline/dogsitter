@@ -30,17 +30,13 @@ class AbonnementController extends Controller
     $request->validate([
         'abonnements_types_id' => 'required|exists:abonnements_types,id',
     ]);
-
     $user = Auth::user();
-
     if (!$user) {
         return redirect(route('login'))->with('error', 'Veuillez vous connecter pour choisir un abonnement.');
     }
-
    $user->update([
        'abonnement_type_id' => $request->input('abonnement_type_id'),
    ]);
-
     // Rediriger vers le tableau de bord après l'enregistrement
     return redirect()->route('dashboard');
 }

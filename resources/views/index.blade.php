@@ -148,17 +148,8 @@
         <h2 class="text-4xl font-bold text-center mb-5">Nos Informations et Services</h2>
 
         <div class="flex flex-wrap justify-between space-y-4 md:space-y-0">
-            <!-- Informations légales et politiques -->
-            <ul class="flex-1 p-4">
-                <h3 class="text-xl font-bold mb-4">Informations légales et politiques</h3>
-                <li><a href="#" class="hover:underline">Mentions légales</a></li>
-                <li><a href="#" class="hover:underline">Conditions générales d'utilisation (CGU)</a></li>
-                <li><a href="#" class="hover:underline">Politique de confidentialité</a></li>
-                <li><a href="#" class="hover:underline">Politique de cookies</a></li>
-            </ul>
-
             <!-- Aide et support -->
-            <ul class="flex-1 p-4">
+            <ul class="flex-1 p-4 text-center">
                 <h3 class="text-xl font-bold mb-4">Aide et support</h3>
                 <li><a href="#" class="hover:underline">Contact</a></li>
                 <li><a href="#" class="hover:underline">Aide / FAQ</a></li>
@@ -167,7 +158,7 @@
             </ul>
 
             <!-- À propos de l'entreprise -->
-            <ul class="flex-1 p-4">
+            <ul class="flex-1 p-4 text-center">
                 <h3 class="text-xl font-bold mb-4">À propos de l'entreprise</h3>
                 <li><a href="#" class="hover:underline">À propos / Qui sommes-nous ?</a></li>
                 <li><a href="#" class="hover:underline">Carrières / Recrutement</a></li>
@@ -176,7 +167,7 @@
             </ul>
 
             <!-- Contenu et actualités -->
-            <ul class="flex-1 p-4">
+            <ul class="flex-1 p-4 text-center">
                 <h3 class="text-xl font-bold mb-4">Contenu et actualités</h3>
                 <li><a href="#" class="hover:underline">Blog / Actualités</a></li>
                 <li><a href="#" class="hover:underline">Newsletter</a></li>
@@ -196,5 +187,6 @@
         </div>
     </div>
 </section>
+
 
 @endsection

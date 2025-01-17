@@ -37,17 +37,7 @@
             <x-text-input id="numero_telephone" class="block mt-1 w-full h-10" type="text" name="numero_telephone" :value="old('numero_telephone', $user->numero_telephone)" required autocomplete="telephone" />
             <x-input-error :messages="$errors->get('numero_telephone')" class="mt-2" />
         </div>
-        <div>
-            <x-input-label for="photo" :value="__('Photo de profil')" />
-            <input 
-                id="photo" 
-                class="block mt-1 w-full h-10 border-gray-300 rounded-md" 
-                type="file" 
-                name="photo" 
-                accept="image/*" 
-            />
-            <x-input-error :messages="$errors->get('photo')" class="mt-2" />
-        </div>
+       
         
         <!-- Champ pour l'adresse -->
         <div>
@@ -70,7 +60,6 @@
                 <x-input-error :messages="$errors->get('ville')" class="mt-2" />
             </div>
         </div>
-
         <!-- Champ pour l'email -->
         <div>
             <x-input-label for="email" :value="__('Email')" />
@@ -94,7 +83,18 @@
                 </div>
             @endif
         </div>
-
+        <!-- Champ pour la photo de profil -->
+        <div>
+            <x-input-label for="photo" :value="__('Photo de profil')" />
+            <input 
+                id="photo" 
+                class="block mt-1 w-full h-10 border-gray-300 rounded-md" 
+                type="file" 
+                name="photo" 
+                accept="image/*" 
+            />
+            <x-input-error :messages="$errors->get('photo')" class="mt-2" />
+        </div>
         <!-- Boutons de soumission -->
         <div class="flex items-center gap-4">
             <x-primary-button>{{ __('Save') }}</x-primary-button>

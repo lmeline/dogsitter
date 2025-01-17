@@ -7,7 +7,7 @@ use App\Http\Controllers\PrestationController;
 use App\Http\Controllers\PrestationTypesController;
 use App\Http\Controllers\ProfilDogsitterController;
 use App\Http\Controllers\ProprietaireController;
-use GuzzleHttp\Client;
+use App\Http\Controllers\MessageController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/dashboard', function () {
@@ -64,11 +64,17 @@ route::get('/proprietaires/{id}',[ProprietaireController::class,'show'])->name('
 Route::get('/user-prestation/create', [PrestationTypesController::class, 'create'])->name('userPrestations.create');
 Route::post('/user-prestation', [PrestationTypesController::class, 'store'])->name('userPrestations.store');
 
-
-
 route::get('/', function (){
     return view('index');
 })->name('index');
+
+route::get('/conditions-utilisation', function (){
+    return view('footer.cgu');
+})->name('cgu');
+
+route::get('/politique-de-confidentialite', function (){
+    return view('footer.politique-confidentialite');
+})->name('cgu');
 
 Route::get('/prestations/create/{id}',[PrestationController::class,'create'])->name('prestations.create');
 Route::get('/prestations',[PrestationController::class,'index'])->name('prestations.index');
@@ -82,13 +88,13 @@ Route::get('/register/dog',[DogController::class,'registerdog'])->name('register
 Route::post('/register/dog', [DogController::class, 'storeregisterdog'])->name('storeregisterdog');
 
 Route::get('/choisir-abonnement', [AbonnementController::class, 'registerabonnement'])->name('register.abonnement');
-Route::post('/choisir-abonnement', [AbonnementController::class, 'chooseAbonnement'])->name('abonnements.choose');
+Route::post('/choisir-abonnement', [AbonnementController::class, 'chooseAbonnement'])->name('chooseAbonnement');
 
 Route::get('/error', function() {
     return view('erreurs.unauthorized'); // Créez une vue simple d'erreur personnalisée
 })->name('errorPage');
 
-use App\Http\Controllers\MessageController;
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/messages', [MessageController::class, 'index'])->name('messages.index');
