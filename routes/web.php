@@ -21,6 +21,10 @@ Route::get('/dogsitter/accueil', function () {
     return view('dogsitters.PageAccueilDogsitter');
 })->middleware(['auth', 'verified'])->name('dogsitters.PageAccueilDogsitter');
 
+Route::get('dogsitter/calendar', function () {
+    return view('dogsitters.calendar');
+})->middleware(['auth', 'verified'])->name('dogsitters.calendar');
+
 Route::get('/proprietaire/accueil', function () {
     return view('proprietaires.PageAccueilProprietaire');
 })->middleware(['auth', 'verified'])->name('proprietaires.PageAccueilProprietaire');
@@ -81,7 +85,6 @@ Route::get('/prestations',[PrestationController::class,'index'])->name('prestati
 Route::post('/prestations/store', [PrestationController::class, 'store'])->name('prestations.store');
 Route::get('/prestations/{id}', [PrestationController::class, 'show'])->name('prestations.show');
 
-
 Route::get('profile/ajoutchien',[DogController::class,'create'])->name('dogs.create');
 
 Route::get('/register/dog',[DogController::class,'registerdog'])->name('register.dog');
@@ -93,11 +96,6 @@ Route::post('/choisir-abonnement', [AbonnementController::class, 'chooseAbonneme
 Route::get('/error', function() {
     return view('erreurs.unauthorized'); // Créez une vue simple d'erreur personnalisée
 })->name('errorPage');
-
-Route::get('/calendar', function () {
-    return view('dogsitters.calendar');
-});
-
 
 Route::middleware('auth')->group(function () {
     Route::get('/messages', [MessageController::class, 'index'])->name('messages.index');
@@ -112,3 +110,4 @@ Route::middleware('auth')->group(function () {
 
 // Requêtes ajax 
 Route::get('/prestations/calendar/getprestations',[PrestationController::class,'getprestations']);
+Route::get('/search-dogsitters',[ProfilDogsitterController::class,'getdogsitters'])->name('search.dogsitters');

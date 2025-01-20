@@ -37,4 +37,11 @@ class ProfilDogsitterController extends Controller
         return view('dogsitters.create');
     }
     
+    public function getdogsitters(Request $request)
+    {
+        $query = $request->input('name');
+        $dogsitters = User::where('name', 'like', '%' . $query . '%')
+            ->get();
+        return response()->json($dogsitters);
+    }
 }

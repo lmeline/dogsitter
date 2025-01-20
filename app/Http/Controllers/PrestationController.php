@@ -110,7 +110,7 @@ class PrestationController extends Controller
           'title' => $prestation->proprietaire->name,
           'start' => $prestation->date_debut,
           'end' => $prestation->date_fin,
-          'color' => '#ff0000',
+          'color' => '#b54d6d',
         ];
       }
       return response()->json($evenements);

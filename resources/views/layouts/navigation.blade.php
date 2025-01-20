@@ -40,7 +40,7 @@
                     </div>
                 @else
                     <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                        <x-nav-link :href="route('dogsitters.PageAccueilDogsitter')" :active="request()->routeIs('dogsitters.PageAccueilDogsitter')">
+                        <x-nav-link :href="route('dogsitters.calendar')" :active="request()->routeIs('dogsitters.calendar')">
                             {{ __('Mes rendez-vous') }}
                         </x-nav-link>
                     </div>
