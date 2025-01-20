@@ -94,6 +94,9 @@ Route::get('/error', function() {
     return view('erreurs.unauthorized'); // Créez une vue simple d'erreur personnalisée
 })->name('errorPage');
 
+Route::get('/calendar', function () {
+    return view('dogsitters.calendar');
+});
 
 
 Route::middleware('auth')->group(function () {
@@ -105,3 +108,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/messages/{id}', [MessageController::class, 'show'])->name('messages.show');
     Route::post('/messages/{id}/add', [MessageController::class, 'addMessage'])->name('addMessage');
 });
+
+
+// Requêtes ajax 
+Route::get('/prestations/calendar/getprestations',[PrestationController::class,'getprestations']);

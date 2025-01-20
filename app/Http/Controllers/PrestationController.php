@@ -97,4 +97,26 @@ class PrestationController extends Controller
 
     return view('prestations.show', compact('prestation'));
   }
+
+  public function getprestations(Request $request){
+    
+    $evenements = [];
+    try {
+      $start = Carbon::parse($request->start);
+      $end = Carbon::parse($request->end);
+      $prestations =Prestation::whereBetween('date_debut', [$start, $end])->get();
+      foreach ($prestations as $prestation) {
+        $evenements[] = [
+          'title' => $prestation->proprietaire->name,
+          'start' => $prestation->date_debut,
+          'end' => $prestation->date_fin,
+          'color' => '#ff0000',
+        ];
+      }
+      return response()->json($evenements);
+    } catch (Exception $e) {
+      return response()->json(['error' => $e->getMessage()]);
+    }
+  }
+
 }

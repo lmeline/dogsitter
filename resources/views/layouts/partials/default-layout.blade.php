@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>@yield('title')</title>
     @vite('resources/css/app.css')
+    @vite('resources/js/app.js')
 </head>
 <body class="flex flex-col text-gray-800 min-h-screen bg-gradient-to-br from-green-100 via-blue-100 to-yellow-100">
 

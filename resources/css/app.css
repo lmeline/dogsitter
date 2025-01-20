@@ -10,3 +10,17 @@
 body {
     font-family: "Roboto Mono", sans-serif;
 }
+
+/* full caldendar */
+.fc-timegrid-slot {
+    height: 12px !important;
+}
+
+.fc-col-header, .fc-col-header-cell {
+    @apply !bg-zinc-300 dark:!bg-zinc-950 dark:!text-white
+
+}
+.fc-timegrid-slot-label-frame.fc-scrollgrid-shrink-frame {
+    @apply !bg-zinc-200 dark:!bg-zinc-900 dark:!text-white h-full pt-2
+
+}

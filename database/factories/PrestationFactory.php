@@ -26,9 +26,6 @@ class PrestationFactory extends Factory
             return [];
         }
 
-        // Sélectionner un chien parmi ceux du propriétaire
-        $dog = $proprietaire->dogs->random();
-
         // Sélectionner un dogsitter aléatoire
         $dogsitter = User::where('role', 'dogsitter')->inRandomOrder()->first();
 
@@ -40,12 +37,10 @@ class PrestationFactory extends Factory
             'dogsitter_id' => $dogsitter->id,  
             'prestation_type_id' => $prestation_type->id,  
             'date_debut' => $this->faker->dateTimeThisYear(),  
-            'date_fin' => $this->faker->dateTimeThisYear(),  
-            'prix' => $this->faker->randomFloat(2, 10, 100),  
+            'date_fin' => $this->faker->dateTimeThisYear(),   
             'quantite' => $this->faker->numberBetween(1, 5),  
             'prix_total' => $this->faker->randomFloat(2, 20, 200),  
-            'statut' => $this->faker->randomElement(['en cours', 'termine', 'annule', 'en attente de paiement']),
-            'dog_id' => $dog->id,  
+            'statut' => $this->faker->randomElement(['en cours', 'termine', 'annule', 'en attente de paiement']), 
         ];
     }
 }
