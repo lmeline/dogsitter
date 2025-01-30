@@ -71,11 +71,21 @@
                     <x-input-error :messages="$errors->get('code_postal')" class="mt-2" />
                 </div>
 
-                <div>
+                {{-- <div>
                     <x-input-label for="ville" :value="__('City')" />
                     <x-text-input id="ville" class="block mt-1 w-full border border-pink-300 focus:ring-pink-500 focus:border-pink-500" type="text" name="ville" :value="old('ville')" required autofocus autocomplete="ville" />
                     <x-input-error :messages="$errors->get('ville')" class="mt-2" />
+                </div> --}}
+
+                <div x-data="{ select: false, content: document.getElementById('content') }" class="relative" @click.outside="select = false; content.classList.remove  ('overflow-hidden') ; content.classList.add('overflow-y-auto')" id="selectGenre"> 
+                    <button @click="select = !select; content.classList.remove('overflow-y-auto') ; content.classList.add('overflow-hidden')" type="button" class="h-[29px] rounded w-[4.6rem] min-w-[4.6rem] dark:bg-zinc-400 bg-zinc-100 border dark:border-zinc-400 border-zinc-200 hover:border-zinc-300 text-sm cursor-pointer focus:cursor-text transition-all ease-in-out duration-200 relative hover:text-zinc-800 dark:hover:text-white" :class="select ? 'text-zinc-800 dark:text-white' : 'text-zinc-500 dark:text-zinc-200'">
+                        + Ajouter
+                    </button>
+                    <ul class="absolute mt-1 w-[14rem] max-h-[18.8rem] top-[2.3rem] rounded bg-zinc-50 dark:bg-zinc-600 ring-1 ring-zinc-300 dark:ring-zinc-400 overflow-y-auto z-10" x-show="select">
+                    </ul>
                 </div>
+
+                
             </div>
             {{-- <div class="mt-4">
                 <x-input-label for="photo" :value="__('Photo de profil')" />
@@ -313,22 +323,22 @@
             }
         }
 
-    // Fonction pour masquer le service complet (case et tarif)
-    function hideService(service) {
-        var checkbox = document.getElementById(service);
-        var tarifField = document.getElementById("tarif-" + service);
-        
-        // Désélectionner la case à cocher et masquer le tarif
-        checkbox.checked = false;
-        tarifField.style.display = "none";
-    }
+        // Fonction pour masquer le service complet (case et tarif)
+        function hideService(service) {
+            var checkbox = document.getElementById(service);
+            var tarifField = document.getElementById("tarif-" + service);
+            
+            // Désélectionner la case à cocher et masquer le tarif
+            checkbox.checked = false;
+            tarifField.style.display = "none";
+        }
 
-    // Appel de la fonction au chargement de la page pour vérifier les services déjà sélectionnés
-    document.addEventListener("DOMContentLoaded", function() {
-        // Vérifier si un service est sélectionné au départ
-        toggleTarifField('garde_de_chien');
-        toggleTarifField('promenade');
-    });
+        // Appel de la fonction au chargement de la page pour vérifier les services déjà sélectionnés
+        document.addEventListener("DOMContentLoaded", function() {
+            // Vérifier si un service est sélectionné au départ
+            toggleTarifField('garde_de_chien');
+            toggleTarifField('promenade');
+        });
 
         input.addEventListener('input', function () {
             console.log('cc')
@@ -339,17 +349,16 @@
             fetch(url, {
                 method: 'GET',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
                     'X-CSRF-TOKEN': document.querySelector('input[name="_token"]').value
                 }
-            }).then(response => {
-                console.log(response.json())
-                return response.json()
-            }).then(data => {
+            }).then(response => response.json()).then(data => {
                 console.log(data)
             })
+            .catch(error => {
+                console.error(error)
+            })
         })
-    
 
     </script>
 
