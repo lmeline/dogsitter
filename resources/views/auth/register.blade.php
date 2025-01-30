@@ -330,6 +330,27 @@
         toggleTarifField('promenade');
     });
 
+        input.addEventListener('input', function () {
+            console.log('cc')
+            const processedInput = encodeURIComponent(input.value)
+            const url = `{{ route('search.villes') }}?query=${processedInput}`
+            console.log(url)
+
+            fetch(url, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                    'X-CSRF-TOKEN': document.querySelector('input[name="_token"]').value
+                }
+            }).then(response => {
+                console.log(response.json())
+                return response.json()
+            }).then(data => {
+                console.log(data)
+            })
+        })
+    
+
     </script>
 
 </x-guest-layout>
