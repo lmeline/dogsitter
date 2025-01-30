@@ -74,7 +74,6 @@
                 
                     <p class="text-gray-600 mt-2">Ville: ${dogsitter.ville}</p>
                     <p class="text-gray-600">Note moyenne: ${dogsitter.note_moyenne}/5 </p>
-                    <p class="text-gray-600">Expérience: ${dogsitter.experience} ans</p>
                 </a>`
             })
         })

@@ -73,8 +73,8 @@
                 @endif
 
                 @if (Auth::user()->role === 'dogsitter')
-                    <h3 class="text-xl font-semibold mb-2 text-gray-800 pt-2">Expériences</h3>
-                    <p class="text-gray-700 mb-4">{{ Auth::user()->experience }}</p>
+                    <h3 class="text-xl font-semibold mb-2 text-gray-800 pt-2">A propos de moi et mes expériences</h3>
+                    <p class="text-gray-700 mb-4">{{ Auth::user()->description }}</p>
 
                     <h3 class="text-xl font-semibold mb-2 text-gray-800 pt-2">Services</h3>
                     <ul class="list-disc pl-6 text-gray-700 space-y-1">

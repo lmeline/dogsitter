@@ -80,10 +80,6 @@
             <!-- Section Description -->
             <h2 class="text-2xl font-semibold text-gray-800 mb-4">À propos de moi</h2>
             <p class="text-gray-700 mb-6">{{ $dogsitter->description }}</p>
-
-            <!-- Section Expériences -->
-            <h3 class="text-xl font-semibold text-gray-800 mb-4">Expériences</h3>
-            <p class="text-gray-700 mb-6">{{ $dogsitter->experience }}</p>
         </div>
     </div>
 

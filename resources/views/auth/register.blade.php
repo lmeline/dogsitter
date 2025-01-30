@@ -1,24 +1,24 @@
 <x-guest-layout>
-    <div x-data="{ proprietaire: true }" class="max-w-4xl mx-auto">
+    <div x-data="{ proprietaire: true }" class="h-full max-w-4xl mx-auto">
 
-        <div class="flex items-center justify-evenly mt-4 w-full">
+        <div class="flex items-center justify-evenly w-full">
             <!-- Bouton Proprietaire - Rouge -->
             <button @click="proprietaire = true" type="button"
                     :class="proprietaire ? 'bg-red-600 text-white' : 'bg-gray-400 text-gray-800'"
-                    class=" font-bold hover:bg-red-700 focus:outline-none focus:ring-4 focus:ring-red-200 dark:focus:ring-red-700 rounded-lg text-sm p-2.5 transition-colors duration-300">
+                    class=" w-full font-bold hover:bg-red-700 focus:outline-none text-sm p-2.5 transition-colors duration-300">
                 Proprietaire
             </button>
 
             <!-- Bouton Dogsitter - Jaune -->
             <button @click="proprietaire = false" type="button"
                     :class="!proprietaire ? 'bg-yellow-600 text-white' : 'bg-gray-400 text-gray-800'"
-                    class=" font-boldhover:bg-yellow-700 focus:outline-none focus:ring-4 focus:ring-yellow-200 dark:focus:ring-yellow-700 rounded-lg text-sm p-2.5 transition-colors duration-300">
+                    class=" w-full font-boldhover:bg-yellow-700 focus:outline-none text-sm p-2.5 transition-colors duration-300">
                 Dogsitter
             </button>
         </div>
 
         <!-- Formulaire Proprietaire -->
-        <form x-show="proprietaire" method="POST" action="{{ route('register') }}" class="mt-6">
+        <form x-show="proprietaire" method="POST" action="{{ route('register') }}" class=" px-6 py-4">
             @csrf
             <!-- Nom et prénom -->
             <div class="flex w-full gap-2 mt-4">
@@ -77,11 +77,11 @@
                     <x-input-error :messages="$errors->get('ville')" class="mt-2" />
                 </div>
             </div>
-            <div class="mt-4">
+            {{-- <div class="mt-4">
                 <x-input-label for="photo" :value="__('Photo de profil')" />
                 <input type="file" id="photo" name="photo" class="block mt-1 w-full border border-pink-300 focus:ring-pink-500 focus:border-pink-500" />
                 <x-input-error :messages="$errors->get('photo')" class="mt-2" />
-            </div>
+            </div> --}}
             <!-- Mot de passe -->
             <div class="mt-4">
                 <x-input-label for="password" :value="__('Password')" />
@@ -108,110 +108,229 @@
         </form>
 
         <!-- Formulaire Dogsitter -->
-        <form x-show="!proprietaire" method="POST" action="{{ route('registerdogsitter') }}" class="mt-6">
+        <form x-show="!proprietaire" method="POST" action="{{ route('registerdogsitter') }}" class="overflow-y-auto px-6 py-4 relative">
             @csrf
-            <!-- Nom et prénom -->
-            <div class="flex w-full gap-2 mt-4">
-                <div>
-                    <x-input-label for="name" :value="__('Name')" />
-                    <x-text-input id="name" class="block mt-1 w-full border border-red-300 focus:ring-red-500 focus:border-red-500" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
-                    <x-input-error :messages="$errors->get('name')" class="mt-2" />
+            <div class="w-full h-full">
+
+               <div class="w-full h-full">
+                    <!-- Nom et prénom -->
+                    <div class="flex w-full gap-2 mt-4">
+                        <div>
+                            <x-input-label for="name" :value="__('Name')" />
+                            <x-text-input id="name" class="block mt-1 w-full border border-red-300 focus:ring-red-500 focus:border-red-500" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
+                            <x-input-error :messages="$errors->get('name')" class="mt-2" />
+                        </div>
+
+                        <div>
+                            <x-input-label for="prenom" :value="__('First name')" />
+                            <x-text-input id="prenom" class="block mt-1 w-full border border-red-300 focus:ring-red-500 focus:border-red-500" type="text" name="prenom" :value="old('prenom')" required autofocus autocomplete="prenom" />
+                            <x-input-error :messages="$errors->get('prenom')" class="mt-2" />
+                        </div>
+                    </div>
+                    <!-- Date de naissance -->
+                    <div class="mt-4">
+                        <x-input-label for="date_naissance" :value="__('Date of birth')" />
+                        <x-text-input id="date_naissance" class="block mt-1 w-full border border-orange-300 focus:ring-orange-500 focus:border-orange-500" type="date" name="date_naissance" :value="old('date_naissance')" required autocomplete="date_naissance" />
+                        <x-input-error :messages="$errors->get('date_naissance')" class="mt-2" />
+                    </div>
+                    <!-- Adresse email -->
+                    <div class="mt-4">
+                        <x-input-label for="email" :value="__('Email')" />
+                        <x-text-input id="email" class="block mt-1 w-full border border-yellow-300 focus:ring-yellow-500 focus:border-yellow-500" type="email" name="email" :value="old('email')" required autocomplete="username" />
+                        <x-input-error :messages="$errors->get('email')" class="mt-2" />
+                    </div>
+                    <!-- Numéro de téléphone -->
+                    <div class="mt-4">
+                        <x-input-label for="telephone" :value="__('Telephone number')" />
+                        <x-text-input id="telephone" class="block mt-1 w-full border border-pink-300 focus:ring-pink-500 focus:border-pink-500" type="text" name="telephone" :value="old('telephone')" required autocomplete="username" />
+                        <x-input-error :messages="$errors->get('telephone')" class="mt-2" />
+                    </div>
+                    <!-- Adresse -->
+                    <div class="mt-4">
+                        <x-input-label for="adresse" :value="__('Adresse')" />
+                        <x-text-input id="adresse" class="block mt-1 w-full border border-pink-300 focus:ring-pink-500 focus:border-pink-500" type="text" name="adresse" :value="old('adresse')" required autocomplete="adresse" />
+                        <x-input-error :messages="$errors->get('adresse')" class="mt-2" />
+                    </div>
+                    <!-- Code postal et Ville -->
+                    <div class="flex w-full gap-2 mt-4">
+                        <div>
+                            <x-input-label for="code_postal" :value="__('Postal code')" />
+                            <x-text-input id="code_postal" class="block mt-1 w-full border border-pink-300 focus:ring-pink-500 focus:border-pink-500" type="text" name="code_postal" :value="old('code_postal')" required autofocus autocomplete="code_postal" />
+                            <x-input-error :messages="$errors->get('code_postal')" class="mt-2" />
+                        </div>
+
+                        <div>
+                            <x-input-label for="ville" :value="__('City')" />
+                            <x-text-input id="ville" class="block mt-1 w-full border border-pink-300 focus:ring-pink-500 focus:border-pink-500" type="text" name="ville" :value="old('ville')" required autofocus autocomplete="ville" />
+                            <x-input-error :messages="$errors->get('ville')" class="mt-2" />
+                        </div>
+                    </div>
+                    <!-- Description de soi -->
+                    <div class="mt-4">
+                        <x-input-label for="description" :value="__('A Propos de Moi ')" />
+                        <textarea id="description" class="block mt-1 w-full border rounded border-pink-300 focus:ring-pink-500 focus:border-pink-500 h-[50px] min-h-[50px]" name="description" :value="old('description')" required autocomplete="description" rows="4"></textarea>
+                        <x-input-error :messages="$errors->get('description')" class="mt-2" />
+                    </div>
+                    <!-- Mot de passe -->
+                    <div class="mt-4">
+                        <x-input-label for="password" :value="__('Password')" />
+                        <x-text-input id="password" class="block mt-1 w-full rounded border border-red-300 focus:ring-red-500 focus:border-red-500" type="password" name="password" required autocomplete="new-password" />
+                        <x-input-error :messages="$errors->get('password')" class="mt-2" />
+                    </div>
+
+                    <!-- Confirmation du mot de passe -->
+                    <div class="mt-4">
+                        <x-input-label for="password_confirmation" :value="__('Password confirmation')" />
+                        <x-text-input id="password_confirmation" class="block mt-1 w-full border border-red-300 focus:ring-red-500 focus:border-red-500" type="password" name="password_confirmation" required autocomplete="new-password" />
+                        <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
+                    </div>
+                    
+                    <!-- Horaires -->
+                    <div class="mt-4 font-medium text-sm">
+                        <h2>Enregistrez vos horaires</h2>
+                            <div class="block mt-1 w-full" id="schedule-form">
+                                <!-- Les jours seront insérés ici dynamiquement -->
+                            </div>
+                    </div>
+                    
+                    <!--Tarif et service-->
+                   
+                    <div class="mt-4">
+                        <x-input-label for="service" :value="__('Service')" />
+                        <div class="flex space-x-4">
+                            <!-- Garde de chien -->
+                            <div class="flex items-center">
+                                <input type="checkbox" id="garde_de_chien" name="service[]" value="garde_de_chien" 
+                                    {{ in_array('garde_de_chien', old('service', [])) ? 'checked' : '' }} 
+                                    onchange="toggleTarifField('garde_de_chien')"
+                                    class="form-checkbox text-blue-600 focus:ring-2 focus:ring-blue-500">
+                                <label for="garde_de_chien" class="ml-2 text-gray-700">Garde de chien</label>
+                                <button type="button" onclick="hideService('garde de chien')" 
+                                    class="ml-2 text-gray-500 hover:text-gray-700 focus:outline-none transition duration-200">
+                                    <i class="fas fa-times-circle"></i> <span class="sr-only">Non disponible</span>
+                                </button>
+                            </div>
+                    
+                            <!-- Promenade -->
+                            <div class="flex items-center">
+                                <input type="checkbox" id="promenade" name="service[]" value="promenade" 
+                                    {{ in_array('promenade', old('service', [])) ? 'checked' : '' }} 
+                                    onchange="toggleTarifField('promenade')"
+                                    class="form-checkbox text-blue-600 focus:ring-2 focus:ring-blue-500">
+                                <label for="promenade" class="ml-2 text-gray-700">Promenade</label>
+                                <button type="button" onclick="hideService('promenade')" 
+                                    class="ml-2 text-gray-500 hover:text-gray-700 focus:outline-none transition duration-200">
+                                    <i class="fas fa-times-circle"></i> <span class="sr-only">Non disponible</span>
+                                </button>
+                            </div>
+                        </div>
+                        <x-input-error :messages="$errors->get('service')" class="mt-2" />
+                    </div>
+                    
+                    <!-- Tarifs -->
+                    <div class="mt-4" id="tarif-garde_de_chien" style="display:none;">
+                        <x-input-label for="tarif_garde_de_chien" :value="__('Tarif Garde de chien')" />
+                        <x-text-input id="tarif_garde_de_chien" class="block mt-1 w-full rounded border border-gray-300 focus:ring-blue-500 focus:border-blue-500" type="number" name="tarif_garde_de_chien" :value="old('tarif_garde_de_chien')" autocomplete="prix" />
+                        <x-input-error :messages="$errors->get('tarif_garde_de_chien')" class="mt-2" />
+                    </div>
+                    
+                    <div class="mt-4" id="tarif-promenade" style="display:none;">
+                        <x-input-label for="tarif_promenade" :value="__('Tarif Promenade')" />
+                        <x-text-input id="tarif_promenade" class="block mt-1 w-full rounded border border-gray-300 focus:ring-blue-500 focus:border-blue-500" type="number" name="tarif_promenade" :value="old('tarif_promenade')" autocomplete="prix" />
+                        <x-input-error :messages="$errors->get('tarif_promenade')" class="mt-2" />
+                    </div>
+
+                    <!-- Bouton de soumission -->
+                    <div class="flex items-center justify-end mt-4">
+                        <a class="underline text-sm text-gray-600 hover:text-gray-900 dark:text-gray-200 dark:hover:text-white rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800" href="{{ route('login') }}">
+                            {{ __('Already registered?') }}
+                        </a>
+                        
+                        <x-primary-button @click.prevent="nextstep = true" class="ms-4 bg-yellow-500 hover:bg-yellow-600 focus:ring-4 focus:ring-yellow-200 dark:focus:ring-yellow-700">
+                            {{ __('Register') }}
+                        </x-primary-button>
+                    </div>
                 </div>
-
-                <div>
-                    <x-input-label for="prenom" :value="__('First name')" />
-                    <x-text-input id="prenom" class="block mt-1 w-full border border-red-300 focus:ring-red-500 focus:border-red-500" type="text" name="prenom" :value="old('prenom')" required autofocus autocomplete="prenom" />
-                    <x-input-error :messages="$errors->get('prenom')" class="mt-2" />
-                </div>
-            </div>
-
-            <!-- Date de naissance -->
-            <div class="mt-4">
-                <x-input-label for="date_naissance" :value="__('Date of birth')" />
-                <x-text-input id="date_naissance" class="block mt-1 w-full border border-orange-300 focus:ring-orange-500 focus:border-orange-500" type="date" name="date_naissance" :value="old('date_naissance')" required autocomplete="date_naissance" />
-                <x-input-error :messages="$errors->get('date_naissance')" class="mt-2" />
-            </div>
-
-            <!-- Adresse email -->
-            <div class="mt-4">
-                <x-input-label for="email" :value="__('Email')" />
-                <x-text-input id="email" class="block mt-1 w-full border border-yellow-300 focus:ring-yellow-500 focus:border-yellow-500" type="email" name="email" :value="old('email')" required autocomplete="username" />
-                <x-input-error :messages="$errors->get('email')" class="mt-2" />
-            </div>
-
-            <!-- Numéro de téléphone -->
-            <div class="mt-4">
-                <x-input-label for="telephone" :value="__('Telephone number')" />
-                <x-text-input id="telephone" class="block mt-1 w-full border border-pink-300 focus:ring-pink-500 focus:border-pink-500" type="text" name="telephone" :value="old('telephone')" required autocomplete="username" />
-                <x-input-error :messages="$errors->get('telephone')" class="mt-2" />
-            </div>
-            <!-- Adresse -->
-            <div class="mt-4">
-                <x-input-label for="adresse" :value="__('Adresse')" />
-                <x-text-input id="adresse" class="block mt-1 w-full border border-pink-300 focus:ring-pink-500 focus:border-pink-500" type="text" name="adresse" :value="old('adresse')" required autocomplete="adresse" />
-                <x-input-error :messages="$errors->get('adresse')" class="mt-2" />
-            </div>
-
-            <!-- Code postal et Ville -->
-            <div class="flex w-full gap-2 mt-4">
-                <div>
-                    <x-input-label for="code_postal" :value="__('Postal code')" />
-                    <x-text-input id="code_postal" class="block mt-1 w-full border border-pink-300 focus:ring-pink-500 focus:border-pink-500" type="text" name="code_postal" :value="old('code_postal')" required autofocus autocomplete="code_postal" />
-                    <x-input-error :messages="$errors->get('code_postal')" class="mt-2" />
-                </div>
-
-                <div>
-                    <x-input-label for="ville" :value="__('City')" />
-                    <x-text-input id="ville" class="block mt-1 w-full border border-pink-300 focus:ring-pink-500 focus:border-pink-500" type="text" name="ville" :value="old('ville')" required autofocus autocomplete="ville" />
-                    <x-input-error :messages="$errors->get('ville')" class="mt-2" />
-                </div>
-            </div>
-            
-            <!-- Description de soi -->
-            <div class="mt-4">
-                <x-input-label for="description" :value="__('A Propos de Moi ')" />
-                <textarea id="description" class="block mt-1 w-full border rounded border-pink-300 focus:ring-pink-500 focus:border-pink-500" name="description" :value="old('description')" required autocomplete="description" rows="4"></textarea>
-                <x-input-error :messages="$errors->get('description')" class="mt-2" />
-            </div>
-
-            <!-- Expérience avec les animaux -->
-            <div class="mt-4">
-                <x-input-label for="experience" :value="__('Experience')" />
-                <textarea id="experience" class="block mt-1 w-full border rounded border-pink-300 focus:ring-pink-500 focus:border-pink-500" name="experience" :value="old('experience')" required autocomplete="experience" rows="4"></textarea>
-                <x-input-error :messages="$errors->get('experience')" class="mt-2" />
-            </div>
-
-               <!-- Expérience avec les animaux -->
-            <div class="mt-4">
-                <x-input-label for="photo" :value="__('Photo de profil')" />
-                <input type="file" id="photo" name="photo" class="block mt-1 w-full rounded border rounded border-pink-300 focus:ring-pink-500 focus:border-pink-500" />
-                <x-input-error :messages="$errors->get('photo')" class="mt-2" />
-            </div>
-
-            <!-- Mot de passe -->
-            <div class="mt-4">
-                <x-input-label for="password" :value="__('Password')" />
-                <x-text-input id="password" class="block mt-1 w-full rounded border border-red-300 focus:ring-red-500 focus:border-red-500" type="password" name="password" required autocomplete="new-password" />
-                <x-input-error :messages="$errors->get('password')" class="mt-2" />
-            </div>
-
-            <!-- Confirmation du mot de passe -->
-            <div class="mt-4">
-                <x-input-label for="password_confirmation" :value="__('Password confirmation')" />
-                <x-text-input id="password_confirmation" class="block mt-1 w-full border border-red-300 focus:ring-red-500 focus:border-red-500" type="password" name="password_confirmation" required autocomplete="new-password" />
-                <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
-            </div>
-
-            <div class="flex items-center justify-end mt-4">
-                <a class="underline text-sm text-gray-600 hover:text-gray-900 dark:text-gray-200 dark:hover:text-white rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800" href="{{ route('login') }}">
-                    {{ __('Already registered?') }}
-                </a>
-
-                <x-primary-button class="ms-4 bg-yellow-500 hover:bg-yellow-600 focus:ring-4 focus:ring-yellow-200 dark:focus:ring-yellow-700">
-                    {{ __('Register') }}
-                </x-primary-button>
             </div>
         </form>
 
     </div>
+
+    <script>
+        // Fonction pour générer les options de temps (de 7h à 20h)
+        function generateTimeOptions() {
+            const options = [];
+            for (let hour = 7; hour <= 20; hour++) {
+                const time = (hour < 10 ? '0' : '') + hour + ':00';
+                options.push(time);
+            }
+            return options;
+        }
+    
+        // Fonction pour créer une section de jour avec les sélecteurs de temps
+        function createDaySection(day) {
+            const timeOptions = generateTimeOptions();
+            return `
+                <div class="flex flex-col gap-4 mt-4">
+                    <div>
+                        <label class="font-medium text-sm text-gray-700 ">${day}</label>
+                        <div class="flex items-center gap-4 mt-2">
+                            <select name="${day.toLowerCase()}_start" class="w-1/3 block mt-1 w-full rounded-lg border border-red-300 focus:ring-red-500 focus:border-red-500">
+                                ${timeOptions.map(time => `<option value="${time}">${time}</option>`).join('')}
+                            </select>
+                            <span class="text-gray-500">à</span>
+                            <select name="${day.toLowerCase()}_end" class="w-1/3 px-4 py-2 block mt-1 w-full rounded-lg border border-orange-300 focus:ring-orange-500 focus:border-orange-500">
+                                ${timeOptions.map(time => `<option value="${time}">${time}</option>`).join('')}
+                            </select>
+                            <div class="flex items-center gap-2 ml-4">
+                                <input type="checkbox" id="${day.toLowerCase()}_unavailable" class="w-5 h-5 block mt-1 rounded-lg border border-yellow-300  focus:border-yellow-500" />
+                                <label for="${day.toLowerCase()}_unavailable" class="text-sm text-black dark:text-gray-600">Indisponible</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+    
+        // Liste des jours de la semaine
+        const daysOfWeek = ["Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi", "Dimanche"];
+    
+        // Génération dynamique des sections pour chaque jour
+        const scheduleForm = document.getElementById('schedule-form');
+        daysOfWeek.forEach(day => {
+            scheduleForm.innerHTML += createDaySection(day);
+        });
+
+        function toggleTarifField(service) {
+            var tarifField = document.getElementById("tarif-" + service);
+            var checkbox = document.getElementById(service);
+            
+            // Si l'utilisateur coche la case, afficher le champ de tarif, sinon le masquer
+            if (checkbox.checked) {
+                tarifField.style.display = "block";
+            } else {
+                tarifField.style.display = "none";
+            }
+        }
+
+    // Fonction pour masquer le service complet (case et tarif)
+    function hideService(service) {
+        var checkbox = document.getElementById(service);
+        var tarifField = document.getElementById("tarif-" + service);
+        
+        // Désélectionner la case à cocher et masquer le tarif
+        checkbox.checked = false;
+        tarifField.style.display = "none";
+    }
+
+    // Appel de la fonction au chargement de la page pour vérifier les services déjà sélectionnés
+    document.addEventListener("DOMContentLoaded", function() {
+        // Vérifier si un service est sélectionné au départ
+        toggleTarifField('garde_de_chien');
+        toggleTarifField('promenade');
+    });
+
+    </script>
+
 </x-guest-layout>
+

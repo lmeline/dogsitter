@@ -32,7 +32,6 @@ class User extends Authenticatable
         'ville',
         'password',
         'role',
-        'experience',
         'description',
         'photo',
         'abonnement_type_id',
