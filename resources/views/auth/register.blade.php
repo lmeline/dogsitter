@@ -65,24 +65,35 @@
 
             <!-- Code postal et Ville -->
             <div class="flex w-full gap-2 mt-4">
-                <div>
+                {{-- <div>
                     <x-input-label for="code_postal" :value="__('Postal code')" />
                     <x-text-input id="code_postal" class="block mt-1 w-full border border-pink-300 focus:ring-pink-500 focus:border-pink-500" type="text" name="code_postal" :value="old('code_postal')" required autofocus autocomplete="code_postal" />
                     <x-input-error :messages="$errors->get('code_postal')" class="mt-2" />
-                </div>
+                </div> --}}
 
                 {{-- <div>
                     <x-input-label for="ville" :value="__('City')" />
                     <x-text-input id="ville" class="block mt-1 w-full border border-pink-300 focus:ring-pink-500 focus:border-pink-500" type="text" name="ville" :value="old('ville')" required autofocus autocomplete="ville" />
                     <x-input-error :messages="$errors->get('ville')" class="mt-2" />
                 </div> --}}
-
-                <div x-data="{ select: false, content: document.getElementById('content') }" class="relative" @click.outside="select = false; content.classList.remove  ('overflow-hidden') ; content.classList.add('overflow-y-auto')" id="selectGenre"> 
-                    <button @click="select = !select; content.classList.remove('overflow-y-auto') ; content.classList.add('overflow-hidden')" type="button" class="h-[29px] rounded w-[4.6rem] min-w-[4.6rem] dark:bg-zinc-400 bg-zinc-100 border dark:border-zinc-400 border-zinc-200 hover:border-zinc-300 text-sm cursor-pointer focus:cursor-text transition-all ease-in-out duration-200 relative hover:text-zinc-800 dark:hover:text-white" :class="select ? 'text-zinc-800 dark:text-white' : 'text-zinc-500 dark:text-zinc-200'">
-                        + Ajouter
-                    </button>
-                    <ul class="absolute mt-1 w-[14rem] max-h-[18.8rem] top-[2.3rem] rounded bg-zinc-50 dark:bg-zinc-600 ring-1 ring-zinc-300 dark:ring-zinc-400 overflow-y-auto z-10" x-show="select">
+                
+                {{-- <div class="form-group">
+                    <label for="ville">Ville</label>
+                    <select id="ville" name="ville" class="form-control" required>
+                        <option value="" disabled selected>Choisissez une ville</option>
+                        @foreach($villes as $ville)
+                            <option value="{{ $ville['nom_de_la_commune'] }}">{{ $ville['nom_de_la_commune'] }} ({{ $ville['code_postal'] }})</option>
+                        @endforeach
+                    </select>
+                </div> --}}
+                
+                <div class="relative"> 
+                    <input id="inputville" class=" text-start h-[29px] rounded w-[12rem] min-w-[4.6rem] dark:bg-zinc-400 bg-zinc-100 border dark:border-zinc-400 border-zinc-200 hover:border-zinc-300 text-sm cursor-pointer focus:cursor-text transition-all ease-in-out duration-200 relative hover:text-zinc-800 dark:hover:text-white">
+                        
+                    </input>
+                    <ul id="listville" class=" hidden  absolute mt-1 w-[14rem] max-h-[18.8rem] top-[2.3rem] rounded bg-zinc-50 dark:bg-zinc-600 ring-1 ring-zinc-300 dark:ring-zinc-400 overflow-y-auto z-10">
                     </ul>
+                    <button type="button" id="buttonville"> recherche </button>
                 </div>
 
                 
@@ -267,7 +278,9 @@
     </div>
 
     <script>
-        // Fonction pour générer les options de temps (de 7h à 20h)
+        const input = document.getElementById('inputville');
+        const buttonville = document.getElementById('buttonville');
+
         function generateTimeOptions() {
             const options = [];
             for (let hour = 7; hour <= 20; hour++) {
@@ -277,7 +290,6 @@
             return options;
         }
     
-        // Fonction pour créer une section de jour avec les sélecteurs de temps
         function createDaySection(day) {
             const timeOptions = generateTimeOptions();
             return `
@@ -302,10 +314,8 @@
             `;
         }
     
-        // Liste des jours de la semaine
         const daysOfWeek = ["Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi", "Dimanche"];
     
-        // Génération dynamique des sections pour chaque jour
         const scheduleForm = document.getElementById('schedule-form');
         daysOfWeek.forEach(day => {
             scheduleForm.innerHTML += createDaySection(day);
@@ -315,7 +325,6 @@
             var tarifField = document.getElementById("tarif-" + service);
             var checkbox = document.getElementById(service);
             
-            // Si l'utilisateur coche la case, afficher le champ de tarif, sinon le masquer
             if (checkbox.checked) {
                 tarifField.style.display = "block";
             } else {
@@ -323,24 +332,29 @@
             }
         }
 
-        // Fonction pour masquer le service complet (case et tarif)
         function hideService(service) {
             var checkbox = document.getElementById(service);
             var tarifField = document.getElementById("tarif-" + service);
             
-            // Désélectionner la case à cocher et masquer le tarif
+          
             checkbox.checked = false;
             tarifField.style.display = "none";
         }
 
-        // Appel de la fonction au chargement de la page pour vérifier les services déjà sélectionnés
+        function villeChoisi(ville) {
+        document.getElementById('listville').classList.remove('block')
+        document.getElementById('listville').classList.add('hidden')
+        document.getElementById('inputville').value = ville.innerHTML
+        //document.getElementById('inputville').innerText = ville.innerHTML
+        }
+
         document.addEventListener("DOMContentLoaded", function() {
-            // Vérifier si un service est sélectionné au départ
+     
             toggleTarifField('garde_de_chien');
             toggleTarifField('promenade');
         });
 
-        input.addEventListener('input', function () {
+        buttonville.addEventListener('click', function () {
             console.log('cc')
             const processedInput = encodeURIComponent(input.value)
             const url = `{{ route('search.villes') }}?query=${processedInput}`
@@ -354,10 +368,21 @@
                 }
             }).then(response => response.json()).then(data => {
                 console.log(data)
+                const listville = document.getElementById('listville');
+                listville.innerHTML = '';
+                data.forEach(ville => {
+                    listville.innerHTML += 
+                    `<li onclick="villeChoisi(this)" class="w-full py-1 px-2">
+                        ${ville.nom_de_la_commune} (${ville.code_postal})
+                    </li>`
+                })
+
             })
             .catch(error => {
                 console.error(error)
             })
+            document.getElementById('listville').classList.remove('hidden');
+            document.getElementById('listville').classList.add('block');
         })
 
     </script>

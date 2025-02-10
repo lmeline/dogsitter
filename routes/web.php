@@ -110,5 +110,6 @@ Route::middleware('auth')->group(function () {
 
 // Requêtes ajax 
 Route::get('/prestations/calendar/getprestations',[PrestationController::class,'getprestations']);
-Route::get('/search-dogsitters',[ProfilDogsitterController::class,'getdogsitters'])->name('search.dogsitters');
+//Route::get('/search-dogsitters',[ProfilDogsitterController::class,'getdogsitters'])->name('search.dogsitters');
+Route::get('/search-dogsitters',[ProfilDogsitterController::class,'search'])->name('search.dogsitters');
 Route::get('/search-villes',[ProfileController::class,'getvilles'])->name('search.villes');

@@ -11,7 +11,8 @@ class ProfilDogsitterController extends Controller
     public function index()
     {
         $dogsitters = User::where('role', 'dogsitter')->paginate(20); // Utilisation de paginate() pour récupérer 20 dogsitters par page
-        return view('dogsitters.index', compact('dogsitters'));
+        $villes = User::distinct('ville')->where('role', 'dogsitter')->pluck('ville')->toArray();
+        return view('dogsitters.index', compact('dogsitters','villes'));
     }
     
 
@@ -37,11 +38,27 @@ class ProfilDogsitterController extends Controller
         return view('dogsitters.create');
     }
     
-    public function getdogsitters(Request $request)
+    // public function getdogsitters(Request $request)
+    // {
+    //     $query = $request->input('name');
+    //     $dogsitters = User::where('name', 'like', '%' . $query . '%')
+    //         ->get();
+    //     return response()->json($dogsitters);
+    // }
+
+    public function search(Request $request)
     {
-        $query = $request->input('name');
-        $dogsitters = User::where('name', 'like', '%' . $query . '%')
-            ->get();
-        return response()->json($dogsitters);
+        $query = User::query();
+
+        if ($request->filled('name')) {
+            $query->where('name', 'LIKE', "%{$request->name}%");
+        }
+
+        if ($request->filled('ville')) {
+            $query->where('ville', 'LIKE', "%{$request->ville}%");
+        }
+
+        return response()->json($query->get());
     }
+    
 }

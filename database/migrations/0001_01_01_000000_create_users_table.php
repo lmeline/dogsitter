@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('numero_telephone');
             $table->string('email')->unique();
             $table->string('adresse');
-            $table->string('ville',70);
+            $table->foreignId('ville_id')->constrained('villes');
             $table->string('code_postal',20);
             $table->enum('role', ['admin', 'proprietaire','dogsitter'])->default('proprietaire');
             $table->timestamp('email_verified_at')->nullable();

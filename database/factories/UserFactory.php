@@ -48,7 +48,7 @@ class UserFactory extends Factory
             'numero_telephone' => fake()->phoneNumber(),
             'email' => fake()->unique()->safeEmail(),
             'adresse' => fake()->streetAddress(),
-            'ville' => fake()->city(),
+            'ville_id' => rand(1,39192),
             'code_postal' => fake()->postcode(),
             'role' => $role,
             'description' => $description,

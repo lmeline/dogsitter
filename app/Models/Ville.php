@@ -13,4 +13,9 @@ class Ville extends Model
         'nom_de_la_commune',
         'code_postal',
     ];
+
+    public function users()
+    {
+        return $this->hasMany(User::class);
+    }
 }

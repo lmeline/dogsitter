@@ -111,4 +111,8 @@ class User extends Authenticatable
         return $query->where('role', 'dogsitter');
     }
 
+    public function ville(): BelongsTo
+    {
+        return $this->belongsTo(Ville::class);
+    }
 }
