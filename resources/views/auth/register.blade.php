@@ -88,14 +88,10 @@
                 </div> --}}
                 
                 <div class="relative"> 
-                    <input id="inputville" class=" text-start h-[29px] rounded w-[12rem] min-w-[4.6rem] dark:bg-zinc-400 bg-zinc-100 border dark:border-zinc-400 border-zinc-200 hover:border-zinc-300 text-sm cursor-pointer focus:cursor-text transition-all ease-in-out duration-200 relative hover:text-zinc-800 dark:hover:text-white">
-                        
-                    </input>
-                    <ul id="listville" class=" hidden  absolute mt-1 w-[14rem] max-h-[18.8rem] top-[2.3rem] rounded bg-zinc-50 dark:bg-zinc-600 ring-1 ring-zinc-300 dark:ring-zinc-400 overflow-y-auto z-10">
-                    </ul>
-                    <button type="button" id="buttonville"> recherche </button>
+                    <input id="inputville" class="text-start h-[29px] rounded w-[12rem] min-w-[4.6rem] dark:bg-zinc-400 bg-zinc-100 border dark:border-zinc-400 border-zinc-200 hover:border-zinc-300 text-sm cursor-pointer focus:cursor-text transition-all ease-in-out duration-200 relative hover:text-zinc-800 dark:hover:text-white">
+                    <ul id="listville" class="hidden absolute mt-1 w-[14rem] max-h-[18.8rem] top-[2.3rem] rounded bg-zinc-50 dark:bg-zinc-600 ring-1 ring-zinc-300 dark:ring-zinc-400 overflow-y-auto z-10"></ul>
+                    <button type="button" id="buttonville">Recherche</button>
                 </div>
-
                 
             </div>
             {{-- <div class="mt-4">
@@ -278,9 +274,6 @@
     </div>
 
     <script>
-        const input = document.getElementById('inputville');
-        const buttonville = document.getElementById('buttonville');
-
         function generateTimeOptions() {
             const options = [];
             for (let hour = 7; hour <= 20; hour++) {
@@ -354,37 +347,62 @@
             toggleTarifField('promenade');
         });
 
-        buttonville.addEventListener('click', function () {
-            console.log('cc')
-            const processedInput = encodeURIComponent(input.value)
-            const url = `{{ route('search.villes') }}?query=${processedInput}`
-            console.log(url)
+        document.addEventListener('DOMContentLoaded', function () {
+    const input = document.getElementById('inputville');
+    const buttonville = document.getElementById('buttonville');
+    const listville = document.getElementById('listville');
 
-            fetch(url, {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': document.querySelector('input[name="_token"]').value
-                }
-            }).then(response => response.json()).then(data => {
-                console.log(data)
-                const listville = document.getElementById('listville');
-                listville.innerHTML = '';
-                data.forEach(ville => {
-                    listville.innerHTML += 
-                    `<li onclick="villeChoisi(this)" class="w-full py-1 px-2">
-                        ${ville.nom_de_la_commune} (${ville.code_postal})
-                    </li>`
-                })
+    buttonville.addEventListener('click', function () {
+        console.log('Bouton cliqué');
 
-            })
-            .catch(error => {
-                console.error(error)
-            })
-            document.getElementById('listville').classList.remove('hidden');
-            document.getElementById('listville').classList.add('block');
+        if (!input.value.trim()) {
+            console.log('Champ vide');
+            return;
+        }
+
+        const processedInput = encodeURIComponent(input.value.trim());
+        const url = `{{ route('search.villes') }}?query=${processedInput}`;
+        console.log('URL générée :', url);
+
+        fetch(url, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+            }
         })
+        .then(response => response.json())
+        .then(data => {
+            console.log('Données reçues :', data);
+            listville.innerHTML = '';  // On vide la liste avant d'ajouter les nouvelles villes
+            
+            if (data.length === 0) {
+                listville.innerHTML = `<li class="p-2 text-gray-500">Aucune ville trouvée</li>`;
+            } else {
+                data.forEach(ville => {
+                    const li = document.createElement('li');
+                    li.textContent = `${ville.nom_de_la_commune} (${ville.code_postal})`;
+                    li.classList.add('w-full', 'py-1', 'px-2', 'cursor-pointer', 'hover:bg-gray-200', 'dark:hover:bg-gray-700');
+                    li.onclick = function () {
+                        villeChoisi(this);
+                    };
+                    listville.appendChild(li);
+                });
+            }
 
+            listville.classList.remove('hidden');
+            listville.classList.add('block');
+        })
+        .catch(error => {
+            console.error('Erreur lors de la requête :', error);
+        });
+    });
+
+    function villeChoisi(element) {
+        input.value = element.textContent;
+        listville.classList.add('hidden');
+    }
+});
     </script>
 
 </x-guest-layout>
