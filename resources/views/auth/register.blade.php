@@ -308,7 +308,6 @@
         }
     
         const daysOfWeek = ["Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi", "Dimanche"];
-    
         const scheduleForm = document.getElementById('schedule-form');
         daysOfWeek.forEach(day => {
             scheduleForm.innerHTML += createDaySection(day);
@@ -347,13 +346,70 @@
             toggleTarifField('promenade');
         });
 
-        document.addEventListener('DOMContentLoaded', function () {
+    //     document.addEventListener('DOMContentLoaded', function () {
+    //         const input = document.getElementById('inputville');
+    //         const buttonville = document.getElementById('buttonville');
+    //         const listville = document.getElementById('listville');
+
+    // buttonville.addEventListener('click', function () {
+    //     console.log('Bouton cliqué');
+
+    //     if (!input.value.trim()) {
+    //         console.log('Champ vide');
+    //         return;
+    //     }
+
+    //     const processedInput = encodeURIComponent(input.value.trim());
+    //     const url = `{{ route('search.villes') }}?query=${processedInput}`;
+    //     console.log('URL générée :', url);
+
+    //     fetch(url, {
+    //         method: 'GET',
+    //         headers: {
+    //             'Content-Type': 'application/json',
+    //             'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+    //         }
+    //     })
+    //     .then(response => response.json())
+    //     .then(data => {
+    //         console.log('Données reçues :', data);
+    //         listville.innerHTML = '';  // On vide la liste avant d'ajouter les nouvelles villes
+            
+    //         if (data.length === 0) {
+    //             listville.innerHTML = `<li class="p-2 text-gray-500">Aucune ville trouvée</li>`;
+    //         } else {
+    //             data.forEach(ville => {
+    //                 const li = document.createElement('li');
+    //                 li.textContent = `${ville.nom_de_la_commune} (${ville.code_postal})`;
+    //                 li.classList.add('w-full', 'py-1', 'px-2', 'cursor-pointer', 'hover:bg-gray-200', 'dark:hover:bg-gray-700');
+    //                 li.onclick = function () {
+    //                     villeChoisi(this);
+    //                 };
+    //                 listville.appendChild(li);
+    //             });
+    //         }
+
+    //         listville.classList.remove('hidden');
+    //         listville.classList.add('block');
+    //     })
+    //     .catch(error => {
+    //         console.error('Erreur lors de la requête :', error);
+    //     });
+    // });
+
+    // function villeChoisi(element) {
+    //     input.value = element.textContent;
+    //     listville.classList.add('hidden');
+    // }
+    // });
+        
+    document.addEventListener('DOMContentLoaded', function () {
     const input = document.getElementById('inputville');
     const buttonville = document.getElementById('buttonville');
     const listville = document.getElementById('listville');
 
     buttonville.addEventListener('click', function () {
-        console.log('Bouton cliqué');
+        console.log('Recherche de ville');
 
         if (!input.value.trim()) {
             console.log('Champ vide');
@@ -361,8 +417,7 @@
         }
 
         const processedInput = encodeURIComponent(input.value.trim());
-        const url = `{{ route('search.villes') }}?query=${processedInput}`;
-        console.log('URL générée :', url);
+        const url = `/search-villes?query=${processedInput}`;  // Route vers le contrôleur
 
         fetch(url, {
             method: 'GET',
@@ -374,7 +429,7 @@
         .then(response => response.json())
         .then(data => {
             console.log('Données reçues :', data);
-            listville.innerHTML = '';  // On vide la liste avant d'ajouter les nouvelles villes
+            listville.innerHTML = '';  // Vide la liste des villes avant d'ajouter de nouveaux résultats
             
             if (data.length === 0) {
                 listville.innerHTML = `<li class="p-2 text-gray-500">Aucune ville trouvée</li>`;
@@ -384,7 +439,7 @@
                     li.textContent = `${ville.nom_de_la_commune} (${ville.code_postal})`;
                     li.classList.add('w-full', 'py-1', 'px-2', 'cursor-pointer', 'hover:bg-gray-200', 'dark:hover:bg-gray-700');
                     li.onclick = function () {
-                        villeChoisi(this);
+                        villeChoisi(this, ville);  // Sélectionner la ville
                     };
                     listville.appendChild(li);
                 });
@@ -398,12 +453,46 @@
         });
     });
 
-    function villeChoisi(element) {
-        input.value = element.textContent;
+    // Fonction pour choisir la ville et la sauvegarder dans la base
+    function villeChoisi(element, ville) {
+        const input = document.getElementById('inputville');
+        const listville = document.getElementById('listville');
+
+        // Mettre la ville choisie dans l'input
+        input.value = `${ville.nom_de_la_commune} (${ville.code_postal})`;
+
+        // Masquer la liste des villes
         listville.classList.add('hidden');
+
+        // Sauvegarder la ville sélectionnée dans la base
+        fetch('/save-ville', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+            },
+            body: JSON.stringify({
+                id: ville.id,
+                nom_de_la_commune: ville.nom_de_la_commune,
+                code_postal: ville.code_postal
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                console.log('Ville enregistrée avec succès :', data.message);
+            } else {
+                console.error('Erreur lors de l\'enregistrement de la ville.');
+            }
+        })
+        .catch(error => {
+            console.error('Erreur lors de la requête :', error);
+        });
     }
 });
-    </script>
+
+
+</script>
 
 </x-guest-layout>
 

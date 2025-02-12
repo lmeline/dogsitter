@@ -112,4 +112,5 @@ Route::middleware('auth')->group(function () {
 Route::get('/prestations/calendar/getprestations',[PrestationController::class,'getprestations']);
 //Route::get('/search-dogsitters',[ProfilDogsitterController::class,'getdogsitters'])->name('search.dogsitters');
 Route::get('/search-dogsitters',[ProfilDogsitterController::class,'search'])->name('search.dogsitters');
-Route::get('/search-villes',[ProfileController::class,'getvilles'])->name('search.villes');
+Route::get('/search-villes', [ProfileController::class, 'getvilles'])->name('search.villes');
+Route::post('/save-ville', [ProfileController::class, 'saveVille'])->name('save.ville');
