@@ -88,8 +88,8 @@
                 </div> --}}
                 
                 <div class="relative"> 
-                    <input id="inputville" class="text-start h-[29px] rounded w-[12rem] min-w-[4.6rem] dark:bg-zinc-400 bg-zinc-100 border dark:border-zinc-400 border-zinc-200 hover:border-zinc-300 text-sm cursor-pointer focus:cursor-text transition-all ease-in-out duration-200 relative hover:text-zinc-800 dark:hover:text-white">
-                    <ul id="listville" class="hidden absolute mt-1 w-[14rem] max-h-[18.8rem] top-[2.3rem] rounded bg-zinc-50 dark:bg-zinc-600 ring-1 ring-zinc-300 dark:ring-zinc-400 overflow-y-auto z-10"></ul>
+                    <input id="villeInput" class="text-start h-[29px] rounded w-[12rem] min-w-[4.6rem] dark:bg-zinc-400 bg-zinc-100 border dark:border-zinc-400 border-zinc-200 hover:border-zinc-300 text-sm cursor-pointer focus:cursor-text transition-all ease-in-out duration-200 relative hover:text-zinc-800 dark:hover:text-white">
+                    <ul id="villeContainer" class="hidden absolute mt-1 w-[14rem] max-h-[18.8rem] top-[2.3rem] rounded bg-zinc-50 dark:bg-zinc-600 ring-1 ring-zinc-300 dark:ring-zinc-400 overflow-y-auto z-10"></ul>
                     <button type="button" id="buttonville">Recherche</button>
                 </div>
                 
@@ -183,11 +183,11 @@
                         </div>
                     </div>
                     <!-- Description de soi -->
-                    <div class="mt-4">
+                    {{-- <div class="mt-4">
                         <x-input-label for="description" :value="__('A Propos de Moi ')" />
                         <textarea id="description" class="block mt-1 w-full border rounded border-pink-300 focus:ring-pink-500 focus:border-pink-500 h-[50px] min-h-[50px]" name="description" :value="old('description')" required autocomplete="description" rows="4"></textarea>
                         <x-input-error :messages="$errors->get('description')" class="mt-2" />
-                    </div>
+                    </div> --}}
                     <!-- Mot de passe -->
                     <div class="mt-4">
                         <x-input-label for="password" :value="__('Password')" />
@@ -274,225 +274,112 @@
     </div>
 
     <script>
-        function generateTimeOptions() {
-            const options = [];
-            for (let hour = 7; hour <= 20; hour++) {
-                const time = (hour < 10 ? '0' : '') + hour + ':00';
-                options.push(time);
+        const daysOfWeek = ["Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi", "Dimanche"];
+        const scheduleForm = document.getElementById('schedule-form');
+
+            function generateTimeOptions() {
+                const options = [];
+                for (let hour = 7; hour <= 20; hour++) {
+                    const time = (hour < 10 ? '0' : '') + hour + ':00';
+                    options.push(time);
+                }
+                return options;
             }
-            return options;
-        }
-    
-        function createDaySection(day) {
-            const timeOptions = generateTimeOptions();
-            return `
-                <div class="flex flex-col gap-4 mt-4">
-                    <div>
-                        <label class="font-medium text-sm text-gray-700 ">${day}</label>
-                        <div class="flex items-center gap-4 mt-2">
-                            <select name="${day.toLowerCase()}_start" class="w-1/3 block mt-1 w-full rounded-lg border border-red-300 focus:ring-red-500 focus:border-red-500">
-                                ${timeOptions.map(time => `<option value="${time}">${time}</option>`).join('')}
-                            </select>
-                            <span class="text-gray-500">à</span>
-                            <select name="${day.toLowerCase()}_end" class="w-1/3 px-4 py-2 block mt-1 w-full rounded-lg border border-orange-300 focus:ring-orange-500 focus:border-orange-500">
-                                ${timeOptions.map(time => `<option value="${time}">${time}</option>`).join('')}
-                            </select>
-                            <div class="flex items-center gap-2 ml-4">
-                                <input type="checkbox" id="${day.toLowerCase()}_unavailable" class="w-5 h-5 block mt-1 rounded-lg border border-yellow-300  focus:border-yellow-500" />
-                                <label for="${day.toLowerCase()}_unavailable" class="text-sm text-black dark:text-gray-600">Indisponible</label>
+        
+            function createDaySection(day) {
+                const timeOptions = generateTimeOptions();
+                return `
+                    <div class="flex flex-col gap-4 mt-4">
+                        <div>
+                            <label class="font-medium text-sm text-gray-700 ">${day}</label>
+                            <div class="flex items-center gap-4 mt-2">
+                                <select name="${day.toLowerCase()}_start" class="w-1/3 block mt-1 w-full rounded-lg border border-red-300 focus:ring-red-500 focus:border-red-500">
+                                    ${timeOptions.map(time => `<option value="${time}">${time}</option>`).join('')}
+                                </select>
+                                <span class="text-gray-500">à</span>
+                                <select name="${day.toLowerCase()}_end" class="w-1/3 px-4 py-2 block mt-1 w-full rounded-lg border border-orange-300 focus:ring-orange-500 focus:border-orange-500">
+                                    ${timeOptions.map(time => `<option value="${time}">${time}</option>`).join('')}
+                                </select>
+                                <div class="flex items-center gap-2 ml-4">
+                                    <input type="checkbox" id="${day.toLowerCase()}_unavailable" class="w-5 h-5 block mt-1 rounded-lg border border-yellow-300  focus:border-yellow-500" />
+                                    <label for="${day.toLowerCase()}_unavailable" class="text-sm text-black dark:text-gray-600">Indisponible</label>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            `;
-        }
-    
-        const daysOfWeek = ["Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi", "Dimanche"];
-        const scheduleForm = document.getElementById('schedule-form');
-        daysOfWeek.forEach(day => {
-            scheduleForm.innerHTML += createDaySection(day);
-        });
+                `;
+            }
+        
+            daysOfWeek.forEach(day => {
+                scheduleForm.innerHTML += createDaySection(day);
+            });
 
-        function toggleTarifField(service) {
-            var tarifField = document.getElementById("tarif-" + service);
-            var checkbox = document.getElementById(service);
+            function toggleTarifField(service) {
+                var tarifField = document.getElementById("tarif-" + service);
+                var checkbox = document.getElementById(service);
+                
+                if (checkbox.checked) {
+                    tarifField.style.display = "block";
+                } else {
+                    tarifField.style.display = "none";
+                }
+            }
+
+            function hideService(service) {
+                var checkbox = document.getElementById(service);
+                var tarifField = document.getElementById("tarif-" + service);
+                
             
-            if (checkbox.checked) {
-                tarifField.style.display = "block";
-            } else {
+                checkbox.checked = false;
                 tarifField.style.display = "none";
             }
-        }
 
-        function hideService(service) {
-            var checkbox = document.getElementById(service);
-            var tarifField = document.getElementById("tarif-" + service);
-            
-          
-            checkbox.checked = false;
-            tarifField.style.display = "none";
-        }
+        /* fonction recuperation ville */
+        document.addEventListener('DOMContentLoaded',function(){
+                const villeInput = document.getElementById('villeInput');
+                const villeContainer = document.getElementById('villeContainer');
+                const searchVilleURL = "{{ route('search.ville') }}";
 
-        function villeChoisi(ville) {
-        document.getElementById('listville').classList.remove('block')
-        document.getElementById('listville').classList.add('hidden')
-        document.getElementById('inputville').value = ville.innerHTML
-        //document.getElementById('inputville').innerText = ville.innerHTML
-        }
+                let timeout = null;
 
-        document.addEventListener("DOMContentLoaded", function() {
-     
-            toggleTarifField('garde_de_chien');
-            toggleTarifField('promenade');
-        });
+                function fetchville(){
+                    console.log("cc")
+                    const ville = encodeURIComponent(villeInput.value.trim());
 
-    //     document.addEventListener('DOMContentLoaded', function () {
-    //         const input = document.getElementById('inputville');
-    //         const buttonville = document.getElementById('buttonville');
-    //         const listville = document.getElementById('listville');
+                    const URL = `${searchVilleURL}?ville=${ville}`;
 
-    // buttonville.addEventListener('click', function () {
-    //     console.log('Bouton cliqué');
+                    fetch(URL,{
+                        method:'GET',
+                        headers:{
+                            'Content-Type':'application/json',
+                        }
+                    })
+                    .then(response=> response.json())
+                    .then(data=>{
+                        console.log(data)
+                        villeContainer.innerHTML = '';
+                        if(data.length === 0){
+                            villeContainer.innerHTML = '<p class="text-gray-500"> Aucun résultat trouvé </p>';
+                            return;
+                        }
+                        data.forEach(ville =>{
+                            villeContainer.innerHTML +=`
+                                <div class="relative"> 
+                                    <li type="button" id="${ville.id}">${ville.nom_de_la_commune}</li>
+                                </div>`
+                        });
 
-    //     if (!input.value.trim()) {
-    //         console.log('Champ vide');
-    //         return;
-    //     }
+                    })
+                    .catch(error=>console.error('Erreur:',error));
+                }
 
-    //     const processedInput = encodeURIComponent(input.value.trim());
-    //     const url = `{{ route('search.villes') }}?query=${processedInput}`;
-    //     console.log('URL générée :', url);
+                villeInput.addEventListener('input',function(){
+                    clearTimeout(timeout);
+                    timeout = setTimeout(fetchville,500);
+                })
+            });
 
-    //     fetch(url, {
-    //         method: 'GET',
-    //         headers: {
-    //             'Content-Type': 'application/json',
-    //             'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
-    //         }
-    //     })
-    //     .then(response => response.json())
-    //     .then(data => {
-    //         console.log('Données reçues :', data);
-    //         listville.innerHTML = '';  // On vide la liste avant d'ajouter les nouvelles villes
-            
-    //         if (data.length === 0) {
-    //             listville.innerHTML = `<li class="p-2 text-gray-500">Aucune ville trouvée</li>`;
-    //         } else {
-    //             data.forEach(ville => {
-    //                 const li = document.createElement('li');
-    //                 li.textContent = `${ville.nom_de_la_commune} (${ville.code_postal})`;
-    //                 li.classList.add('w-full', 'py-1', 'px-2', 'cursor-pointer', 'hover:bg-gray-200', 'dark:hover:bg-gray-700');
-    //                 li.onclick = function () {
-    //                     villeChoisi(this);
-    //                 };
-    //                 listville.appendChild(li);
-    //             });
-    //         }
-
-    //         listville.classList.remove('hidden');
-    //         listville.classList.add('block');
-    //     })
-    //     .catch(error => {
-    //         console.error('Erreur lors de la requête :', error);
-    //     });
-    // });
-
-    // function villeChoisi(element) {
-    //     input.value = element.textContent;
-    //     listville.classList.add('hidden');
-    // }
-    // });
-        
-    document.addEventListener('DOMContentLoaded', function () {
-    const input = document.getElementById('inputville');
-    const buttonville = document.getElementById('buttonville');
-    const listville = document.getElementById('listville');
-
-    buttonville.addEventListener('click', function () {
-        console.log('Recherche de ville');
-
-        if (!input.value.trim()) {
-            console.log('Champ vide');
-            return;
-        }
-
-        const processedInput = encodeURIComponent(input.value.trim());
-        const url = `/search-villes?query=${processedInput}`;  // Route vers le contrôleur
-
-        fetch(url, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
-            }
-        })
-        .then(response => response.json())
-        .then(data => {
-            console.log('Données reçues :', data);
-            listville.innerHTML = '';  // Vide la liste des villes avant d'ajouter de nouveaux résultats
-            
-            if (data.length === 0) {
-                listville.innerHTML = `<li class="p-2 text-gray-500">Aucune ville trouvée</li>`;
-            } else {
-                data.forEach(ville => {
-                    const li = document.createElement('li');
-                    li.textContent = `${ville.nom_de_la_commune} (${ville.code_postal})`;
-                    li.classList.add('w-full', 'py-1', 'px-2', 'cursor-pointer', 'hover:bg-gray-200', 'dark:hover:bg-gray-700');
-                    li.onclick = function () {
-                        villeChoisi(this, ville);  // Sélectionner la ville
-                    };
-                    listville.appendChild(li);
-                });
-            }
-
-            listville.classList.remove('hidden');
-            listville.classList.add('block');
-        })
-        .catch(error => {
-            console.error('Erreur lors de la requête :', error);
-        });
-    });
-
-    // Fonction pour choisir la ville et la sauvegarder dans la base
-    function villeChoisi(element, ville) {
-        const input = document.getElementById('inputville');
-        const listville = document.getElementById('listville');
-
-        // Mettre la ville choisie dans l'input
-        input.value = `${ville.nom_de_la_commune} (${ville.code_postal})`;
-
-        // Masquer la liste des villes
-        listville.classList.add('hidden');
-
-        // Sauvegarder la ville sélectionnée dans la base
-        fetch('/save-ville', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
-            },
-            body: JSON.stringify({
-                id: ville.id,
-                nom_de_la_commune: ville.nom_de_la_commune,
-                code_postal: ville.code_postal
-            })
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                console.log('Ville enregistrée avec succès :', data.message);
-            } else {
-                console.error('Erreur lors de l\'enregistrement de la ville.');
-            }
-        })
-        .catch(error => {
-            console.error('Erreur lors de la requête :', error);
-        });
-    }
-});
-
-
-</script>
+    </script>
 
 </x-guest-layout>
 

@@ -68,20 +68,17 @@ class ProfileController extends Controller
         return Redirect::to('/');
     }
 
-    public function getvilles(Request $request)
+    public function searchVille(Request $request)
     {
-        $query = strtolower(trim($request->query('query')));  
-    
-        if (!$query) {
-            return response()->json([]); 
+        $query = $request->query('ville');
+
+        if ($query) {
+            $villes = Ville::where('nom_de_la_commune', 'LIKE', "%{$query}%")->limit(10)->get();
+        } else {
+            $villes = [];
         }
-    
-        // Recherche les villes qui correspondent à la requête
-        $villes = Ville::where('nom_de_la_commune', 'like', '%' . $query . '%')
-                        ->select('id', 'nom_de_la_commune', 'code_postal') 
-                        ->get();
-    
-        return response()->json($villes);  
+
+        return response()->json($villes);
     }
     
 
@@ -89,22 +86,22 @@ class ProfileController extends Controller
     {
 
         $request->validate([
-            'id' => 'required|exists:villes,id',  // Vérifie que l'ID existe dans la table villes
+            'id' => 'required|exists:villes,id',  
             'nom_de_la_commune' => 'required|string|max:255',
-            'code_postal' => 'required|string|max:5',  // Code postal composé de 5 caractères
+            'code_postal' => 'required|string|max:5', 
         ]);
     
-        // Trouver la ville par son ID
+       
         $ville = Ville::find($request->id);
     
         if ($ville) {
-            // Met à jour les informations de la ville
+           
             $ville->nom_de_la_commune = $request->nom_de_la_commune;
             $ville->code_postal = $request->code_postal;
-            $ville->save();  // Sauvegarde les modifications
+            $ville->save();  
         }
     
-        // Renvoie une réponse JSON avec succès
+       
         return response()->json(['success' => true, 'message' => 'Ville mise à jour avec succès']);
     }
     
