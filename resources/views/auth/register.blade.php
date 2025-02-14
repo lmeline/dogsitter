@@ -362,11 +362,11 @@
                             villeContainer.innerHTML = '<p class="text-gray-500"> Aucun résultat trouvé </p>';
                             return;
                         }
+                        villeContainer.classList.remove('hidden');
+                        
                         data.forEach(ville =>{
                             villeContainer.innerHTML +=`
-                                <div class="relative"> 
-                                    <li type="button" id="${ville.id}">${ville.nom_de_la_commune}</li>
-                                </div>`
+                                    <li type="button" id="${ville.id}">${ville.nom_de_la_commune}</li>`
                         });
 
                     })

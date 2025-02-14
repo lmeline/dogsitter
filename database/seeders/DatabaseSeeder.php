@@ -19,11 +19,11 @@ class DatabaseSeeder extends Seeder
         PrestationTypeSeeder::class,
         AbonnementSeeder::class,
         UserSeeder::class,
+        RaceSeeder::class,
         DogSeeder::class,
         //PrestationSeeder::class,
         //AvisSeeder::class,
-        UserPrestationTypeSeeder::class,
-        RaceSeeder::class
+        UserPrestationTypeSeeder::class
       ]);
     }
 }

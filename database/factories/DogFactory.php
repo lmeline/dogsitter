@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Race;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -19,14 +20,15 @@ class DogFactory extends Factory
     {
         
         $users = User::where('role', 'proprietaire')->pluck('id')->toArray();
-
+        $races = Race::pluck('nom')->toArray();
+        $race_id = fake()->randomElement($races);
         $user_id = fake()->randomElement($users);
             
 
 
         return [
             'nom' => fake()->firstName(),
-            'race' => fake()->word(),
+            'race' => $race_id,
             'age' => fake()->numberBetween(1, 20),
             'poids' => fake()->numberBetween(1, 70),
             'besoins_speciaux' => fake()->sentence(),

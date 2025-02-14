@@ -73,7 +73,7 @@ class ProfileController extends Controller
         $query = $request->query('ville');
 
         if ($query) {
-            $villes = Ville::where('nom_de_la_commune', 'LIKE', "%{$query}%")->limit(10)->get();
+            $villes = Ville::where('nom_de_la_commune', 'LIKE', "{$query}%")->limit(10)->get();
         } else {
             $villes = [];
         }
