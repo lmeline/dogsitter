@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use App\Models\PrestationType;
@@ -26,13 +27,12 @@ class PrestationTypesController extends Controller
 
     public function create()
     {
-        // Récupérer les types de prestations disponibles
         $prestationtypes = PrestationType::all();
 
         return view('userPrestations.create', compact('prestationtypes'));
     }
 
-    // Stocker un nouveau tarif
+
     public function store(Request $request)
     {
         $request->validate([
@@ -42,11 +42,11 @@ class PrestationTypesController extends Controller
             'duree' => 'required|numeric|min:1',
         ]);
 
-        // Créer un tarif lié à l'utilisateur actuel
+
         UserPrestationType::create([
-            'dogsitter_id' =>$request->dogsitter_id,
+            'dogsitter_id' => $request->dogsitter_id,
             'prestation_type_id' => $request->prestation_type_id,
-            'prix' => $request->prix, // Utilisez "tarif" si c'est le nom de la colonne
+            'prix' => $request->prix,
             'duree' => $request->duree
         ]);
 

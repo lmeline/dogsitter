@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Relations\Pivot;
 
 class UserPrestationType extends Pivot
 {
-    protected $table = 'users_prestations_types'; // Spécifie la table pivot explicitement
+    protected $table = 'users_prestations_types';
 
     protected $fillable = [
         'dogsitter_id',

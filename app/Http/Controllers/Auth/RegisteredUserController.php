@@ -15,18 +15,19 @@ use Illuminate\Validation\Rules;
 use Illuminate\View\View;
 use League\Csv\Reader;
 use Exception;
+use Illuminate\Support\Facades\Storage;
 
 class RegisteredUserController extends Controller
 {
     /**
      * Display the registration view.
      */
-    
+
     public function create(Request $request): View
-    {     
+    {
         $villes = Ville::all();
         $proprietaire = $request->query('proprietaire');
-        return view('auth.register',compact('proprietaire','villes'));   
+        return view('auth.register', compact('proprietaire', 'villes'));
     }
 
     /**
@@ -39,14 +40,14 @@ class RegisteredUserController extends Controller
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'prenom' => ['required', 'string', 'max:70'],
-            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
+            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
             'telephone' => ['required', 'string', 'max:15'],
             'adresse' => ['required', 'string', 'max:255'],
             'code_postal' => ['required', 'string', 'max:20'],
-            'ville' => ['required', 'string', 'max:70'],
+            'ville_id' => ['required', 'exists:villes,id'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
-            'date_naissance' => ['required','date','before:18 year ago'],
-            'photo' => ['nullable','string','max:255']
+            'date_naissance' => ['required', 'date', 'before:18 year ago'],
+            'photo' => ['nullable', 'string', 'max:255']
         ]);
 
         $user = User::create([
@@ -57,7 +58,7 @@ class RegisteredUserController extends Controller
             'adresse' => $request->adresse,
             'date_naissance' => $request->date_naissance,
             'code_postal' => $request->code_postal,
-            'ville' => $request->ville,
+            'ville_id' => $request->ville_id,
             'password' => Hash::make($request->password),
             'photo' => $request->photo
         ]);
@@ -71,24 +72,30 @@ class RegisteredUserController extends Controller
 
     public function storedogsitter(Request $request): RedirectResponse
     {
-        
+
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'prenom' => ['required', 'string', 'max:70'],
-            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
+            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
             'telephone' => ['required', 'string', 'max:15'],
             'adresse' => ['required', 'string', 'max:255'],
             'code_postal' => ['required', 'string', 'max:20'],
-            'ville' => ['required', 'string', 'max:70'],
+            'ville_id' => ['required', 'exists:villes,id'],
             'experience' => ['required', 'string', 'max:255'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
-            'date_naissance' => ['required','date','before:18 year ago'],
-            'description' => ['required','string','max:255'],
-            'photo' => ['nullable','string','max:255']
-           
+            'date_naissance' => ['required', 'date', 'before:18 year ago'],
+            'description' => ['required', 'string', 'max:255'],
+            'photo' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048']
+
         ]);
 
         $role = 'dogsitter';
+
+        if ($request->hasFile('photo')) {
+            $photoPath = $request->file('photo')->store('photos', 'public');
+        } else {
+            $photoPath = null; 
+        }
 
         $user = User::create([
             'role' => $role,
@@ -99,12 +106,19 @@ class RegisteredUserController extends Controller
             'adresse' => $request->adresse,
             'date_naissance' => $request->date_naissance,
             'code_postal' => $request->code_postal,
-            'ville' => $request->ville,
+            'ville_id' => $request->ville_id,
             'experience' => $request->experience,
             'password' => Hash::make($request->password),
             'description' => $request->description,
-            'photo' => $request->photo
+            'photo' => $photoPath
         ]);
+
+        if ($request->hasFile('photo')) {
+            Storage::disk('public')->delete($user->photo); 
+            $user->photo = $request->file('photo')->store('photos', 'public');
+            $user->save();
+        }
+        
 
         event(new Registered($user));
 

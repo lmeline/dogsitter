@@ -22,10 +22,10 @@
             <!-- Colonne de gauche -->
             <div class="w-full md:w-1/2 bg-gradient-to-r from-green-100 to-pink-100 p-6 rounded-lg shadow-lg">
                 <h2 class="text-2xl font-semibold mb-4 text-gray-800">Informations personnelles</h2>
-                <p class="mb-2"><strong>Ville :</strong> {{ Auth::user()->ville }}</p>
-                <p class="mb-2"><strong>Disponibilité :</strong> {{ Auth::user()->disponibilite_jour }}</p>
-
+                <p class="mb-2"><strong>Ville :</strong> {{ Auth::user()->ville->nom_de_la_commune }}</p>
+                
                 @if (Auth::user()->role === 'dogsitter')
+                    <p class="mb-2"><strong>Disponibilité :</strong> {{ Auth::user()->disponibilite_jour }}</p>
                     <p class="mb-2"><strong>Nombre de notes :</strong> {{ Auth::user()->nb_notes }}</p>
                     <p class="mb-2"><strong>Note /5 :</strong> {{ Auth::user()->note_moyenne }}</p>
                     @foreach(Auth::user()->prestationtypes as $prestationtype)

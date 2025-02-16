@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\PrestationType;
+use App\Models\Ville;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
@@ -24,7 +25,7 @@ class UserFactory extends Factory
      */
     public function definition(): array
     {
-
+        $ville = Ville::inRandomOrder()->first(); 
         $role = fake()->randomElement(['admin', 'proprietaire','dogsitter']);
         if($role=='dogsitter')
             {
@@ -48,8 +49,8 @@ class UserFactory extends Factory
             'numero_telephone' => fake()->phoneNumber(),
             'email' => fake()->unique()->safeEmail(),
             'adresse' => fake()->streetAddress(),
-            'ville_id' => rand(1,39192),
-            'code_postal' => fake()->postcode(),
+            'ville_id' => $ville->id,
+            'code_postal' => $ville->code_postal,
             'role' => $role,
             'description' => $description,
             'remember_token' => Str::random(10),

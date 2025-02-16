@@ -65,40 +65,28 @@
 
             <!-- Code postal et Ville -->
             <div class="flex w-full gap-2 mt-4">
-                {{-- <div>
-                    <x-input-label for="code_postal" :value="__('Postal code')" />
-                    <x-text-input id="code_postal" class="block mt-1 w-full border border-pink-300 focus:ring-pink-500 focus:border-pink-500" type="text" name="code_postal" :value="old('code_postal')" required autofocus autocomplete="code_postal" />
-                    <x-input-error :messages="$errors->get('code_postal')" class="mt-2" />
-                </div> --}}
-
-                {{-- <div>
+                <div class="relative">
                     <x-input-label for="ville" :value="__('City')" />
-                    <x-text-input id="ville" class="block mt-1 w-full border border-pink-300 focus:ring-pink-500 focus:border-pink-500" type="text" name="ville" :value="old('ville')" required autofocus autocomplete="ville" />
-                    <x-input-error :messages="$errors->get('ville')" class="mt-2" />
-                </div> --}}
-                
-                {{-- <div class="form-group">
-                    <label for="ville">Ville</label>
-                    <select id="ville" name="ville" class="form-control" required>
-                        <option value="" disabled selected>Choisissez une ville</option>
-                        @foreach($villes as $ville)
-                            <option value="{{ $ville['nom_de_la_commune'] }}">{{ $ville['nom_de_la_commune'] }} ({{ $ville['code_postal'] }})</option>
-                        @endforeach
-                    </select>
-                </div> --}}
-                
-                <div class="relative"> 
-                    <input id="villeInput" class="text-start h-[29px] rounded w-[12rem] min-w-[4.6rem] dark:bg-zinc-400 bg-zinc-100 border dark:border-zinc-400 border-zinc-200 hover:border-zinc-300 text-sm cursor-pointer focus:cursor-text transition-all ease-in-out duration-200 relative hover:text-zinc-800 dark:hover:text-white">
-                    <ul id="villeContainer" class="hidden absolute mt-1 w-[14rem] max-h-[18.8rem] top-[2.3rem] rounded bg-zinc-50 dark:bg-zinc-600 ring-1 ring-zinc-300 dark:ring-zinc-400 overflow-y-auto z-10"></ul>
-                    <button type="button" id="buttonville">Recherche</button>
+                    <input id="villeInput" type="text" 
+                           class="block mt-1 w-full border rounded-lg border-pink-300 focus:ring-pink-500 focus:border-pink-500">
+                    <ul id="villeContainer" class="hidden absolute mt-8 w-full max-h-[18.8rem] top-[2.3rem] rounded bg-white dark:bg-zinc-600 ring-1 ring-zinc-300 dark:ring-zinc-400 overflow-y-auto z-10 shadow-lg"></ul>
+                    <input type="hidden" id="villeId" name="ville_id">
                 </div>
-                
+            
+                <!-- Champ du code postal -->
+                <div class="relative">
+                    <x-input-label for="code_postal" :value="__('Postal code')" />
+                    <input id="codePostalInput" name="code_postal" 
+                           class="block mt-1 w-full border rounded-lg border-pink-300 focus:ring-pink-500 focus:border-pink-500" readonly>
+                </div>
             </div>
-            {{-- <div class="mt-4">
+            <!-- Photo de profil -->
+            <div class="mt-4">
                 <x-input-label for="photo" :value="__('Photo de profil')" />
-                <input type="file" id="photo" name="photo" class="block mt-1 w-full border border-pink-300 focus:ring-pink-500 focus:border-pink-500" />
+                <input type="file" id="photo" name="photo" accept="image/*" class="block mt-1 w-full border border-pink-300 focus:ring-pink-500 focus:border-pink-500" />
                 <x-input-error :messages="$errors->get('photo')" class="mt-2" />
-            </div> --}}
+            </div>
+
             <!-- Mot de passe -->
             <div class="mt-4">
                 <x-input-label for="password" :value="__('Password')" />
@@ -202,7 +190,7 @@
                         <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
                     </div>
                     
-                    <!-- Horaires -->
+                    {{-- <!-- Horaires -->
                     <div class="mt-4 font-medium text-sm">
                         <h2>Enregistrez vos horaires</h2>
                             <div class="block mt-1 w-full" id="schedule-form">
@@ -255,7 +243,7 @@
                         <x-input-label for="tarif_promenade" :value="__('Tarif Promenade')" />
                         <x-text-input id="tarif_promenade" class="block mt-1 w-full rounded border border-gray-300 focus:ring-blue-500 focus:border-blue-500" type="number" name="tarif_promenade" :value="old('tarif_promenade')" autocomplete="prix" />
                         <x-input-error :messages="$errors->get('tarif_promenade')" class="mt-2" />
-                    </div>
+                    </div> --}}
 
                     <!-- Bouton de soumission -->
                     <div class="flex items-center justify-end mt-4">
@@ -274,78 +262,89 @@
     </div>
 
     <script>
-        const daysOfWeek = ["Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi", "Dimanche"];
-        const scheduleForm = document.getElementById('schedule-form');
+        // const daysOfWeek = ["Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi", "Dimanche"];
+        // const scheduleForm = document.getElementById('schedule-form');
 
-            function generateTimeOptions() {
-                const options = [];
-                for (let hour = 7; hour <= 20; hour++) {
-                    const time = (hour < 10 ? '0' : '') + hour + ':00';
-                    options.push(time);
-                }
-                return options;
-            }
+        //     function generateTimeOptions() {
+        //         const options = [];
+        //         for (let hour = 7; hour <= 20; hour++) {
+        //             const time = (hour < 10 ? '0' : '') + hour + ':00';
+        //             options.push(time);
+        //         }
+        //         return options;
+        //     }
         
-            function createDaySection(day) {
-                const timeOptions = generateTimeOptions();
-                return `
-                    <div class="flex flex-col gap-4 mt-4">
-                        <div>
-                            <label class="font-medium text-sm text-gray-700 ">${day}</label>
-                            <div class="flex items-center gap-4 mt-2">
-                                <select name="${day.toLowerCase()}_start" class="w-1/3 block mt-1 w-full rounded-lg border border-red-300 focus:ring-red-500 focus:border-red-500">
-                                    ${timeOptions.map(time => `<option value="${time}">${time}</option>`).join('')}
-                                </select>
-                                <span class="text-gray-500">à</span>
-                                <select name="${day.toLowerCase()}_end" class="w-1/3 px-4 py-2 block mt-1 w-full rounded-lg border border-orange-300 focus:ring-orange-500 focus:border-orange-500">
-                                    ${timeOptions.map(time => `<option value="${time}">${time}</option>`).join('')}
-                                </select>
-                                <div class="flex items-center gap-2 ml-4">
-                                    <input type="checkbox" id="${day.toLowerCase()}_unavailable" class="w-5 h-5 block mt-1 rounded-lg border border-yellow-300  focus:border-yellow-500" />
-                                    <label for="${day.toLowerCase()}_unavailable" class="text-sm text-black dark:text-gray-600">Indisponible</label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                `;
-            }
+        //     function createDaySection(day) {
+        //         const timeOptions = generateTimeOptions();
+        //         return `
+        //             <div class="flex flex-col gap-4 mt-4">
+        //                 <div>
+        //                     <label class="font-medium text-sm text-gray-700 ">${day}</label>
+        //                     <div class="flex items-center gap-4 mt-2">
+        //                         <select name="${day.toLowerCase()}_start" class="w-1/3 block mt-1 w-full rounded-lg border border-red-300 focus:ring-red-500 focus:border-red-500">
+        //                             ${timeOptions.map(time => `<option value="${time}">${time}</option>`).join('')}
+        //                         </select>
+        //                         <span class="text-gray-500">à</span>
+        //                         <select name="${day.toLowerCase()}_end" class="w-1/3 px-4 py-2 block mt-1 w-full rounded-lg border border-orange-300 focus:ring-orange-500 focus:border-orange-500">
+        //                             ${timeOptions.map(time => `<option value="${time}">${time}</option>`).join('')}
+        //                         </select>
+        //                         <div class="flex items-center gap-2 ml-4">
+        //                             <input type="checkbox" id="${day.toLowerCase()}_unavailable" class="w-5 h-5 block mt-1 rounded-lg border border-yellow-300  focus:border-yellow-500" />
+        //                             <label for="${day.toLowerCase()}_unavailable" class="text-sm text-black dark:text-gray-600">Indisponible</label>
+        //                         </div>
+        //                     </div>
+        //                 </div>
+        //             </div>
+        //         `;
+        //     }
         
-            daysOfWeek.forEach(day => {
-                scheduleForm.innerHTML += createDaySection(day);
-            });
+        //     daysOfWeek.forEach(day => {
+        //         scheduleForm.innerHTML += createDaySection(day);
+        //     });
 
-            function toggleTarifField(service) {
-                var tarifField = document.getElementById("tarif-" + service);
-                var checkbox = document.getElementById(service);
+        //     function toggleTarifField(service) {
+        //         var tarifField = document.getElementById("tarif-" + service);
+        //         var checkbox = document.getElementById(service);
                 
-                if (checkbox.checked) {
-                    tarifField.style.display = "block";
-                } else {
-                    tarifField.style.display = "none";
-                }
-            }
+        //         if (checkbox.checked) {
+        //             tarifField.style.display = "block";
+        //         } else {
+        //             tarifField.style.display = "none";
+        //         }
+        //     }
 
-            function hideService(service) {
-                var checkbox = document.getElementById(service);
-                var tarifField = document.getElementById("tarif-" + service);
+        //     function hideService(service) {
+        //         var checkbox = document.getElementById(service);
+        //         var tarifField = document.getElementById("tarif-" + service);
                 
             
-                checkbox.checked = false;
-                tarifField.style.display = "none";
-            }
+        //         checkbox.checked = false;
+        //         tarifField.style.display = "none";
+        //     }
 
-        /* fonction recuperation ville */
-        document.addEventListener('DOMContentLoaded',function(){
+        
+            /* fonction recuperation ville */
+            document.addEventListener('DOMContentLoaded',function(){
                 const villeInput = document.getElementById('villeInput');
                 const villeContainer = document.getElementById('villeContainer');
+                const codePostalInput = document.getElementById('codePostalInput');
                 const searchVilleURL = "{{ route('search.ville') }}";
-
                 let timeout = null;
 
-                function fetchville(){
-                    console.log("cc")
-                    const ville = encodeURIComponent(villeInput.value.trim());
+                function handleVilleClick(event) {
+                    const selectedVille = event.target.textContent;
+                    const selectedVilleId = event.target.getAttribute('data-id');
+                    const selectedCodePostal = event.target.getAttribute('data-code_postal');
+                    villeInput.value = selectedVille;
+                    document.getElementById('villeId').value = selectedVilleId;
+                    codePostalInput.value = selectedCodePostal;
+                    villeContainer.classList.add('hidden');
 
+                    villeInput.setAttribute('name', 'ville_id');
+                }
+                
+                function fetchville(){
+                    const ville = encodeURIComponent(villeInput.value.trim());
                     const URL = `${searchVilleURL}?ville=${ville}`;
 
                     fetch(URL,{
@@ -356,7 +355,7 @@
                     })
                     .then(response=> response.json())
                     .then(data=>{
-                        console.log(data)
+                        //console.log(data)
                         villeContainer.innerHTML = '';
                         if(data.length === 0){
                             villeContainer.innerHTML = '<p class="text-gray-500"> Aucun résultat trouvé </p>';
@@ -364,19 +363,27 @@
                         }
                         villeContainer.classList.remove('hidden');
                         
-                        data.forEach(ville =>{
-                            villeContainer.innerHTML +=`
-                                    <li type="button" id="${ville.id}">${ville.nom_de_la_commune}</li>`
+                        data.forEach(ville => {
+                            let li = document.createElement('li');
+                            li.textContent = `${ville.nom_de_la_commune } (${ville.code_postal})`;
+                            li.classList.add('p-2', 'cursor-pointer', 'hover:bg-gray-200');
+                            li.setAttribute('data-id',ville.id);
+                            li.setAttribute('data-code_postal', ville.code_postal)
+                            //console.log(ville.code_postal);
+                            li.addEventListener('click', handleVilleClick); 
+                            
+                            villeContainer.appendChild(li);
                         });
 
                     })
                     .catch(error=>console.error('Erreur:',error));
-                }
+                };
 
                 villeInput.addEventListener('input',function(){
                     clearTimeout(timeout);
                     timeout = setTimeout(fetchville,500);
                 })
+
             });
 
     </script>

@@ -37,7 +37,7 @@
                 </div>
             
                 <!-- Informations supplémentaires -->
-                <p class="text-gray-600 mt-2">Ville: {{ $dogsitter->ville }}</p>
+                <p class="text-gray-600 mt-2">Ville: {{ $dogsitter->ville->nom_de_la_commune }}</p>
                 <p class="text-gray-600">Note moyenne: {{ $dogsitter->note_moyenne }}/5 </p>
             </a>
             @endforeach

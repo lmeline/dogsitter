@@ -4,14 +4,18 @@ namespace App\Http\Controllers;
 
 use App\Models\Prestation;
 use App\Models\User;
+use App\Models\Ville;
 use Illuminate\Http\Request;
 
 class ProfilDogsitterController extends Controller
 {
     public function index()
     {
-        $dogsitters = User::where('role', 'dogsitter')->paginate(20); // Utilisation de paginate() pour récupérer 20 dogsitters par page
-        $villes = User::distinct('ville')->where('role', 'dogsitter')->pluck('ville')->toArray();
+        $dogsitters = User::where('role', 'dogsitter')->paginate(20);
+        $villes = User::distinct('ville_id')->where('role', 'dogsitter')->pluck('ville_id')->toArray();
+
+        $villesDetails = Ville::whereIn('id', $villes)->get();
+
         return view('dogsitters.index', compact('dogsitters','villes'));
     }
     

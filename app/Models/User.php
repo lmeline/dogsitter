@@ -29,7 +29,7 @@ class User extends Authenticatable
         'adresse',
         'code_postal',
         'date_naissance',
-        'ville',
+        'ville_id',
         'password',
         'role',
         'description',
@@ -94,13 +94,11 @@ class User extends Authenticatable
         return $this->belongsToMany(Thread::class, 'threads_users')->withTimestamps();
     }
 
-    // Relation avec les messages envoyés par cet utilisateur
     public function messages()
     {
         return $this->hasMany(Message::class);
     }
 
-    // Si vous souhaitez filtrer par rôle (propriétaire ou dogsitter), vous pouvez ajouter une méthode de portée (scope)
     public function scopeProprietaire($query)
     {
         return $query->where('role', 'proprietaire');

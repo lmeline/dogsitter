@@ -1,7 +1,7 @@
 <x-guest-layout>
     <div x-data="{ open: false }">
-        <div class="flex flex-col justify-center items-center mt-4 gap-2 dark:text-white">
-            <p class="text-2xl pb-4"> Voulez-vous ajouter votre chien ?  </p>
+        <div class="flex flex-col justify-center items-center mt-4 gap-2 dark:text-white mb-4">
+            <p class="text-2xl pb-4 "> Voulez-vous ajouter votre chien ?  </p>
             <div class="flex gap-2">
                 <a href="{{ route('dashboard') }}"  class="bg-red-600 hover:bg-red-400 text-white font-bold py-2 px-4 rounded ">
                     Passez cette étape
@@ -12,7 +12,7 @@
         </div>
         
     
-        <form x-show="open"  method="POST" action="{{ route('storeregisterdog') }}">
+        <form x-show="open"  method="POST" action="{{ route('storeregisterdog') }}" class="overflow-y-auto px-6 py-4 relative" >
             @csrf
     
             <!-- Name -->
@@ -91,13 +91,13 @@
             </div>
         
             <div class="block mt-4">
-                    <input id="sterilise" type="checkbox" name="sterilise" class="rounded-full h-[1.1rem] w-[1.1rem]">
+                    <input id="sterilise" type="checkbox" name="sterilise" class="rounded-full h-[1.1rem] w-[1.1rem] border border-pink-300 focus:ring-pink-500 focus:border-pink-500">
                    <label for="sterilise"> Stérilisé</label>
             </div>
             
 
             <div class="mt-4">
-                <button class="mx-4 px-4 py-2 bg-yellow-600 text-white font-semibold rounded-md shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 transition duration-200 ease-in-out">
+                <button class="mx-4 px-4 py-2 bg-yellow-600 text-white font-semibold rounded-md shadow-md hover:bg-yellow-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 transition duration-200 ease-in-out">
                 {{ __('Register') }}
                 </button>
 

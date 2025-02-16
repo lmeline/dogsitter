@@ -14,14 +14,14 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('prenom',70);
+            $table->string('prenom', 70);
             $table->date('date_naissance');
             $table->string('numero_telephone');
             $table->string('email')->unique();
             $table->string('adresse');
             $table->foreignId('ville_id')->constrained('villes');
-            $table->string('code_postal',20);
-            $table->enum('role', ['admin', 'proprietaire','dogsitter'])->default('proprietaire');
+            $table->string('code_postal', 20);
+            $table->enum('role', ['admin', 'proprietaire', 'dogsitter'])->default('proprietaire');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
@@ -32,7 +32,7 @@ return new class extends Migration
 
             $table->text('description')->nullable();
             $table->text('disponibilite_jour')->nullable();
-            $table->float('note_moyenne',3,2)->nullable();
+            $table->float('note_moyenne', 3, 2)->nullable();
             $table->integer('nb_notes')->nullable();
             $table->foreignId('abonnement_type_id')->nullable()->constrained('abonnements_types');
         });

@@ -1,9 +1,9 @@
 <?php
+
 namespace App\Models;
 
 use Cmgmyr\Messenger\Models\Message;
 use Cmgmyr\Messenger\Models\Thread as BaseThread;
-use Illuminate\Database\Eloquent\Model;
 
 class Thread extends BaseThread
 {
@@ -32,10 +32,9 @@ class Thread extends BaseThread
     }
 
     public function users()
-{
-    return $this->belongsToMany(User::class, 'participants')
-                ->withTimestamps()
-                ->whereNull('participants.deleted_at');
-}
-
+    {
+        return $this->belongsToMany(User::class, 'participants')
+            ->withTimestamps()
+            ->whereNull('participants.deleted_at');
+    }
 }

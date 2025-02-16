@@ -27,7 +27,7 @@
 
             <!-- Section Informations personnelles -->
             <h2 class="text-2xl font-semibold text-gray-800 mb-6">Informations personnelles</h2>
-            <p class="text-gray-700 mb-2"><strong>Ville :</strong> {{ $dogsitter->ville }}</p>
+            <p class="text-gray-700 mb-2"><strong>Ville :</strong> {{ $dogsitter->ville->nom_de_la_commune }}</p>
             <p class="text-gray-700 mb-2"><strong>Disponibilité :</strong> {{ $dogsitter->disponibilite_jour }}</p>
             <p class="text-gray-700 mb-2"><strong>Nombre de notes :</strong> {{ $dogsitter->nb_notes }}</p>
             <p class="text-gray-700 mb-4">
