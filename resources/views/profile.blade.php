@@ -8,7 +8,7 @@
         <div class="text-black py-10 w-full flex items-center bg-gradient-to-r from-red-200 to-orange-200 rounded-lg shadow-lg">
             <!-- Photo à gauche -->
             <div class="flex-shrink-0 mr-8">
-                <img src="{{ Auth::user()->photo }}" alt="{{ Auth::user()->name }}" class="w-40 h-40 rounded-full border-4 border-white shadow-lg">
+                <img src="{{ asset('storage/' . Auth::user()->photo) }}" alt="{{ Auth::user()->name }}" class="w-40 h-40 rounded-full border-4 border-white shadow-lg">
             </div>
             
             <!-- Texte aligné -->

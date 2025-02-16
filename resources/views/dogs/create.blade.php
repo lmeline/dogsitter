@@ -1,5 +1,5 @@
 <x-guest-layout>    
-        <form x-show="open"  method="POST" action="{{ route('storeregisterdog') }}">
+        <form x-show="open"  method="POST" action="{{ route('storeregisterdog') }}" class="overflow-y-auto px-6 py-4 relative">
             @csrf
     
             <!-- Name -->
@@ -78,14 +78,14 @@
             </div>
         
             <div class="block mt-4 flex items-center gap-2 ">
-                    <input id="sterilise" type="checkbox" name="sterilise" class="rounded-full h-[1.1rem] w-[1.1rem]">
+                    <input id="sterilise" type="checkbox" name="sterilise" class="rounded-full h-[1.1rem] w-[1.1rem] border border-pink-300 focus:ring-pink-500 focus:border-pink-500">
                    <label for="sterilise"> Stérilisé</label>
             </input>
             </div>
             
 
             <div class="mt-4">
-                <button class="mx-4 px-4 py-2 bg-yellow-600 text-white font-semibold rounded-md shadow-md hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 transition duration-200 ease-in-out">
+                <button class="mx-4 px-4 py-2 bg-yellow-600 text-white font-semibold rounded-md shadow-md hover:bg-yellow-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 transition duration-200 ease-in-out">
                 {{ __('Register') }}
                 </button>
 

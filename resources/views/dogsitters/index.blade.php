@@ -83,6 +83,7 @@ document.addEventListener('DOMContentLoaded', function () {
         })
         .then(response => response.json())
         .then(data => {
+            console.log(data);
             dogsittersContainer.innerHTML = '';
 
             if (data.length === 0) {
@@ -101,7 +102,7 @@ document.addEventListener('DOMContentLoaded', function () {
                             </div>
                             <img src="${dogsitter.photo}" alt="${dogsitter.name}" class="w-24 h-24 rounded-full object-cover ml-4 border-4 border-white"/>
                         </div>
-                        <p class="text-gray-600 mt-2">Ville: ${dogsitter.ville}</p>
+                        <p class="text-gray-600 mt-2">Ville: ${dogsitter.ville.nom_de_la_commune}</p>
                         <p class="text-gray-600">Note moyenne: ${dogsitter.note_moyenne}/5 </p>
                     </a>`;
             });

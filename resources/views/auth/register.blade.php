@@ -18,7 +18,7 @@
         </div>
 
         <!-- Formulaire Proprietaire -->
-        <form x-show="proprietaire" method="POST" action="{{ route('register') }}" class=" px-6 py-4">
+        <form x-show="proprietaire" method="POST" action="{{ route('register') }}" class=" px-6 py-4" enctype="multipart/form-data">
             @csrf
             <!-- Nom et prénom -->
             <div class="flex w-full gap-2 mt-4">
@@ -81,11 +81,11 @@
                 </div>
             </div>
             <!-- Photo de profil -->
-            <div class="mt-4">
+            {{-- <div class="mt-4">
                 <x-input-label for="photo" :value="__('Photo de profil')" />
                 <input type="file" id="photo" name="photo" accept="image/*" class="block mt-1 w-full border border-pink-300 focus:ring-pink-500 focus:border-pink-500" />
                 <x-input-error :messages="$errors->get('photo')" class="mt-2" />
-            </div>
+            </div> --}}
 
             <!-- Mot de passe -->
             <div class="mt-4">

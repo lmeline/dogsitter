@@ -16,39 +16,29 @@ class ProfilDogsitterController extends Controller
 
         $villesDetails = Ville::whereIn('id', $villes)->get();
 
-        return view('dogsitters.index', compact('dogsitters','villes'));
+        return view('dogsitters.index', compact('dogsitters', 'villes'));
     }
-    
+
 
     public function show($id)
     {
         $dogsitter = User::find($id);
-        
-        if (!$dogsitter || $dogsitter->role !== 'dogsitter') {
-            
-            return redirect()->route('index');
-            
-        }
-    
-        
-    $prestations = Prestation::where('dogsitter_id', $id)->with('avis')->get();
-        
-    return view('dogsitters.show', compact('dogsitter','prestations'));
 
+        if (!$dogsitter || $dogsitter->role !== 'dogsitter') {
+
+            return redirect()->route('index');
+        }
+
+
+        $prestations = Prestation::where('dogsitter_id', $id)->with('avis')->get();
+
+        return view('dogsitters.show', compact('dogsitter', 'prestations'));
     }
 
     public function create()
     {
         return view('dogsitters.create');
     }
-    
-    // public function getdogsitters(Request $request)
-    // {
-    //     $query = $request->input('name');
-    //     $dogsitters = User::where('name', 'like', '%' . $query . '%')
-    //         ->get();
-    //     return response()->json($dogsitters);
-    // }
 
     public function search(Request $request)
     {
@@ -59,10 +49,14 @@ class ProfilDogsitterController extends Controller
         }
 
         if ($request->filled('ville')) {
-            $query->where('ville', 'LIKE', "%{$request->ville}%");
+            $query->whereHas('ville', function ($query) use ($request) {
+                $query->where('nom_de_la_commune', 'LIKE', "%{$request->ville}%");
+            });
         }
 
-        return response()->json($query->get());
+
+        $users = $query->with('ville')->get();
+
+        return response()->json($users);
     }
-    
 }

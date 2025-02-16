@@ -110,7 +110,6 @@ Route::middleware('auth')->group(function () {
 
 // Requêtes ajax 
 Route::get('/prestations/calendar/getprestations',[PrestationController::class,'getprestations']);
-//Route::get('/search-dogsitters',[ProfilDogsitterController::class,'getdogsitters'])->name('search.dogsitters');
 Route::get('/search-dogsitters',[ProfilDogsitterController::class,'search'])->name('search.dogsitters');
 Route::get('/search-villes', [ProfileController::class, 'searchVille'])->name('search.ville');
 Route::post('/save-ville', [ProfileController::class, 'saveVille'])->name('save.ville');

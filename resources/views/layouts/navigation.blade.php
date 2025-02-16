@@ -127,6 +127,20 @@
             </x-responsive-nav-link>
         </div>
 
+        @if (Auth::check() && Auth::user()->role === 'proprietaire')               
+            <div class="pt-2 pb-3 space-y-1">
+                <x-responsive-nav-link :href="route('dogsitters.index')" :active="request()->routeIs('dogsitters.index')">
+                    {{ __('Trouvez son dogsitter') }}
+                </x-responsive-nav-link>
+            </div>
+        @else
+            <div class="pt-2 pb-3 space-y-1">
+                <x-responsive-nav-link :href="route('dogsitters.calendar')" :active="request()->routeIs('dogsitters.calendar')">
+                    {{ __('Mes rendez-vous') }}
+                </x-responsive-nav-link>
+            </div>
+        @endif
+
         <div class="pt-2 pb-3 space-y-1">
 
         <!-- Responsive Settings Options -->
