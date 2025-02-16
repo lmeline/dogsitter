@@ -19,14 +19,14 @@ class DisponibiliteController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'jour' => 'required|string',
+            'jour_semaine' => 'required|string',
             'heure_debut' => 'required|date_format:H:i',
             'heure_fin' => 'required|date_format:H:i|after:heure_debut',
         ]);
 
         Disponibilite::create([
-            'user_id' => Auth::id(),
-            'jour' => $request->jour,
+            'dogsitter_id' => Auth::id(),
+            'jour_semaine' => $request->jour,
             'heure_debut' => $request->heure_debut,
             'heure_fin' => $request->heure_fin,
         ]);
@@ -37,7 +37,7 @@ class DisponibiliteController extends Controller
     // Supprimer une disponibilité
     public function destroy($id)
     {
-        $disponibilite = Disponibilite::where('id', $id)->where('user_id', Auth::id())->first();
+        $disponibilite = Disponibilite::where('id', $id)->where('dogsitter_id', Auth::id())->first();
         
         if ($disponibilite) {
             $disponibilite->delete();

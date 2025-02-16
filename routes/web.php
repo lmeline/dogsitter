@@ -112,9 +112,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/messages/{id}', [MessageController::class, 'show'])->name('messages.show');
     Route::post('/messages/{id}/add', [MessageController::class, 'addMessage'])->name('addMessage');
 
-    Route::get('/disponibilites', [DisponibiliteController::class, 'index'])->name('disponibilites.index');
-    Route::post('/disponibilites', [DisponibiliteController::class, 'store'])->name('disponibilites.store');
-    Route::delete('/disponibilites/{id}', [DisponibiliteController::class, 'destroy'])->name('disponibilites.destroy');
 });
 
 
@@ -123,3 +120,6 @@ Route::get('/prestations/calendar/getprestations',[PrestationController::class,'
 Route::get('/search-dogsitters',[ProfilDogsitterController::class,'search'])->name('search.dogsitters');
 Route::get('/search-villes', [ProfileController::class, 'searchVille'])->name('search.ville');
 Route::post('/save-ville', [ProfileController::class, 'saveVille'])->name('save.ville');
+Route::get('/disponibilites', [DisponibiliteController::class, 'index'])->name('disponibilites.index');
+Route::post('/disponibilites', [DisponibiliteController::class, 'store'])->name('disponibilites.store');
+Route::delete('/disponibilites/{id}', [DisponibiliteController::class, 'destroy'])->name('disponibilites.destroy');

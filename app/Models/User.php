@@ -113,4 +113,9 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Ville::class);
     }
+
+    public function disponibilites(): HasMany
+    {
+        return $this->hasMany(Disponibilite::class);
+    }
 }

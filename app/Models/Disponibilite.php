@@ -9,7 +9,7 @@ class Disponibilite extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['dogsitter_id', 'jour', 'heure_debut', 'heure_fin'];
+    protected $fillable = ['dogsitter_id', 'jour_semaine', 'heure_debut', 'heure_fin'];
 
     public function user()
     {

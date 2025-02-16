@@ -5,7 +5,7 @@
     <div class="w-full h-full">
         <div class="flex justify-center items-center w-[80%] mx-auto  m-5">
             <h1 class="font-bold text-3xl text-center flex-grow">Calendrier</h1>
-            <a type="button" id="create-event" href="{{ route('availability') }}" class="bg-pink-500 hover:bg-pink-600 text-white font-bold py-2 px-4 rounded ml-4">
+            <a type="button" id="create-event" href="{{ route('disponibilites.availability') }}" class="bg-pink-500 hover:bg-pink-600 text-white font-bold py-2 px-4 rounded ml-4">
                 Mes disponibilités 
             </a>
         </div>
