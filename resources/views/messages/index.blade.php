@@ -2,7 +2,7 @@
 @section('content')
 
     <x-app-layout>
-        <x-slot name="header">
+        {{-- <x-slot name="header">
             <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
                 {{ __('Mes messages') }}
                 @if ($unreadCount > 0)
@@ -11,10 +11,10 @@
                     </span>
                 @endif
             </h2>
-        </x-slot>
+        </x-slot> --}}
 
         <div class="container mx-auto py-8">
-            <!-- Barre de recherche -->
+
             <form method="GET" action="{{ route('messages.index') }}" class="mb-6">
                 <div class="flex items-center w-full space-x-2">
                     <input 
@@ -46,14 +46,14 @@
 
                         $lastMessage = $thread->messages()->latest()->first();
                     @endphp
-                    <!-- Envelopper tout le bloc du message dans un lien <a> -->
+
                     <li class="flex items-center justify-between bg-white shadow p-4 rounded-lg hover:bg-gray-100 transition">
                         <a href="{{ route('messages.show', $thread->id) }}" class="flex items-center justify-between w-full">
                             <div class="flex items-center space-x-4">
-                                <!-- Photo de profil de l'autre utilisateur -->
+                                
                                 <img src="{{ asset($otherUser->photo ?? 'images/default-avatar.jpg') }}" alt="{{ $otherUser->name }}" class="w-12 h-12 rounded-full object-cover">
                                 <div>
-                                    <!-- Nom de l'autre utilisateur -->
+                                
                                     <span class="text-gray-800 font-medium">{{ $otherUser->name }}</span>
                                     <p class="text-gray-500 text-sm">
                                         @if ($lastMessage)
@@ -66,7 +66,6 @@
                                 </div>
                             </div>
 
-                            <!-- Afficher le nombre de messages non lus -->
                             @if ($unreadCountThread > 0)
                                 <span class="bg-red-500 text-white text-xs px-2 py-1 rounded-full">
                                     {{ $unreadCountThread }}

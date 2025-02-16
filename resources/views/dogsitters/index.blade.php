@@ -5,7 +5,7 @@
         <form id="searchForm">
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-4">
                 <!-- Recherche par nom -->
-                <input type="text" id="search" name="name" placeholder="Nom" class="w-full h-10 rounded-lg border border-gray-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-pink-500">
+                <input type="text" id="search" name="name" placeholder="Nom de famille" class="w-full h-10 rounded-lg border border-gray-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-pink-500">
                 
                 <div class="relative">
                     <input type="text" id="ville" name="ville" placeholder="Ville" autocomplete="off"
@@ -26,17 +26,14 @@
             @foreach ($dogsitters as $dogsitter)
             <a href="{{ route('dogsitters.show', $dogsitter->id) }}" class="block bg-gradient-to-r from-pink-100 via-yellow-100 to-green-100 p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 hover:bg-gradient-to-r hover:from-pink-200 hover:via-yellow-200 hover:to-green-200">
                 <div class="flex items-center">
-                    <!-- Texte avec nom et prénom -->
                     <div class="flex-1">
                         <h2 class="text-xl font-semibold text-black hover:text-red-800 transition-colors duration-300">
                             {{ $dogsitter->name }} {{ $dogsitter->prenom }}
                         </h2>
                     </div>
-                    <!-- Image ronde -->
+
                     <img src="{{ $dogsitter->photo }}" alt="{{ $dogsitter->name }}" class="w-24 h-24 rounded-full object-cover ml-4 border-4 border-white"/>
                 </div>
-            
-                <!-- Informations supplémentaires -->
                 <p class="text-gray-600 mt-2">Ville: {{ $dogsitter->ville->nom_de_la_commune }}</p>
                 <p class="text-gray-600">Note moyenne: {{ $dogsitter->note_moyenne }}/5 </p>
             </a>

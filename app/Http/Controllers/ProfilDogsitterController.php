@@ -43,20 +43,22 @@ class ProfilDogsitterController extends Controller
     public function search(Request $request)
     {
         $query = User::query();
+        $query->where('role', 'dogsitter');
 
         if ($request->filled('name')) {
             $query->where('name', 'LIKE', "%{$request->name}%");
         }
-
+    
         if ($request->filled('ville')) {
             $query->whereHas('ville', function ($query) use ($request) {
                 $query->where('nom_de_la_commune', 'LIKE', "%{$request->ville}%");
             });
         }
-
-
+        if ($request->filled('note_moyenne')) {
+            $query->where('note_moyenne', '>=', $request->note_moyenne);
+        }
         $users = $query->with('ville')->get();
-
         return response()->json($users);
     }
+  
 }

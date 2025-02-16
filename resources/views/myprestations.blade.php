@@ -5,6 +5,10 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                @if ($prestations->isEmpty())
+                    <p>Aucune prestation disponible.</p>
+                    
+                @endif
                 @foreach($prestations as $index => $prestation)
                     <div class="p-6 bg-white dark:bg-gray-900 shadow-md rounded-lg 
                         @switch($index % 5)

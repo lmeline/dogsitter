@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AbonnementController;
+use App\Http\Controllers\DisponibiliteController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DogController;
 use App\Http\Controllers\PrestationController;
@@ -20,6 +21,10 @@ route::get('/myprestations',[PrestationController::class,'showPrestations'])->na
 Route::get('/dogsitter/accueil', function () {
     return view('dogsitters.PageAccueilDogsitter');
 })->middleware(['auth', 'verified'])->name('dogsitters.PageAccueilDogsitter');
+
+Route::get('/dogsitter/availability', function () {
+    return view('disponibilites.availability');
+})->middleware(['auth', 'verified'])->name('disponibilites.availability');
 
 Route::get('dogsitter/calendar', function () {
     return view('dogsitters.calendar');
@@ -61,6 +66,7 @@ Route::get('/dogs/{id}',[DogController::class,'show'])->name('dogs.show');
 route::get('/dogsitters',[ProfilDogsitterController::class,'index'])->name('dogsitters.index');
 route::get('/dogsitters/{id}',[ProfilDogsitterController::class,'show'])->name('dogsitters.show');
 Route::get('/dogsitters/filtrer', [ProfilDogsitterController::class, 'filter'])->name('dogsitters.filter');
+//Route::get('/dogsitters/availability', [ProfilDogsitterController::class, 'availability'])->name('dogsitters.availability');
 
 route::get('/proprietaires',[ProprietaireController::class,'index'])->name('proprietaires.index');
 route::get('/proprietaires/{id}',[ProprietaireController::class,'show'])->name('proprietaires.show');
@@ -94,7 +100,7 @@ Route::get('/choisir-abonnement', [AbonnementController::class, 'registerabonnem
 Route::post('/choisir-abonnement', [AbonnementController::class, 'chooseAbonnement'])->name('chooseAbonnement');
 
 Route::get('/error', function() {
-    return view('erreurs.unauthorized'); // Créez une vue simple d'erreur personnalisée
+    return view('erreurs.unauthorized'); 
 })->name('errorPage');
 
 Route::middleware('auth')->group(function () {
@@ -105,6 +111,10 @@ Route::middleware('auth')->group(function () {
     Route::post('/messages', [MessageController::class, 'store'])->name('messages.store');
     Route::get('/messages/{id}', [MessageController::class, 'show'])->name('messages.show');
     Route::post('/messages/{id}/add', [MessageController::class, 'addMessage'])->name('addMessage');
+
+    Route::get('/disponibilites', [DisponibiliteController::class, 'index'])->name('disponibilites.index');
+    Route::post('/disponibilites', [DisponibiliteController::class, 'store'])->name('disponibilites.store');
+    Route::delete('/disponibilites/{id}', [DisponibiliteController::class, 'destroy'])->name('disponibilites.destroy');
 });
 
 

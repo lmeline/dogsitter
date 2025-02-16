@@ -1,93 +1,125 @@
+ @extends('layouts.partials.default-layout')
 
-@extends('layouts.partials.default-layout')
-@section('content')
-<x-app-layout>
-    <!-- Hero Section (Bannière Principale) -->
-    <section class="bg-cover bg-center relative" style="background-image: url('images/banner.jpg'); height: 500px;">
-        <div class="absolute inset-0 bg-black opacity-50"></div>
-        <div class="relative z-10 text-center text-white pt-32">
-            <h1 class="text-4xl font-bold mb-4">Bienvenue sur Dogsitter</h1>
-            <p class="text-lg mb-6">Profitez de notre plateforme pour trouver des dogsitters qualifiés ou devenir un dogsitter !</p>
-        </div>
-    </section>
-
-    <!-- Promotions Abonnement -->
-    <section class="py-12 bg-gray-100">
-        <div class="container mx-auto text-center">
-            <h2 class="text-3xl font-semibold mb-6">Offres Spéciales et Promotions</h2>
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-                <div class="p-6 bg-white shadow rounded-lg">
-                    <h3 class="text-xl font-semibold">Abonnement Premium</h3>
-                    <p class="mt-2">Accédez à des fonctionnalités exclusives avec l'abonnement Premium !</p>
-                    <span class="block text-xl font-bold text-yellow-500">Seulement 9,99€/mois</span>
-                    <a href="/" class="text-yellow-500 mt-3 block">Souscrire maintenant</a>
-                </div>
-
-                <div class="p-6 bg-white shadow rounded-lg">
-                    <h3 class="text-xl font-semibold">Réduction pour les nouveaux Dogsitters</h3>
-                    <p class="mt-2">Devenez dogsitter et bénéficiez d'une réduction de 20% sur votre abonnement Premium !</p>
-                    <span class="block text-xl font-bold text-yellow-500">Réduction de 20%</span>
-                    <a href="/" class="text-yellow-500 mt-3 block">S'inscrire en tant que Dogsitter</a>
-                </div>
-
-                <div class="p-6 bg-white shadow rounded-lg">
-                    <h3 class="text-xl font-semibold">Pack Annuel</h3>
-                    <p class="mt-2">Économisez 15% en souscrivant à un abonnement annuel et profitez des avantages toute l'année !</p>
-                    <span class="block text-xl font-bold text-yellow-500">Abonnement Annuel : 99,99€</span>
-                    <a href="/" class="text-yellow-500 mt-3 block">Souscrire maintenant</a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Actualités du Site -->
-    <section class="py-12">
-        <div class="container mx-auto text-center">
-            <h2 class="text-3xl font-semibold mb-6">Actualités et Nouveautés</h2>
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-                <div class="bg-white shadow-lg rounded-lg p-6">
-                    <h3 class="text-xl font-semibold">Nouvelle Fonctionnalité : Messagerie Instantanée</h3>
-                    <p class="mt-2">Communiquez instantanément avec les dogsitters grâce à notre nouvelle fonctionnalité de messagerie !</p>
-                    <a href="/" class="text-yellow-500 mt-3 block">En savoir plus</a>
-                </div>
-
-                <div class="bg-white shadow-lg rounded-lg p-6">
-                    <h3 class="text-xl font-semibold">Extension du Service à [Nom de la Ville]</h3>
-                    <p class="mt-2">Nous avons étendu nos services à [Nom de la Ville]. Trouvez un dogsitter près de chez vous !</p>
-                    <a href="/" class="text-yellow-500 mt-3 block">Voir les détails</a>
-                </div>
-
-                <div class="bg-white shadow-lg rounded-lg p-6">
-                    <h3 class="text-xl font-semibold">Mise à Jour : Amélioration du Profil Dogsitter</h3>
-                    <p class="mt-2">Nous avons amélioré les profils des dogsitters pour plus de transparence et de confiance.</p>
-                    <a href="/" class="text-yellow-500 mt-3 block">Voir les modifications</a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Témoignages -->
-    <section class="py-12 bg-gray-100">
-        <div class="container mx-auto text-center">
-            <h2 class="text-3xl font-semibold mb-6">Témoignages de nos utilisateurs</h2>
-            <div class="flex justify-center space-x-8">
-                <div class="max-w-xs bg-white p-6 shadow-lg rounded-lg">
-                    <img src="images/testimonial1.jpg" alt="Photo de Témoignage 1" class="w-16 h-16 rounded-full mx-auto">
-                    <p class="mt-4 text-gray-700">"Un service exceptionnel ! Mon chien a été bien pris en charge. Je recommande vivement."</p>
-                    <span class="text-yellow-500">⭐⭐⭐⭐⭐</span>
-                    <p class="mt-2">- Alice, Propriétaire</p>
-                </div>
-
-                <div class="max-w-xs bg-white p-6 shadow-lg rounded-lg">
-                    <img src="images/testimonial2.jpg" alt="Photo de Témoignage 2" class="w-16 h-16 rounded-full mx-auto">
-                    <p class="mt-4 text-gray-700">"Devenir dogsitter m'a permis de gagner de l'argent tout en faisant ce que j'aime. Très satisfaite !" </p>
-                    <span class="text-yellow-500">⭐⭐⭐⭐⭐</span>
-                    <p class="mt-2">- Julien, Dogsitter</p>
-                </div>
-            </div>
-        </div>
-    </section>
-</x-app-layout>
-@endsection
-
-
+ @section('content')
+ <x-app-layout>
+     <div class="container mx-auto px-4 py-8">
+ 
+         <!--  Hero Section -->
+         <div class="text-center mb-12">
+             <h1 class="text-5xl font-extrabold text-gray-800">Bienvenue sur Patte à Patte 🐕</h1>
+             <p class="text-lg text-gray-600 mt-4">Découvrez nos services exclusifs, les avis de nos utilisateurs et comment tirer le meilleur parti de votre expérience !</p>
+         </div>
+ 
+         <!--  Avantages -->
+         <div class="grid grid-cols-1 sm:grid-cols-3 gap-8 mb-12">
+             <div class="bg-white p-6 shadow-lg rounded-lg text-center">
+                 <span class="text-4xl text-yellow-500">🏅</span>
+                 <h3 class="text-xl font-bold mt-3">Des Dogsitters Vérifiés</h3>
+                 <p class="text-gray-600 mt-2">Tous nos dogsitters sont soigneusement sélectionnés et vérifiés pour vous garantir sécurité et tranquillité d'esprit.</p>
+             </div>
+             <div class="bg-white p-6 shadow-lg rounded-lg text-center">
+                 <span class="text-4xl text-yellow-500">📅</span>
+                 <h3 class="text-xl font-bold mt-3">Réservation Facile</h3>
+                 <p class="text-gray-600 mt-2">Réservez un dogsitter en quelques clics selon votre emploi du temps et la disponibilité de nos prestataires.</p>
+             </div>
+             <div class="bg-white p-6 shadow-lg rounded-lg text-center">
+                 <span class="text-4xl text-yellow-500">💬</span>
+                 <h3 class="text-xl font-bold mt-3">Avis & Témoignages</h3>
+                 <p class="text-gray-600 mt-2">Lisez les avis authentiques de nos utilisateurs pour faire le meilleur choix et avoir l’esprit tranquille.</p>
+             </div>
+         </div>
+ 
+         <!--  Dernières Actualités -->
+         <div class="text-center mb-12">
+             <h2 class="text-3xl font-semibold text-gray-800">Nos dernières actualités</h2>
+             <div class="grid grid-cols-1 sm:grid-cols-3 gap-8 mt-6">
+                 <div class="bg-white p-6 shadow-lg rounded-lg">
+                     <h3 class="text-xl font-bold text-gray-800">Nouvelle fonctionnalité pour les dogsitters !</h3>
+                     <p class="text-gray-600 mt-3">Nous avons lancé un nouvel outil pour gérer vos disponibilités de manière plus intuitive. Découvrez-le dès maintenant dans votre espace personnel.</p>
+                 </div>
+                 <div class="bg-white p-6 shadow-lg rounded-lg">
+                     <h3 class="text-xl font-bold text-gray-800">Offre spéciale pour les propriétaires de chiens</h3>
+                     <p class="text-gray-600 mt-3">Réservez une prestation et bénéficiez de 10% de réduction sur votre première commande. Profitez-en avant la fin du mois !</p>
+                 </div>
+                 <div class="bg-white p-6 shadow-lg rounded-lg">
+                     <h3 class="text-xl font-bold text-gray-800">De nouveaux dogsitters ajoutés !</h3>
+                     <p class="text-gray-600 mt-3">Nous avons élargi notre communauté de dogsitters. Découvrez des profils qualifiés près de chez vous pour garder votre chien en toute sécurité.</p>
+                 </div>
+             </div>
+         </div>
+ 
+         <!--  Témoignages et Avis -->
+         <div class="text-center mb-12">
+             <h2 class="text-3xl font-semibold text-gray-800">Témoignages de Nos Utilisateurs</h2>
+             <div class="flex justify-center gap-8 mt-6">
+                 <div class="bg-white p-6 shadow-lg rounded-lg w-80">
+                     <p class="text-gray-600 italic">"Je suis ravi de trouver un dogsitter de confiance en quelques minutes. Mon chien adore son séjour avec Max !" - Jean, Paris</p>
+                     <div class="mt-4 flex items-center justify-between">
+                         <div class="flex items-center">
+                             <span class="font-semibold text-yellow-500">⭐⭐⭐⭐⭐</span>
+                         </div>
+                     </div>
+                 </div>
+                 <div class="bg-white p-6 shadow-lg rounded-lg w-80">
+                     <p class="text-gray-600 italic">"Un site simple et efficace. Je recommande vivement pour tous les propriétaires de chiens !" - Marie, Lyon</p>
+                     <div class="mt-4 flex items-center justify-between">
+                         <div class="flex items-center">
+                             <span class="font-semibold text-yellow-500">⭐⭐⭐⭐⭐</span>
+                         </div>
+                     </div>
+                 </div>
+             </div>
+         </div>
+ 
+         <!-- Statistiques sur DogSitting Connect -->
+         <div class="bg-gray-100 py-12 mb-12">
+             <div class="text-center">
+                 <h2 class="text-3xl font-semibold text-gray-800">Quelques chiffres sur DogSitting Connect</h2>
+                 <p class="text-lg text-gray-600 mt-4">Plus de 100,000 utilisateurs satisfaits et une communauté grandissante chaque jour !</p>
+             </div>
+             <div class="grid grid-cols-2 sm:grid-cols-4 gap-8 text-center mt-10">
+                 <div>
+                     <h3 class="text-xl font-bold text-gray-800">+ 2000</h3>
+                     <p class="text-gray-600">Dogsitters</p>
+                 </div>
+                 <div>
+                     <h3 class="text-xl font-bold text-gray-800">+ 50,000</h3>
+                     <p class="text-gray-600">Propriétaires</p>
+                 </div>
+                 <div>
+                     <h3 class="text-xl font-bold text-gray-800">99%</h3>
+                     <p class="text-gray-600">Taux de Satisfaction</p>
+                 </div>
+                 <div>
+                     <h3 class="text-xl font-bold text-gray-800">+ 300</h3>
+                     <p class="text-gray-600">Réservations chaque mois</p>
+                 </div>
+             </div>
+         </div>
+ 
+         <!-- Inscription à la Newsletter -->
+         <div class="bg-white p-8 rounded-lg shadow-lg text-center mb-12">
+             <h2 class="text-3xl font-semibold text-gray-800">Recevez des mises à jour et offres exclusives !</h2>
+             <p class="text-lg text-gray-600 mt-4">Restez connecté avec DogSitting Connect pour recevoir des nouvelles importantes, des offres et des promotions.</p>
+             <form action="" method="POST" class="mt-6 flex justify-center gap-4">
+                 @csrf
+                 <input type="email" name="email" class="px-4 py-2 border-gray-300 rounded-lg w-80" placeholder="Votre email" required>
+                 <button type="submit" class="bg-yellow-500 text-black px-6 py-3 rounded-lg hover:bg-yellow-600 transition">
+                     S'abonner
+                 </button>
+             </form>
+         </div>
+ 
+         <!-- Call-to-Action pour Accéder aux Services -->
+         <div class="text-center mb-16">
+             <h2 class="text-3xl font-semibold text-gray-800">Accédez dès maintenant à vos services et gérez vos disponibilités !</h2>
+             <p class="text-lg text-gray-600 mt-4">Connectez-vous à votre espace pour modifier vos informations, mettre à jour vos disponibilités et consulter les demandes de réservation.</p>
+             <a href="{{ route('profile') }}" class="mt-5 inline-block bg-gradient-to-r from-yellow-400 to-pink-400 text-black px-8 py-4 rounded-lg font-semibold hover:opacity-90 transition">
+                 Accéder à mon espace
+             </a>
+         </div>
+ 
+     </div>
+ </x-app-layout>
+ @endsection
+ 

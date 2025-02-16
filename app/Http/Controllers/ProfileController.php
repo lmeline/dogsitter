@@ -32,18 +32,17 @@ class ProfileController extends Controller
        
          $user = Auth::user();
      
-       
          $user->update([
              'name' => $request->name,
              'prenom' => $request->prenom,
              'numero_telephone' => $request->numero_telephone,
              'adresse' => $request->adresse,
              'code_postal' => $request->code_postal,
-             'ville' => $request->ville,
+             'ville_id' => $request->ville_id,
              'email' => $request->email,
              'photo' => $request->photo
          ]);
-     
+        
         
          return Redirect::route('profile.edit')->with('status', 'profile-updated');
      }

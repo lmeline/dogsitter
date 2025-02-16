@@ -56,7 +56,7 @@
 
             <div>
                 <x-input-label for="ville" :value="__('City')" />
-                <x-text-input id="ville" class="block mt-1 w-full h-10" type="text" name="ville" :value="old('ville', $user->ville)" required autocomplete="ville" />
+                <x-text-input id="ville_id" class="block mt-1 w-full h-10" type="text" name="ville" :value="old('ville', $user->ville->nom_de_la_commune)" required autocomplete="ville" />
                 <x-input-error :messages="$errors->get('ville')" class="mt-2" />
             </div>
         </div>
@@ -84,7 +84,7 @@
             @endif
         </div>
         <!-- Champ pour la photo de profil -->
-        <div>
+        {{-- <div>
             <x-input-label for="photo" :value="__('Photo de profil')" />
             <input 
                 id="photo" 
@@ -94,7 +94,7 @@
                 accept="image/*" 
             />
             <x-input-error :messages="$errors->get('photo')" class="mt-2" />
-        </div>
+        </div> --}}
         <!-- Boutons de soumission -->
         <div class="flex items-center gap-4">
             <x-primary-button>{{ __('Save') }}</x-primary-button>

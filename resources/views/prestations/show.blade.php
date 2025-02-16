@@ -5,7 +5,6 @@
     <div class="container mx-auto px-4 py-8">
         <h1 class="text-2xl font-semibold mb-4">Informations sur la Prestation</h1>
         
-        {{-- Ajout d'une classe de dégradé sur la carte --}}
         <div class="p-6 rounded-lg shadow-md 
             @switch($prestation->id % 5)
                 @case(0) bg-gradient-to-r from-pink-50 to-pink-100 @break

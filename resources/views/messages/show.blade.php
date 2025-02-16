@@ -1,18 +1,18 @@
 @extends('layouts.partials.default-layout')
 @section('content')
     <x-app-layout>
-        <x-slot name="header">
+        {{-- <x-slot name="header">
             <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
             <a href="{{ route('messages.index') }}">{{ __('Messages ') }} </a> 
             </h2>
-        </x-slot>
+        </x-slot> --}}
 
         <div class="container mx-auto py-8">
             <div class="bg-white shadow p-4 rounded-lg">
                 <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
                     @if($thread->users->count() > 1)
                         @foreach($thread->users as $user)
-                            @if($user->id !== auth()->id())  {{-- Assurez-vous de ne pas afficher l'utilisateur connecté --}}
+                            @if($user->id !== auth()->id())  
                                 {{ $user->name }} {{ $user->prenom }}
                                 @break
                             @endif
@@ -24,7 +24,7 @@
                     @foreach ($thread->messages as $message)
                         <li class="bg-gray-100 p-4 rounded-lg">
                             <div class="flex justify-between">
-                                <span class="font-bold">{{ $message->user->name }} :</span>
+                                <span class="font-bold">{{ $message->user->name }} {{ $message->user->prenom }} :</span>
                                 <span class="text-sm text-gray-500">{{ $message->created_at->diffForHumans() }}</span>
                             </div>
                             <p class="mt-2 text-gray-700">  {!! nl2br(e($message->body)) !!}</p>
