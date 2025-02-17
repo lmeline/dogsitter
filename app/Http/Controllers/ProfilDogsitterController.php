@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Disponibilite;
 use App\Models\Prestation;
 use App\Models\User;
 use App\Models\Ville;
@@ -28,11 +29,11 @@ class ProfilDogsitterController extends Controller
 
             return redirect()->route('index');
         }
-
-
+        
+        $disponibilites = Disponibilite::where('dogsitter_id', $id)->get();
         $prestations = Prestation::where('dogsitter_id', $id)->with('avis')->get();
 
-        return view('dogsitters.show', compact('dogsitter', 'prestations'));
+        return view('dogsitters.show', compact('dogsitter', 'prestations','disponibilites'));
     }
 
     public function create()

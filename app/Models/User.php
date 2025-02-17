@@ -116,6 +116,6 @@ class User extends Authenticatable
 
     public function disponibilites(): HasMany
     {
-        return $this->hasMany(Disponibilite::class);
+        return $this->hasMany(Disponibilite::class,'dogsitter_id');
     }
 }

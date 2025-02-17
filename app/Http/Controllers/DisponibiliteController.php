@@ -4,37 +4,67 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Disponibilite;
+use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 class DisponibiliteController extends Controller
 {
 
-    // Récupérer les disponibilités du dogsitter
     public function index()
     {
-        $disponibilites = Disponibilite::where('user_id', Auth::id())->get();
+        $disponibilites = Disponibilite::where('dogsitter_id', Auth::id())->get();
         return response()->json($disponibilites);
     }
 
-    // Enregistrer une nouvelle disponibilité
-    public function store(Request $request)
-    {
-        $request->validate([
-            'jour_semaine' => 'required|string',
-            'heure_debut' => 'required|date_format:H:i',
-            'heure_fin' => 'required|date_format:H:i|after:heure_debut',
-        ]);
+    // public function store(Request $request)
+    // {
+    //     dd($request->all());
+    //     var_dump("cc");
+    //     $request->validate([
+    //         'jour_semaine' => 'required|date',
+    //         'heure_debut' => 'required|date_format:H:i',
+    //         'heure_fin' => 'required|date_format:H:i|after:heure_debut',
+    //         'dogsitter_id' => 'required|exists:users,id',
+    //     ]);
 
-        Disponibilite::create([
-            'dogsitter_id' => Auth::id(),
-            'jour_semaine' => $request->jour,
-            'heure_debut' => $request->heure_debut,
-            'heure_fin' => $request->heure_fin,
-        ]);
+    //    Disponibilite::create([
+    //         'dogsitter_id' => Auth::id(),
+    //         'jour_semaine' => $request->jour_semaine,
+    //         'heure_debut' => $heureDebut,
+    //         'heure_fin' => $heureFin,
+    //     ]);
+    
+    //     return redirect()->route('disponibilites.availability')->with('success', 'Disponibilité enregistrée avec succès.');
+    // }
 
-        return response()->json(['success' => true, 'message' => 'Disponibilité ajoutée']);
+    public function show($id){
+        
+        $disponibilites = Disponibilite::where('dogsitter_id', $id)->get();
+        $dogsitter = User::find($id);
+        return view('dogsitters.show', compact('disponibilites', 'dogsitter'));
     }
 
-    // Supprimer une disponibilité
+    public function store(Request $request)
+    {
+            $request->validate([
+                'jour_semaine' => 'required|string',
+                'heure_debut' => 'required|date_format:H:i',
+                'heure_fin' => 'required|date_format:H:i|after:heure_debut',
+                'dogsitter_id' => 'required|exists:users,id',
+            ]);
+
+            Disponibilite::create([
+                'dogsitter_id' => Auth::id(),
+                'jour_semaine' => $request->jour_semaine,
+                'heure_debut' => $request->heure_debut,
+                'heure_fin' => $request->heure_fin,
+            ]);
+
+            session()->flash('success', 'Votre horaire a été pris en compte avec succès.');
+
+            return redirect()->route('disponibilites.availability',compact('disponibilites','dogsitter'));
+    }
+    
     public function destroy($id)
     {
         $disponibilite = Disponibilite::where('id', $id)->where('dogsitter_id', Auth::id())->first();

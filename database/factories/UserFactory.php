@@ -32,13 +32,11 @@ class UserFactory extends Factory
                 $note_moyenne = fake()->numberBetween(0, 5);
                 $nb_notes = fake()->numberBetween(0, 5);
                 $abonnement_type_id = fake()->numberBetween(1, 3);
-                $disponibilite_jour = fake()->sentence();
                 $description = fake()->sentence();
             } else {
                 $note_moyenne = null;
                 $nb_notes = null;
                 $abonnement_type_id = null;
-                $disponibilite_jour = null;
                 $description = null;
             }
 
@@ -55,7 +53,6 @@ class UserFactory extends Factory
             'description' => $description,
             'remember_token' => Str::random(10),
             'photo'=>fake()->imageUrl(),
-            'disponibilite_jour' => $disponibilite_jour,
             'note_moyenne' => $note_moyenne,
             'nb_notes' => $nb_notes,
             'abonnement_type_id' =>$abonnement_type_id,

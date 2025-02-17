@@ -11,7 +11,7 @@ class Disponibilite extends Model
 
     protected $fillable = ['dogsitter_id', 'jour_semaine', 'heure_debut', 'heure_fin'];
 
-    public function user()
+    public function dogsitter()
     {
         return $this->belongsTo(User::class, 'dogsitter_id');
     }

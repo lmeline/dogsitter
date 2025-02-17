@@ -4,28 +4,29 @@
 <x-app-layout>
     <div class="flex pt-10 flex-col items-center bg-gradient-to-br from-yellow-50 via-rose-50 to-green-50">
 
-        <!-- Bandeau supérieur -->
         <div class="text-black py-10 w-full flex items-center bg-gradient-to-r from-red-200 to-orange-200 rounded-lg shadow-lg">
-            <!-- Photo à gauche -->
+        
             <div class="flex-shrink-0 mr-8">
                 <img src="{{ asset('storage/' . Auth::user()->photo) }}" alt="{{ Auth::user()->name }}" class="w-40 h-40 rounded-full border-4 border-white shadow-lg">
             </div>
             
-            <!-- Texte aligné -->
             <div class="flex flex-col justify-end">
                 <h1 class="text-3xl font-bold text-gray-800">{{ Auth::user()->name }} {{ Auth::user()->prenom }}</h1>
             </div>
         </div>
 
-        <!-- Contenu principal -->
         <div class="flex flex-col md:flex-row w-full mt-12 mb-12 px-6 md:px-12 space-y-6 md:space-y-0 gap-x-6">
-            <!-- Colonne de gauche -->
+
             <div class="w-full md:w-1/2 bg-gradient-to-r from-green-100 to-pink-100 p-6 rounded-lg shadow-lg">
                 <h2 class="text-2xl font-semibold mb-4 text-gray-800">Informations personnelles</h2>
                 <p class="mb-2"><strong>Ville :</strong> {{ Auth::user()->ville->nom_de_la_commune }}</p>
                 
                 @if (Auth::user()->role === 'dogsitter')
-                    <p class="mb-2"><strong>Disponibilité :</strong> {{ Auth::user()->disponibilite_jour }}</p>
+                    <p class="mb-2"><strong>Disponibilité :</strong>
+                        @foreach (Auth::user()->disponibilites as $disponibilite)
+                            {{ $disponibilite->jour_semaine }}@if(!$loop->last), @endif 
+                        @endforeach
+                    </p>
                     <p class="mb-2"><strong>Nombre de notes :</strong> {{ Auth::user()->nb_notes }}</p>
                     <p class="mb-2"><strong>Note /5 :</strong> {{ Auth::user()->note_moyenne }}</p>
                     @foreach(Auth::user()->prestationtypes as $prestationtype)
@@ -42,7 +43,6 @@
                 @endif
             </div>
 
-            <!-- Colonne de droite -->
             <div class="w-full md:w-1/2 bg-gradient-to-r from-yellow-100 to-orange-100 p-6 rounded-lg shadow-lg">
                 <h2 class="text-2xl font-semibold mb-4 text-gray-800">À propos de moi</h2>
                 <p class="text-gray-700 mb-4">

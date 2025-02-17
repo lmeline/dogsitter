@@ -323,68 +323,68 @@
         //     }
 
         
-            /* fonction recuperation ville */
-            document.addEventListener('DOMContentLoaded',function(){
-                const villeInput = document.getElementById('villeInput');
-                const villeContainer = document.getElementById('villeContainer');
-                const codePostalInput = document.getElementById('codePostalInput');
-                const searchVilleURL = "{{ route('search.ville') }}";
-                let timeout = null;
+        /* fonction recuperation ville */
+        document.addEventListener('DOMContentLoaded',function(){
+            const villeInput = document.getElementById('villeInput');
+            const villeContainer = document.getElementById('villeContainer');
+            const codePostalInput = document.getElementById('codePostalInput');
+            const searchVilleURL = "{{ route('search.ville') }}";
+            let timeout = null;
 
-                function handleVilleClick(event) {
-                    const selectedVille = event.target.textContent;
-                    const selectedVilleId = event.target.getAttribute('data-id');
-                    const selectedCodePostal = event.target.getAttribute('data-code_postal');
-                    villeInput.value = selectedVille;
-                    document.getElementById('villeId').value = selectedVilleId;
-                    codePostalInput.value = selectedCodePostal;
-                    villeContainer.classList.add('hidden');
+            function handleVilleClick(event) {
+                const selectedVille = event.target.textContent;
+                const selectedVilleId = event.target.getAttribute('data-id');
+                const selectedCodePostal = event.target.getAttribute('data-code_postal');
+                villeInput.value = selectedVille;
+                document.getElementById('villeId').value = selectedVilleId;
+                codePostalInput.value = selectedCodePostal;
+                villeContainer.classList.add('hidden');
 
-                    villeInput.setAttribute('name', 'ville_id');
-                }
-                
-                function fetchville(){
-                    const ville = encodeURIComponent(villeInput.value.trim());
-                    const URL = `${searchVilleURL}?ville=${ville}`;
+                villeInput.setAttribute('name', 'ville_id');
+            }
+            
+            function fetchville(){
+                const ville = encodeURIComponent(villeInput.value.trim());
+                const URL = `${searchVilleURL}?ville=${ville}`;
 
-                    fetch(URL,{
-                        method:'GET',
-                        headers:{
-                            'Content-Type':'application/json',
-                        }
-                    })
-                    .then(response=> response.json())
-                    .then(data=>{
-                        //console.log(data)
-                        villeContainer.innerHTML = '';
-                        if(data.length === 0){
-                            villeContainer.innerHTML = '<p class="text-gray-500"> Aucun résultat trouvé </p>';
-                            return;
-                        }
-                        villeContainer.classList.remove('hidden');
-                        
-                        data.forEach(ville => {
-                            let li = document.createElement('li');
-                            li.textContent = `${ville.nom_de_la_commune } (${ville.code_postal})`;
-                            li.classList.add('p-2', 'cursor-pointer', 'hover:bg-gray-200');
-                            li.setAttribute('data-id',ville.id);
-                            li.setAttribute('data-code_postal', ville.code_postal)
-                            //console.log(ville.code_postal);
-                            li.addEventListener('click', handleVilleClick); 
-                            
-                            villeContainer.appendChild(li);
-                        });
-
-                    })
-                    .catch(error=>console.error('Erreur:',error));
-                };
-
-                villeInput.addEventListener('input',function(){
-                    clearTimeout(timeout);
-                    timeout = setTimeout(fetchville,500);
+                fetch(URL,{
+                    method:'GET',
+                    headers:{
+                        'Content-Type':'application/json',
+                    }
                 })
+                .then(response=> response.json())
+                .then(data=>{
+                    //console.log(data)
+                    villeContainer.innerHTML = '';
+                    if(data.length === 0){
+                        villeContainer.innerHTML = '<p class="text-gray-500"> Aucun résultat trouvé </p>';
+                        return;
+                    }
+                    villeContainer.classList.remove('hidden');
+                    
+                    data.forEach(ville => {
+                        let li = document.createElement('li');
+                        li.textContent = `${ville.nom_de_la_commune } (${ville.code_postal})`;
+                        li.classList.add('p-2', 'cursor-pointer', 'hover:bg-gray-200');
+                        li.setAttribute('data-id',ville.id);
+                        li.setAttribute('data-code_postal', ville.code_postal)
+                        //console.log(ville.code_postal);
+                        li.addEventListener('click', handleVilleClick); 
+                        
+                        villeContainer.appendChild(li);
+                    });
 
-            });
+                })
+                .catch(error=>console.error('Erreur:',error));
+            };
+
+            villeInput.addEventListener('input',function(){
+                clearTimeout(timeout);
+                timeout = setTimeout(fetchville,500);
+            })
+
+        });
 
     </script>
 

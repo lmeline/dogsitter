@@ -17,16 +17,13 @@ class AbonnementController extends Controller
             return redirect(route('login'))->with('error', 'Veuillez vous connecter pour choisir un abonnement.');
         }
     
-        // Récupération des types d'abonnement
         $abonnements_types = Abonnement::all();
     
         return view('auth.registerabonnement', compact('user', 'abonnements_types'));
     }
-    
-    // Enregistre le choix de l'abonnement
+
     public function chooseAbonnement(Request $request)
 {
-    // Validation pour vérifier que l'ID de l'abonnement existe dans la table abonnements_types
     $request->validate([
         'abonnements_types_id' => 'required|exists:abonnements_types,id',
     ]);
@@ -37,7 +34,7 @@ class AbonnementController extends Controller
    $user->update([
        'abonnement_type_id' => $request->input('abonnement_type_id'),
    ]);
-    // Rediriger vers le tableau de bord après l'enregistrement
+
     return redirect()->route('dashboard');
 }
 

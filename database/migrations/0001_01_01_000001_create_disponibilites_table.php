@@ -14,9 +14,9 @@ return new class extends Migration
         Schema::create('disponibilites', function (Blueprint $table) {
             $table->id();
             $table->foreignId('dogsitter_id')->constrained('users')->onDelete('restrict');
-            $table->date('jour_semaine');
-            $table->dateTime('heure_debut');
-            $table->dateTime('heure_fin');
+            $table->string('jour_semaine');
+            $table->time('heure_debut');
+            $table->time('heure_fin');
             $table->dateTime('created_at')->useCurrent();
             $table->dateTime('updated_at')->useCurrent()->useCurrentOnUpdate();
             $table->unique(['dogsitter_id', 'jour_semaine']);
