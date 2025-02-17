@@ -7,6 +7,9 @@ use App\Models\Disponibilite;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
+
+use function Laravel\Prompts\warning;
+
 class DisponibiliteController extends Controller
 {
 
@@ -46,6 +49,7 @@ class DisponibiliteController extends Controller
 
     public function store(Request $request)
     {
+        
             $request->validate([
                 'jour_semaine' => 'required|string',
                 'heure_debut' => 'required|date_format:H:i',
@@ -53,6 +57,15 @@ class DisponibiliteController extends Controller
                 'dogsitter_id' => 'required|exists:users,id',
             ]);
 
+            $existe = Disponibilite::where('dogsitter_id', $request->dogsitter_id)
+            ->where('jour_semaine', $request->jour_semaine)
+            ->exists();
+
+            if ($existe) {
+                session()->flash('warning', "Vous avez déjà rentré une disponibilité pour ce jour.");
+            return redirect()->route('disponibilites.availability');
+        }
+        
             Disponibilite::create([
                 'dogsitter_id' => Auth::id(),
                 'jour_semaine' => $request->jour_semaine,
@@ -61,8 +74,7 @@ class DisponibiliteController extends Controller
             ]);
 
             session()->flash('success', 'Votre horaire a été pris en compte avec succès.');
-
-            return redirect()->route('disponibilites.availability',compact('disponibilites','dogsitter'));
+            return redirect()->route('disponibilites.availability');
     }
     
     public function destroy($id)

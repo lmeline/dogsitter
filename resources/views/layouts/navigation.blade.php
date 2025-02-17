@@ -80,6 +80,9 @@
                                 <x-dropdown-link :href="route('userPrestations.create')" :active="request()->routeIs('userPrestation.create')">
                                     {{ __('Prices and services') }}
                                 </x-dropdown-link>
+                                <x-dropdown-link :href="route('disponibilites.availability')" :active="request()->routeIs('disponibilites.availability')">
+                                    {{ __('Availability') }}
+                                </x-dropdown-link>
                                 
                             @endif
                             <!-- Authentication -->

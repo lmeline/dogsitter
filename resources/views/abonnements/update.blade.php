@@ -3,9 +3,9 @@
 @section('content')
 <x-app-layout>
     <div class="container mx-auto px-4 py-8">
-        <h2 class="text-3xl font-semibold mb-4">Gestion de votre Abonnement</h2>
+        <h2 class="text-3xl font-semibold mb-4 text-center">Gestion de votre Abonnement</h2>
 
-        <!-- Message de succès -->
+        
         @if(session('success'))
             <div class="bg-green-200 text-green-800 p-4 rounded-md mb-6">
                 {{ session('success') }}
@@ -29,7 +29,7 @@
                 </select>
 
                 <div class="mt-4">
-                    <button type="submit" class="bg-gradient-to-r from-yellow-300 to-pink-300 text-black px-6 py-3 rounded-lg hover:from-yellow-400 hover:to-pink-400 transition">Changer d'Abonnement</button>
+                    <button type="submit" class=" w-full font-semibold bg-gradient-to-r from-yellow-300 to-pink-300 text-black px-6 py-3 rounded-lg hover:from-yellow-400 hover:to-pink-400 transition">Enregistrer</button>
                 </div>
             </form>
         </div>
