@@ -32,11 +32,11 @@
                     </p>
                     <div class="flex justify-center space-x-4">
                         <a href="{{ route('register') }}?proprietaire=true"
-                            class="px-6 py-3 bg-red-300 text-white text-lg font-bold rounded-lg shadow-lg hover:bg-red-200 focus:outline-none focus:ring-4 focus:ring-red-100 focus:ring-opacity-75 transition duration-300">
+                            class="px-6 py-3 bg-orange-300 text-white text-lg font-bold rounded-lg shadow-lg hover:bg-red-200 focus:outline-none focus:ring-4 focus:ring-red-100 focus:ring-opacity-75 transition duration-300">
                             Je suis propriétaire
                         </a>
                         <a href="{{ route('register') }}?proprietaire=false"
-                            class="px-6 py-3 bg-green-600 text-white text-lg font-bold rounded-lg shadow-lg hover:bg-green-400 focus:outline-none focus:ring-4 focus:ring-green-100 focus:ring-opacity-75 transition duration-300">
+                            class="px-6 py-3 bg-blue-300 text-white text-lg font-bold rounded-lg shadow-lg hover:bg-green-400 focus:outline-none focus:ring-4 focus:ring-green-100 focus:ring-opacity-75 transition duration-300">
                             Je suis dogsitter
                         </a>
                     </div>
@@ -55,7 +55,7 @@
 
         <!-- Propriétaire -->
         <div class="p-6 rounded-lg shadow-lg text-center w-full mb-8 backdrop-blur-md bg-white/70">
-            <h3 class="text-2xl font-semibold mb-4 text-red-400">Propriétaire</h3>
+            <h3 class="text-2xl font-semibold mb-4 text-orange-300">Propriétaire</h3>
             <p class="text-gray-600">
                 Parce que le bien-être de votre chien est notre priorité, confiez-le à un dog sitter attentionné qui veille à ses besoins, à son confort, et à son équilibre émotionnel.
                 Qu'il s'agisse de promenades stimulantes, de jeux ou de moments de calme, votre compagnon bénéficiera d’un environnement sécurisé et bienveillant, comme s’il était chez vous.
@@ -64,7 +64,7 @@
 
         <!-- Dogsitter -->
         <div class="p-6 rounded-lg shadow-lg text-center w-full backdrop-blur-md bg-white/70">
-            <h3 class="text-2xl font-semibold mb-4 text-green-600">Dogsitter</h3>
+            <h3 class="text-2xl font-semibold mb-4 text-blue-300">Dogsitter</h3>
             <p class="text-gray-600 mb-4">
                 Vous adorez les chiens et souhaitez un métier qui vous passionne ? Devenez dog sitter et profitez d’une activité flexible et enrichissante.
                 Offrez des soins, de l'attention et des moments de joie aux chiens tout en gagnant la confiance de leurs propriétaires.
@@ -82,7 +82,7 @@
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
             <!-- Feature 1 -->
             <div class=" p-6 rounded-lg shadow-lg text-center backdrop-blur-md bg-white/70">
-                <h3 class="text-2xl font-semibold mb-4 text-red-300">Créer votre profil gratuitement</h3>
+                <h3 class="text-2xl font-semibold mb-4 text-orange-300">Créer votre profil gratuitement</h3>
                 <p class="text-gray-600 mb-4"> Inscrivez-vous en quelques minutes, complétez les informations sur votre chien, et découvrez les dog sitters disponibles près de chez vous.</p>
             </div>
 
@@ -94,7 +94,7 @@
 
             <!-- Feature 3 -->
             <div class="p-6 rounded-lg shadow-lg text-center backdrop-blur-md bg-white/70">
-                <h3 class="text-2xl font-semibold mb-4 text-green-600">Reservez et partez l'esprit tranquille</h3>
+                <h3 class="text-2xl font-semibold mb-4 text-blue-300">Reservez et partez l'esprit tranquille</h3>
                 <p class="text-gray-600 mb-4">Planifiez les dates, échangez avec le dog sitter, et suivez les mises à jour en temps réel pendant la garde, tout en bénéficiant de notre assurance et de notre assistance 24h/24.</p>
             </div>
         </div>
@@ -108,7 +108,7 @@
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
             <!-- Subscription 1 -->
             <div class=" p-6 rounded-lg shadow-lg text-left backdrop-blur-md bg-white/70">
-                <h3 class="text-2xl font-semibold mb-4 text-center text-red-300">Abonnement / Mois</h3>
+                <h3 class="text-2xl font-semibold mb-4 text-center text-orange-300">Abonnement / Mois</h3>
                 <ul class="mb-4">
                     <li class="font-semibold">Mensuel: <span class="font-normal">29 € par mois</span></li>
                 </ul>
@@ -124,7 +124,7 @@
 
             <!-- Subscription 2 -->
             <div class="p-6 rounded-lg shadow-lg text-left backdrop-blur-md bg-white/70">
-                <h3 class="text-2xl font-semibold mb-4 text-center text-green-600">Abonnement / Annuel </h3>
+                <h3 class="text-2xl font-semibold mb-4 text-center text-blue-300">Abonnement / Annuel </h3>
                 <ul class="mb-4">
                     <li class="font-semibold">Annuel: <span class="font-normal">290 € par an (2 mois offerts)</span></li>
                 </ul>

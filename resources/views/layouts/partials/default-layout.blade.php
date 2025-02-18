@@ -28,7 +28,7 @@
             <div class="font-semibold text-gray-800 py-3">
                 <div class="container mx-auto flex items-center justify-between">
                     <div>
-                        <a href="{{ route('dashboard') }}" class="text-gray-800 hover:text-green-600 transition duration-300 ">Bonjour, {{ Auth::user()->name }} !</a>
+                        <a href="{{ route('dashboard') }}" class="text-gray-800 hover:text-green-600 transition duration-300 "></a>
                     </div>
                 </div>
             </div>

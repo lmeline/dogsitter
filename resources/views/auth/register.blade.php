@@ -4,15 +4,15 @@
         <div class="flex items-center justify-evenly w-full">
             <!-- Bouton Proprietaire - Rouge -->
             <button @click="proprietaire = true" type="button"
-                    :class="proprietaire ? 'bg-red-600 text-white' : 'bg-gray-400 text-gray-800'"
-                    class=" w-full font-bold hover:bg-red-700 focus:outline-none text-sm p-2.5 transition-colors duration-300">
+                    :class="proprietaire ? 'bg-orange-300 text-white' : 'bg-gray-400 text-gray-800'"
+                    class=" w-full font-bold hover:bg-orange-200 focus:outline-none text-sm p-2.5 transition-colors duration-300">
                 Proprietaire
             </button>
 
             <!-- Bouton Dogsitter - Jaune -->
             <button @click="proprietaire = false" type="button"
-                    :class="!proprietaire ? 'bg-yellow-600 text-white' : 'bg-gray-400 text-gray-800'"
-                    class=" w-full font-boldhover:bg-yellow-700 focus:outline-none text-sm p-2.5 transition-colors duration-300">
+                    :class="!proprietaire ? 'bg-blue-300 text-white' : 'bg-gray-400 text-gray-800'"
+                    class=" w-full font-bold hover:bg-blue-200 focus:outline-none text-sm p-2.5 transition-colors duration-300">
                 Dogsitter
             </button>
         </div>
@@ -106,7 +106,7 @@
                     {{ __('Already registered?') }}
                 </a>
 
-                <x-primary-button class="ms-4 bg-red-500 hover:bg-red-600 focus:ring-4 focus:ring-red-200 dark:focus:ring-red-700">
+                <x-primary-button class="ms-4 bg-yellow-500 hover:bg-yellow-600 focus:ring-4 focus:ring-red-200 dark:focus:ring-red-700">
                     {{ __('Register') }}
                 </x-primary-button>
             </div>

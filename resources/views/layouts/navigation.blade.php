@@ -15,6 +15,19 @@
                             {{ __('Accueil') }}
                         </x-nav-link>
                     </div>
+                    @if (Auth::check() && Auth::user()->role === 'proprietaire')               
+                        <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                            <x-nav-link :href="route('dogsitters.index')" :active="request()->routeIs('dogsitters.index')">
+                                {{ __('Trouvez son dogsitter') }}
+                            </x-nav-link>
+                        </div>
+                    @else
+                        <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                            <x-nav-link :href="route('dogsitters.calendar')" :active="request()->routeIs('dogsitters.calendar')">
+                                {{ __('Mes rendez-vous') }}
+                            </x-nav-link>
+                        </div>
+                    @endif
                     <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                         <x-nav-link :href="route('myprestations')" :active="request()->routeIs('myprestations')">
                             {{ __('Mes prestations') }}
@@ -32,26 +45,14 @@
                         </x-nav-link>
                     </div>
                     
-                @if (Auth::check() && Auth::user()->role === 'proprietaire')               
-                    <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                        <x-nav-link :href="route('dogsitters.index')" :active="request()->routeIs('dogsitters.index')">
-                            {{ __('Trouvez son dogsitter') }}
-                        </x-nav-link>
-                    </div>
-                @else
-                    <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                        <x-nav-link :href="route('dogsitters.calendar')" :active="request()->routeIs('dogsitters.calendar')">
-                            {{ __('Mes rendez-vous') }}
-                        </x-nav-link>
-                    </div>
-                @endif
+                
             </div>
             
             <div class="hidden sm:flex sm:items-center sm:ms-6">
                     <x-dropdown align="right" width="48">
                         <x-slot name="trigger">
                             <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-black dark:text-gray-400  hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none transition ease-in-out duration-150">
-                                <div>{{ Auth::user()->name }}</div>
+                                <div> Bonjour, {{ Auth::user()->name }} {{ Auth::user()->prenom }}</div>
             
                                 <div class="ms-1">
                                     <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
@@ -82,6 +83,9 @@
                                 </x-dropdown-link>
                                 <x-dropdown-link :href="route('disponibilites.availability')" :active="request()->routeIs('disponibilites.availability')">
                                     {{ __('Availability') }}
+                                </x-dropdown-link>
+                                <x-dropdown-link :href="route('disponibilites.availability')" :active="request()->routeIs('disponibilites.availability')">
+                                    {{ __('Poster mon annonce ') }}
                                 </x-dropdown-link>
                                 
                             @endif
