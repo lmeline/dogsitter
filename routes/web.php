@@ -30,6 +30,10 @@ Route::get('dogsitter/calendar', function () {
     return view('dogsitters.calendar');
 })->middleware(['auth', 'verified'])->name('dogsitters.calendar');
 
+Route::get('dogsitter/postersonannonce', function () {
+    return view('dogsitters.annonce');
+})->middleware(['auth', 'verified'])->name('dogsitters.annonce');
+
 Route::get('/proprietaire/accueil', function () {
     return view('proprietaires.PageAccueilProprietaire');
 })->middleware(['auth', 'verified'])->name('proprietaires.PageAccueilProprietaire');

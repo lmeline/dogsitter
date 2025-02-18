@@ -22,9 +22,9 @@ class PrestationTypesController extends Controller
 
     public function create()
     {
-        $prestationtypes = PrestationType::all();
+        $prestationtypes = PrestationType::where('dogsitter_id', Auth::user()->id)->get();
 
-        return view('userPrestations.create', compact('prestationtypes'));
+        return view('userPrestations.create', compact('prestationtypes', 'dogsitter'));
     }
 
 

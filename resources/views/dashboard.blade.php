@@ -3,7 +3,6 @@
  @section('content')
  <x-app-layout>
      <div class="container mx-auto px-4 py-8">
- 
          <!--  Hero Section -->
          <div class="text-center mb-12">
              <h1 class="text-5xl font-extrabold text-gray-800">Bienvenue sur Patte à Patte 🐕</h1>

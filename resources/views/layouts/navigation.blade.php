@@ -5,13 +5,13 @@
             <div class="flex">
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
-                    <a href="{{ route('dashboard') }}">
+                    <a href="{{ route('index') }}">
                         <x-application-logo class="block h-9 w-auto fill-current text-gray-800 dark:text-gray-200" />
                     </a>
                 </div>
                 <!-- Navigation Links -->
                     <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                        <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+                        <x-nav-link :href="route('index')" :active="request()->routeIs('index')">
                             {{ __('Accueil') }}
                         </x-nav-link>
                     </div>
@@ -84,7 +84,7 @@
                                 <x-dropdown-link :href="route('disponibilites.availability')" :active="request()->routeIs('disponibilites.availability')">
                                     {{ __('Availability') }}
                                 </x-dropdown-link>
-                                <x-dropdown-link :href="route('disponibilites.availability')" :active="request()->routeIs('disponibilites.availability')">
+                                <x-dropdown-link :href="route('dogsitters.annonce')" :active="request()->routeIs('dogsitters.annonce')">
                                     {{ __('Poster mon annonce ') }}
                                 </x-dropdown-link>
                                 

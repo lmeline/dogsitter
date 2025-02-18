@@ -63,7 +63,7 @@ class DisponibiliteController extends Controller
 
             if ($existe) {
                 session()->flash('warning', "Vous avez déjà rentré une disponibilité pour ce jour.");
-            return redirect()->route('disponibilites.availability');
+            return redirect()->route('dogsitters.annonce');
         }
         
             Disponibilite::create([
@@ -74,7 +74,7 @@ class DisponibiliteController extends Controller
             ]);
 
             session()->flash('success', 'Votre horaire a été pris en compte avec succès.');
-            return redirect()->route('disponibilites.availability');
+            return redirect()->route('dogsitters.annonce');
     }
     
     public function destroy($id)
