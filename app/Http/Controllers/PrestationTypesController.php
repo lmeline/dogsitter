@@ -19,12 +19,17 @@ class PrestationTypesController extends Controller
         }
         return view('dogsitters.show', compact('dogsitter'));
     }
+    public function showparam()
+    {
+        $prestationtypes = PrestationType::all();
+        return view('dogsitters.annonce', compact('prestationtypes'));
+    }
 
     public function create()
     {
-        $prestationtypes = PrestationType::where('dogsitter_id', Auth::user()->id)->get();
+        $prestationtypes = PrestationType::all();
 
-        return view('userPrestations.create', compact('prestationtypes', 'dogsitter'));
+        return view('userPrestations.create', compact('prestationtypes'));
     }
 
 

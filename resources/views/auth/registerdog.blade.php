@@ -3,7 +3,7 @@
         <div class="flex flex-col justify-center items-center mt-4 gap-2 dark:text-white mb-4">
             <p class="text-2xl pb-4 "> Voulez-vous ajouter votre chien ?  </p>
             <div class="flex gap-2">
-                <a href="{{ route('dashboard') }}"  class="bg-red-600 hover:bg-red-400 text-white font-bold py-2 px-4 rounded ">
+                <a href="{{ route('index') }}"  class="bg-red-600 hover:bg-red-400 text-white font-bold py-2 px-4 rounded ">
                     Passez cette étape
                 </a>
                 <button @click="open = true" class="bg-orange-600 hover:bg-orange-400 text-white font-bold py-2 px-4 rounded "> Ajouter un chien</button>

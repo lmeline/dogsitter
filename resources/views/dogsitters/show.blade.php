@@ -82,7 +82,7 @@
         <div class="w-full md:w-1/2 bg-white p-6 rounded-lg shadow-lg mb-6 md:mb-0 md:ml-6">
 
             <!-- Section Description -->
-            <h2 class="text-2xl font-semibold text-gray-800 mb-4">À propos de moi</h2>
+            <h2 class="text-2xl font-semibold text-gray-800 mb-4">À propos de moi et mes expériences</h2>
             <p class="text-gray-700 mb-6">{{ $dogsitter->description }}</p>
         </div>
     </div>

@@ -32,12 +32,10 @@ class UserFactory extends Factory
                 $note_moyenne = fake()->numberBetween(0, 5);
                 $nb_notes = fake()->numberBetween(0, 5);
                 $abonnement_type_id = fake()->numberBetween(1, 3);
-                $description = fake()->sentence();
             } else {
                 $note_moyenne = null;
                 $nb_notes = null;
                 $abonnement_type_id = null;
-                $description = null;
             }
 
         return [
@@ -50,7 +48,7 @@ class UserFactory extends Factory
             'ville_id' => $ville->id,
             'code_postal' => $ville->code_postal,
             'role' => $role,
-            'description' => $description,
+            'description' => fake()->sentence(),
             'remember_token' => Str::random(10),
             'photo'=>fake()->imageUrl(),
             'note_moyenne' => $note_moyenne,

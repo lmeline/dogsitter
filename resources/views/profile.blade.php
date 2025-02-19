@@ -44,10 +44,6 @@
             </div>
 
             <div class="w-full md:w-1/2 bg-gradient-to-r from-yellow-100 to-orange-100 p-6 rounded-lg shadow-lg">
-                <h2 class="text-2xl font-semibold mb-4 text-gray-800">À propos de moi</h2>
-                <p class="text-gray-700 mb-4">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. In aperiam sed aliquid iure vero fugit autem rem suscipit id voluptatum molestiae voluptate maiores libero eaque eum soluta ipsum ab sapiente laudantium quia, explicabo necessitatibus. Quae fugiat facere tempore aspernatur facilis perspiciatis officia quia temporibus? Laboriosam, eveniet.
-                </p>
                 
                 @if (Auth::user()->role === 'proprietaire')
                     <h3 class="text-xl font-semibold mb-2 text-gray-800 pt-2 ">Information sur mon toutou</h3>
@@ -69,7 +65,7 @@
                         </div>
                     @endforeach
                     <h3 class="text-xl font-semibold mb-2 text-gray-800">Ce que je recherche chez un dogsitter</h3>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. In deserunt nam beatae cupiditate ipsum deleniti iste, quod id fugiat repellat ipsa totam et quibusdam, vero, numquam voluptatem.</p>
+                    <p>{{ Auth::user()->description }}</p>
                 @endif
 
                 @if (Auth::user()->role === 'dogsitter')

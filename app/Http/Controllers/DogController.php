@@ -4,9 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Dog;
 use App\Models\Race;
-use App\Models\User;
-use Illuminate\Auth\Events\Registered;
-use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\RedirectResponse;
@@ -70,7 +67,7 @@ class DogController extends Controller
 
  
     // Redirection après la création avec un message de succès
-    return redirect()->route('dashboard')->with('success', 'Le chien a été ajouté avec succès.');
+    return redirect()->route('index')->with('success', 'Le chien a été ajouté avec succès.');
 }
 
 }

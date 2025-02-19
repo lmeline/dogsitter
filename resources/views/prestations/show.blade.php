@@ -36,6 +36,12 @@
                         {{ $prestationDog->prix }} €
                     @endforeach
                 </p>
+                <form action="{{ route('messages.create', $prestation->dogsitter->id) }}" method="GET">
+                    @csrf
+                    <button type="submit" class=" text-black font-semibold rounded-lg focus:from-yellow-400 hover:to-pink-400 transition">
+                        Envoyer un message a {{ $prestation->dogsitter->name }}
+                    </button>
+                </form>
             </div>
         </div>
         <div class="mt-6">

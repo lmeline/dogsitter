@@ -4,7 +4,7 @@
     @auth
         <x-app-layout>
             <!-- Hero Section -->
-            <div class="bg-gradient-to-r from-yellow-100 via-pink-100 to-orange-100 bg-opacity-60">
+            <div>
                 <section class="py-8">
                     <div class="container mx-auto">
                         <!-- Titre Principal -->
