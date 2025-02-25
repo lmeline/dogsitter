@@ -7,6 +7,7 @@ use App\Models\Prestation;
 use App\Models\User;
 use App\Models\Ville;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ProfilDogsitterController extends Controller
 {
@@ -60,6 +61,16 @@ class ProfilDogsitterController extends Controller
         }
         $users = $query->with('ville')->get();
         return response()->json($users);
+    }
+
+    public function updateDescription(Request $request){
+        $request->validate([
+            'description' => ['required', 'string', 'max:255']
+        ]);
+        $dogsitter = Auth::user();
+        $dogsitter->description = $request->description;
+        $dogsitter->save();
+        return redirect()->back()->with('success', 'Description mise à jour avec succès');
     }
   
 }

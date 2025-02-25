@@ -69,7 +69,7 @@ class RegisteredUserController extends Controller
 
     public function storedogsitter(Request $request): RedirectResponse
     {
-
+        var_dump("cc");
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'prenom' => ['required', 'string', 'max:70'],

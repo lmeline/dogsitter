@@ -74,6 +74,7 @@ Route::get('/dogsitters/filtrer', [ProfilDogsitterController::class, 'filter'])-
 
 route::get('/proprietaires',[ProprietaireController::class,'index'])->name('proprietaires.index');
 route::get('/proprietaires/{id}',[ProprietaireController::class,'show'])->name('proprietaires.show');
+route::post('/update-description',[ProprietaireController::class,'updateDescription'])->name('update.description');
 
 Route::get('/user-prestation/create', [PrestationTypesController::class, 'create'])->name('userPrestations.create');
 Route::post('/user-prestation', [PrestationTypesController::class, 'store'])->name('userPrestations.store');

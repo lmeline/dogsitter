@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
         PrestationTypeSeeder::class,
         AbonnementSeeder::class,
         UserSeeder::class,
+        DisponibiliteSeeder::class,
         RaceSeeder::class,
         DogSeeder::class,
         //PrestationSeeder::class,

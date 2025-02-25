@@ -2,14 +2,14 @@
     <div x-data="{ proprietaire: true }" class="h-full max-w-4xl mx-auto">
 
         <div class="flex items-center justify-evenly w-full">
-            <!-- Bouton Proprietaire - Rouge -->
+            <!-- Bouton Proprietaire - jaune -->
             <button @click="proprietaire = true" type="button"
                     :class="proprietaire ? 'bg-orange-300 text-white' : 'bg-gray-400 text-gray-800'"
                     class=" w-full font-bold hover:bg-orange-200 focus:outline-none text-sm p-2.5 transition-colors duration-300">
                 Proprietaire
             </button>
 
-            <!-- Bouton Dogsitter - Jaune -->
+            <!-- Bouton Dogsitter - bleu -->
             <button @click="proprietaire = false" type="button"
                     :class="!proprietaire ? 'bg-blue-300 text-white' : 'bg-gray-400 text-gray-800'"
                     class=" w-full font-bold hover:bg-blue-200 focus:outline-none text-sm p-2.5 transition-colors duration-300">
@@ -170,12 +170,6 @@
                             <x-input-error :messages="$errors->get('ville')" class="mt-2" />
                         </div>
                     </div>
-                    <!-- Description de soi -->
-                    {{-- <div class="mt-4">
-                        <x-input-label for="description" :value="__('A Propos de Moi ')" />
-                        <textarea id="description" class="block mt-1 w-full border rounded border-pink-300 focus:ring-pink-500 focus:border-pink-500 h-[50px] min-h-[50px]" name="description" :value="old('description')" required autocomplete="description" rows="4"></textarea>
-                        <x-input-error :messages="$errors->get('description')" class="mt-2" />
-                    </div> --}}
                     <!-- Mot de passe -->
                     <div class="mt-4">
                         <x-input-label for="password" :value="__('Password')" />
@@ -189,62 +183,7 @@
                         <x-text-input id="password_confirmation" class="block mt-1 w-full border border-red-300 focus:ring-red-500 focus:border-red-500" type="password" name="password_confirmation" required autocomplete="new-password" />
                         <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
                     </div>
-                    
-                    {{-- <!-- Horaires -->
-                    <div class="mt-4 font-medium text-sm">
-                        <h2>Enregistrez vos horaires</h2>
-                            <div class="block mt-1 w-full" id="schedule-form">
-                                <!-- Les jours seront insérés ici dynamiquement -->
-                            </div>
-                    </div>
-                    
-                    <!--Tarif et service-->
-                   
-                    <div class="mt-4">
-                        <x-input-label for="service" :value="__('Service')" />
-                        <div class="flex space-x-4">
-                            <!-- Garde de chien -->
-                            <div class="flex items-center">
-                                <input type="checkbox" id="garde_de_chien" name="service[]" value="garde_de_chien" 
-                                    {{ in_array('garde_de_chien', old('service', [])) ? 'checked' : '' }} 
-                                    onchange="toggleTarifField('garde_de_chien')"
-                                    class="form-checkbox text-blue-600 focus:ring-2 focus:ring-blue-500">
-                                <label for="garde_de_chien" class="ml-2 text-gray-700">Garde de chien</label>
-                                <button type="button" onclick="hideService('garde de chien')" 
-                                    class="ml-2 text-gray-500 hover:text-gray-700 focus:outline-none transition duration-200">
-                                    <i class="fas fa-times-circle"></i> <span class="sr-only">Non disponible</span>
-                                </button>
-                            </div>
-                    
-                            <!-- Promenade -->
-                            <div class="flex items-center">
-                                <input type="checkbox" id="promenade" name="service[]" value="promenade" 
-                                    {{ in_array('promenade', old('service', [])) ? 'checked' : '' }} 
-                                    onchange="toggleTarifField('promenade')"
-                                    class="form-checkbox text-blue-600 focus:ring-2 focus:ring-blue-500">
-                                <label for="promenade" class="ml-2 text-gray-700">Promenade</label>
-                                <button type="button" onclick="hideService('promenade')" 
-                                    class="ml-2 text-gray-500 hover:text-gray-700 focus:outline-none transition duration-200">
-                                    <i class="fas fa-times-circle"></i> <span class="sr-only">Non disponible</span>
-                                </button>
-                            </div>
-                        </div>
-                        <x-input-error :messages="$errors->get('service')" class="mt-2" />
-                    </div>
-                    
-                    <!-- Tarifs -->
-                    <div class="mt-4" id="tarif-garde_de_chien" style="display:none;">
-                        <x-input-label for="tarif_garde_de_chien" :value="__('Tarif Garde de chien')" />
-                        <x-text-input id="tarif_garde_de_chien" class="block mt-1 w-full rounded border border-gray-300 focus:ring-blue-500 focus:border-blue-500" type="number" name="tarif_garde_de_chien" :value="old('tarif_garde_de_chien')" autocomplete="prix" />
-                        <x-input-error :messages="$errors->get('tarif_garde_de_chien')" class="mt-2" />
-                    </div>
-                    
-                    <div class="mt-4" id="tarif-promenade" style="display:none;">
-                        <x-input-label for="tarif_promenade" :value="__('Tarif Promenade')" />
-                        <x-text-input id="tarif_promenade" class="block mt-1 w-full rounded border border-gray-300 focus:ring-blue-500 focus:border-blue-500" type="number" name="tarif_promenade" :value="old('tarif_promenade')" autocomplete="prix" />
-                        <x-input-error :messages="$errors->get('tarif_promenade')" class="mt-2" />
-                    </div> --}}
-
+    
                     <!-- Bouton de soumission -->
                     <div class="flex items-center justify-end mt-4">
                         <a class="underline text-sm text-gray-600 hover:text-gray-900 dark:text-gray-200 dark:hover:text-white rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800" href="{{ route('login') }}">
@@ -262,67 +201,7 @@
     </div>
 
     <script>
-        // const daysOfWeek = ["Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi", "Dimanche"];
-        // const scheduleForm = document.getElementById('schedule-form');
-
-        //     function generateTimeOptions() {
-        //         const options = [];
-        //         for (let hour = 7; hour <= 20; hour++) {
-        //             const time = (hour < 10 ? '0' : '') + hour + ':00';
-        //             options.push(time);
-        //         }
-        //         return options;
-        //     }
-        
-        //     function createDaySection(day) {
-        //         const timeOptions = generateTimeOptions();
-        //         return `
-        //             <div class="flex flex-col gap-4 mt-4">
-        //                 <div>
-        //                     <label class="font-medium text-sm text-gray-700 ">${day}</label>
-        //                     <div class="flex items-center gap-4 mt-2">
-        //                         <select name="${day.toLowerCase()}_start" class="w-1/3 block mt-1 w-full rounded-lg border border-red-300 focus:ring-red-500 focus:border-red-500">
-        //                             ${timeOptions.map(time => `<option value="${time}">${time}</option>`).join('')}
-        //                         </select>
-        //                         <span class="text-gray-500">à</span>
-        //                         <select name="${day.toLowerCase()}_end" class="w-1/3 px-4 py-2 block mt-1 w-full rounded-lg border border-orange-300 focus:ring-orange-500 focus:border-orange-500">
-        //                             ${timeOptions.map(time => `<option value="${time}">${time}</option>`).join('')}
-        //                         </select>
-        //                         <div class="flex items-center gap-2 ml-4">
-        //                             <input type="checkbox" id="${day.toLowerCase()}_unavailable" class="w-5 h-5 block mt-1 rounded-lg border border-yellow-300  focus:border-yellow-500" />
-        //                             <label for="${day.toLowerCase()}_unavailable" class="text-sm text-black dark:text-gray-600">Indisponible</label>
-        //                         </div>
-        //                     </div>
-        //                 </div>
-        //             </div>
-        //         `;
-        //     }
-        
-        //     daysOfWeek.forEach(day => {
-        //         scheduleForm.innerHTML += createDaySection(day);
-        //     });
-
-        //     function toggleTarifField(service) {
-        //         var tarifField = document.getElementById("tarif-" + service);
-        //         var checkbox = document.getElementById(service);
-                
-        //         if (checkbox.checked) {
-        //             tarifField.style.display = "block";
-        //         } else {
-        //             tarifField.style.display = "none";
-        //         }
-        //     }
-
-        //     function hideService(service) {
-        //         var checkbox = document.getElementById(service);
-        //         var tarifField = document.getElementById("tarif-" + service);
-                
-            
-        //         checkbox.checked = false;
-        //         tarifField.style.display = "none";
-        //     }
-
-        
+                                  
         /* fonction recuperation ville */
         document.addEventListener('DOMContentLoaded',function(){
             const villeInput = document.getElementById('villeInput');

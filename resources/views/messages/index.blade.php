@@ -29,6 +29,7 @@
                     </button>
                 </div>
             </form>
+            <button> créer un message </button>
 
             <ul class="space-y-4">
                 @foreach ($threads as $thread)
