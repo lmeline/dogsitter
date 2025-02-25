@@ -251,7 +251,7 @@
                             {{ __('Already registered?') }}
                         </a>
                         
-                        <x-primary-button @click.prevent="nextstep = true" class="ms-4 bg-yellow-500 hover:bg-yellow-600 focus:ring-4 focus:ring-yellow-200 dark:focus:ring-yellow-700">
+                        <x-primary-button class="ms-4 bg-yellow-500 hover:bg-yellow-600 focus:ring-4 focus:ring-yellow-200 dark:focus:ring-yellow-700">
                             {{ __('Register') }}
                         </x-primary-button>
                     </div>

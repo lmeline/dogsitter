@@ -116,7 +116,7 @@ class RegisteredUserController extends Controller
             $user->save();
         }
         
-
+        dd($user);
         event(new Registered($user));
 
         Auth::login($user);

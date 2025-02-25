@@ -25,6 +25,8 @@
                                 Prestation avec 
                                 <span class="text-indigo-600 dark:text-indigo-400">
                                     {{ $prestation->dogsitter ? $prestation->dogsitter->name : 'N/A' }}
+                                    {{ $prestation->dogsitter ? $prestation->dogsitter->prenom : 'N/A' }}
+                                    
                                 </span>
                             </h4>
                         </div>
