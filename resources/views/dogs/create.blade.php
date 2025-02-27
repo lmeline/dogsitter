@@ -4,7 +4,7 @@
         
 
         <div class="flex flex-col sm:justify-center items-center mt-4 sm:pt-0 max-w-3xl mx-auto px-4 py-6">
-            <h1 class="text-center mb-5 font-bold text-3xl pt-5">Ajouter un chien</h1>
+            <h1 class="text-center mb-5 font-bold text-3xl pt-5">Ajoutez un chien</h1>
             <form method="POST" action="{{ route('storeregisterdog') }}" class="overflow-y-auto px-6 py-4 bg-white dark:bg-gray-800 shadow-md sm:rounded-lg space-y-4">
                 @csrf
 
@@ -12,7 +12,7 @@
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full">
                     <div>
                         <x-input-label for="nom" :value="__('Nom')" />
-                        <x-text-input id="nom" class="block mt-1 w-full border border-red-300 focus:ring-red-500 focus:border-red-500 rounded" type="text" name="nom" :value="old('nom')" required autofocus autocomplete="nom" />
+                        <x-text-input id="nom" class="block mt-1 w-full rounded border border-red-300 focus:ring-red-500 focus:border-red-500 dark:bg-white" type="text" name="nom" :value="old('nom')" required autofocus autocomplete="nom" />
                         <x-input-error :messages="$errors->get('nom')" class="mt-2" />
                     </div>
 
@@ -82,8 +82,8 @@
 
                 <!-- Stérilisé -->
                 <div class="mt-4 flex items-center gap-2">
-                    <input id="sterilise" type="checkbox" name="sterilise" class="rounded-full h-[1.1rem] w-[1.1rem] border border-pink-300 focus:ring-pink-500 focus:border-pink-500">
-                    <label for="sterilise" class="text-sm"> Stérilisé</label>
+                    <input id="sterilise" type="checkbox" name="sterilise" class="rounded-full h-[1.1rem] w-[1.1rem] border border-pink-300 focus:ring-pink-500 focus:border-pink-500 dark:text-white">
+                    <label for="sterilise" class="text-sm dark:text-white"> Stérilisé</label>
                 </div>
 
                 <!-- Submit Button -->
