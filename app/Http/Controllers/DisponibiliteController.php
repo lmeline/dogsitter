@@ -46,7 +46,7 @@ class DisponibiliteController extends Controller
         $dogsitter = User::find($id);
         return view('dogsitters.show', compact('disponibilites', 'dogsitter'));
     }
-
+    
     public function store(Request $request)
     {
         

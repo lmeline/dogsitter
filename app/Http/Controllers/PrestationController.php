@@ -22,18 +22,45 @@ class PrestationController extends Controller
     return view('prestations.index', compact('prestations'));
   }
 
-  public function create($id)
-  {
-    $dogsitter = User::find($id);
-    $proprietaire = Auth::user();
-    $dogs = Dog::find($id);
+public function create($id)
+{
+    $dogsitter = User::find($id); 
+    $proprietaire = Auth::user(); 
+    $dogs = Dog::find($id); 
 
-    return view('prestations.create', compact('dogsitter', 'proprietaire', 'dogs'));
-  }
+    $disponibilites = $dogsitter->disponibilites;
+
+    $joursSemaine = [
+        'Lundi' => 'Monday',
+        'Mardi' => 'Tuesday',
+        'Mercredi' => 'Wednesday',
+        'Jeudi' => 'Thursday',
+        'Vendredi' => 'Friday',
+        'Samedi' => 'Saturday',
+        'Dimanche' => 'Sunday',
+    ];
+
+    foreach ($disponibilites as $disponibilite) {
+        $jour = $disponibilite->jour_semaine;  
+        
+       
+        if (isset($joursSemaine[$jour])) {
+            $jourAnglais = $joursSemaine[$jour]; 
+            
+            $date = Carbon::now()->next($jourAnglais);
+            $disponibilite->date = $date->format('Y-m-d');  
+        }
+    }
+
+    return view('prestations.create', compact('dogsitter', 'proprietaire', 'dogs', 'disponibilites'));
+}
+
+  
 
   public function store(Request $request)
   {
 
+    //dd($request->all());
     try {
       $request->validate([
         'date_debut' => ['required', 'date', 'before:date_fin'],
@@ -42,7 +69,6 @@ class PrestationController extends Controller
         'prestation_type_id' => ['required', 'exists:prestations_types,id'],
         'dogsitter_id' => ['required', 'exists:users,id'],
       ]);
-
       $proprietaire = Auth::user();
       if (!$proprietaire->dogs->contains($request->input('dog'))) {
         return redirect()->back()->withErrors(['dog' => 'Le chien sélectionné ne vous appartient pas.']);

@@ -25,7 +25,8 @@ class RegisteredUserController extends Controller
     {
         $villes = Ville::all();
         $proprietaire = $request->query('proprietaire');
-        return view('auth.register', compact('proprietaire', 'villes'));
+        $dogsitter = $request->query('dogsitter');
+        return view('auth.register', compact('proprietaire', 'villes', 'dogsitter'));
     }
 
     /**
@@ -79,10 +80,9 @@ class RegisteredUserController extends Controller
                 'adresse' => ['required', 'string', 'max:255'],
                 'code_postal' => ['required', 'string', 'max:20'],
                 'ville_id' => ['required', 'exists:villes,id'],
-                'experience' => ['required', 'string', 'max:255'],
                 'password' => ['required', 'confirmed', Rules\Password::defaults()],
                 'date_naissance' => ['required', 'date', 'before:18 year ago'],
-                'description' => ['required', 'string', 'max:255'],
+                'description' => ['nullable', 'string', 'max:255'],
                 'photo' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048']
     
             ]);
@@ -105,7 +105,6 @@ class RegisteredUserController extends Controller
                 'date_naissance' => $request->date_naissance,
                 'code_postal' => $request->code_postal,
                 'ville_id' => $request->ville_id,
-                'experience' => $request->experience,
                 'password' => Hash::make($request->password),
                 'description' => $request->description,
                 'photo' => $photoPath
@@ -117,7 +116,6 @@ class RegisteredUserController extends Controller
                 $user->save();
             }
             
-            dd($user);
             event(new Registered($user));
     
             Auth::login($user);

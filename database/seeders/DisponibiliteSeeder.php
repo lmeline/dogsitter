@@ -17,7 +17,7 @@ class DisponibiliteSeeder extends Seeder
         $joursSemaine = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'];
 
         // Récupère tous les dogsitters
-        $dogsitters = User::all();
+        $dogsitters = User::where('role', 'dogsitter')->get();
 
         foreach ($dogsitters as $dogsitter) {
             foreach ($joursSemaine as $jour) {

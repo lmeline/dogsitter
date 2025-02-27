@@ -35,7 +35,7 @@ class AbonnementController extends Controller
        'abonnement_type_id' => $request->input('abonnement_type_id'),
    ]);
 
-    return redirect()->route('dashboard');
+    return redirect()->route('index');
 }
 
 public function updateAbonnement(Request $request)

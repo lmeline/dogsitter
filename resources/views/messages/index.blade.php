@@ -2,19 +2,7 @@
 @section('content')
 
     <x-app-layout>
-        {{-- <x-slot name="header">
-            <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-                {{ __('Mes messages') }}
-                @if ($unreadCount > 0)
-                    <span class="bg-red-500 text-white text-xs px-2 py-1 rounded-full ml-2">
-                        {{ $unreadCount }}
-                    </span>
-                @endif
-            </h2>
-        </x-slot> --}}
-
         <div class="container mx-auto py-8">
-
             <form method="GET" action="{{ route('messages.index') }}" class="mb-6">
                 <div class="flex items-center w-full space-x-2">
                     <input 
@@ -29,7 +17,32 @@
                     </button>
                 </div>
             </form>
-            <button> créer un message </button>
+            <button id="openModal" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition">
+                Créer un message
+            </button>
+            
+            <!-- MODAL -->
+            <div id="modal" class="fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center hidden">
+                <div class="bg-white p-6 rounded-lg w-96">
+                    <h2 class="text-lg font-bold mb-4">Sélectionner un propriétaire</h2>
+                    
+                    <ul id="proprietairesList" class="space-y-2">
+                        @foreach ($proprietaires as $proprietaire)
+                            <li class="flex justify-between items-center p-2 border rounded">
+                                <span>{{ $proprietaire->name }}</span>
+                                <a href="{{ route('messages.create', ['user_id' => $proprietaire->id]) }}" class="bg-blue-500 text-white px-3 py-1 rounded text-sm">
+                                    Envoyer
+                                </a>
+                            </li>
+                        @endforeach
+                    </ul>
+            
+                    <button id="closeModal" class="mt-4 bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 transition">
+                        Fermer
+                    </button>
+                </div>
+            </div>
+            
 
             <ul class="space-y-4">
                 @foreach ($threads as $thread)
@@ -77,5 +90,16 @@
                 @endforeach
             </ul>
         </div>
+
+        <script>
+            document.getElementById('openModal').addEventListener('click', function() {
+                document.getElementById('modal').classList.remove('hidden');
+            });
+        
+            document.getElementById('closeModal').addEventListener('click', function() {
+                document.getElementById('modal').classList.add('hidden');
+            });
+        </script>
+        
     </x-app-layout>
 @endsection

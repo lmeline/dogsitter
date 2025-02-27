@@ -44,7 +44,13 @@
                             @endif
                         </x-nav-link>
                     </div>
-                    
+                    @if (Auth::check() && Auth::user()->role === 'dogsitter')               
+                        <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                            <x-nav-link :href="route('dogsitters.annonce')" :active="request()->routeIs('dogsitters.annonce')">
+                                {{ __('Poster mon annonce') }}
+                            </x-nav-link>
+                        </div>
+                   @endif   
                 
             </div>
             
@@ -80,9 +86,6 @@
                                 </x-dropdown-link>
                                 <x-dropdown-link :href="route('userPrestations.create')" :active="request()->routeIs('userPrestation.create')">
                                     {{ __('Prices and services') }}
-                                </x-dropdown-link>
-                                <x-dropdown-link :href="route('disponibilites.availability')" :active="request()->routeIs('disponibilites.availability')">
-                                    {{ __('Availability') }}
                                 </x-dropdown-link>
                                 <x-dropdown-link :href="route('dogsitters.annonce')" :active="request()->routeIs('dogsitters.annonce')">
                                     {{ __('Poster mon annonce ') }}

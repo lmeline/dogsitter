@@ -25,6 +25,7 @@ class Prestation extends Model
         'dogsitter_id',
         'proprietaire_id',
         'prix_total',
+        'disponibilite_id',
     ];
 
     public function proprietaire(): BelongsTo
@@ -51,7 +52,10 @@ class Prestation extends Model
     {
         return $this->hasMany(PrestationDog::class, 'prestation_id');
     }
-    
+    public function disponibilite():BelongsTo
+    {
+        return $this->belongsTo(Disponibilite::class);
+    }
 }
 
 
