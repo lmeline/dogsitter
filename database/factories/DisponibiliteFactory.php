@@ -22,7 +22,7 @@ class DisponibiliteFactory extends Factory
             
         return [
             'dogsitter_id' => $user_id,
-            'jour_semaine' => fake()->dayOfWeek(),
+            'jour_semaine' => fake()->unique()->dayOfWeek('fr_FR'),
             'heure_debut' => fake()->time(),
             'heure_fin' => fake()->time(),
 

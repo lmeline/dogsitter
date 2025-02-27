@@ -18,18 +18,13 @@ class PrestationFactory extends Factory
      */
     public function definition(): array
     {
-        // Sélectionner un propriétaire aléatoire
         $proprietaire = User::where('role', 'proprietaire')->inRandomOrder()->first();
 
-        // Si le propriétaire n'a pas de chien, ne pas créer cette prestation
         if ($proprietaire->dogs->isEmpty()) {
             return [];
         }
-
-        // Sélectionner un dogsitter aléatoire
         $dogsitter = User::where('role', 'dogsitter')->inRandomOrder()->first();
 
-        // Sélectionner un type de prestation aléatoire
         $prestation_type = PrestationType::inRandomOrder()->first();
 
         return [
