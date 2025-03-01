@@ -1,12 +1,6 @@
 @extends('layouts.partials.default-layout')
 @section('content')
     <x-app-layout>
-        {{-- <x-slot name="header">
-            <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            <a href="{{ route('messages.index') }}">{{ __('Messages ') }} </a> 
-            </h2>
-        </x-slot> --}}
-
         <div class="container mx-auto py-8">
             <div class="bg-white shadow p-4 rounded-lg">
                 <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">

@@ -12,9 +12,9 @@ class MessageController extends Controller
   
     public function index(Request $request)
     {   
-        $proprietaires = User::where('role', 'proprietaire')->get();
+        $user = Auth::user();
+        $proprietaires = User::where('role', 'proprietaire')->get();        
         $search = $request->input('search');
-    
         $threads = Thread::query()
             ->whereHas('users', function ($query) use ($search) {
                 if ($search) {
@@ -36,9 +36,6 @@ class MessageController extends Controller
         return view('messages.index', compact('threads', 'unreadCount', 'search', 'proprietaires'));
     }
     
-    
-    
- 
     public function show($id)
     {
         $thread = Thread::with(['messages.user'])->findOrFail($id);
@@ -57,109 +54,114 @@ class MessageController extends Controller
     {
         $dogsitter = User::findOrFail($dogsitterId);
     
-        return view('messages.create', compact('dogsitterId'));
+        return view('messages.createDogsitter', compact('dogsitter'));
     }
     
-
-    public function create($dogsitterId)
+    public function createDogsitter($dogsitterId)
     {
-        $existingThread = Thread::whereHas('participants', function ($query) use ($dogsitterId) {
-            $query->where('user_id', Auth::id())
-                  ->orWhere('user_id', $dogsitterId);
+        $user = Auth::user();
+
+        $dogsitter = User::findOrFail($dogsitterId);
+    
+        $thread = Thread::whereHas('users', function ($query) use ($user) {
+            $query->where('users.id', $user->id);
         })
-        ->whereHas('participants', function ($query) use ($dogsitterId) {
-            $query->where('user_id', $dogsitterId);
+        ->whereHas('users', function ($query) use ($dogsitter) {
+            $query->where('users.id', $dogsitter->id);
         })
         ->first();
     
-        if ($existingThread) {
-            return redirect()->route('messages.show', $existingThread->id);
+        if ($thread) {
+            return redirect()->route('messages.show', $thread->id);
+        }
+    
+        return view('messages.createDogsitter', ['dogsitter' => $dogsitter]);
+    }
+    
+    public function createProprietaire($proprietaire)
+    {
+        // $user = Auth::user();
+        
+        // $thread = Thread::whereHas('users', function ($query) use ($user) {
+        //     $query->where('users.id', $user->id);
+        // })
+        // ->whereHas('users', function ($query) use ($proprietaire) {
+        //     $query->where('users.id', $proprietaire);
+        // })
+        // ->first();
+
+        // if ($thread) {
+
+        //     return redirect()->route('messages.show', $thread->id);
+        // }
+
+        return view('messages.createProprietaire', ['proprietaire' => $proprietaire]);
+    }
+
+        public function addMessage(Request $request, $id)
+    {
+        
+        $request->validate([
+            'message' => 'required|string|max:500', 
+        ]);
+
+    
+        $thread = Thread::findOrFail($id);
+
+        if (!$thread->participants()->where('user_id', Auth::id())->exists()) {
+            return redirect()->route('messages.index')->with('error', 'Vous n\'êtes pas autorisé à envoyer un message dans cette conversation.');
         }
 
-        $thread = Thread::create([
-            'subject' => 'Conversation avec ' . $dogsitterId,
+        $thread->messages()->create([
+            'user_id' => Auth::id(), 
+            'body' => $request->input('message'), 
         ]);
-    
-        $thread->participants()->attach(Auth::id());
-        $thread->participants()->attach($dogsitterId);
-    
-        $message = new Message();
-        $message->user_id = Auth::id();
-        $message->body = 'Bonjour, je souhaite vous contacter.';
-        $thread->messages()->save($message);
+
+        return redirect()->route('messages.show', $id)->with('success', 'Message envoyé.');
+    }
+
+    public function store(Request $request)
+    {
+        $validated = $request->validate([
+            'subject' => 'nullable|string|max:255', 
+            'message' => 'required|string',
+            'participants' => 'required|array',
+            'participants.*' => 'exists:users,id', 
+        ]);
+
+        $subject = $validated['subject'] ?? $request->dogsitter->name;
+
+        $thread = Thread::create([
+            'subject' => $subject,  
+        ]);
+
+        $thread->users()->attach([Auth::id(), ...$validated['participants']]);
+
+
+        $thread->messages()->create([
+            'user_id' => Auth::id(),
+            'body' => $validated['message'],
+            'lu' => false,
+        ]);
 
         return redirect()->route('messages.show', $thread->id);
     }
-    
-    public function createOrRedirectToThread($dogsitterId)
-{
-    $user = Auth::user();
-    
-    $thread = Thread::whereHas('users', function ($query) use ($user) {
-        $query->where('users.id', $user->id);
-    })
-    ->whereHas('users', function ($query) use ($dogsitterId) {
-        $query->where('users.id', $dogsitterId);
-    })
-    ->first();
 
-    if ($thread) {
+    public function searchOwner(Request $request)
+    {
+        try{
+            $query = User::query();
+            $query->where('role', 'proprietaire');
 
-        return redirect()->route('messages.show', $thread->id);
+            if($request->filled('name')) {
+                $query->where('name', 'LIKE', "%{$request->name}%");
+            }
+            $users = $query->get();
+            return response()->json($users);
+        }catch(\Exception $e){
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
+
     }
-
-    return view('messages.create', ['dogsitterId' => $dogsitterId]);
-}
-
-    public function addMessage(Request $request, $id)
-{
-    
-    $request->validate([
-        'message' => 'required|string|max:500', 
-    ]);
-
-   
-    $thread = Thread::findOrFail($id);
-
-    if (!$thread->participants()->where('user_id', Auth::id())->exists()) {
-        return redirect()->route('messages.index')->with('error', 'Vous n\'êtes pas autorisé à envoyer un message dans cette conversation.');
-    }
-
-    $thread->messages()->create([
-        'user_id' => Auth::id(), 
-        'body' => $request->input('message'), 
-    ]);
-
-    return redirect()->route('messages.show', $id)->with('success', 'Message envoyé.');
-}
-
-public function store(Request $request)
-{
-    $validated = $request->validate([
-        'subject' => 'nullable|string|max:255', 
-        'message' => 'required|string',
-        'participants' => 'required|array',
-        'participants.*' => 'exists:users,id', 
-    ]);
-
-    $subject = $validated['subject'] ?? $request->dogsitter->name;
-
-    $thread = Thread::create([
-        'subject' => $subject,  
-    ]);
-
-    $thread->users()->attach([Auth::id(), ...$validated['participants']]);
-
-
-    $thread->messages()->create([
-        'user_id' => Auth::id(),
-        'body' => $validated['message'],
-        'lu' => false,
-    ]);
-
-    return redirect()->route('messages.show', $thread->id);
-}
-
-
 
 }

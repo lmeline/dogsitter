@@ -110,7 +110,9 @@ Route::get('/error', function() {
 
 Route::middleware('auth')->group(function () {
     Route::get('/messages', [MessageController::class, 'index'])->name('messages.index');
-    Route::get('/messages/create/{dogsitterId}', [MessageController::class, 'createOrRedirectToThread'])->name('messages.create');
+
+    Route::get('/messages/create/{dogsitterId}', [MessageController::class, 'createDogsitter'])->name('messages.createDogsitter');
+    Route::get('/messages/create/{proprietaireId}', [MessageController::class, 'createProprietaire'])->name('messages.createProprietaire');
     Route::get('/profile/{dogsitterId}/message', [MessageController::class, 'showProfile'])->name('messages.create');
 
     Route::post('/messages', [MessageController::class, 'store'])->name('messages.store');
@@ -128,4 +130,6 @@ Route::get('/prestations/calendar/getprestations',[PrestationController::class,'
 Route::get('/search-dogsitters',[ProfilDogsitterController::class,'search'])->name('search.dogsitters');
 Route::get('/search-villes', [ProfileController::class, 'searchVille'])->name('search.ville');
 Route::post('/save-ville', [ProfileController::class, 'saveVille'])->name('save.ville');
+Route::get('/search-owner', [MessageController::class, 'searchOwner'])->name('search.owner');
+
 
