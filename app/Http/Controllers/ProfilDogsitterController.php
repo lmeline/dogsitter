@@ -97,7 +97,8 @@ class ProfilDogsitterController extends Controller
     public function showCalendar()
     {
         $dogsitter = Auth::user();
-        $prestations = Prestation::where('dogsitter_id', Auth::id())->get();
+        $prestations = $dogsitter->prestationsAsdogsitter;
+        dd($prestations);
         return view('dogsitters.calendar', compact('prestations',"dogsitter"));
     }
 }
