@@ -2,7 +2,32 @@
 @section('content')
 
     <x-app-layout>
-        <div class="container mx-auto py-8">
+        <div class="container mx-auto py-8 ">
+             @if (Auth::user()->role === 'dogsitter')
+                <div class="flex justify-end md-4 pb-4">
+                    <button onclick="toggleModal()" 
+                        class="bg-gradient-to-r from-yellow-300 to-pink-300 px-6 py-3 rounded-lg hover:from-yellow-400 hover:to-pink-400 transition text-right">
+                        Créer une conversation
+                    </button>
+                </div>
+                
+            @endif
+
+            <div id="searchModal" class="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50 hidden">
+                <div class="bg-white p-6 rounded-lg shadow-lg w-96">
+                    <h2 class="text-xl font-semibold mb-4">Rechercher un propriétaire</h2>
+
+                    <input type="text" id="searchInput" 
+                        placeholder="Nom du propriétaire..." 
+                        class="w-full border border-gray-300 rounded-lg p-2 mb-4">
+
+                    <div id="searchResults" class="mt-4"></div>
+
+                    <button onclick="toggleModal()" class="mt-4 w-full bg-red-500 text-white py-2 rounded-lg">
+                        Fermer
+                    </button>
+                </div>
+            </div>
             <form method="GET" action="{{ route('messages.index') }}" class="mb-6">
                 <div class="flex items-center w-full space-x-2">
                     <input 
@@ -12,40 +37,11 @@
                         placeholder="Rechercher un utilisateur..." 
                         class="flex-grow mt-1 w-full border border-gray-300 focus:ring-2 focus:ring-orange-500 focus:border-orange-500 rounded-lg p-3"
                     />
-                    <button type="submit" class="bg-gradient-to-r from-yellow-300 to-pink-300  px-6 py-3 rounded-lg hover:from-yellow-400 hover:to-pink-400 transition">
+                    <button type="submit" id="resultsContainer" class="bg-gradient-to-r from-yellow-300 to-pink-300  px-6 py-3 rounded-lg hover:from-yellow-400 hover:to-pink-400 transition">
                         Rechercher
                     </button>
                 </div>
             </form>
-            @if (Auth::user()->role === 'dogsitter')
-                <!-- Bouton pour ouvrir la modal -->
-                <button onclick="toggleModal()" 
-                        class="bg-gradient-to-r from-yellow-300 to-pink-300 px-6 py-3 rounded-lg hover:from-yellow-400 hover:to-pink-400 transition">
-                    Créer une conversation
-                </button>
-            @endif
-
-            <!-- Modal cachée au départ -->
-            <div id="searchModal" class="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50 hidden">
-                <div class="bg-white p-6 rounded-lg shadow-lg w-96">
-                    <h2 class="text-xl font-semibold mb-4">Rechercher un propriétaire</h2>
-
-                    <!-- Barre de recherche AJAX -->
-                    <input type="text" id="searchInput" 
-                        placeholder="Nom du propriétaire..." 
-                        class="w-full border border-gray-300 rounded-lg p-2 mb-4">
-                    
-                    <!-- Résultats dynamiques ici -->
-                    <div id="searchResults" class="mt-4"></div>
-
-                    <!-- Bouton fermer -->
-                    <button onclick="toggleModal()" class="mt-4 w-full bg-red-500 text-white py-2 rounded-lg">
-                        Fermer
-                    </button>
-                </div>
-            </div>
-
-
             <ul class="space-y-4">
                 @foreach ($threads as $thread)
                     @php
@@ -143,7 +139,6 @@
                     clearTimeout(timeout);
                     timeout = setTimeout(fetchProprietaires, 500);
             });
-        }); 
-
+        });
     </script>
 @endsection

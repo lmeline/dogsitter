@@ -7,16 +7,14 @@ use Cmgmyr\Messenger\Models\Thread as BaseThread;
 
 class Thread extends BaseThread
 {
-    // Relation avec les messages associés à ce thread
     public function messages()
     {
         return $this->hasMany(Message::class);
     }
 
-    // Relation avec les utilisateurs qui participent au thread
     public function participants()
     {
-        return $this->belongsToMany(User::class, 'threads_users')->withTimestamps();
+        return $this->belongsToMany(User::class, 'threads_users','thread_id','user_id','participants')->withTimestamps();
     }
     public function addParticipants($userIds)
     {
@@ -25,7 +23,6 @@ class Thread extends BaseThread
         }
     }
 
-    // Méthode pour récupérer tous les participants
     public function getParticipantsNames()
     {
         return $this->participants->pluck('name');

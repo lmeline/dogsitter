@@ -13,20 +13,18 @@
                         @endforeach
                     @endif
                 </h2>
-
-                <ul class="space-y-4 mt-4">
-                    @foreach ($thread->messages as $message)
-                        <li class="bg-gray-100 p-4 rounded-lg">
-                            <div class="flex justify-between">
-                                <span class="font-bold">{{ $message->user->name }} {{ $message->user->prenom }} :</span>
-                                <span class="text-sm text-gray-500">{{ $message->created_at->diffForHumans() }}</span>
-                            </div>
-                            <p class="mt-2 text-gray-700">  {!! nl2br(e($message->body)) !!}</p>
-                        </li>
-                    @endforeach
-                </ul>
+                    <ul class="space-y-4 mt-4">
+                        @foreach ($thread->messages as $message)
+                            <li class="bg-gray-100 p-4 rounded-lg">
+                                <div class="flex justify-between">
+                                    <span class="font-bold">{{ $message->user->name }} {{ $message->user->prenom }} :</span>
+                                    <span class="text-sm text-gray-500">{{ $message->created_at->diffForHumans() }}</span>
+                                </div>
+                                <p class="mt-2 text-gray-700"> {!! nl2br(e($message->body)) !!}</p>
+                            </li>
+                        @endforeach
+                    </ul>
             </div>
-
             <div class="mt-6">
                 <form action="{{ route('addMessage', $thread->id) }}" method="POST">
                     @csrf

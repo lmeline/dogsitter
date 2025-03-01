@@ -11,33 +11,38 @@ class MessageController extends Controller
 {
   
     public function index(Request $request)
-    {   
-        $user = Auth::user();
-        $proprietaires = User::where('role', 'proprietaire')->get();        
-        $search = $request->input('search');
-        $threads = Thread::query()
-            ->whereHas('users', function ($query) use ($search) {
-                if ($search) {
-                    $query->where('name', 'like', '%' . $search . '%');
-                }
-            })
-            ->with(['users', 'messages' => function ($query) {
-                $query->latest();
-            }])
-            ->get();
-    
-        $unreadCount = $threads->reduce(function ($carry, $thread) {
-            return $carry + $thread->messages()
-                ->where('lu', false)
-                ->where('user_id', '!=', Auth::id())
-                ->count();
-        }, 0);
-    
-        return view('messages.index', compact('threads', 'unreadCount', 'search', 'proprietaires'));
-    }
+{   
+    $user = Auth::user();
+    $proprietaires = User::where('role', 'proprietaire')->get();        
+    $search = $request->input('search');
+
+    $threads = Thread::whereHas('participants', function ($query) use ($user) {
+            $query->where('user_id', $user->id);
+        })
+        ->whereHas('users', function ($query) use ($search) {
+            if ($search) {
+                $query->where('name', 'like', '%' . $search . '%');
+            }
+        })
+        ->with(['users', 'messages' => function ($query) {
+            $query->latest();
+        }])
+        ->get();
+
+    $unreadCount = $threads->reduce(function ($carry, $thread) {
+        return $carry + $thread->messages()
+            ->where('lu', false)
+            ->where('user_id', '!=', Auth::id())
+            ->count();
+    }, 0);
+
+    return view('messages.index', compact('threads', 'unreadCount', 'search', 'proprietaires'));
+}
+
     
     public function show($id)
     {
+        
         $thread = Thread::with(['messages.user'])->findOrFail($id);
     
         if (!$thread->participants()->where('user_id', Auth::id())->exists()) {
@@ -47,8 +52,8 @@ class MessageController extends Controller
         $thread->messages()->where('lu', false)
               ->where('user_id', '!=', Auth::id()) 
               ->update(['lu' => true]);
-    
-        return view('messages.show', compact('thread'));
+        $participants = $thread->participants;
+        return view('messages.show', compact('thread', 'participants'));
     }
     public function showProfile($dogsitterId)
     {

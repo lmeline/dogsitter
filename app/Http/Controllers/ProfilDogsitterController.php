@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Disponibilite;
 use App\Models\Prestation;
+use App\Models\PrestationType;
 use App\Models\User;
 use App\Models\Ville;
 use Illuminate\Http\Request;
@@ -72,5 +73,13 @@ class ProfilDogsitterController extends Controller
         $dogsitter->save();
         return redirect()->back()->with('success', 'Description mise à jour avec succès');
     }
-  
+    
+    public function annonce(Request $request){
+        try{
+        $prestationtypes= PrestationType::all();
+        return view('dogsitters.annonce', compact('prestationtypes'));
+    }catch(\Exception $e){
+        return response()->json(['error' => $e->getMessage()], 500);
+    }
+    }
 }

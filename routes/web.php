@@ -18,29 +18,9 @@ Route::get('/dashboard', function () {
 
 route::get('/myprestations',[PrestationController::class,'showPrestations'])->name('myprestations');
 
-Route::get('/dogsitter/accueil', function () {
-    return view('dogsitters.PageAccueilDogsitter');
-})->middleware(['auth', 'verified'])->name('dogsitters.PageAccueilDogsitter');
-
-Route::get('/dogsitter/availability', function () {
-    return view('disponibilites.availability');
-})->middleware(['auth', 'verified'])->name('disponibilites.availability');
-
 Route::get('dogsitter/calendar', function () {
     return view('dogsitters.calendar');
 })->middleware(['auth', 'verified'])->name('dogsitters.calendar');
-
-Route::get('dogsitter/postersonannonce', function () {
-    return view('dogsitters.annonce');
-})->middleware(['auth', 'verified'])->name('dogsitters.annonce');
-
-Route::get('/proprietaire/accueil', function () {
-    return view('proprietaires.PageAccueilProprietaire');
-})->middleware(['auth', 'verified'])->name('proprietaires.PageAccueilProprietaire');
-
-Route::get('/proprietaire/message', function () {
-    return view('proprietaires.message');
-})->middleware(['auth', 'verified'])->name('proprietaires.message');
 
 Route::get('/trouvezsondogsitter', function () {
     return view('dogsitters.index');
@@ -70,7 +50,7 @@ Route::get('/dogs/{id}',[DogController::class,'show'])->name('dogs.show');
 route::get('/dogsitters',[ProfilDogsitterController::class,'index'])->name('dogsitters.index');
 route::get('/dogsitters/{id}',[ProfilDogsitterController::class,'show'])->name('dogsitters.show');
 Route::get('/dogsitters/filtrer', [ProfilDogsitterController::class, 'filter'])->name('dogsitters.filter');
-//Route::get('/dogsitters/availability', [ProfilDogsitterController::class, 'availability'])->name('dogsitters.availability');
+Route::get('/dogsitter/postersonannonce',[ProfilDogsitterController::class,'annonce'])->name('dogsitters.annonce');
 
 route::get('/proprietaires',[ProprietaireController::class,'index'])->name('proprietaires.index');
 route::get('/proprietaires/{id}',[ProprietaireController::class,'show'])->name('proprietaires.show');
@@ -131,5 +111,7 @@ Route::get('/search-dogsitters',[ProfilDogsitterController::class,'search'])->na
 Route::get('/search-villes', [ProfileController::class, 'searchVille'])->name('search.ville');
 Route::post('/save-ville', [ProfileController::class, 'saveVille'])->name('save.ville');
 Route::get('/search-owner', [MessageController::class, 'searchOwner'])->name('search.owner');
+Route::get('/messages/search', [MessageController::class, 'search'])->name('messages.search');
+
 
 
