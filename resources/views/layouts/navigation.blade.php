@@ -84,9 +84,6 @@
                                 <x-dropdown-link :href="route('abonnements.update')" :active="request()->routeIs('abonnements.update')">
                                     {{ __('Subcription') }}
                                 </x-dropdown-link>
-                                <x-dropdown-link :href="route('userPrestations.create')" :active="request()->routeIs('userPrestation.create')">
-                                    {{ __('Prices and services') }}
-                                </x-dropdown-link>
                                 <x-dropdown-link :href="route('dogsitters.annonce')" :active="request()->routeIs('dogsitters.annonce')">
                                     {{ __('Poster mon annonce ') }}
                                 </x-dropdown-link>

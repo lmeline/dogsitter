@@ -66,5 +66,42 @@ class PrestationTypesController extends Controller
             return response()->json(['error' => $e->getMessage()], 500);
         }
     }
-    
+    public function edit($id)
+{
+    $tarif = UserPrestationType::where('id', $id)
+                               ->where('dogsitter_id', Auth::id())
+                               ->first();
+
+    if (!$tarif) {
+        return redirect()->route('dogsitters.annonce')->with('error', 'Tarif non trouvé.');
+    }
+
+    return view('dogsitters.editTarif', compact('tarif'));
+}
+
+
+public function update(Request $request, $id)
+{
+    $request->validate([
+        'prix' => 'required|numeric|min:0',
+        'duree' => 'required|numeric|min:1',
+    ]);
+
+    $tarif = UserPrestationType::where('id', $id)
+                               ->where('dogsitter_id', Auth::id())
+                               ->first();
+
+    if (!$tarif) {
+        return redirect()->route('dogsitters.annonce')->with('error', 'Tarif non trouvé.');
+    }
+
+    $tarif->update([
+        'prix' => $request->prix,
+        'duree' => $request->duree,
+    ]);
+
+    return redirect()->route('dogsitters.annonce')->with('success', 'Tarif mis à jour.');
+}
+
+
 }

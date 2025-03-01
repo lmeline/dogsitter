@@ -51,13 +51,15 @@ route::get('/dogsitters',[ProfilDogsitterController::class,'index'])->name('dogs
 route::get('/dogsitters/{id}',[ProfilDogsitterController::class,'show'])->name('dogsitters.show');
 Route::get('/dogsitters/filtrer', [ProfilDogsitterController::class, 'filter'])->name('dogsitters.filter');
 Route::get('/dogsitter/postersonannonce',[ProfilDogsitterController::class,'annonce'])->name('dogsitters.annonce');
+//Route::
 
 route::get('/proprietaires',[ProprietaireController::class,'index'])->name('proprietaires.index');
 route::get('/proprietaires/{id}',[ProprietaireController::class,'show'])->name('proprietaires.show');
 route::post('/update-description',[ProprietaireController::class,'updateDescription'])->name('update.description');
 
-Route::get('/user-prestation/create', [PrestationTypesController::class, 'create'])->name('userPrestations.create');
 Route::post('/user-prestation', [PrestationTypesController::class, 'store'])->name('userPrestations.store');
+Route::get('/user-prestation/{id}', [PrestationTypesController::class, 'update'])->name('userPrestations.update');
+Route::get('/user-prestation/{id}/edit', [PrestationTypesController::class, 'edit'])->name('userPrestations.edit');
 
 route::get('/', function (){
     return view('index');
@@ -102,6 +104,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/disponibilites', [DisponibiliteController::class, 'index'])->name('disponibilites.index');
     Route::post('/disponibilites', [DisponibiliteController::class, 'store'])->name('disponibilites.store');
     Route::delete('/disponibilites/{id}', [DisponibiliteController::class, 'destroy'])->name('disponibilites.destroy');
+    Route::post('/disponibilites/{id}', [DisponibiliteController::class, 'update'])->name('disponibilites.update');
+    Route::get('/disponibilites/{id}/edit', [DisponibiliteController::class, 'edit'])->name('disponibilites.edit');
+
 });
 
 

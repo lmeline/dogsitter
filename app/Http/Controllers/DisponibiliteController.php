@@ -88,5 +88,48 @@ class DisponibiliteController extends Controller
         
         return response()->json(['success' => false, 'message' => 'Disponibilité introuvable']);
     }
+
+    public function edit($id)
+    {
+        
+        $disponibilite = Disponibilite::where('id', $id)
+                                    ->where('dogsitter_id', Auth::id()) 
+                                    ->first();
+
+        if (!$disponibilite) {
+            return redirect()->route('dogsitters.annonce')->with('error', 'Disponibilité non trouvée.');
+        }
+
+        // Retourner la vue avec la disponibilité à modifier
+        return view('dogsitters.editDisponibilite', compact('disponibilite'));
+    }
+
+    public function update(Request $request, $id)
+    {
+
+        $request->validate([
+            'jour_semaine' => 'required|string',
+            'heure_debut' => 'required|time',
+            'heure_fin' => 'required|time',
+        ]);
+
+
+        $disponibilite = Disponibilite::where('id', $id)
+                                    ->where('dogsitter_id', Auth::id())  
+                                    ->first();
+
+        if (!$disponibilite) {
+            return redirect()->route('dogsitters.annonce')->with('error', 'Disponibilité non trouvée.');
+        }
+
+        $disponibilite->update([
+            'jour_semaine' => $request->jour_semaine,
+            'heure_debut' => $request->heure_debut,
+            'heure_fin' => $request->heure_fin,
+        ]);
+
+        return redirect()->route('dogsitters.annonce')->with('success', 'Disponibilité mise à jour.');
+    }
+
 }
 

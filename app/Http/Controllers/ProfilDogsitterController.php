@@ -6,6 +6,7 @@ use App\Models\Disponibilite;
 use App\Models\Prestation;
 use App\Models\PrestationType;
 use App\Models\User;
+use App\Models\UserPrestationType;
 use App\Models\Ville;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -74,12 +75,29 @@ class ProfilDogsitterController extends Controller
         return redirect()->back()->with('success', 'Description mise à jour avec succès');
     }
     
-    public function annonce(Request $request){
+    public function annonce(Request $request)
+    {
         try{
-        $prestationtypes= PrestationType::all();
-        return view('dogsitters.annonce', compact('prestationtypes'));
-    }catch(\Exception $e){
-        return response()->json(['error' => $e->getMessage()], 500);
+            $disponibilites = Disponibilite::all();
+            $prestationtypes= PrestationType::all();
+            return view('dogsitters.annonce', compact('prestationtypes', 'disponibilites'));
+        }catch(\Exception $e){
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
     }
+
+    public function edit($id)
+    {
+        $userPrestation = UserPrestationType::where('dogsitter_id', $id)->get();
+        $disponibilites = Disponibilite::where('dogsitter_id', $id)->get();
+        $prestationtypes = PrestationType::all();
+        return view('dogsitters.edit', compact('userPrestation', 'disponibilites', 'prestationtypes'));
+    }
+
+    public function showCalendar()
+    {
+        $dogsitter = Auth::user();
+        $prestations = Prestation::where('dogsitter_id', Auth::id())->get();
+        return view('dogsitters.calendar', compact('prestations',"dogsitter"));
     }
 }

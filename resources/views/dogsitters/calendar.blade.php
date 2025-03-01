@@ -3,16 +3,48 @@
 @section('content')
 <x-app-layout>
     <div class="w-full h-full">
-
         <div class="flex justify-between items-center w-[80%] mx-auto m-5">
-
             <div class="flex-grow text-center">
                 <h1 class="font-bold text-3xl">Calendrier</h1>
             </div>
         </div>
 
+        <!-- FullCalendar container -->
         <div id="calendar" class="w-[80%] mx-auto h-[calc(100vh-14rem)] bg-opacity-40 backdrop-blur-md bg-white p-6 rounded-lg"></div>
-    </div>
-</x-app-layout>
 
+        <!-- Retourner aux Prestations -->
+        <div class="mt-6">
+            <a href="{{ route('myprestations') }}" class="bg-gradient-to-r from-yellow-300 to-pink-300 text-black px-6 py-3 rounded-lg hover:from-yellow-400 hover:to-pink-400 transition">Retour aux Prestations</a>
+        </div>
+    </div>
+
+    <!-- FullCalendar JS -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var calendarEl = document.getElementById('calendar');
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'dayGridMonth', // Afficher en vue mensuelle
+                events: [
+                    @foreach($prestations as $prestation)
+                        {
+                            title: '{{ $prestation->prestationType->nom }}',
+                            start: '{{ \Carbon\Carbon::parse($prestation->date_debut)->toIso8601String() }}',
+                            end: '{{ \Carbon\Carbon::parse($prestation->date_fin)->toIso8601String() }}',
+                            description: 'Prix: {{ $prestation->prix }} €',
+                            url: '{{ route('prestation.show', $prestation->id) }}',
+                            backgroundColor: '#FF5733',
+                            borderColor: '#FF5733',
+                            textColor: '#fff'
+                        },
+                    @endforeach
+                ],
+                dateClick: function(info) {
+                    alert('Vous avez cliqué sur la date : ' + info.dateStr);
+                }
+            });
+
+            calendar.render();
+        });
+    </script>
+</x-app-layout>
 @endsection
