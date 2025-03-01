@@ -96,22 +96,24 @@ public function create($id)
   }
 
   public function showPrestations()
-  {
+{
     $user = Auth::user();
 
-    if ($user->prestationsAsproprietaire) {
+    if ($user->role === 'proprietaire') {
 
-      $prestations = $user->prestationsAsproprietaire;
-      $prestationDogs = Prestation::with('prestationDogs.dog')->get();
-    } elseif ($user->prestationsAsdogsitter) {
+        $prestations = $user->prestationsAsproprietaire;
+        $prestationDogs =Prestation::with('prestationDogs.dog')->get();
+    } elseif ($user->role === 'dogsitter') {
 
-      $prestations = $user->prestationsAsdogsitter;
+        $prestations = $user->prestationsAsdogsitter;
+        $prestationDogs =Prestation::with('prestationDogs.dog')->get();
     } else {
-      $prestations = collect();
+
+        $prestations = collect();
     }
 
     return view('myprestations', compact('prestations'));
-  }
+}
 
   public function show($id)
   {

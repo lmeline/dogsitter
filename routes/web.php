@@ -18,10 +18,6 @@ Route::get('/dashboard', function () {
 
 route::get('/myprestations',[PrestationController::class,'showPrestations'])->name('myprestations');
 
-Route::get('dogsitter/calendar', function () {
-    return view('dogsitters.calendar');
-})->middleware(['auth', 'verified'])->name('dogsitters.calendar');
-
 Route::get('/trouvezsondogsitter', function () {
     return view('dogsitters.index');
 })->middleware(['auth', 'verified'])->name('dogsitters.index');
@@ -51,7 +47,7 @@ route::get('/dogsitters',[ProfilDogsitterController::class,'index'])->name('dogs
 route::get('/dogsitters/{id}',[ProfilDogsitterController::class,'show'])->name('dogsitters.show');
 Route::get('/dogsitters/filtrer', [ProfilDogsitterController::class, 'filter'])->name('dogsitters.filter');
 Route::get('/dogsitter/postersonannonce',[ProfilDogsitterController::class,'annonce'])->name('dogsitters.annonce');
-//Route::
+Route::get('/dogsitter/calendar', [ProfilDogsitterController::class, 'showCalendar'])->name('dogsitters.calendar');
 
 route::get('/proprietaires',[ProprietaireController::class,'index'])->name('proprietaires.index');
 route::get('/proprietaires/{id}',[ProprietaireController::class,'show'])->name('proprietaires.show');

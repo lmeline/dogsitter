@@ -28,13 +28,13 @@
                     @foreach($prestations as $prestation)
                         {
                             title: '{{ $prestation->prestationType->nom }}',
-                            start: '{{ \Carbon\Carbon::parse($prestation->date_debut)->toIso8601String() }}',
-                            end: '{{ \Carbon\Carbon::parse($prestation->date_fin)->toIso8601String() }}',
+                            start: '{{ $prestation->formatted_date_debut }}', // Assurez-vous que le format de la date est valide pour FullCalendar
+                            end: '{{ $prestation->formatted_date_fin }}', // Idem pour la date de fin
                             description: 'Prix: {{ $prestation->prix }} €',
-                            url: '{{ route('prestation.show', $prestation->id) }}',
-                            backgroundColor: '#FF5733',
-                            borderColor: '#FF5733',
-                            textColor: '#fff'
+                            url: '{{ route('prestations.show', $prestation->id) }}', // Lien vers les détails de la prestation
+                            backgroundColor: '#FF5733', // Couleur de fond (exemple)
+                            borderColor: '#FF5733', // Couleur de bordure (exemple)
+                            textColor: '#fff' // Couleur du texte (exemple)
                         },
                     @endforeach
                 ],
