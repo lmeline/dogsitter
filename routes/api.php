@@ -2,10 +2,9 @@
 
 use App\Http\Controllers\Api\DogController;
 use App\Http\Controllers\Api\ProfilDogsitterController;
+use App\Http\Controllers\Api\RaceController;
 use App\Http\Controllers\Api\VilleController;
-use App\Models\Dog;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Route;
 
 
@@ -16,4 +15,5 @@ Route::get('/user', function (Request $request) {
 //Route::resouce('/dogs',DogController::class,);
 Route::get('/dogs', [DogController::class, 'index']);
 Route::get('/dogsitters', [ProfilDogsitterController::class, 'index']);
-Route::get('/villes',VilleController::class,'index');
+Route::get('/villes',[VilleController::class,'index']);
+Route::get('/races',[RaceController::class,'index']);
