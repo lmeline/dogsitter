@@ -13,6 +13,7 @@ Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
 
-Route::resource('/dogs',DogController::class);
-Route::resource('/villes',VilleController::class);
-Route::resource('/dogsitters',ProfilDogsitterController::class);
+//Route::resouce('/dogs',DogController::class,);
+Route::get('/dogs', [DogController::class, 'index']);
+Route::get('/dogsitters', [ProfilDogsitterController::class, 'index']);
+Route::get('/villes',VilleController::class,'index');
