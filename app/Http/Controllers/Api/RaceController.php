@@ -53,7 +53,24 @@ class RaceController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        // Validation des données reçues
+        $request->validate([
+            'name' => 'required|string|max:255',
+            // Ajoute d'autres validations si nécessaire
+        ]);
+
+        // Trouver la race à mettre à jour
+        $breed = Race::find($id);
+
+        if (!$breed) {
+            return response()->json(['message' => 'Race non trouvée'], 404);
+        }
+
+        // Mise à jour de la race
+        $breed->name = $request->name;
+        $breed->save();
+
+        return response()->json($breed);
     }
 
     /**
@@ -61,6 +78,15 @@ class RaceController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $breed = Race::find($id);
+
+        if (!$breed) {
+            return response()->json(['message' => 'Race non trouvée'], 404);
+        }
+    
+        // Suppression de la race
+        $breed->delete();
+    
+        return response()->json(['message' => 'Race supprimée avec succès']);
     }
 }

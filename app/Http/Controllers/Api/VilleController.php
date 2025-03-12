@@ -61,6 +61,7 @@ class VilleController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $ville = Ville::find($id);
+        
     }
 }
