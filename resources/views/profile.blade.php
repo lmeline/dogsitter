@@ -1,6 +1,3 @@
-@extends('layouts.partials.default-layout')
-
-@section('content')
 <x-app-layout>
     <div class="flex pt-10 flex-col items-center bg-gradient-to-br from-yellow-50 via-rose-50 to-green-50">
 
@@ -177,4 +174,4 @@
     });
 });
 </script>
-@endsection
+

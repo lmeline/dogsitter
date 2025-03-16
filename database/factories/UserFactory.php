@@ -25,23 +25,22 @@ class UserFactory extends Factory
      */
     public function definition(): array
     {
-        $ville = Ville::inRandomOrder()->first(); 
-        $role = fake()->randomElement(['admin', 'proprietaire','dogsitter']);
-        if($role=='dogsitter')
-            {
-                $note_moyenne = fake()->numberBetween(0, 5);
-                $nb_notes = fake()->numberBetween(0, 5);
-                $abonnement_type_id = fake()->numberBetween(1, 3);
-            } else {
-                $note_moyenne = null;
-                $nb_notes = null;
-                $abonnement_type_id = null;
-            }
+        $ville = Ville::inRandomOrder()->first();
+        $role = fake()->randomElement(['admin', 'proprietaire', 'dogsitter']);
+        if ($role == 'dogsitter') {
+            $note_moyenne = fake()->numberBetween(0, 5);
+            $nb_notes = fake()->numberBetween(0, 5);
+            $abonnement_type_id = fake()->numberBetween(1, 3);
+        } else {
+            $note_moyenne = null;
+            $nb_notes = null;
+            $abonnement_type_id = null;
+        }
 
         return [
             'name' => fake()->lastName(),
             'prenom' => fake()->firstName(),
-            'date_naissance'=>fake()->date(),
+            'date_naissance' => fake()->date(),
             'numero_telephone' => fake()->phoneNumber(),
             'email' => fake()->unique()->safeEmail(),
             'adresse' => fake()->streetAddress(),
@@ -50,10 +49,10 @@ class UserFactory extends Factory
             'role' => $role,
             'description' => fake()->sentence(),
             'remember_token' => Str::random(10),
-            'photo'=>fake()->imageUrl(),
+            'photo' => 'https://i.pravatar.cc/300?img=' . rand(1, 70),
             'note_moyenne' => $note_moyenne,
             'nb_notes' => $nb_notes,
-            'abonnement_type_id' =>$abonnement_type_id,
+            'abonnement_type_id' => $abonnement_type_id,
             'email_verified_at' => now(),
             'password' => static::$password ??= Hash::make('password'),
 
@@ -65,7 +64,7 @@ class UserFactory extends Factory
      */
     public function unverified(): static
     {
-        return $this->state(fn (array $attributes) => [
+        return $this->state(fn(array $attributes) => [
             'email_verified_at' => null,
         ]);
     }

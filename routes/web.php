@@ -16,7 +16,7 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 
-route::get('/myprestations',[PrestationController::class,'showPrestations'])->name('myprestations');
+route::get('/myprestations', [PrestationController::class, 'showPrestations'])->name('myprestations');
 
 Route::get('/trouvezsondogsitter', function () {
     return view('dogsitters.index');
@@ -37,53 +37,53 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/abonnement', [AbonnementController::class, 'updateAbonnement'])->name('abonnements.update');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
 
 
-Route::get('/dogs',[DogController::class,'index'])->name('dogs.index');
-Route::get('/dogs/{id}',[DogController::class,'show'])->name('dogs.show');
+Route::get('/dogs', [DogController::class, 'index'])->name('dogs.index');
+Route::get('/dogs/{id}', [DogController::class, 'show'])->name('dogs.show');
 
-route::get('/dogsitters',[ProfilDogsitterController::class,'index'])->name('dogsitters.index');
-route::get('/dogsitters/{id}',[ProfilDogsitterController::class,'show'])->name('dogsitters.show');
+route::get('/dogsitters', [ProfilDogsitterController::class, 'index'])->name('dogsitters.index');
+route::get('/dogsitters/{id}', [ProfilDogsitterController::class, 'show'])->name('dogsitters.show');
 Route::get('/dogsitters/filtrer', [ProfilDogsitterController::class, 'filter'])->name('dogsitters.filter');
-Route::get('/dogsitter/postersonannonce',[ProfilDogsitterController::class,'annonce'])->name('dogsitters.annonce');
+Route::get('/dogsitter/postersonannonce', [ProfilDogsitterController::class, 'annonce'])->name('dogsitters.annonce');
 Route::get('/dogsitter/calendar', [ProfilDogsitterController::class, 'showCalendar'])->name('dogsitters.calendar');
 
-route::get('/proprietaires',[ProprietaireController::class,'index'])->name('proprietaires.index');
-route::get('/proprietaires/{id}',[ProprietaireController::class,'show'])->name('proprietaires.show');
-route::post('/update-description',[ProprietaireController::class,'updateDescription'])->name('update.description');
+route::get('/proprietaires', [ProprietaireController::class, 'index'])->name('proprietaires.index');
+route::get('/proprietaires/{id}', [ProprietaireController::class, 'show'])->name('proprietaires.show');
+route::post('/update-description', [ProprietaireController::class, 'updateDescription'])->name('update.description');
 
 Route::post('/user-prestation', [PrestationTypesController::class, 'store'])->name('userPrestations.store');
 Route::get('/user-prestation/{id}', [PrestationTypesController::class, 'update'])->name('userPrestations.update');
 Route::get('/user-prestation/{id}/edit', [PrestationTypesController::class, 'edit'])->name('userPrestations.edit');
 
-route::get('/', function (){
+route::get('/', function () {
     return view('index');
 })->name('index');
 
-route::get('/conditions-utilisation', function (){
+route::get('/conditions-utilisation', function () {
     return view('footer.cgu');
 })->name('cgu');
 
-route::get('/politique-de-confidentialite', function (){
+route::get('/politique-de-confidentialite', function () {
     return view('footer.politique-confidentialite');
 })->name('cgu');
 
-Route::get('/prestations/create/{id}',[PrestationController::class,'create'])->name('prestations.create');
-Route::get('/prestations',[PrestationController::class,'index'])->name('prestations.index');
+Route::get('/prestations/create/{id}', [PrestationController::class, 'create'])->name('prestations.create');
+Route::get('/prestations', [PrestationController::class, 'index'])->name('prestations.index');
 Route::post('/prestations/store', [PrestationController::class, 'store'])->name('prestations.store');
 Route::get('/prestations/{id}', [PrestationController::class, 'show'])->name('prestations.show');
 
-Route::get('profile/ajoutchien',[DogController::class,'create'])->name('dogs.create');
+Route::get('profile/ajoutchien', [DogController::class, 'create'])->name('dogs.create');
 
-Route::get('/register/dog',[DogController::class,'registerdog'])->name('register.dog');
+Route::get('/register/dog', [DogController::class, 'registerdog'])->name('register.dog');
 Route::post('/register/dog', [DogController::class, 'storeregisterdog'])->name('storeregisterdog');
 
 Route::get('/choisir-abonnement', [AbonnementController::class, 'registerabonnement'])->name('register.abonnement');
 Route::post('/choisir-abonnement', [AbonnementController::class, 'chooseAbonnement'])->name('chooseAbonnement');
 
-Route::get('/error', function() {
-    return view('erreurs.unauthorized'); 
+Route::get('/error', function () {
+    return view('erreurs.unauthorized');
 })->name('errorPage');
 
 Route::middleware('auth')->group(function () {
@@ -107,8 +107,8 @@ Route::middleware('auth')->group(function () {
 
 
 // Requêtes ajax 
-Route::get('/prestations/calendar/getprestations',[PrestationController::class,'getprestations']);
-Route::get('/search-dogsitters',[ProfilDogsitterController::class,'search'])->name('search.dogsitters');
+Route::get('/prestations/calendar/getprestations', [PrestationController::class, 'getprestations']);
+Route::get('/search-dogsitters', [ProfilDogsitterController::class, 'search'])->name('search.dogsitters');
 Route::get('/search-villes', [ProfileController::class, 'searchVille'])->name('search.ville');
 Route::post('/save-ville', [ProfileController::class, 'saveVille'])->name('save.ville');
 Route::get('/search-owner', [MessageController::class, 'searchOwner'])->name('search.owner');

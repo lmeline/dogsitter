@@ -1,6 +1,3 @@
-@extends('layouts.partials.default-layout')
-
-@section('content')
 <x-app-layout>
     <div class="container mx-auto px-4 py-8">
         <h2 class="text-3xl font-semibold mb-4 text-center">Gestion de votre Abonnement</h2>
@@ -35,4 +32,3 @@
         </div>
     </div>
 </x-app-layout>
-@endsection

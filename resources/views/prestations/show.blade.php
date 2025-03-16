@@ -1,6 +1,3 @@
-@extends('layouts.partials.default-layout')
-
-@section('content')
 <x-app-layout>
     <div class="container mx-auto px-4 py-8">
         <h1 class="text-2xl font-semibold mb-4">Informations sur la Prestation</h1>
@@ -49,4 +46,3 @@
         </div>
     </div>
 </x-app-layout>
-@endsection

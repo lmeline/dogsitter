@@ -24,3 +24,14 @@ body {
     @apply !bg-zinc-200 dark:!bg-zinc-900 dark:!text-white h-full pt-2
 
 }
+
+/* Pour le lien sur le logo */
+a svg path {
+    fill: black;
+    transition-duration: 300ms;
+}
+
+a:hover svg path {
+    fill: green;
+    transition-duration: 300ms;
+}

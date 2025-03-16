@@ -1,6 +1,3 @@
-@extends('layouts.partials.default-layout')
-
-@section('content')
 <x-app-layout>
     <div class="w-full h-full">
         <div class="flex justify-between items-center w-[80%] mx-auto m-5">
@@ -47,4 +44,3 @@
         });
     </script>
 </x-app-layout>
-@endsection

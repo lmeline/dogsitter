@@ -1,11 +1,9 @@
-@extends('layouts.partials.default-layout')
-
-@section('content')
+<x-app-layout>
     <div class="container mx-auto py-10">
         <div class="max-w-md mx-auto bg-white rounded-lg shadow-md overflow-hidden">
             <div class="p-6">
                 <h1 class="text-3xl font-bold text-blue-600 mb-4">Propriétaire du Chien</h1>
-                
+
                 <!-- Nom de l'utilisateur/propriétaire -->
                 <p class="text-lg font-semibold text-gray-700 mb-2">
                     Propriétaire : {{ $dog->user->name }}
@@ -25,4 +23,4 @@
             </div>
         </div>
     </div>
-@endsection
+</x-app-layout>
