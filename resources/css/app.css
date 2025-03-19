@@ -35,3 +35,8 @@ a:hover svg path {
     fill: green;
     transition-duration: 300ms;
 }
+
+/* Couleur de fond du calendrier */
+.fc-timeGridWeek-view {
+    background-color: white;
+}
