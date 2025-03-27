@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
 use App\Models\Race;
+use Illuminate\Routing\Controller;
 use Illuminate\Http\Request;
 
 class RaceController extends Controller
@@ -16,12 +16,9 @@ class RaceController extends Controller
         return response()->json(Race::all());
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function __construct()
     {
-        //
+        $this->middleware('auth:sanctum');
     }
 
     /**
@@ -29,7 +26,20 @@ class RaceController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        if (!$request->user()) {
+            return response()->json(['error' => 'Non autorisé'], 401);
+        }
+
+        // Validation et création de la race
+        $request->validate([
+            'nom' => 'required|string|unique:races',
+        ]);
+
+        $race = Race::create([
+            'nom' => $request->nom,
+        ]);
+
+        return response()->json(['message' => 'Race ajoutée avec succès', 'race' => $race], 201);
     }
 
     /**
@@ -51,42 +61,45 @@ class RaceController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, $id)
     {
-        // Validation des données reçues
-        $request->validate([
-            'name' => 'required|string|max:255',
-            // Ajoute d'autres validations si nécessaire
-        ]);
+        try {
+            $race = Race::find($id);
 
-        // Trouver la race à mettre à jour
-        $breed = Race::find($id);
+            if (!$race) {
+                return response()->json(['error' => 'Race non trouvée'], 404);
+            }
 
-        if (!$breed) {
-            return response()->json(['message' => 'Race non trouvée'], 404);
+            $request->validate([
+                'nom' => 'required|string|unique:races,nom,' . $id
+            ]);
+
+            $race->update([
+                'nom' => $request->nom
+            ]);
+
+            return response()->json(['message' => 'Race mise à jour avec succès', 'race' => $race], 200);
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
         }
-
-        // Mise à jour de la race
-        $breed->name = $request->name;
-        $breed->save();
-
-        return response()->json($breed);
     }
+
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy($id)
     {
-        $breed = Race::find($id);
+        try {
+            $race = Race::find($id);
+            if (!$race) {
+                return response()->json(['error' => 'Race non trouvée'], 404);
+            }
 
-        if (!$breed) {
-            return response()->json(['message' => 'Race non trouvée'], 404);
+            $race->delete();
+            return response()->json(['message' => 'Race supprimée avec succès'], 200);
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
         }
-    
-        // Suppression de la race
-        $breed->delete();
-    
-        return response()->json(['message' => 'Race supprimée avec succès']);
     }
 }

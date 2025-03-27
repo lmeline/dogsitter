@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
+use Illuminate\Routing\Controller;
 use App\Models\Ville;
 use Illuminate\Http\Request;
 
@@ -27,10 +27,38 @@ class VilleController extends Controller
     /**
      * Store a newly created resource in storage.
      */
+    // public function __construct()
+    // {
+    //     $this->middleware('auth:sanctum');
+    // }
+
+    /**
+     * Store a newly created resource in storage.
+     */
     public function store(Request $request)
     {
-        //
+        try {
+            if (!$request->user()) {
+                return response()->json(['error' => 'Non autorisé'], 401);
+            }
+    
+            // Validation et création de la race
+            $request->validate([
+                'nom_de_la_commune' => 'required|string|unique:villes',
+                'code_postal' => 'required|string|unique:villes',
+            ]);
+    
+            $ville = Ville::create([
+                'nom_de_la_commune' => $request->nom_de_la_commune,
+                'code_postal' => $request->code_postal
+            ]);
+    
+            return response()->json(['message' => 'Ville ajoutée avec succès', 'race' => $ville], 201);
+        }catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
     }
+        
 
     /**
      * Display the specified resource.
@@ -52,16 +80,50 @@ class VilleController extends Controller
      * Update the specified resource in storage.
      */
     public function update(Request $request, string $id)
-    {
-        //
+{
+    try {
+        // if (!$request->user()) {
+        //     return response()->json(['error' => 'Non autorisé'], 401);
+        // }
+
+        $ville = Ville::find($id);
+        if (!$ville) {
+            return response()->json(['error' => 'Ville non trouvée'], 404);
+        }
+
+        $request->validate([
+            'nom_de_la_commune' => 'required|string|unique:villes,nom_de_la_commune,' . $id,
+            'code_postal' => 'required|string|unique:villes,code_postal,' . $id,
+        ]);
+
+        $ville->update([
+            'nom_de_la_commune' => $request->nom_de_la_commune,
+            'code_postal' => $request->code_postal
+        ]);
+
+        return response()->json(['message' => 'Ville mise à jour avec succès', 'ville' => $ville], 200);
+    } catch (\Exception $e) {
+        return response()->json(['error' => $e->getMessage()], 500);
     }
+}
+
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy($id)
     {
-        $ville = Ville::find($id);
-        
+        try {
+            $ville = Ville::find($id);
+            if (!$ville) {
+                return response()->json(['error' => 'Ville non trouvée'], 404);
+            }
+    
+            $ville->delete();
+            return response()->json(['message' => 'Ville supprimée avec succès'], 200);
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
     }
+    
 }

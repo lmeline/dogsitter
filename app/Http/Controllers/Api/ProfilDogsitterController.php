@@ -69,8 +69,18 @@ class ProfilDogsitterController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy($id)
     {
-        //
+        try {
+            $dogsitter = User::find($id);
+            if (!$dogsitter) {
+                return response()->json(['error' => 'dogsitter non trouvée'], 404);
+            }
+    
+            $dogsitter->delete();
+            return response()->json(['message' => 'dogsitter supprimée avec succès'], 200);
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
     }
 }
