@@ -22,7 +22,7 @@ class UserprestationtypeSeeder extends Seeder
                 "dogsitter_id" => $dogsitter->id,
                 "prestation_type_id" => rand(1, 2),
                 "prix" => rand(10, 20),
-                "duree" => rand(1, 2),
+                "duree" => rand(1,1),
             ]);
         }
     }

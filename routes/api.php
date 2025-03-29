@@ -13,7 +13,7 @@ Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
 
-Route::post('login', [AuthController::class, 'login']);
+//Route::post('/login', [AuthController::class, 'login']);
 
 //Route::resouce('/dogs',DogController::class,);
 Route::get('/dogs', [DogController::class, 'index']);

@@ -3,7 +3,7 @@
         <h2 class="text-3xl font-semibold mb-6 text-center text-gray-800">Poster son annonce </h2>
 
         <div class="flex space-x-8 justify-center">
-
+            {{-- Ajouter une disponibilité --}}
             <div class="bg-opacity-40 backdrop-blur-md bg-white shadow-lg rounded-lg p-8 w-full max-w-lg">
                 <h2 class="text-2xl font-semibold mb-4 text-center">Ajouter une disponibilité</h2>
                 <form action="{{ route('disponibilites.store') }}" method="POST">
@@ -48,7 +48,7 @@
                 </form>
             </div>
 
-
+            {{-- Ajouter un tarif pour un type de prestation --}}
             <div class="bg-opacity-40 backdrop-blur-md bg-white shadow-lg rounded-lg p-8 w-full max-w-lg">
                 <h2 class="text-2xl font-semibold mb-4 text-center">Ajouter un tarif par prestation</h2>
                 <form action="{{ route('userPrestations.store') }}" method="POST" class="space-y-4">
@@ -56,16 +56,15 @@
                     <input type="hidden" name="dogsitter_id" value="{{ Auth::user()->id }}" />
 
                     <div class="mb-6">
-                        <label for="prestation_type_id" class="block text-lg font-semibold text-gray-700 mb-2">Type de
-                            prestation :
+                        <label for="prestation_type_id">Type de prestation :</label>
+                            <select name="prestation_type_id" id="prestation_type_id" class="border-gray-300 rounded-lg px-3 py-2">
+                                @foreach($prestationtypes as $prestationtype)
+                                    <option value="{{ $prestationtype->id }}">{{ $prestationtype->nom }}</option>
+                                @endforeach
+                            </select>
 
-                        </label>
-                        <select name="prestation_type_id" id="prestation_type_id"
-                            class="w-full border-gray-300 rounded-lg px-3 py-2">
-                            @foreach($prestationtypes as $type)
-                                <option value="{{ $type->id }}">{{ $type->nom }}</option>
-                            @endforeach
-                        </select>
+                            <!-- Zone où on affiche la durée -->
+                            <div id="dureeDisplay" class="mt-4 text-lg font-semibold text-gray-700"></div>
                     </div>
 
                     <div class="mb-6">
@@ -73,14 +72,7 @@
                         <input type="number" name="prix" id="prix" class="w-full border-gray-300 rounded-lg px-3 py-2"
                             step="0.01" required>
                     </div>
-
-                    <div class="mb-6">
-                        <label for="duree" class="block text-lg font-semibold text-gray-700 mb-2">Durée (en heures)
-                            :</label>
-                        <input type="number" name="duree" id="duree" class="w-full border-gray-300 rounded-lg px-3 py-2"
-                            required>
-                    </div>
-
+                   
                     <button type="submit"
                         class="w-full bg-gradient-to-r from-yellow-300 to-pink-300 text-black px-6 py-3 font-semibold rounded-lg hover:from-yellow-400 hover:to-pink-400 transition">Ajouter</button>
                 </form>
@@ -100,4 +92,27 @@
             </div>
         @endif
     </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const select = document.getElementById("prestation_type_id");
+            const dureeDisplay = document.getElementById("dureeDisplay");
+    
+            function updateDuree() {
+                const selectedId = select.value;
+    
+                // Condition pour afficher la durée
+                if (selectedId == 1) {
+                    dureeDisplay.innerHTML = "Durée 1 jour ";
+                } else {
+                    dureeDisplay.innerHTML = "Durée 1 heure";
+                }
+            }
+    
+            updateDuree();
+
+            select.addEventListener("change", updateDuree);
+        });
+    </script>
+    
 </x-app-layout>

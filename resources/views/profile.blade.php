@@ -30,6 +30,12 @@
                                     <span><strong>Nom :</strong> {{ $dog->nom }}</span><br>
                                     <span><strong>Race :</strong> {{ $dog->race }}</span><br>
                                     <span><strong>Âge :</strong> {{ $dog->age }} ans</span><br>
+                                    <span><strong>Sexe :</strong>  
+                                        @if ($dog->sexe == "F")
+                                        Femelle
+                                    @else
+                                        Male
+                                    @endif</span><br>
                                     <span><strong>Caractère :</strong> {{ $dog->comportement }}</span><br>
                                     <span><strong>Besoins spéciaux :</strong> {{ $dog->besoins_speciaux }}</span><br>
                                     <span><strong>Stérilisation :</strong>  

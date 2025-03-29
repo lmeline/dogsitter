@@ -80,7 +80,7 @@ class ProfilDogsitterController extends Controller
         try{
             $disponibilites = Disponibilite::all();
             $prestationtypes= PrestationType::all();
-            return view('dogsitters.annonce', compact('prestationtypes', 'disponibilites'));
+            return view('dogsitters.annonce', compact('prestationtypes', 'disponibilites',));	
         }catch(\Exception $e){
             return response()->json(['error' => $e->getMessage()], 500);
         }
