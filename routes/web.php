@@ -49,7 +49,7 @@ Route::get('/dogsitter/postersonannonce', [ProfilDogsitterController::class, 'an
 Route::get('/dogsitter/calendar', [ProfilDogsitterController::class, 'showCalendar'])->name('dogsitters.calendar');
 
 route::get('/proprietaires', [ProprietaireController::class, 'index'])->name('proprietaires.index');
-route::get('/proprietaires/{id}', [ProprietaireController::class, 'show'])->name('proprietaires.show');
+//route::get('/proprietaires/{id}', [ProprietaireController::class, 'show'])->name('proprietaires.show');
 route::post('/update-description', [ProprietaireController::class, 'updateDescription'])->name('update.description');
 route::get('/proprietaires/mesprestations', [PrestationController::class, 'showPrestations'])->name('proprietaires.mesprestations');
 

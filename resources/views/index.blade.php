@@ -163,9 +163,8 @@
                         manière plus intuitive. Découvrez-le dès maintenant dans votre espace personnel.</p>
                 </div>
                 <div class="bg-white p-6 shadow-lg rounded-lg">
-                    <h3 class="text-xl font-bold text-gray-800">Offre spéciale pour les propriétaires de chiens</h3>
-                    <p class="text-gray-600 mt-3">Réservez une prestation et bénéficiez de 10% de réduction sur votre
-                        première commande. Profitez-en avant la fin du mois !</p>
+                    <h3 class="text-xl font-bold text-gray-800">Bientôt une nouvelle fonctionnalité pour les propriétaires</h3>
+                    <p class="text-gray-600 mt-3">Pouvoir mettre des avis sur vos dogsitters préférés</p>
                 </div>
                 <div class="bg-white p-6 shadow-lg rounded-lg">
                     <h3 class="text-xl font-bold text-gray-800">De nouveaux dogsitters ajoutés !</h3>
@@ -237,7 +236,7 @@
         </section>
     @auth
         <div class="container mx-auto pb-16 text-center">
-            <h3 class="text-2xl font-semibold text-gray-800 t">Laissez Votre Avis</h3>
+            <h3 class="text-2xl font-semibold text-gray-800 ">Laissez Votre Avis</h3>
             <p class="text-gray-600 mt-2">Nous apprécions vos retours pour améliorer nos services !</p>
             <form action="{{ route('avis.store') }}" method="POST" class="mt-6 mb-5 max-w-3xl mx-auto bg-white p-6 shadow-lg rounded-lg">
                 @csrf
