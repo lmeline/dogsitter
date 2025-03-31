@@ -1,7 +1,7 @@
 <x-app-layout>
     <div class="container mx-auto py-8">
         <div class="bg-white shadow p-4 rounded-lg">
-            <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+            <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-800 leading-tight">
                 @if($thread->users->count() > 1)
                     @foreach($thread->users as $user)
                         @if($user->id !== auth()->id())

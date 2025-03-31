@@ -7,7 +7,7 @@
         </div>
 
         <!-- FullCalendar container -->
-        <div id="calendar" class="w-[80%] mx-auto h-[calc(100vh-14rem)] bg-opacity-40 backdrop-blur-md bg-white p-6 rounded-lg"></div>
+        <div id="calendar" class="w-[80%] mx-auto h-[calc(100vh-8rem)] bg-opacity-40 backdrop-blur-md bg-white p-6 rounded-lg"></div>
 
     </div>
 
@@ -39,7 +39,7 @@
                 events: [
                     @foreach($prestations as $prestation)
                         {
-                            title: '{{ $prestation->prestationType->nom }}',
+                            title: '{{ $prestation->prestationType->nom }} - {{$prestation->proprietaire->name}}',
                             start: '{{ $prestation->formatted_date_debut }}', // Assurez-vous que le format de la date est valide pour FullCalendar
                             end: '{{ $prestation->formatted_date_fin }}', // Idem pour la date de fin
                             description: 'Prix: {{ $prestation->prix }} €',

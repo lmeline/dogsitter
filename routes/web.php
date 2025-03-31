@@ -16,7 +16,6 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 
-route::get('/mesprestations', [PrestationController::class, 'showPrestations'])->name('mesprestations');
 
 Route::get('/trouvezsondogsitter', function () {
     return view('dogsitters.index');
@@ -52,6 +51,7 @@ Route::get('/dogsitter/calendar', [ProfilDogsitterController::class, 'showCalend
 route::get('/proprietaires', [ProprietaireController::class, 'index'])->name('proprietaires.index');
 route::get('/proprietaires/{id}', [ProprietaireController::class, 'show'])->name('proprietaires.show');
 route::post('/update-description', [ProprietaireController::class, 'updateDescription'])->name('update.description');
+route::get('/proprietaires/mesprestations', [PrestationController::class, 'showPrestations'])->name('proprietaires.mesprestations');
 
 Route::post('/user-prestation', [PrestationTypesController::class, 'store'])->name('userPrestations.store');
 Route::get('/user-prestation/{id}', [PrestationTypesController::class, 'update'])->name('userPrestations.update');
@@ -74,7 +74,7 @@ Route::get('/prestations', [PrestationController::class, 'index'])->name('presta
 Route::post('/prestations/store', [PrestationController::class, 'store'])->name('prestations.store');
 Route::get('/prestations/{id}', [PrestationController::class, 'show'])->name('prestations.show');
 
-Route::get('profile/ajoutchien', [DogController::class, 'create'])->name('dogs.create');
+Route::get('profil/ajoutchien', [DogController::class, 'create'])->name('dogs.create');
 
 Route::get('/register/dog', [DogController::class, 'registerdog'])->name('register.dog');
 Route::post('/register/dog', [DogController::class, 'storeregisterdog'])->name('storeregisterdog');
