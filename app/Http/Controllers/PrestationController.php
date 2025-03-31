@@ -89,7 +89,7 @@ public function create($id)
         'prix' => UserPrestationType::where('dogsitter_id', $request->input('dogsitter_id'))->where('prestation_type_id', $request->input('prestation_type_id'))->first()->prix
       ]);
 
-      return redirect()->route('myprestations')->with('success', 'Prestation créée avec succès');
+      return redirect()->route('mesprestations')->with('success', 'Prestation créée avec succès');
     } catch (Exception $e) {
       return $e->getMessage();
     }
@@ -112,7 +112,7 @@ public function create($id)
         $prestations = collect();
     }
 
-    return view('myprestations', compact('prestations'));
+    return view('mesprestations', compact('prestations'));
 }
 
   public function show($id)

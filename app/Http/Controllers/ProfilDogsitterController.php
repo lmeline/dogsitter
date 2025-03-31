@@ -9,6 +9,7 @@ use App\Models\User;
 use App\Models\UserPrestationType;
 use App\Models\Ville;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 
 class ProfilDogsitterController extends Controller
@@ -94,10 +95,20 @@ class ProfilDogsitterController extends Controller
         return view('dogsitters.edit', compact('userPrestation', 'disponibilites', 'prestationtypes'));
     }
 
-    public function showCalendar()
-    {
-        $prestations = Prestation::all();
-        return view('dogsitters.calendar',compact('prestations'));
-    }
+
+public function showCalendar()
+{
+    // Récupérer toutes les prestations
+    $prestations = Prestation::all();
+
+    // Modifier le format des dates pour chaque prestation
+    $prestations->transform(function ($prestation) {
+        $prestation->formatted_date_debut = Carbon::parse($prestation->date_debut)->format('Y-m-d\TH:i:s');
+        $prestation->formatted_date_fin = Carbon::parse($prestation->date_fin)->format('Y-m-d\TH:i:s');
+        return $prestation;
+    });
+
+    return view('dogsitters.calendar', compact('prestations'));
+}
 
 }

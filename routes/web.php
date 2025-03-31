@@ -16,7 +16,7 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 
-route::get('/myprestations', [PrestationController::class, 'showPrestations'])->name('myprestations');
+route::get('/mesprestations', [PrestationController::class, 'showPrestations'])->name('mesprestations');
 
 Route::get('/trouvezsondogsitter', function () {
     return view('dogsitters.index');

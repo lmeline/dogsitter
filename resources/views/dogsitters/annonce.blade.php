@@ -1,8 +1,8 @@
 <x-app-layout>
     <div class="container mx-auto px-4 py-8">
-        <h2 class="text-3xl font-semibold mb-6 text-center text-gray-800">Poster son annonce </h2>
+        <h2 class="text-3xl font-semibold mb-6 text-center text-gray-800">Poster son annonce</h2>
 
-        <div class="flex space-x-8 justify-center">
+        <div class="flex flex-col lg:flex-row space-y-8 lg:space-y-0 lg:space-x-8 justify-center">
             {{-- Ajouter une disponibilité --}}
             <div class="bg-opacity-40 backdrop-blur-md bg-white shadow-lg rounded-lg p-8 w-full max-w-lg">
                 <h2 class="text-2xl font-semibold mb-4 text-center">Ajouter une disponibilité</h2>
@@ -56,15 +56,12 @@
                     <input type="hidden" name="dogsitter_id" value="{{ Auth::user()->id }}" />
 
                     <div class="mb-6">
-                        <label for="prestation_type_id">Type de prestation :</label>
-                            <select name="prestation_type_id" id="prestation_type_id" class="border-gray-300 rounded-lg px-3 py-2">
+                        <label class="block text-lg font-semibold text-gray-700 mb-2" for="prestation_type_id">Type de prestation :</label>
+                            <select name="prestation_type_id" id="prestation_type_id" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500">
                                 @foreach($prestationtypes as $prestationtype)
                                     <option value="{{ $prestationtype->id }}">{{ $prestationtype->nom }}</option>
                                 @endforeach
                             </select>
-
-                            <!-- Zone où on affiche la durée -->
-                            <div id="dureeDisplay" class="mt-4 text-lg font-semibold text-gray-700"></div>
                     </div>
 
                     <div class="mb-6">
@@ -72,9 +69,11 @@
                         <input type="number" name="prix" id="prix" class="w-full border-gray-300 rounded-lg px-3 py-2"
                             step="0.01" required>
                     </div>
-                   
+                    <!-- Zone où on affiche la durée -->
+                            <div id="dureeDisplay" class=" text-lg font-semibold text-gray-700"></div>
+
                     <button type="submit"
-                        class="w-full bg-gradient-to-r from-yellow-300 to-pink-300 text-black px-6 py-3 font-semibold rounded-lg hover:from-yellow-400 hover:to-pink-400 transition">Ajouter</button>
+                        class="w-full bg-gradient-to-r from-yellow-300 to-pink-300 text-black px-6 py-3 font-semibold rounded-lg hover:from-yellow-400 hover:to-pink-400 transition ">Ajouter</button>
                 </form>
             </div>
         </div> <!-- Fin du conteneur flex -->

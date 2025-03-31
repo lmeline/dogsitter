@@ -18,10 +18,10 @@
                     <!--  Avantages -->
                     <div class="grid grid-cols-1 sm:grid-cols-4 gap-8 mb-12">
                         <!-- Image -->
-                        <div class="w-full h-full rounded-lg ">
+                        <div class="w-full h-full flex justify-center items-center">
                             <img src="{{ asset('images/pax.jpg') }}" alt="Dog Sitting"
                                 class="w-2/3 lg:w-1/2 h-auto rounded-lg shadow-md">
-                        </div>
+                        </div>                        
                         <div class="bg-white p-6 shadow-lg rounded-lg text-center">
                             <span class="text-4xl text-yellow-500">🏅</span>
                             <h3 class="text-xl font-bold mt-3">Des Dogsitters Vérifiés</h3>
@@ -112,7 +112,7 @@
     <!-- Section Subscriptions -->
     <section>
         <div class="container mx-auto">
-            <h2 class="text-3xl font-semibold text-center mb-12 pt-16 text-gray-800">Nos Abonnements pour les dogsitters
+            <h2 class="text-3xl font-semibold text-center mb-12 pt-16 text-gray-800">Nos abonnements pour les dogsitters
             </h2>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <!-- Subscription 1 -->
@@ -208,54 +208,83 @@
     </section>
 
     <!-- Section Avis et temoignages -->
-    <section>
-        <div class="container mx-auto pb-16">
-            <div class="text-center">
-                <h2 class="text-3xl font-semibold text-gray-800">Témoignages de Nos Utilisateurs</h2>
-                <div class="flex justify-center gap-8 mt-6">
-                    <div class="bg-white p-6 shadow-lg rounded-lg w-80">
-                        <p class="text-gray-600 italic">"Je suis ravi de trouver un dogsitter de confiance en quelques
-                            minutes. Mon chien adore son séjour avec Max !" - Jean, Paris</p>
-                        <div class="mt-4 flex items-center justify-between">
-                            <div class="flex items-center">
-                                <span class="font-semibold text-yellow-500">⭐⭐⭐⭐⭐</span>
+    @auth
+        <section>
+            <div class="container mx-auto pb-16">
+                <div class="text-center">
+                    <h2 class="text-3xl font-semibold text-gray-800">Témoignages de Nos Utilisateurs</h2>
+                    <div class="flex justify-center gap-8 mt-6">
+                        <div class="bg-white p-6 shadow-lg rounded-lg w-80">
+                            <p class="text-gray-600 italic">"Je suis ravi de trouver un dogsitter de confiance en quelques
+                                minutes. Mon chien adore son séjour avec Max !" - Jean, Paris</p>
+                            <div class="mt-4 flex items-center justify-between">
+                                <div class="flex items-center">
+                                    <span class="font-semibold text-yellow-500">⭐⭐⭐⭐⭐</span>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="bg-white p-6 shadow-lg rounded-lg w-80">
-                        <p class="text-gray-600 italic">"Un site simple et efficace. Je recommande vivement pour tous
-                            les propriétaires de chiens !" - Marie, Lyon</p>
-                        <div class="mt-4 flex items-center justify-between">
-                            <div class="flex items-center">
-                                <span class="font-semibold text-yellow-500">⭐⭐⭐⭐⭐</span>
+                        <div class="bg-white p-6 shadow-lg rounded-lg w-80">
+                            <p class="text-gray-600 italic">"Un site simple et efficace. Je recommande vivement pour tous
+                                les propriétaires de chiens !" - Marie, Lyon</p>
+                            <div class="mt-4 flex items-center justify-between">
+                                <div class="flex items-center">
+                                    <span class="font-semibold text-yellow-500">⭐⭐⭐⭐⭐</span>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
-
-    <!-- Section Newsletter -->
-    <section>
-        <div class="container mx-auto">
-            <div class="bg-white p-8 rounded-lg shadow-lg text-center mb-12">
-                <h2 class="text-3xl font-semibold text-gray-800">Recevez des mises à jour et offres exclusives !</h2>
-                <p class="text-lg text-gray-600 mt-4">Restez connecté avec DogSitting Connect pour recevoir des
-                    nouvelles importantes, des offres et des promotions.</p>
-                <form action="" method="POST" class="mt-6 flex justify-center gap-4">
-                    @csrf
-                    <input type="email" name="email" class="px-4 py-2 border-gray-300 rounded-lg w-80"
-                        placeholder="Votre email" required>
-                    <button type="submit"
-                        class="bg-yellow-500 text-black px-6 py-3 rounded-lg hover:bg-yellow-600 transition">
-                        S'abonner
-                    </button>
-                </form>
+        </section>
+    @else
+        <section>
+            <div class="container mx-auto pb-16">
+                <div class="text-center">
+                    <h2 class="text-3xl font-semibold text-gray-800">Témoignages de Nos Utilisateurs</h2>
+                    <div class="flex justify-center gap-8 mt-6">
+                        <div class="bg-white p-6 shadow-lg rounded-lg w-80">
+                            <p class="text-gray-600 italic">"Je suis ravi de trouver un dogsitter de confiance en quelques
+                                minutes. Mon chien adore son séjour avec Max !" - Jean, Paris</p>
+                            <div class="mt-4 flex items-center justify-between">
+                                <div class="flex items-center">
+                                    <span class="font-semibold text-yellow-500">⭐⭐⭐⭐⭐</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-white p-6 shadow-lg rounded-lg w-80">
+                            <p class="text-gray-600 italic">"Un site simple et efficace. Je recommande vivement pour tous
+                                les propriétaires de chiens !" - Marie, Lyon</p>
+                            <div class="mt-4 flex items-center justify-between">
+                                <div class="flex items-center">
+                                    <span class="font-semibold text-yellow-500">⭐⭐⭐⭐⭐</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
+        </section>
+    <!-- Section Newsletter -->
 
-    </section>
+        <section>
+            <div class="container mx-auto">
+                <div class="bg-white p-8 rounded-lg shadow-lg text-center mb-12">
+                    <h2 class="text-3xl font-semibold text-gray-800">Recevez des mises à jour et offres exclusives !</h2>
+                    <p class="text-lg text-gray-600 mt-4">Restez connecté avec DogSitting Connect pour recevoir des
+                        nouvelles importantes, des offres et des promotions.</p>
+                    <form action="" method="POST" class="mt-6 flex justify-center gap-4">
+                        @csrf
+                        <input type="email" name="email" class="px-4 py-2 border-gray-300 rounded-lg w-80"
+                            placeholder="Votre email" required>
+                        <button type="submit"
+                            class="bg-yellow-500 text-black px-6 py-3 rounded-lg hover:bg-yellow-600 transition">
+                            S'abonner
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    @endauth
 
 
 </x-app-layout>

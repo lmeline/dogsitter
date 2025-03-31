@@ -18,7 +18,7 @@
                         transform hover:-translate-y-2 transition-all duration-300 ease-in-out"
                     >
                         <div class="mb-4">
-                            <h4 class="text-lg font-semibold text-gray-800 dark:text-gray-200">
+                            <h4 class="text-lg font-semibold text-black dark:text-gray-800">
                                 Prestation avec 
                                 <span class="text-indigo-600 dark:text-indigo-400">
                                     {{ $prestation->dogsitter ? $prestation->dogsitter->name : 'N/A' }}

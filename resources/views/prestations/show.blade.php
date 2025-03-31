@@ -17,7 +17,7 @@
                     <p><strong class="font-semibold text-gray-700">Propriétaire :</strong> {{ $prestation->proprietaire->name }}</p>
                 @endif
                 @if(Auth::user()->role === 'proprietaire')
-                    <p><strong class="font-semibold text-gray-700">Dogsitter :</strong> {{ $prestation->dogsitter->name }}</p>
+                    <p><strong class="font-semibold text-black">Dogsitter :</strong> {{ $prestation->dogsitter->name }}</p>
                 @endif
                 <p><strong class="font-semibold text-gray-700">Chiens :</strong>
                     @foreach($prestation->prestationDogs as $prestationDog)
@@ -41,8 +41,15 @@
                 </form>
             </div>
         </div>
-        <div class="mt-6">
-            <a href="{{ route('myprestations') }}" class="bg-gradient-to-r from-yellow-300 to-pink-300 text-black px-6 py-3 rounded-lg hover:from-yellow-400 hover:to-pink-400 transition">Retour aux Prestations</a>
-        </div>
+       @if (Auth::user()->role === "proprietaire")
+            <div class="mt-6">
+                <a href="{{ route('mesprestations') }}" class="bg-gradient-to-r from-yellow-300 to-pink-300 text-black px-6 py-3 rounded-lg hover:from-yellow-400 hover:to-pink-400 transition">Retour aux Prestations</a>
+            </div>
+       @else
+            <div class="mt-6">
+                <a href="{{ route('dogsitters.calendar') }}" class="bg-gradient-to-r from-yellow-300 to-pink-300 text-black px-6 py-3 rounded-lg hover:from-yellow-400 hover:to-pink-400 transition">Retour aux Prestations</a>
+            </div>
+       @endif
+       
     </div>
 </x-app-layout>
