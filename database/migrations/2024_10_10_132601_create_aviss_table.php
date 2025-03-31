@@ -14,7 +14,9 @@ return new class extends Migration
         Schema::create('aviss', function (Blueprint $table) {
             $table->id();
             $table->text('commentaire');
-            $table->foreignId('prestation_id')->constrained('prestations')->onDelete('cascade');
+            //$table->foreignId('prestation_id')->constrained('prestations')->onDelete('cascade')->null;
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->integer('rating');
             $table->dateTime('created_at')->useCurrent();
             $table->dateTime('updated_at')->useCurrent()->useCurrentOnUpdate();
         });

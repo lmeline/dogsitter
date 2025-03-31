@@ -213,59 +213,91 @@
             <div class="container mx-auto pb-16">
                 <div class="text-center">
                     <h2 class="text-3xl font-semibold text-gray-800">Témoignages de Nos Utilisateurs</h2>
+                    <!-- Affichage des avis -->
                     <div class="flex justify-center gap-8 mt-6">
-                        <div class="bg-white p-6 shadow-lg rounded-lg w-80">
-                            <p class="text-gray-600 italic">"Je suis ravi de trouver un dogsitter de confiance en quelques
-                                minutes. Mon chien adore son séjour avec Max !" - Jean, Paris</p>
-                            <div class="mt-4 flex items-center justify-between">
-                                <div class="flex items-center">
-                                    <span class="font-semibold text-yellow-500">⭐⭐⭐⭐⭐</span>
+                        @foreach($avis as $avis)
+                            <div class="bg-white p-6 shadow-lg rounded-lg w-100">
+                                <p class="text-gray-600 italic">"{{ $avis->commentaire }}"</p>
+                                <div class="mt-4 flex items-center justify-between">
+                                    <div class="flex items-center">
+                                        <div class="flex items-center">
+                                            @for ($i = 1; $i <= 5; $i++)
+                                                <span class="text-5xl {{ $i <= $avis->rating ? 'text-yellow-500' : 'text-gray-300' }}">*</span>
+                                            @endfor
+                                        </div>                                        
+                                    </div>
+                                    <div class="text-sm text-gray-500">{{ $avis->user->name }},{{ $avis->user->ville->nom_de_la_commune }}</div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="bg-white p-6 shadow-lg rounded-lg w-80">
-                            <p class="text-gray-600 italic">"Un site simple et efficace. Je recommande vivement pour tous
-                                les propriétaires de chiens !" - Marie, Lyon</p>
-                            <div class="mt-4 flex items-center justify-between">
-                                <div class="flex items-center">
-                                    <span class="font-semibold text-yellow-500">⭐⭐⭐⭐⭐</span>
-                                </div>
-                            </div>
-                        </div>
+                        @endforeach
                     </div>
                 </div>
             </div>
         </section>
+    
+        <div class="mt-12 text-center">
+            <h3 class="text-2xl font-semibold text-gray-800">Laissez Votre Avis</h3>
+            <p class="text-gray-600 mt-2">Nous apprécions vos retours pour améliorer nos services !</p>
+            <form action="{{ route('avis.store') }}" method="POST" class="mt-6 max-w-3xl mx-auto bg-white p-6 shadow-lg rounded-lg">
+                @csrf
+                <!-- Note -->
+                <div class="mb-4">
+                    <label for="rating" class="block text-gray-700 text-lg font-semibold">Note :</label>
+                    <div class="flex items-center justify-center gap-2 mt-2 text-5xl">
+                        <input type="radio" name="rating" value="1" id="rating1" class="hidden" />
+                        <label for="rating1" class="cursor-pointer text-yellow-500">*</label>
+
+                        <input type="radio" name="rating" value="2" id="rating2" class="hidden" />
+                        <label for="rating2" class="cursor-pointer text-yellow-500">*</label>
+
+                        <input type="radio" name="rating" value="3" id="rating3" class="hidden" />
+                        <label for="rating3" class="cursor-pointer text-yellow-500">*</label>
+
+                        <input type="radio" name="rating" value="4" id="rating4" class="hidden" />
+                        <label for="rating4" class="cursor-pointer text-yellow-500">*</label>
+
+                        <input type="radio" name="rating" value="5" id="rating5" class="hidden" />
+                        <label for="rating5" class="cursor-pointer text-yellow-500">*</label>
+                    </div>
+                </div>
+
+                <!-- Commentaire -->
+                <div class="mb-4 max-height-8">
+                    <label for="commentaire" class="block text-gray-700 text-lg font-semibold">Votre Commentaire :</label>
+                    <textarea id="commentaire" name="commentaire" rows="4" class="w-full max-h-[20rem] min-h-[10rem] p-3 mt-2 border border-gray-300 rounded-lg" placeholder="Écrivez votre avis ici..." required></textarea>
+                </div>
+
+                <!-- Submit Button -->
+                <button type="submit" class="mt-4 px-6 py-2 bg-yellow-500 text-white font-semibold rounded-lg hover:bg-yellow-600">Envoyer mon Avis</button>
+            </form>
+        </div>
     @else
         <section>
             <div class="container mx-auto pb-16">
                 <div class="text-center">
                     <h2 class="text-3xl font-semibold text-gray-800">Témoignages de Nos Utilisateurs</h2>
+                    <!-- Affichage des avis -->
                     <div class="flex justify-center gap-8 mt-6">
-                        <div class="bg-white p-6 shadow-lg rounded-lg w-80">
-                            <p class="text-gray-600 italic">"Je suis ravi de trouver un dogsitter de confiance en quelques
-                                minutes. Mon chien adore son séjour avec Max !" - Jean, Paris</p>
-                            <div class="mt-4 flex items-center justify-between">
-                                <div class="flex items-center">
-                                    <span class="font-semibold text-yellow-500">⭐⭐⭐⭐⭐</span>
+                        @foreach($avis as $avis)
+                            <div class="bg-white p-6 shadow-lg rounded-lg w-100">
+                                <p class="text-gray-600 italic">"{{ $avis->commentaire }}"</p>
+                                <div class="mt-4 flex items-center justify-between">
+                                    <div class="flex items-center">
+                                        <div class="flex items-center">
+                                            @for ($i = 1; $i <= 5; $i++)
+                                                <span class="text-5xl {{ $i <= $avis->rating ? 'text-yellow-500' : 'text-gray-300' }}">*</span>
+                                            @endfor
+                                        </div>                                        
+                                    </div>
                                 </div>
+                                <div class="text-sm text-gray-500">{{ $avis->user->name }}, {{ $avis->user->ville->nom_de_la_commune }}</div>
                             </div>
-                        </div>
-                        <div class="bg-white p-6 shadow-lg rounded-lg w-80">
-                            <p class="text-gray-600 italic">"Un site simple et efficace. Je recommande vivement pour tous
-                                les propriétaires de chiens !" - Marie, Lyon</p>
-                            <div class="mt-4 flex items-center justify-between">
-                                <div class="flex items-center">
-                                    <span class="font-semibold text-yellow-500">⭐⭐⭐⭐⭐</span>
-                                </div>
-                            </div>
-                        </div>
+                        @endforeach
                     </div>
                 </div>
             </div>
         </section>
     <!-- Section Newsletter -->
-
         <section>
             <div class="container mx-auto">
                 <div class="bg-white p-8 rounded-lg shadow-lg text-center mb-12">

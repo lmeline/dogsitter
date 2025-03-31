@@ -9,13 +9,13 @@ use App\Http\Controllers\PrestationTypesController;
 use App\Http\Controllers\ProfilDogsitterController;
 use App\Http\Controllers\ProprietaireController;
 use App\Http\Controllers\MessageController;
+use App\Http\Controllers\AvisController;
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
-
-
 
 Route::get('/trouvezsondogsitter', function () {
     return view('dogsitters.index');
@@ -57,9 +57,11 @@ Route::post('/user-prestation', [PrestationTypesController::class, 'store'])->na
 Route::get('/user-prestation/{id}', [PrestationTypesController::class, 'update'])->name('userPrestations.update');
 Route::get('/user-prestation/{id}/edit', [PrestationTypesController::class, 'edit'])->name('userPrestations.edit');
 
-route::get('/', function () {
-    return view('index');
-})->name('index');
+Route::get('/', [HomeController::class, 'index'])->name('index');
+
+Route::get('/avis/create', [AvisController::class, 'create'])->name('avis.create');
+Route::post('/avis', [AvisController::class, 'store'])->name('avis.store');
+
 
 route::get('/conditions-utilisation', function () {
     return view('footer.cgu');

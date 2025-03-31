@@ -71,6 +71,7 @@
                     </div>
                     <!-- Zone où on affiche la durée -->
                             <div id="dureeDisplay" class=" text-lg font-semibold text-gray-700"></div>
+                            <input type="hidden" name="duree" value="1">
 
                     <button type="submit"
                         class="w-full bg-gradient-to-r from-yellow-300 to-pink-300 text-black px-6 py-3 font-semibold rounded-lg hover:from-yellow-400 hover:to-pink-400 transition ">Ajouter</button>
