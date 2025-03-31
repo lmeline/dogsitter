@@ -208,11 +208,10 @@
     </section>
 
     <!-- Section Avis et temoignages -->
-    @auth
         <section>
             <div class="container mx-auto pb-16">
                 <div class="text-center">
-                    <h2 class="text-3xl font-semibold text-gray-800">Témoignages de Nos Utilisateurs</h2>
+                    <h2 class="text-3xl mb-12 font-semibold text-gray-800">Témoignages de Nos Utilisateurs</h2>
                     <!-- Affichage des avis -->
                     <div class="flex justify-center gap-8 mt-6">
                         @foreach($avis as $avis)
@@ -222,11 +221,13 @@
                                     <div class="flex items-center">
                                         <div class="flex items-center">
                                             @for ($i = 1; $i <= 5; $i++)
-                                                <span class="text-5xl {{ $i <= $avis->rating ? 'text-yellow-500' : 'text-gray-300' }}">*</span>
+                                                <span class="text-3xl {{ $i <= $avis->rating ? 'text-yellow-500' : 'text-gray-300' }}">☆</span>
                                             @endfor
                                         </div>                                        
                                     </div>
-                                    <div class="text-sm text-gray-500">{{ $avis->user->name }},{{ $avis->user->ville->nom_de_la_commune }}</div>
+                                    <div class="text-sm text-gray-500 ml-5">
+                                        {{ $avis->user->name }}, {{ ucwords(strtolower($avis->user->ville->nom_de_la_commune)) }}
+                                    </div>                                    
                                 </div>
                             </div>
                         @endforeach
@@ -234,36 +235,35 @@
                 </div>
             </div>
         </section>
-    
-        <div class="mt-12 text-center">
-            <h3 class="text-2xl font-semibold text-gray-800">Laissez Votre Avis</h3>
+    @auth
+        <div class="container mx-auto pb-16 text-center">
+            <h3 class="text-2xl font-semibold text-gray-800 t">Laissez Votre Avis</h3>
             <p class="text-gray-600 mt-2">Nous apprécions vos retours pour améliorer nos services !</p>
-            <form action="{{ route('avis.store') }}" method="POST" class="mt-6 max-w-3xl mx-auto bg-white p-6 shadow-lg rounded-lg">
+            <form action="{{ route('avis.store') }}" method="POST" class="mt-6 mb-5 max-w-3xl mx-auto bg-white p-6 shadow-lg rounded-lg">
                 @csrf
                 <!-- Note -->
-                <div class="mb-4">
-                    <label for="rating" class="block text-gray-700 text-lg font-semibold">Note :</label>
-                    <div class="flex items-center justify-center gap-2 mt-2 text-5xl">
-                        <input type="radio" name="rating" value="1" id="rating1" class="hidden" />
-                        <label for="rating1" class="cursor-pointer text-yellow-500">*</label>
-
-                        <input type="radio" name="rating" value="2" id="rating2" class="hidden" />
-                        <label for="rating2" class="cursor-pointer text-yellow-500">*</label>
-
-                        <input type="radio" name="rating" value="3" id="rating3" class="hidden" />
-                        <label for="rating3" class="cursor-pointer text-yellow-500">*</label>
-
-                        <input type="radio" name="rating" value="4" id="rating4" class="hidden" />
-                        <label for="rating4" class="cursor-pointer text-yellow-500">*</label>
-
-                        <input type="radio" name="rating" value="5" id="rating5" class="hidden" />
-                        <label for="rating5" class="cursor-pointer text-yellow-500">*</label>
-                    </div>
+                <label for="rating" class="block text-gray-700 text-lg font-semibold">Note :</label>
+                <div class="rating-container flex items-center justify-center gap-2 mt-2 mb-5 text-5xl">
+                    <input type="radio" name="rating" value="1" id="rating1" class="hidden" />
+                    <label for="rating1" class="cursor-pointer text-gray-300">☆</label>
+                
+                    <input type="radio" name="rating" value="2" id="rating2" class="hidden" />
+                    <label for="rating2" class="cursor-pointer text-gray-300">☆</label>
+                
+                    <input type="radio" name="rating" value="3" id="rating3" class="hidden" />
+                    <label for="rating3" class="cursor-pointer text-gray-300">☆</label>
+                
+                    <input type="radio" name="rating" value="4" id="rating4" class="hidden" />
+                    <label for="rating4" class="cursor-pointer text-gray-300">☆</label>
+                
+                    <input type="radio" name="rating" value="5" id="rating5" class="hidden" />
+                    <label for="rating5" class="cursor-pointer text-gray-300">☆</label>
                 </div>
+                
 
                 <!-- Commentaire -->
-                <div class="mb-4 max-height-8">
-                    <label for="commentaire" class="block text-gray-700 text-lg font-semibold">Votre Commentaire :</label>
+                <div class="mb-2 max-height-8">
+                    <label for="commentaire" class="block text-gray-700 text-lg font-semibold mb-5">Votre Commentaire :</label>
                     <textarea id="commentaire" name="commentaire" rows="4" class="w-full max-h-[20rem] min-h-[10rem] p-3 mt-2 border border-gray-300 rounded-lg" placeholder="Écrivez votre avis ici..." required></textarea>
                 </div>
 
@@ -271,52 +271,26 @@
                 <button type="submit" class="mt-4 px-6 py-2 bg-yellow-500 text-white font-semibold rounded-lg hover:bg-yellow-600">Envoyer mon Avis</button>
             </form>
         </div>
-    @else
-        <section>
-            <div class="container mx-auto pb-16">
-                <div class="text-center">
-                    <h2 class="text-3xl font-semibold text-gray-800">Témoignages de Nos Utilisateurs</h2>
-                    <!-- Affichage des avis -->
-                    <div class="flex justify-center gap-8 mt-6">
-                        @foreach($avis as $avis)
-                            <div class="bg-white p-6 shadow-lg rounded-lg w-100">
-                                <p class="text-gray-600 italic">"{{ $avis->commentaire }}"</p>
-                                <div class="mt-4 flex items-center justify-between">
-                                    <div class="flex items-center">
-                                        <div class="flex items-center">
-                                            @for ($i = 1; $i <= 5; $i++)
-                                                <span class="text-5xl {{ $i <= $avis->rating ? 'text-yellow-500' : 'text-gray-300' }}">*</span>
-                                            @endfor
-                                        </div>                                        
-                                    </div>
-                                </div>
-                                <div class="text-sm text-gray-500">{{ $avis->user->name }}, {{ $avis->user->ville->nom_de_la_commune }}</div>
-                            </div>
-                        @endforeach
-                    </div>
-                </div>
-            </div>
-        </section>
-    <!-- Section Newsletter -->
-        <section>
-            <div class="container mx-auto">
-                <div class="bg-white p-8 rounded-lg shadow-lg text-center mb-12">
-                    <h2 class="text-3xl font-semibold text-gray-800">Recevez des mises à jour et offres exclusives !</h2>
-                    <p class="text-lg text-gray-600 mt-4">Restez connecté avec DogSitting Connect pour recevoir des
-                        nouvelles importantes, des offres et des promotions.</p>
-                    <form action="" method="POST" class="mt-6 flex justify-center gap-4">
-                        @csrf
-                        <input type="email" name="email" class="px-4 py-2 border-gray-300 rounded-lg w-80"
-                            placeholder="Votre email" required>
-                        <button type="submit"
-                            class="bg-yellow-500 text-black px-6 py-3 rounded-lg hover:bg-yellow-600 transition">
-                            S'abonner
-                        </button>
-                    </form>
-                </div>
-            </div>
-        </section>
     @endauth
+    <script>
+        document.querySelectorAll('.rating-container input[name="rating"]').forEach(input => {
+        input.addEventListener('change', function() {
+            let rating = parseInt(this.value); 
+            let stars = this.closest('.rating-container').querySelectorAll('label'); 
+            
+            stars.forEach((label, index) => {
+                if (index < rating) {
+                    label.textContent = '★'; // Étoile pleine
+                    label.classList.add('text-yellow-500');
+                } else {
+                    label.textContent = '☆'; // Étoile vide
+                    label.classList.remove('text-yellow-500');
+                }
+            });
+        });
+    });
 
+
+    </script>
 
 </x-app-layout>
