@@ -75,13 +75,10 @@ class PrestationController extends Controller
       'dogsitter_id' => ['required', 'exists:users,id'],
     ]);
 
-    $output->writeln("requête valide");
-
     $proprietaire = Auth::user();
     if (!$proprietaire->dogs->contains($request->input('dog_id'))) {
       return redirect()->back()->withErrors(['dog' => 'Le chien sélectionné ne vous appartient pas.']);
     }
-    $output->writeln("chien valide");
 
     try {
       $prestation = Prestation::create([
@@ -93,18 +90,15 @@ class PrestationController extends Controller
         'proprietaire_id' => Auth::id(),
       ]);
       $prestation->save();
-<<<<<<< HEAD
-      $output->writeln("prestation enregistrée");
-=======
 
-      PrestationDog::create([
-        'prestation_id' => $prestation->id,
-        'dog_id' => $request->input('dog'),
-        'prix' => UserPrestationType::where('dogsitter_id', $request->input('dogsitter_id'))->where('prestation_type_id', $request->input('prestation_type_id'))->first()->prix
-      ]);
+      // PrestationDog::create([
+      //   'prestation_id' => $prestation->id,
+      //   'dog_id' => $request->input('dog'),
+      //   'prix' => UserPrestationType::where('dogsitter_id', $request->input('dogsitter_id'))->where('prestation_type_id', $request->input('prestation_type_id'))->first()->prix
+      // ]);
 
-      return redirect()->route('proprietaires.mesprestations')->with('success', 'Prestation créée avec succès');
->>>>>>> ca8bc9671b24d0dd331985eb95202366c2160436
+      // return redirect()->route('proprietaires.mesprestations')->with('success', 'Prestation créée avec succès');
+
     } catch (Exception $e) {
       $output->writeln("Erreur lors de l'enregistrement de la prestation : " . $e->getMessage());
       return redirect()->back()->withErrors(['prestation' => 'Erreur lors de l\'enregistrement de la prestation.']);
@@ -144,13 +138,8 @@ class PrestationController extends Controller
       $prestations = collect();
     }
 
-<<<<<<< HEAD
     return view('myprestations', compact('prestations'));
   }
-=======
-    return view('proprietaires.mesprestations', compact('prestations'));
-}
->>>>>>> ca8bc9671b24d0dd331985eb95202366c2160436
 
   public function show($id)
   {
