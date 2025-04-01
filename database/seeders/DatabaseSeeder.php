@@ -24,7 +24,7 @@ class DatabaseSeeder extends Seeder
       DogSeeder::class,
         //PrestationSeeder::class,
         //AvisSeeder::class,
-      UserPrestationTypeSeeder::class
+      UserPrestationTypeSeeder::class,
     ]);
   }
 }

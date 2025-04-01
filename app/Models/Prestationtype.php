@@ -10,12 +10,18 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class PrestationType extends Model
 {
     protected $table = 'prestations_types'; // Spécifie la table pivot explicitement
-    
+
     protected $fillable = ['nom'];
     use HasFactory;
-    
-    public function users():BelongsToMany {
-        return $this->belongsToMany(User::class, 'users_prestations_types')->withPivot('prix');
+
+
+    /**
+     * Relation Many-to-Many avec les dogsitters via la table pivot users_prestations_types.
+     */
+    public function users(): BelongsToMany
+    {
+        return $this->belongsToMany(User::class, 'users_prestations_types', 'prestation_type_id', 'dogsitter_id')
+            ->withPivot('prix', 'duree');
     }
 
     public function prestations(): HasMany

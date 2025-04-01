@@ -40,3 +40,14 @@ a:hover svg path {
 .fc-timeGridWeek-view {
     background-color: white;
 }
+
+#prestationModal {
+    z-index: 1000;
+}
+
+.custom-select {
+    /* Limite la hauteur du menu déroulant */
+    max-height: 120px; /* Tu peux ajuster cette valeur */
+    overflow-y: auto;  /* Active le défilement pour les options excédentaires */
+    width: 200px;      /* Largeur du select */
+}

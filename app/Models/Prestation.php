@@ -24,21 +24,25 @@ class Prestation extends Model
         'prestation_type_id',
         'dogsitter_id',
         'proprietaire_id',
+        'dog_id',
         'prix_total',
         'disponibilite_id',
     ];
 
     public function proprietaire(): BelongsTo
     {
-        return $this->belongsTo(User::class,'proprietaire_id');
+        return $this->belongsTo(User::class, 'proprietaire_id');
     }
 
     public function dogsitter(): BelongsTo
     {
-        return $this->belongsTo(User::class,'dogsitter_id');
+        return $this->belongsTo(User::class, 'dogsitter_id');
     }
-
-    public function avis():HasOne
+    public function dog(): BelongsTo
+    {
+        return $this->belongsTo(Dog::class, 'dog_id');
+    }
+    public function avis(): HasOne
     {
         return $this->hasOne(Avis::class);
     }
@@ -52,7 +56,7 @@ class Prestation extends Model
     {
         return $this->hasMany(PrestationDog::class, 'prestation_id');
     }
-    public function disponibilite():BelongsTo
+    public function disponibilite(): BelongsTo
     {
         return $this->belongsTo(Disponibilite::class);
     }

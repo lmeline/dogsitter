@@ -15,7 +15,7 @@ use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable, Messagable,HasApiTokens;
+    use HasFactory, Notifiable, Messagable, HasApiTokens;
 
     /**
      * The attributes that are mass assignable.
@@ -62,19 +62,27 @@ class User extends Authenticatable
     }
     public function dogs(): HasMany
     {
-        return $this->hasMany(Dog::class,'proprietaire_id');
+        return $this->hasMany(Dog::class, 'proprietaire_id');
     }
     public function prestationsAsproprietaire(): HasMany
     {
-        return $this->hasMany(Prestation::class,'proprietaire_id');
+        return $this->hasMany(Prestation::class, 'proprietaire_id');
     }
 
     public function prestationsAsdogsitter(): HasMany
     {
-        return $this->hasMany(Prestation::class,'dogsitter_id');
+        return $this->hasMany(Prestation::class, 'dogsitter_id');
     }
 
-    
+    /**
+     * Relation Many-to-Many avec les prestations via la table pivot users_prestations_types.
+     */
+    public function prestationtypes(): BelongsToMany
+    {
+        return $this->belongsToMany(PrestationType::class, 'users_prestations_types', 'dogsitter_id', 'prestation_type_id')
+            ->withPivot('prix', 'duree');
+    }
+
     public function avis(): HasMany
     {
         return $this->hasMany(Avis::class, 'users_aviss');
@@ -82,12 +90,7 @@ class User extends Authenticatable
 
     public function abonnement(): BelongsTo
     {
-        return $this->belongsTo(Abonnement::class,'abonnement_type_id');
-    }
-
-    public function prestationtypes(): BelongsToMany
-    {
-        return $this->belongsToMany(Prestationtype::class, 'users_prestations_types','dogsitter_id','prestation_type_id')->withPivot('prix','duree');
+        return $this->belongsTo(Abonnement::class, 'abonnement_type_id');
     }
 
     public function threads()
@@ -117,6 +120,6 @@ class User extends Authenticatable
 
     public function disponibilites(): HasMany
     {
-        return $this->hasMany(Disponibilite::class,'dogsitter_id');
+        return $this->hasMany(Disponibilite::class, 'dogsitter_id');
     }
 }

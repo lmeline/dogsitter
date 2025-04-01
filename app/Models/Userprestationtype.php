@@ -3,9 +3,10 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Relations\Pivot;
-
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 class UserPrestationType extends Pivot
 {
+    use hasFactory;
     protected $table = 'users_prestations_types';
 
     protected $fillable = [
@@ -13,10 +14,9 @@ class UserPrestationType extends Pivot
         'prestation_type_id',
         'prix',
         'duree',
-
     ];
 
-    public $timestamps = false; 
+    public $timestamps = false;
 
     public function user()
     {
@@ -25,6 +25,6 @@ class UserPrestationType extends Pivot
 
     public function prestationType()
     {
-        return $this->belongsTo(PrestationType::class,'prestation_type_id');
+        return $this->belongsTo(PrestationType::class, 'prestation_type_id');
     }
 }
