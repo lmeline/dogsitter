@@ -29,6 +29,7 @@ class PrestationTypesController extends Controller
 
     public function store(Request $request)
     {
+          //dd($request->all());
         try {
             // Validation des données du formulaire
             $request->validate([

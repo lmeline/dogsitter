@@ -7,12 +7,8 @@
         </div>
 
         <!-- FullCalendar container -->
-        <div id="calendar" class="w-[80%] mx-auto h-[calc(100vh-14rem)] bg-opacity-40 backdrop-blur-md bg-white p-6 rounded-lg"></div>
+        <div id="calendar" class="w-[80%] mx-auto h-[calc(100vh-8rem)] bg-opacity-40 backdrop-blur-md bg-white p-6 rounded-lg"></div>
 
-        <!-- Retourner aux Prestations -->
-        <div class="mt-6">
-            <a href="{{ route('myprestations') }}" class="bg-gradient-to-r from-yellow-300 to-pink-300 text-black px-6 py-3 rounded-lg hover:from-yellow-400 hover:to-pink-400 transition">Retour aux Prestations</a>
-        </div>
     </div>
 
     <!-- FullCalendar JS -->
@@ -20,11 +16,30 @@
         document.addEventListener('DOMContentLoaded', function() {
             var calendarEl = document.getElementById('calendar');
             var calendar = new FullCalendar.Calendar(calendarEl, {
-                initialView: 'dayGridMonth', // Afficher en vue mensuelle
+                plugins: [
+                    FullCalendar.plugins.dayGrid,
+                    FullCalendar.plugins.timeGrid,
+                    FullCalendar.plugins.interaction
+                ], // Activation des plugins
+                initialView: 'timeGridWeek', // Vue par défaut (Semaine)
+                headerToolbar: {
+                    start: 'today prev,next', // will normally be on the left. if RTL, will be on the right
+                    center: '',
+                    end: 'title', // will normally be on the right. if RTL, will be on the left
+                },
+                firstDay: 1, // Premier jour de la semaine (Lundi)
+                allDaySlot: false, // Désactive la ligne "All-day"
+                slotMinTime: "08:00:00", // Début de la journée
+                slotMaxTime: "20:00:00", // Fin de la journée
+                slotDuration: "00:30:00", // Durée des créneaux
+                locale: 'fr', // Langue
+                timeZone: 'local', // Fuseau horaire
+                height: 'auto', // Hauteur automatique  
+           
                 events: [
                     @foreach($prestations as $prestation)
                         {
-                            title: '{{ $prestation->prestationType->nom }}',
+                            title: '{{ $prestation->prestationType->nom }} - {{$prestation->proprietaire->name}}',
                             start: '{{ $prestation->formatted_date_debut }}', // Assurez-vous que le format de la date est valide pour FullCalendar
                             end: '{{ $prestation->formatted_date_fin }}', // Idem pour la date de fin
                             description: 'Prix: {{ $prestation->prix }} €',

@@ -4,7 +4,7 @@
         <div class="text-black py-10 w-full flex items-center bg-gradient-to-r from-red-200 to-orange-200 rounded-lg shadow-lg">
         
             <div class="flex-shrink-0 mr-8">
-                <img src="{{ asset('storage/' . Auth::user()->photo) }}" alt="{{ Auth::user()->name }}" class="w-40 h-40 rounded-full border-4 border-white shadow-lg">
+                <img src="{{Auth::user()->photo}}" alt="{{ Auth::user()->name }}" class="w-40 h-40 rounded-full border-4 border-white shadow-lg ml-10">
             </div>
             
             <div class="flex flex-col justify-end">
@@ -30,6 +30,12 @@
                                     <span><strong>Nom :</strong> {{ $dog->nom }}</span><br>
                                     <span><strong>Race :</strong> {{ $dog->race }}</span><br>
                                     <span><strong>Âge :</strong> {{ $dog->age }} ans</span><br>
+                                    <span><strong>Sexe :</strong>  
+                                        @if ($dog->sexe == "F")
+                                        Femelle
+                                    @else
+                                        Male
+                                    @endif</span><br>
                                     <span><strong>Caractère :</strong> {{ $dog->comportement }}</span><br>
                                     <span><strong>Besoins spéciaux :</strong> {{ $dog->besoins_speciaux }}</span><br>
                                     <span><strong>Stérilisation :</strong>  
@@ -52,11 +58,17 @@
                     <p class="mb-2"><strong>Nombre de notes :</strong> {{ Auth::user()->nb_notes }}</p>
                     <p class="mb-2"><strong>Note /5 :</strong> {{ Auth::user()->note_moyenne }}</p>
                     @foreach(Auth::user()->prestationtypes as $prestationtype)
-                        <p class="mb-2">
-                            <strong>Tarif de {{ $prestationtype->nom }} :</strong>
-                            {{ $prestationtype->pivot->prix }} € /
-                            {{ $prestationtype->pivot->duree }}h
-                        </p>
+                        @if($prestationtype->id === 1)
+                            <p class="mb-2">
+                                <strong>Tarif de {{ $prestationtype->nom }} :</strong>
+                                {{ $prestationtype->pivot->prix }} € / jour
+                            </p>
+                        @else
+                            <p class="mb-2">
+                                <strong>Tarif de {{ $prestationtype->nom }} :</strong>
+                                {{ $prestationtype->pivot->prix }} € / heure
+                            </p>
+                        @endif
                     @endforeach
                 
                     @if(Auth::user()->prestationtypes->isEmpty())
@@ -129,7 +141,7 @@
                             <p class="text-gray-700 mb-4">Vous ne pouvez pas prendre rendez-vous avec vous-meme</p>
                         @endif
 
-                    <h3 class="text-xl font-semibold mb-2 text-gray-800 pt-2">Avis clients</h3>
+                    {{-- <h3 class="text-xl font-semibold mb-2 text-gray-800 pt-2">Avis clients</h3>
                         @foreach (Auth::user()->prestationsAsdogsitter as $prestation)
                             @if($prestation->avis)
                                 <div class="border-t border-gray-300 pt-4 mt-4">
@@ -137,7 +149,7 @@
                                     <p class="text-gray-700 mb-4">{{ $prestation->avis->commentaire }}</p>
                                 </div>
                             @endif
-                        @endforeach
+                        @endforeach --}}
                 @endif
             </div>
         </div>

@@ -94,8 +94,8 @@
                 locale: 'fr', // Langue
                 //timeZone: 'Europe/Paris', // Fuseau horaire
                 height: 'auto', // Hauteur automatique  
-                eventOverlap: false, // Empêche le chevauchement des événements
-                selectOverlap: false, // Empêche le chevauchement des événements
+                eventOverlap: true, // Empêche le chevauchement des événements
+                selectOverlap: true, // Empêche le chevauchement des événements
                 selectable: true, // Permet la sélection des dates
                 editable: true,   // Permet l'édition des événements
                 droppable: true,  // Permet le drag-and-drop des événements
