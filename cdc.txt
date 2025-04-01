@@ -1,0 +1,25 @@
+Revoir Code postal Ville dans inscription car manque d'ergonomie
+Les mots de passe trop simples sont acceptés quand même (ex : 123456789)
+	Ajouter
+        Password::defaults(function () {
+            return Password::min(8)->mixedCase()->numbers()->symbols();
+        });
+	dans la méthode Boot de AppServiceProvider
+Il faut traduire le menu déroulant d'authentification et renommer Parameters en "Compte"
+Il faut traduire la page "Compte"
+Le codepostal/Ville ne fonctionne pas dans la page "Compte"
+Ca serait bien qu'on puisse mettre une photo du toutou
+Dans la page Profile, il manque la photo du propriétaire
+Dans la page message, la recherche de correspondants devrait se faire avec une liste déroulante de tous mes correspondants
+
+Connecté en dogsitter :
+On ne peut pas vraiment gérer les disponibilités. Il faudrait arriver sur une liste des jours avec les heures disponibles pour chaque jour
+Idem pour les tarifs. Il faudrait une liste de tarif avec possibilité d'ajouter, supprimer ou modifier chaque tarif
+Envisager de splitter le menu "Poster mon annonce" en "Mes disponibilités" et "Mes tarifs"
+
+Connecté en propriétaire :
+Lors de l'ajout d'une prestation, vérifier
+	- La disponibilité du dogsitter
+	- Le calendrier pour éviter les chevauchements
+
+
