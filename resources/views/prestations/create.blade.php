@@ -1,7 +1,18 @@
 <x-app-layout>
-    <div class="container mx-auto" style="border: 1px solid red;">
-        <h1 class="text-2xl font-bold mb-4">Créer une nouvelle prestation</h1>
-        <div id="calendar"></div>
+    <div class="container mx-auto">
+        <div class="flex justify-between items-center w-[80%] mx-auto m-5">
+            <div class="flex-grow text-center">
+                <h1 class="font-bold text-3xl">Mes prestations</h1>
+            </div>
+        </div>
+
+
+        <!-- <div id="calendar"></div> -->
+        <!-- FullCalendar container -->
+        <div id="calendar"
+            class="w-100 mx-auto h-[calc(100vh-8rem)] bg-opacity-40 backdrop-blur-md bg-white p-6 rounded-lg"></div>
+
+
     </div>
 
     <!-- Popup Modal -->

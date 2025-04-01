@@ -1,19 +1,21 @@
 <x-app-layout>
-    <div class="w-full h-full">
+    <div class="container mx-auto">
+        <!-- <div class="w-full h-full"> -->
         <div class="flex justify-between items-center w-[80%] mx-auto m-5">
             <div class="flex-grow text-center">
-                <h1 class="font-bold text-3xl">Calendrier</h1>
+                <h1 class="font-bold text-3xl">Mes rendez-vous</h1>
             </div>
         </div>
 
         <!-- FullCalendar container -->
-        <div id="calendar" class="w-[80%] mx-auto h-[calc(100vh-8rem)] bg-opacity-40 backdrop-blur-md bg-white p-6 rounded-lg"></div>
+        <div id="calendar"
+            class="w-100 mx-auto h-[calc(100vh-8rem)] bg-opacity-40 backdrop-blur-md bg-white p-6 rounded-lg"></div>
 
     </div>
 
     <!-- FullCalendar JS -->
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             var calendarEl = document.getElementById('calendar');
             var calendar = new FullCalendar.Calendar(calendarEl, {
                 plugins: [
@@ -35,10 +37,10 @@
                 locale: 'fr', // Langue
                 timeZone: 'local', // Fuseau horaire
                 height: 'auto', // Hauteur automatique  
-           
+
                 events: [
                     @foreach($prestations as $prestation)
-                        {
+                            {
                             title: '{{ $prestation->prestationType->nom }} - {{$prestation->proprietaire->name}}',
                             start: '{{ $prestation->formatted_date_debut }}', // Assurez-vous que le format de la date est valide pour FullCalendar
                             end: '{{ $prestation->formatted_date_fin }}', // Idem pour la date de fin
@@ -50,7 +52,7 @@
                         },
                     @endforeach
                 ],
-                dateClick: function(info) {
+                dateClick: function (info) {
                     alert('Vous avez cliqué sur la date : ' + info.dateStr);
                 }
             });

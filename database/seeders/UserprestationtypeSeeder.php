@@ -21,7 +21,6 @@ class UserPrestationTypeSeeder extends Seeder
 
     public function run()
     {
-<<<<<<< HEAD
         // Récupérer tous les users qui sont des dogsitters
         $dogsitters = User::where('role', 'dogsitter')->get();
 
@@ -40,15 +39,6 @@ class UserPrestationTypeSeeder extends Seeder
                     'updated_at' => now(),
                 ]);
             }
-=======
-        foreach (User::where('role', 'dogsitter')->get() as $dogsitter) {
-            DB::table('users_prestations_types')->insert([
-                "dogsitter_id" => $dogsitter->id,
-                "prestation_type_id" => rand(1, 2),
-                "prix" => rand(10, 20),
-                "duree" => rand(1,1),
-            ]);
->>>>>>> ca8bc9671b24d0dd331985eb95202366c2160436
         }
     }
 }
