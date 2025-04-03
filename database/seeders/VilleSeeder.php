@@ -15,7 +15,7 @@ class VilleSeeder extends Seeder
     {
         $csv = Reader::createFromPath(public_path('communes.csv'), 'r');
         $csv->setDelimiter(';');
-        $csv->setHeaderOffset(0); // Utiliser la première ligne comme en-tête
+        $csv->setHeaderOffset(0);
         $records = $csv->getRecords();
 
 

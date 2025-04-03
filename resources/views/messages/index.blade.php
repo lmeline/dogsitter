@@ -11,19 +11,28 @@
         @endif
 
         <div id="searchModal" class="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50 hidden">
-            <div class="bg-white p-6 rounded-lg shadow-lg w-96">
-                <h2 class="text-xl font-semibold mb-4">Rechercher un propriétaire</h2>
-
-                <input type="text" id="searchInput" placeholder="Nom du propriétaire..."
-                    class="w-full border border-gray-300 rounded-lg p-2 mb-4">
-
-                <div id="searchResults" class="mt-4"></div>
-
-                <button onclick="toggleModal()" class="mt-4 w-full bg-red-500 text-white py-2 rounded-lg">
-                    Fermer
-                </button>
+            <div class="bg-white rounded-lg shadow-lg w-full max-w-lg h-96 flex flex-col">
+                
+                <!-- Conteneur du haut (fixe) -->
+                <div class="p-4 flex justify-between items-center">
+                    <h2 class="text-xl font-semibold">Rechercher un propriétaire</h2>
+                    <button onclick="toggleModal()" class="text-gray-600 hover:text-gray-900 text-2xl">✖</button>
+                </div>
+        
+                <!-- Barre de recherche (fixe) -->
+                <div class="p-4">
+                    <input type="text" id="searchInput" placeholder="Nom du propriétaire..."
+                        class="w-full border border-gray-300 rounded-lg shadow-md">
+                </div>
+        
+                <!-- Conteneur des résultats (défilable) -->
+                <div id="searchResults" class="flex-1 overflow-y-auto p-4">
+                    <!-- Les propriétaires apparaîtront ici -->
+                </div>
+        
             </div>
         </div>
+                
         <form method="GET" action="{{ route('messages.index') }}" class="mb-6">
             <div class="flex items-center w-full space-x-2">
                 <input type="text" name="search" value="{{ request('search') }}"
@@ -133,6 +142,7 @@
                 clearTimeout(timeout);
                 timeout = setTimeout(fetchProprietaires, 500);
             });
+            fetchProprietaires();
         });
     </script>
 </x-app-layout>

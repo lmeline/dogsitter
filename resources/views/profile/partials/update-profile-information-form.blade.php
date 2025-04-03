@@ -49,7 +49,7 @@
         <!-- Grille pour les champs "Code postal" et "Ville" -->
         <div class="grid grid-cols-2 gap-4">
             <div>
-                <x-input-label for="code_postal" :value="__('Postal code')" />
+                <x-input-label for="code_postal" :value="__('Postcode')" />
                 <x-text-input id="code_postal" class="block mt-1 w-full h-10" type="text" name="code_postal" :value="old('code_postal', $user->code_postal)" required autocomplete="code_postal" />
                 <x-input-error :messages="$errors->get('code_postal')" class="mt-2" />
             </div>

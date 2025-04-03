@@ -16,7 +16,7 @@
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link :href="route('index')" :active="request()->routeIs('index')">
-                        {{ __('Accueil') }}
+                        {{ __('Home') }}
                     </x-nav-link>
                 </div>
 
@@ -27,12 +27,12 @@
                     @if(Auth::user()->role === 'proprietaire')
                         <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                             <x-nav-link :href="route('dogsitters.index')" :active="request()->routeIs('dogsitters.index')">
-                                {{ __('Trouvez son dogsitter') }}
+                                {{ __('Find a dogsitter') }}
                             </x-nav-link>
                         </div>
                         <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                             <x-nav-link :href="route('proprietaires.mesprestations')" :active="request()->routeIs('proprietaires.mesprestations')">
-                                {{ __('Mes prestations') }}
+                                {{ __('My prestations') }}
                             </x-nav-link>
                         </div>
 
@@ -41,7 +41,7 @@
                         <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                             <x-nav-link :href="route('dogsitters.calendar')"
                                 :active="request()->routeIs('dogsitters.calendar')">
-                                {{ __('Mes rendez-vous') }}
+                                {{ __('My appointments') }}
                             </x-nav-link>
                         </div>
                     @endif
@@ -63,7 +63,7 @@
                 @if (Auth::check() && Auth::user()->role === 'dogsitter')
                     <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                         <x-nav-link :href="route('dogsitters.annonce')" :active="request()->routeIs('dogsitters.annonce')">
-                            {{ __('Poster mon annonce') }}
+                            {{ __('Post your ad') }}
                         </x-nav-link>
                     </div>
                 @endif
@@ -99,7 +99,7 @@
                                 </x-dropdown-link>
                             @endif
                             <x-dropdown-link :href="route('profile.edit')" :active="request()->routeIs('profile.edit')">
-                                {{ __('Parameters') }}
+                                {{ __('Account') }}
                             </x-dropdown-link>
                             @if(Auth::user()->role === 'dogsitter')
                                 <x-dropdown-link :href="route('abonnements.update')"
@@ -108,7 +108,7 @@
                                 </x-dropdown-link>
                                 <x-dropdown-link :href="route('dogsitters.annonce')"
                                     :active="request()->routeIs('dogsitters.annonce')">
-                                    {{ __('Poster mon annonce ') }}
+                                    {{ __('Post your ad') }}
                                 </x-dropdown-link>
 
                             @endif
@@ -150,12 +150,12 @@
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
             <x-responsive-nav-link :href="route('index')" :active="request()->routeIs('index')">
-                {{ __('Accueil') }}
+                {{ __('Home') }}
             </x-responsive-nav-link>
         </div>
         <div class="pt-2 pb-3 space-y-1">
             <x-responsive-nav-link :href="route('proprietaires.mesprestations')" :active="request()->routeIs('proprietaires.mesprestations')">
-                {{ __('Mes prestations') }}
+                {{ __('My prestations') }}
             </x-responsive-nav-link>
         </div>
 
@@ -168,19 +168,19 @@
         @if (Auth::check() && Auth::user()->role === 'proprietaire')               
             <div class="pt-2 pb-3 space-y-1">
                 <x-responsive-nav-link :href="route('dogsitters.index')" :active="request()->routeIs('dogsitters.index')">
-                    {{ __('Trouvez son dogsitter') }}
+                    {{ __('Find a dogsitter') }}
                 </x-responsive-nav-link>
             </div>
         @else
             <div class="pt-2 pb-3 space-y-1">
                 <x-responsive-nav-link :href="route('dogsitters.calendar')" :active="request()->routeIs('dogsitters.calendar')">
-                    {{ __('Mes rendez-vous') }}
+                    {{ __('My appointments') }}
                 </x-responsive-nav-link>
             </div>
 
             <div class="pt-2 pb-3 space-y-1">
                 <x-responsive-nav-link :href="route('dogsitters.annonce')" :active="request()->routeIs('dogsitters.annonce')">
-                    {{ __('Poster mon annonce') }}
+                    {{ __('Post your ad') }}
                 </x-responsive-nav-link>
             </div>
         @endif
