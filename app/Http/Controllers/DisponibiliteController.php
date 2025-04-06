@@ -4,11 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Disponibilite;
+use App\Models\PrestationType;
 use App\Models\User;
-use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 
-use function Laravel\Prompts\warning;
 
 class DisponibiliteController extends Controller
 {
@@ -83,12 +82,19 @@ class DisponibiliteController extends Controller
         
         if ($disponibilite) {
             $disponibilite->delete();
-            return response()->json(['success' => true, 'message' => 'Disponibilité supprimée']);
+    
+            $disponibilites = Disponibilite::where('dogsitter_id', Auth::id())->get();
+            
+            return view('dogsitters.annonce', [
+                'disponibilites' => $disponibilites,
+                'prestationtypes' => PrestationType::all(),
+                'success' => 'Disponibilité supprimée avec succès.'
+            ]);
         }
         
-        return response()->json(['success' => false, 'message' => 'Disponibilité introuvable']);
+        return response()->json(['success' => false, 'message' => 'Disponibilité introuvable'], 404);
     }
-
+    
     public function edit($id)
     {
         
@@ -101,7 +107,7 @@ class DisponibiliteController extends Controller
         }
 
         // Retourner la vue avec la disponibilité à modifier
-        return view('dogsitters.editDisponibilite', compact('disponibilite'));
+        return view('dogsitters.annonce', compact('disponibilite'));
     }
 
     public function update(Request $request, $id)

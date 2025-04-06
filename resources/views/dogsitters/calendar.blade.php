@@ -9,7 +9,7 @@
 
         <!-- FullCalendar container -->
         <div id="calendar"
-            class="w-100 mx-auto h-[calc(100vh-8rem)] bg-opacity-40 backdrop-blur-md bg-white p-6 rounded-lg"></div>
+            class="w-100 mx-auto h-[calc(100vh-5rem)] bg-opacity-40 backdrop-blur-md bg-white p-6 rounded-lg"></div>
 
     </div>
 

@@ -56,6 +56,7 @@ route::get('/proprietaires/mesprestations', [PrestationController::class, 'showP
 Route::post('/user-prestation', [PrestationTypesController::class, 'store'])->name('userPrestations.store');
 Route::get('/user-prestation/{id}', [PrestationTypesController::class, 'update'])->name('userPrestations.update');
 Route::get('/user-prestation/{id}/edit', [PrestationTypesController::class, 'edit'])->name('userPrestations.edit');
+Route::get('user-prestation/{id}/delete', [PrestationTypesController::class, 'destroy'])->name('userPrestations.destroy');
 
 Route::get('/', [HomeController::class, 'index'])->name('index');
 

@@ -79,7 +79,7 @@ class ProfilDogsitterController extends Controller
     public function annonce(Request $request)
     {
         try{
-            $disponibilites = Disponibilite::all();
+            $disponibilites = Disponibilite::where('dogsitter_id', Auth::id())->get();
             $prestationtypes= PrestationType::all();
             return view('dogsitters.annonce', compact('prestationtypes', 'disponibilites',));	
         }catch(\Exception $e){
