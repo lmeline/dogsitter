@@ -30,7 +30,6 @@ class UserSeeder extends Seeder
             'photo' => 'https://i.pravatar.cc/300?img=' . rand(1, 70),
             'note_moyenne' => 5,
             'nb_notes' => 5,
-            'abonnement_type_id' => 1,
             'email_verified_at' => now(),
             'password' => Hash::make('admin')
         ]);
@@ -49,7 +48,6 @@ class UserSeeder extends Seeder
             'photo' => 'https://i.pravatar.cc/300?img=' . rand(1, 70),
             'note_moyenne' => 5,
             'nb_notes' => 5,
-            'abonnement_type_id' => 1,
             'email_verified_at' => now(),
             'password' => Hash::make('propriétaire')
         ]);

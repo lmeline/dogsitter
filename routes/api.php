@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\DogController;
 use App\Http\Controllers\Api\ProfilDogsitterController;
 use App\Http\Controllers\Api\RaceController;
+use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\VilleController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -17,7 +18,7 @@ Route::post('/login', [AuthController::class, 'login']);
 
 //Route::resouce('/dogs',DogController::class,);
 Route::get('/dogs', [DogController::class, 'index']);
-
+Route::get('/users', [UserController::class, 'index']);
 Route::get('/dogsitters', [ProfilDogsitterController::class, 'index']);
 Route::middleware('auth:sanctum')->delete('dogsitters/{id}', [ProfilDogsitterController::class, 'destroy']);
 Route::post('/dogsitters', [ProfilDogsitterController::class, 'store']);

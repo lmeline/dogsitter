@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('disponibilites', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('dogsitter_id')->constrained('users')->onDelete('restrict');
+            $table->foreignId('dogsitter_id')->constrained('users')->onDelete('cascade');
             $table->string('jour_semaine');
             $table->time('heure_debut');
             $table->time('heure_fin');

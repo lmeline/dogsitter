@@ -33,7 +33,7 @@ class PrestationTypesController extends Controller
         try {
             $request->validate([
                 'prestation_type_id' => 'required|exists:prestations_types,id',
-                'prix' => 'required|numeric|min:0',
+                'prix' => 'required|numeric|min:1',
                 'dogsitter_id' => 'required|exists:users,id',
                 'duree' => 'required|numeric|min:1',
             ]);
@@ -51,7 +51,7 @@ class PrestationTypesController extends Controller
                 'dogsitter_id' => $request->dogsitter_id,
                 'prestation_type_id' => $request->prestation_type_id,
                 'prix' => $request->prix,
-                'duree' => $request->duree
+                'duree' => 1,
             ]);
 
             session()->flash('success', 'Tarif ajouté avec succès.');
@@ -77,7 +77,7 @@ class PrestationTypesController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'prix' => 'required|numeric|min:0',
+            'prix' => 'required|numeric|min:1',
             'duree' => 'required|numeric|min:1',
         ]);
 
@@ -91,7 +91,7 @@ class PrestationTypesController extends Controller
 
         $tarif->update([
             'prix' => $request->prix,
-            'duree' => $request->duree,
+            'duree' => 1,
         ]);
 
         return redirect()->route('dogsitters.annonce')->with('success', 'Tarif mis à jour.');

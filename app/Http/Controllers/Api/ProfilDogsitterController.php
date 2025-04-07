@@ -13,8 +13,13 @@ class ProfilDogsitterController extends Controller
      */
     public function index()
     {
-        return response()->json(User::where('role', 'dogsitter')->get());
+        //return response()->json(User::where('role', 'dogsitter')->get());
+        return response()->json(
+            User::whereIn('role', ['dogsitter', 'proprietaire'])->get()
+        );
+        
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -54,14 +59,14 @@ class ProfilDogsitterController extends Controller
     public function update(Request $request, string $id)
     {
         $dogsitter = User::find($id);
-        $dogsitter -> name = $request->name;
-        $dogsitter -> prenom = $request->prenom;
-        $dogsitter -> email = $request->email;
-        $dogsitter ->date_naissance = $request->date_naissance;
-        $dogsitter -> code_postal = $request->code_postal;
-        $dogsitter -> ville = $request->ville;
-        $dogsitter -> adresse = $request->adresse;
-        $dogsitter -> save();
+        $dogsitter->name = $request->name;
+        $dogsitter->prenom = $request->prenom;
+        $dogsitter->email = $request->email;
+        $dogsitter->date_naissance = $request->date_naissance;
+        $dogsitter->code_postal = $request->code_postal;
+        $dogsitter->ville = $request->ville;
+        $dogsitter->adresse = $request->adresse;
+        $dogsitter->save();
 
         return response()->json($dogsitter);
     }
@@ -76,7 +81,7 @@ class ProfilDogsitterController extends Controller
             if (!$dogsitter) {
                 return response()->json(['error' => 'dogsitter non trouvée'], 404);
             }
-    
+
             $dogsitter->delete();
             return response()->json(['message' => 'dogsitter supprimée avec succès'], 200);
         } catch (\Exception $e) {
