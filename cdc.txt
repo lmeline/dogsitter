@@ -10,7 +10,7 @@
 Le codepostal/Ville ne fonctionne pas dans la page "Compte"
 Ca serait bien qu'on puisse mettre une photo du toutou
 Ø Dans la page Profile, il manque la photo du propriétaire
-Dans la page message, la recherche de correspondants devrait se faire avec une liste déroulante de tous mes correspondants
+¤ Dans la page message, la recherche de correspondants devrait se faire avec une liste déroulante de tous mes correspondants
 
 Connecté en dogsitter :
 On ne peut pas vraiment gérer les disponibilités. Il faudrait arriver sur une liste des jours avec les heures disponibles pour chaque jour

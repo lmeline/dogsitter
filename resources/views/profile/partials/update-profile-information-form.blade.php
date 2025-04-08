@@ -46,18 +46,21 @@
             <x-input-error :messages="$errors->get('adresse')" class="mt-2" />
         </div>
 
-        <!-- Grille pour les champs "Code postal" et "Ville" -->
+        <!-- Grille pour les champs "Ville" et "Code postal" -->
         <div class="grid grid-cols-2 gap-4">
-            <div>
-                <x-input-label for="code_postal" :value="__('Postcode')" />
-                <x-text-input id="code_postal" class="block mt-1 w-full h-10" type="text" name="code_postal" :value="old('code_postal', $user->code_postal)" required autocomplete="code_postal" />
-                <x-input-error :messages="$errors->get('code_postal')" class="mt-2" />
-            </div>
-
-            <div>
+            <div class="relative">
                 <x-input-label for="ville" :value="__('City')" />
-                <x-text-input id="ville_id" class="block mt-1 w-full h-10" type="text" name="ville" :value="old('ville', $user->ville->nom_de_la_commune)" required autocomplete="ville" />
-                <x-input-error :messages="$errors->get('ville')" class="mt-2" />
+                <x-text-input id="villeInput" type="text" 
+                    class="block mt-1 w-full border rounded-lg" :value="old('nom_de_la_commune', $user->ville->nom_de_la_commune)"/>
+                <ul id="villeContainer" class="hidden absolute mt-8 w-full max-h-[12rem] top-[2.3rem] rounded bg-white dark:bg-zinc-600 ring-1 ring-zinc-300 dark:ring-zinc-400 overflow-y-auto z-10 shadow-lg" ></ul>
+                <input type="hidden" id="villeId" name="ville_id" >
+            </div>
+        
+            <!-- Champ du code postal -->
+            <div class="relative">
+                <x-input-label for="code_postal" :value="__('Postal code')" />
+                <x-text-input id="codePostalInput" name="code_postal" 
+                    class="block mt-1 w-full border rounded-lg"  :value="old('colde_postal', $user->code_postal)" readonly/>
             </div>
         </div>
         <!-- Champ pour l'email -->
@@ -106,4 +109,71 @@
             @endif
         </div>
     </form>
+
+
+    <script>
+                                  
+        /* fonction recuperation ville */
+        document.addEventListener('DOMContentLoaded',function(){
+            const villeInput = document.getElementById('villeInput');
+            const villeContainer = document.getElementById('villeContainer');
+            const codePostalInput = document.getElementById('codePostalInput');
+            const searchVilleURL = "{{ route('search.ville') }}";
+            let timeout = null;
+
+            function handleVilleClick(event) {
+                const selectedVille = event.target.textContent;
+                const selectedVilleId = event.target.getAttribute('data-id');
+                const selectedCodePostal = event.target.getAttribute('data-code_postal');
+                villeInput.value = selectedVille;
+                document.getElementById('villeId').value = selectedVilleId;
+                codePostalInput.value = selectedCodePostal;
+                villeContainer.classList.add('hidden');
+
+                villeInput.setAttribute('name', 'ville_id');
+            }
+            
+            function fetchville(){
+                const ville = encodeURIComponent(villeInput.value.trim());
+                const URL = `${searchVilleURL}?ville=${ville}`;
+
+                fetch(URL,{
+                    method:'GET',
+                    headers:{
+                        'Content-Type':'application/json',
+                    }
+                })
+                .then(response=> response.json())
+                .then(data=>{
+                    //console.log(data)
+                    villeContainer.innerHTML = '';
+                    if(data.length === 0){
+                        villeContainer.innerHTML = '<p class="text-gray-500"> Aucun résultat trouvé </p>';
+                        return;
+                    }
+                    villeContainer.classList.remove('hidden');
+                    
+                    data.forEach(ville => {
+                        let li = document.createElement('li');
+                        li.textContent = `${ville.nom_de_la_commune } (${ville.code_postal})`;
+                        li.classList.add('p-2', 'cursor-pointer', 'hover:bg-gray-200');
+                        li.setAttribute('data-id',ville.id);
+                        li.setAttribute('data-code_postal', ville.code_postal)
+                        //console.log(ville.code_postal);
+                        li.addEventListener('click', handleVilleClick); 
+                        
+                        villeContainer.appendChild(li);
+                    });
+
+                })
+                .catch(error=>console.error('Erreur:',error));
+            };
+
+            villeInput.addEventListener('input',function(){
+                clearTimeout(timeout);
+                timeout = setTimeout(fetchville,500);
+            })
+
+        });
+    </script>
 </section>

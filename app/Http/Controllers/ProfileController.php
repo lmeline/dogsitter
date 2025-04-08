@@ -29,7 +29,7 @@ class ProfileController extends Controller
 
      public function update(ProfileUpdateRequest $request): RedirectResponse
      {
-       
+
          $user = Auth::user();
      
          $user->update([
@@ -37,13 +37,13 @@ class ProfileController extends Controller
              'prenom' => $request->prenom,
              'numero_telephone' => $request->numero_telephone,
              'adresse' => $request->adresse,
-             'code_postal' => $request->code_postal,
+             'code_postal' =>$request->code_postal,
              'ville_id' => $request->ville_id,
-             'email' => $request->email,
-             'photo' => $request->photo
+             'email' => $request->email
+             //'photo' => $request->photo
          ]);
         
-        
+    
          return Redirect::route('profile.edit')->with('status', 'profile-updated');
      }
     /**
