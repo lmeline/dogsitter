@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class PrestationType extends Model
+class Prestationtype extends Model
 {
     protected $table = 'prestations_types'; // Spécifie la table pivot explicitement
 

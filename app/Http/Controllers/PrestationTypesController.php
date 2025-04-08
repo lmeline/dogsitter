@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\PrestationType;
+use App\Models\Prestationtype;
 use App\Models\User;
 use App\Models\UserPrestationType;
 use Illuminate\Http\Request;
@@ -21,7 +21,7 @@ class PrestationTypesController extends Controller
     }
     public function create()
     {
-        $prestationtypes = PrestationType::all();
+        $prestationtypes = Prestationtype::all();
 
         return view('userPrestations.create', compact('prestationtypes'));
     }

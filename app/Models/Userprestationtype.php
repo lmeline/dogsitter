@@ -23,8 +23,8 @@ class UserPrestationType extends Pivot
         return $this->belongsTo(User::class);
     }
 
-    public function prestationType()
+    public function prestationtype()
     {
-        return $this->belongsTo(PrestationType::class, 'prestation_type_id');
+        return $this->belongsTo(Prestationtype::class, 'prestation_type_id');
     }
 }

@@ -79,7 +79,7 @@ class User extends Authenticatable
      */
     public function prestationtypes(): BelongsToMany
     {
-        return $this->belongsToMany(PrestationType::class, 'users_prestations_types', 'dogsitter_id', 'prestation_type_id')
+        return $this->belongsToMany(Prestationtype::class, 'users_prestations_types', 'dogsitter_id', 'prestation_type_id')
             ->withPivot('prix', 'duree');
     }
 

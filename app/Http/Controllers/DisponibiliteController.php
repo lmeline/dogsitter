@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Disponibilite;
-use App\Models\PrestationType;
+use App\Models\Prestationtype;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
@@ -87,7 +87,7 @@ class DisponibiliteController extends Controller
             
             return view('dogsitters.annonce', [
                 'disponibilites' => $disponibilites,
-                'prestationtypes' => PrestationType::all(),
+                'prestationtypes' => Prestationtype::all(),
                 'success' => 'Disponibilité supprimée avec succès.'
             ]);
         }

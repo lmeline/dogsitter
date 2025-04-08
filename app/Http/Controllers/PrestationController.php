@@ -3,14 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Dog;
-use App\Models\DogsitterPrestation;
 use App\Models\Prestation;
-use App\Models\PrestationDog;
 use Illuminate\Http\Request;
 use App\Models\User;
-use App\Models\UserPrestationType;
 use Carbon\Carbon;
-use Dotenv\Exception\ValidationException;
 use Exception;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\Console\Output\ConsoleOutput;

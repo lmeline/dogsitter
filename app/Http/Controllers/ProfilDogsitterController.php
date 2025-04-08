@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Disponibilite;
 use App\Models\Prestation;
-use App\Models\PrestationType;
+use App\Models\Prestationtype;
 use App\Models\User;
 use App\Models\UserPrestationType;
 use App\Models\Ville;
@@ -80,7 +80,7 @@ class ProfilDogsitterController extends Controller
     {
         try{
             $disponibilites = Disponibilite::where('dogsitter_id', Auth::id())->get();
-            $prestationtypes= PrestationType::all();
+            $prestationtypes= Prestationtype::all();
             return view('dogsitters.annonce', compact('prestationtypes', 'disponibilites',));	
         }catch(\Exception $e){
             return response()->json(['error' => $e->getMessage()], 500);
@@ -91,7 +91,7 @@ class ProfilDogsitterController extends Controller
     {
         $userPrestation = UserPrestationType::where('dogsitter_id', $id)->get();
         $disponibilites = Disponibilite::where('dogsitter_id', $id)->get();
-        $prestationtypes = PrestationType::all();
+        $prestationtypes = Prestationtype::all();
         return view('dogsitters.edit', compact('userPrestation', 'disponibilites', 'prestationtypes'));
     }
 
