@@ -3,9 +3,9 @@
 namespace Database\Seeders;
 
 use App\Models\User;
-use App\Models\UserPrestationType;
+use App\Models\Userprestationtype;
 use Illuminate\Support\Arr;
-use App\Models\PrestationType;
+use App\Models\Prestationtype;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
@@ -26,7 +26,7 @@ class UserprestationtypeSeeder extends Seeder
 
         foreach ($dogsitters as $dogsitter) {
             // Sélectionner entre 2 et 5 prestations au hasard
-            $prestations = PrestationType::inRandomOrder()->limit(rand(2, 5))->get();
+            $prestations = Prestationtype::inRandomOrder()->limit(rand(2, 5))->get();
 
             foreach ($prestations as $prestation) {
                 DB::table('users_prestations_types')->updateOrInsert([

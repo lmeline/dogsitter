@@ -4,7 +4,7 @@ namespace Database\Factories;
 use App\Models\Dog;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\User;
-use App\Models\PrestationType;
+use App\Models\Prestationtype;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Model>
@@ -25,7 +25,7 @@ class PrestationFactory extends Factory
         }
         $dogsitter = User::where('role', 'dogsitter')->inRandomOrder()->first();
 
-        $prestation_type = PrestationType::inRandomOrder()->first();
+        $prestation_type = Prestationtype::inRandomOrder()->first();
 
         return [
             'proprietaire_id' => $proprietaire->id, 
