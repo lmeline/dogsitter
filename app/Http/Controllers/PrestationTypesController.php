@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Prestationtype;
 use App\Models\User;
-use App\Models\UserPrestationType;
+use App\Models\Userprestationtype;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -38,7 +38,7 @@ class PrestationTypesController extends Controller
                 'duree' => 'required|numeric|min:1',
             ]);
 
-            $existe = UserPrestationType::where('dogsitter_id', $request->dogsitter_id)
+            $existe = Userprestationtype::where('dogsitter_id', $request->dogsitter_id)
                 ->where('prestation_type_id', $request->prestation_type_id)
                 ->exists();
 
@@ -47,7 +47,7 @@ class PrestationTypesController extends Controller
                 return redirect()->route('dogsitters.annonce');
             }
 
-            UserPrestationType::create([
+            Userprestationtype::create([
                 'dogsitter_id' => $request->dogsitter_id,
                 'prestation_type_id' => $request->prestation_type_id,
                 'prix' => $request->prix,
@@ -62,7 +62,7 @@ class PrestationTypesController extends Controller
     }
     public function edit($id)
     {
-        $tarif = UserPrestationType::where('id', $id)
+        $tarif = Userprestationtype::where('id', $id)
             ->where('dogsitter_id', Auth::id())
             ->first();
 
@@ -81,7 +81,7 @@ class PrestationTypesController extends Controller
             'duree' => 'required|numeric|min:1',
         ]);
 
-        $tarif = UserPrestationType::where('id', $id)
+        $tarif = Userprestationtype::where('id', $id)
             ->where('dogsitter_id', Auth::id())
             ->first();
 
@@ -99,7 +99,7 @@ class PrestationTypesController extends Controller
 
     public function destroy($id)
     {
-        $tarif = UserPrestationType::where('id', $id)
+        $tarif = Userprestationtype::where('id', $id)
             ->where('dogsitter_id', Auth::id())
             ->first();
 

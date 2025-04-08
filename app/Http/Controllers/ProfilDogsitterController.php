@@ -6,7 +6,7 @@ use App\Models\Disponibilite;
 use App\Models\Prestation;
 use App\Models\Prestationtype;
 use App\Models\User;
-use App\Models\UserPrestationType;
+use App\Models\Userprestationtype;
 use App\Models\Ville;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
@@ -89,7 +89,7 @@ class ProfilDogsitterController extends Controller
 
     public function edit($id)
     {
-        $userPrestation = UserPrestationType::where('dogsitter_id', $id)->get();
+        $userPrestation = Userprestationtype::where('dogsitter_id', $id)->get();
         $disponibilites = Disponibilite::where('dogsitter_id', $id)->get();
         $prestationtypes = Prestationtype::all();
         return view('dogsitters.edit', compact('userPrestation', 'disponibilites', 'prestationtypes'));

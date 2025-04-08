@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Relations\Pivot;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-class UserPrestationType extends Pivot
+class Userprestationtype extends Pivot
 {
     use hasFactory;
     protected $table = 'users_prestations_types';
