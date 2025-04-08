@@ -9,7 +9,7 @@ use App\Models\PrestationType;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class UserPrestationTypeSeeder extends Seeder
+class UserprestationtypeSeeder extends Seeder
 {
     /**
      * Run the database seeds.
