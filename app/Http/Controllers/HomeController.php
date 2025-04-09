@@ -3,16 +3,29 @@
 namespace App\Http\Controllers;
 
 use App\Models\Avis;
+use App\Models\Prestation;
+use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
     public function index()
 {
-    // Récupérer les 10 derniers avis
-    $avis = Avis::with('user')->latest()->take(3)->get(); 
 
-    return view('index', compact('avis')); // Passer les avis à la vue
+    $avis = Avis::with('user')->latest()->take(3)->get();
+    $utilisateurs = User::all()->count();
+    $proprietaires = User::where('role','proprietaire')->count();
+    $dogsitters = User::where('role','dogsitter')->count();
+    
+    $prestations = Prestation::whereYear('date_debut', Carbon::now()->year)
+    ->whereMonth('date_debut', Carbon::now()->subMonth()->month)
+    ->count();
+   
+    $moyenneNotes = User::avg('note_moyenne');
+    $pourcentageSatisfaction = round(($moyenneNotes / 5) * 100,2);
+
+    return view('index', compact('avis','proprietaires','dogsitters','utilisateurs','prestations','pourcentageSatisfaction'));
 }
 
     

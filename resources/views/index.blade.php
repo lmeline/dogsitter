@@ -181,24 +181,24 @@
             <div class="bg-gray-100 py-12 mb-12">
                 <div class="text-center">
                     <h2 class="text-3xl font-semibold text-gray-800">Quelques chiffres sur Patte à Patte</h2>
-                    <p class="text-lg text-gray-600 mt-4">Plus de 100,000 utilisateurs satisfaits et une communauté
+                    <p class="text-lg text-gray-600 mt-4">Plus de {{ $utilisateurs }} utilisateurs satisfaits et une communauté
                         grandissante chaque jour !</p>
                 </div>
                 <div class="grid grid-cols-2 sm:grid-cols-4 gap-8 text-center mt-10">
                     <div>
-                        <h3 class="text-xl font-bold text-gray-800">+ 2000</h3>
+                        <h3 class="text-xl font-bold text-gray-800">{{$dogsitters}}</h3>
                         <p class="text-gray-600">Dogsitters</p>
                     </div>
                     <div>
-                        <h3 class="text-xl font-bold text-gray-800">+ 50,000</h3>
+                        <h3 class="text-xl font-bold text-gray-800">{{ $proprietaires }}</h3>
                         <p class="text-gray-600">Propriétaires</p>
                     </div>
                     <div>
-                        <h3 class="text-xl font-bold text-gray-800">99%</h3>
+                        <h3 class="text-xl font-bold text-gray-800">{{ $pourcentageSatisfaction }} % </h3>
                         <p class="text-gray-600">Taux de Satisfaction</p>
                     </div>
                     <div>
-                        <h3 class="text-xl font-bold text-gray-800">+ 300</h3>
+                        <h3 class="text-xl font-bold text-gray-800">{{ $prestations }}</h3>
                         <p class="text-gray-600">Réservations chaque mois</p>
                     </div>
                 </div>
