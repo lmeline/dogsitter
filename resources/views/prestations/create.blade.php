@@ -10,7 +10,7 @@
         <!-- <div id="calendar"></div> -->
         <!-- FullCalendar container -->
         <div id="calendar"
-            class="w-100 mx-auto h-[calc(100vh-8rem)] bg-opacity-40 backdrop-blur-md bg-white p-6 rounded-lg"></div>
+            class="w-100 mx-auto h-[calc(120vh-3rem)] bg-opacity-40 backdrop-blur-md bg-white p-6 rounded-lg"></div>
 
 
     </div>
@@ -35,6 +35,8 @@
                                             {{ number_format($prestationType->pivot->prix, 2) + 0 }}€
                                         </option>
                     @endforeach
+
+                    
                 </select>
                 <span id="spanDuree" name="duree" class="p-2 text-gray-300">60</span>
                 <label class="block mb-2">Chien :</label>
@@ -81,6 +83,7 @@
     <script>
         let calendar = null;
         let prestations = @json($prestations);
+        let prestationsDogsitter = @json($prestationsDogsitter);
         console.log(prestations);
 
         document.addEventListener('DOMContentLoaded', function () {
@@ -118,6 +121,7 @@
                         allDay: false // Important pour gérer les heures
                     };
                 }),
+                
                 eventContent: function (arg) {
                     return {
                         html: arg.event.title.replace(/\n/g, '<br>')
@@ -261,6 +265,7 @@
                 })
                 .catch(error => console.error('Erreur:', error));
         });
+
 
     </script>
 

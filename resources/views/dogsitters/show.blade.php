@@ -109,20 +109,6 @@
             </div>
 
             <!-- Section Avis Clients -->
-            <div class="bg-white p-6 rounded-lg shadow-lg mb-10">
-                <h3 class="text-xl font-semibold text-gray-800 mb-4">Avis clients</h3>
-                @foreach ($prestations as $prestation)
-                    @if($prestation->avis)
-                        <div class="border-t border-gray-300 pt-4 mt-4">
-                            <h4 class="font-semibold text-gray-800">
-                                {{ $prestation->proprietaire->name . ' ' . $prestation->proprietaire->prenom }}</h4>
-                            <p class="text-gray-700">{{ $prestation->avis->commentaire }}</p>
-                            <p class="text-gray-500 text-sm">{{ $prestation->avis->created_at->format('d M Y') }}</p>
-                        </div>
-                    @endif
-                @endforeach
-            </div>
-
         </div>
 
     </div>

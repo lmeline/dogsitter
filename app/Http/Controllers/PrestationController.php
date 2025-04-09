@@ -21,38 +21,46 @@ class PrestationController extends Controller
   }
 
   public function create($id)
-  {
-    $dogsitter = User::find($id);
-    $prestations = Auth::user()->prestationsAsproprietaire()->with(['dog', 'prestationType', 'dogsitter'])->get();
+{
+    $dogsitter = User::find($id); // Récupère le dogsitter par ID
+    $prestations = Auth::user()->prestationsAsproprietaire()->with(['dog', 'prestationType', 'dogsitter'])->get(); // Prestations du propriétaire
+    $prestationsDogsitter = Prestation::where('dogsitter_id', $dogsitter->id)  // Récupère les prestations du dogsitter
+        ->with(['proprietaire', 'prestationType']) // Charge les relations nécessaires
+        ->get();
 
-    $proprietaire = Auth::user();
-    $dogs = Dog::find($id);
-    $disponibilites = $dogsitter->disponibilites;
+    $proprietaire = Auth::user(); // Le propriétaire connecté
+    $dogs = Dog::find($id); // Les chiens du dogsitter (si nécessaire)
+    $disponibilites = $dogsitter->disponibilites; // Les disponibilités du dogsitter
 
     $joursSemaine = [
-      'Lundi' => 'Monday',
-      'Mardi' => 'Tuesday',
-      'Mercredi' => 'Wednesday',
-      'Jeudi' => 'Thursday',
-      'Vendredi' => 'Friday',
-      'Samedi' => 'Saturday',
-      'Dimanche' => 'Sunday',
+        'Lundi' => 'Monday',
+        'Mardi' => 'Tuesday',
+        'Mercredi' => 'Wednesday',
+        'Jeudi' => 'Thursday',
+        'Vendredi' => 'Friday',
+        'Samedi' => 'Saturday',
+        'Dimanche' => 'Sunday',
     ];
 
+    // Calcule les dates pour les disponibilités
     foreach ($disponibilites as $disponibilite) {
-      $jour = $disponibilite->jour_semaine;
-
-
-      if (isset($joursSemaine[$jour])) {
-        $jourAnglais = $joursSemaine[$jour];
-
-        $date = Carbon::now()->next($jourAnglais);
-        $disponibilite->date = $date->format('Y-m-d');
-      }
+        $jour = $disponibilite->jour_semaine;
+        if (isset($joursSemaine[$jour])) {
+            $jourAnglais = $joursSemaine[$jour];
+            $date = Carbon::now()->next($jourAnglais);
+            $disponibilite->date = $date->format('Y-m-d');
+        }
     }
 
-    return view('prestations.create', compact('dogsitter', 'proprietaire', 'dogs', 'disponibilites', 'prestations'));
-  }
+    return view('prestations.create', compact(
+        'dogsitter',
+        'proprietaire',
+        'dogs',
+        'disponibilites',
+        'prestations', // Passe aussi les prestations du propriétaire
+        'prestationsDogsitter' // Passe les prestations du dogsitter pour afficher dans le calendrier
+    ));
+}
 
 
 
@@ -134,7 +142,7 @@ class PrestationController extends Controller
       $prestations = collect();
     }
 
-    return view('myprestations', compact('prestations'));
+    return view('proprietaires.mesprestations', compact('prestations'));
   }
 
   public function show($id)

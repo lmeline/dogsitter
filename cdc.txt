@@ -2,7 +2,7 @@
 Ø Les mots de passe trop simples sont acceptés quand même (ex : 123456789)
 	Ajouter
         Password::defaults(function () {
-            return Password::min(8)->mixedCase()->numbers()->symbols();
+            return Password::min(12)->mixedCase()->numbers()->symbols();
         });
 	dans la méthode Boot de AppServiceProvider
 Ø Il faut traduire le menu déroulant d'authentification et renommer Parameters en "Compte"

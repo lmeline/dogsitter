@@ -35,7 +35,7 @@ class ProfilDogsitterController extends Controller
         }
         
         $disponibilites = Disponibilite::where('dogsitter_id', $id)->get();
-        $prestations = Prestation::where('dogsitter_id', $id)->with('avis')->get();
+        $prestations = Prestation::where('dogsitter_id', $id)->get();
 
         return view('dogsitters.show', compact('dogsitter', 'prestations','disponibilites'));
     }
