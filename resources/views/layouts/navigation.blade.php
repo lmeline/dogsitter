@@ -148,68 +148,79 @@
         </div>
     </div>
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
-        <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link :href="route('index')" :active="request()->routeIs('index')">
-                {{ __('Home') }}
-            </x-responsive-nav-link>
-        </div>
-        <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link :href="route('proprietaires.mesprestations')" :active="request()->routeIs('proprietaires.mesprestations')">
-                {{ __('My prestations') }}
-            </x-responsive-nav-link>
-        </div>
-
-        <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link :href="route('messages.index')" :active="request()->routeIs('messages.index')">
-                {{ __('Messages') }}
-            </x-responsive-nav-link>
-        </div>
-
-        @if (Auth::check() && Auth::user()->role === 'proprietaire')               
+        @auth
             <div class="pt-2 pb-3 space-y-1">
-                <x-responsive-nav-link :href="route('dogsitters.index')" :active="request()->routeIs('dogsitters.index')">
-                    {{ __('Find a dogsitter') }}
+                <x-responsive-nav-link :href="route('index')" :active="request()->routeIs('index')">
+                    {{ __('Home') }}
                 </x-responsive-nav-link>
+            </div>
+            <div class="pt-2 pb-3 space-y-1">
+                <x-responsive-nav-link :href="route('proprietaires.mesprestations')" :active="request()->routeIs('proprietaires.mesprestations')">
+                    {{ __('My prestations') }}
+                </x-responsive-nav-link>
+            </div>
+
+            <div class="pt-2 pb-3 space-y-1">
+                <x-responsive-nav-link :href="route('messages.index')" :active="request()->routeIs('messages.index')">
+                    {{ __('Messages') }}
+                </x-responsive-nav-link>
+            </div>
+
+            @if (Auth::check() && Auth::user()->role === 'proprietaire')               
+                <div class="pt-2 pb-3 space-y-1">
+                    <x-responsive-nav-link :href="route('dogsitters.index')" :active="request()->routeIs('dogsitters.index')">
+                        {{ __('Find a dogsitter') }}
+                    </x-responsive-nav-link>
+                </div>
+            @else
+                <div class="pt-2 pb-3 space-y-1">
+                    <x-responsive-nav-link :href="route('dogsitters.calendar')" :active="request()->routeIs('dogsitters.calendar')">
+                        {{ __('My appointments') }}
+                    </x-responsive-nav-link>
+                </div>
+
+                <div class="pt-2 pb-3 space-y-1">
+                    <x-responsive-nav-link :href="route('dogsitters.annonce')" :active="request()->routeIs('dogsitters.annonce')">
+                        {{ __('Post your ad') }}
+                    </x-responsive-nav-link>
+                </div>
+            @endif
+
+            <!-- Responsive Settings Options -->
+            <div class="pt-4 pb-1 border-t border-gray-200 dark:border-gray-600">
+                @auth    
+                <div class="px-4">
+                    <div class="font-medium text-base text-gray-800 dark:text-black-200">{{ Auth::user()->name }} {{ Auth::user()->prenom }}</div>
+                </div>
+                @endauth
+                <div class="mt-3 space-y-1">
+                    <x-responsive-nav-link :href="route('profile.edit')">
+                        {{ __('Profile') }}
+                    </x-responsive-nav-link>
+
+                    <!-- Authentication -->
+                    <form method="POST" action="{{ route('logout') }}">
+                        @csrf
+
+                        <x-responsive-nav-link :href="route('logout')"
+                                onclick="event.preventDefault();
+                                            this.closest('form').submit();">
+                            {{ __('Log Out') }}
+                        </x-responsive-nav-link>
+                    </form>
+                </div>
             </div>
         @else
             <div class="pt-2 pb-3 space-y-1">
-                <x-responsive-nav-link :href="route('dogsitters.calendar')" :active="request()->routeIs('dogsitters.calendar')">
-                    {{ __('My appointments') }}
+                <x-responsive-nav-link href="{{ route('register') }}?proprietaire=true"
+                    class="font-semibold text-black bg-gradient-to-r from-yellow-300 to-pink-300 px-6 py-3 rounded-lg hover:from-yellow-400 hover:to-pink-400 py-2 px-4 rounded-lg transition duration-300 hover:bg-gradient-to-r hover:from-green-300 hover:via-yellow-300 hover:to-blue-300">
+                    S'inscrire
+                </x-responsive-nav-link>
+                <x-responsive-nav-link href="{{ route('login') }}"
+                    class="font-semibold text-black bg-gradient-to-r from-yellow-300 to-pink-300  px-6 py-3 rounded-lg hover:from-yellow-400 hover:to-pink-400 py-2 px-4 rounded-lg transition duration-300 hover:bg-gradient-to-r hover:from-blue-300 hover:via-yellow-300 hover:to-green-300">
+                    Se connecter
                 </x-responsive-nav-link>
             </div>
-
-            <div class="pt-2 pb-3 space-y-1">
-                <x-responsive-nav-link :href="route('dogsitters.annonce')" :active="request()->routeIs('dogsitters.annonce')">
-                    {{ __('Post your ad') }}
-                </x-responsive-nav-link>
-            </div>
-        @endif
-
-        <div class="pt-2 pb-3 space-y-1">
-
-        <!-- Responsive Settings Options -->
-        <div class="pt-4 pb-1 border-t border-gray-200 dark:border-gray-600">
-            @auth    
-            <div class="px-4">
-                <div class="font-medium text-base text-gray-800 dark:text-black-200">{{ Auth::user()->name }} {{ Auth::user()->prenom }}</div>
-            </div>
-            @endauth
-            <div class="mt-3 space-y-1">
-                <x-responsive-nav-link :href="route('profile.edit')">
-                    {{ __('Profile') }}
-                </x-responsive-nav-link>
-
-                <!-- Authentication -->
-                <form method="POST" action="{{ route('logout') }}">
-                    @csrf
-
-                    <x-responsive-nav-link :href="route('logout')"
-                            onclick="event.preventDefault();
-                                        this.closest('form').submit();">
-                        {{ __('Log Out') }}
-                    </x-responsive-nav-link>
-                </form>
-            </div>
-        </div>
+        @endauth
     </div>
 </nav>
