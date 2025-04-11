@@ -9,12 +9,14 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
     <!-- Vite -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+
 
 </head>
 
-<body class="font-sans antialiased">
+<body class="font-sans antialiased min-h-screen flex flex-col">
 
-    <div class="min-h-screen dark:bg-gray-700  bg-gradient-to-br from-green-100 via-blue-100 to-yellow-100">
+    <div class="flex flex-col min-h-screen bg-gradient-to-br from-green-100 via-blue-100 to-yellow-100">
 
         <!-- Menu -->
         @include('layouts.navigation')

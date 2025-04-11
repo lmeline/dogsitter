@@ -13,7 +13,6 @@
             @foreach ($proprietaire->dogs as $dog)
                 <p class="text-gray-600">{{ $dog->nom }}</p>
             @endforeach
-
         </div>
 
         <div class="mt-6">

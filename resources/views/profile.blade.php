@@ -26,30 +26,114 @@
                                     class=" text-black w-80 h-10 bg-gradient-to-r from-yellow-300 to-pink-300 px-6 py-3 rounded-lg hover:from-yellow-400 hover:to-pink-400 transition ">
                                     Détails de {{ $dog->nom }}
                                 </button>
-                                <div id="dog-details-{{ $dog->id }}" class="hidden mt-2 bg-gray-100 p-4 rounded shadow-md">
-                                    <span><strong>Nom :</strong> {{ $dog->nom }}</span><br>
-                                    <span><strong>Race :</strong> {{ $dog->race }}</span><br>
-                                    <span><strong>Âge :</strong> {{ $dog->age }} ans</span><br>
-                                    <span><strong>Sexe :</strong>  
-                                        @if ($dog->sexe == "F")
-                                        Femelle
-                                    @else
-                                        Male
-                                    @endif</span><br>
-                                    <span><strong>Caractère :</strong> {{ $dog->comportement }}</span><br>
-                                    <span><strong>Besoins spéciaux :</strong> {{ $dog->besoins_speciaux }}</span><br>
-                                    <span><strong>Stérilisation :</strong>  
-                                        @if ($dog->sterilise == 1)
-                                        Oui
-                                    @else
-                                        Non
-                                    @endif</span>
-                                </div>
+                                <div id="dog-details-{{ $dog->id }}" class="mt-4 bg-white p-6 rounded-lg shadow-lg hidden">
+                                    <!-- Nom -->
+                                    <div class="flex justify-between items-center mt-2">
+                                        <span><strong>Nom :</strong></span>
+                                        <span id="dog-nom-{{ $dog->id }}" class="dog-info text-gray-600 bg-transparent">{{ $dog->nom }}</span>
+                                        <button id="edit-btn-nom-{{ $dog->id }}" onclick="editField('nom', {{ $dog->id }})" class="text-blue-500 hover:text-blue-700">
+                                            <i class="fas fa-edit"></i> Modifier
+                                        </button>
+                                        <button id="save-btn-nom-{{ $dog->id }}" onclick="saveField('nom', {{ $dog->id }})" class="hidden text-green-500 hover:text-green-700">
+                                            <i class="fas fa-save"></i> Sauvegarder
+                                        </button>
+                                    </div>
+                                
+                                    <!-- Race -->
+                                    <div class="flex justify-between items-center mt-2">
+                                        <span><strong>Race :</strong></span>
+                                        <span id="dog-race-{{ $dog->id }}" class="dog-info text-gray-600 bg-transparent">{{ $dog->race }}</span>
+                                        <button id="edit-btn-race-{{ $dog->id }}" onclick="editField('race', {{ $dog->id }})" class="text-blue-500 hover:text-blue-700">
+                                            <i class="fas fa-edit"></i> Modifier
+                                        </button>
+                                        <button id="save-btn-race-{{ $dog->id }}" onclick="saveField('race', {{ $dog->id }})" class="hidden text-green-500 hover:text-green-700">
+                                            <i class="fas fa-save"></i> Sauvegarder
+                                        </button>
+                                    </div>
+                                
+                                    <!-- Âge -->
+                                    <div class="flex justify-between items-center mt-2">
+                                        <span><strong>Âge :</strong></span>
+                                        <span id="dog-age-{{ $dog->id }}" class="dog-info text-gray-600 bg-transparent">{{ $dog->age }} ans</span>
+                                        <button id="edit-btn-age-{{ $dog->id }}" onclick="editField('age', {{ $dog->id }})" class="text-blue-500 hover:text-blue-700">
+                                            <i class="fas fa-edit"></i> Modifier
+                                        </button>
+                                        <button id="save-btn-age-{{ $dog->id }}" onclick="saveField('age', {{ $dog->id }})" class="hidden text-green-500 hover:text-green-700">
+                                            <i class="fas fa-save"></i> Sauvegarder
+                                        </button>
+                                    </div>
+                                    
+                                    <!-- Sexe -->
+                                    <div class="flex justify-between items-center mt-2">
+                                        <span><strong>Sexe :</strong></span>
+                                        <span id="dog-sexe-{{ $dog->id }}" class="dog-info text-gray-600 bg-transparent">
+                                            @if ($dog->sexe == "F") Femelle @else Male @endif
+                                        </span>
+                                        <button id="edit-btn-sexe-{{ $dog->id }}" onclick="editField('sexe', {{ $dog->id }})" class="text-blue-500 hover:text-blue-700">
+                                            <i class="fas fa-edit"></i> Modifier
+                                        </button>
+                                        <button id="save-btn-sexe-{{ $dog->id }}" onclick="saveField('sexe', {{ $dog->id }})" class="hidden text-green-500 hover:text-green-700">
+                                            <i class="fas fa-save"></i> Sauvegarder
+                                        </button>
+                                    </div>
+                                
+                                    <!-- Comportement -->
+                                    <div class="flex justify-between items-center mt-2">
+                                        <span><strong>Caractère :</strong></span>
+                                        <span id="dog-comportement-{{ $dog->id }}" class="dog-info text-gray-600 bg-transparent">{{ $dog->comportement }}</span>
+                                        <button id="edit-btn-comportement-{{ $dog->id }}" onclick="editField('comportement', {{ $dog->id }})" class="text-blue-500 hover:text-blue-700">
+                                            <i class="fas fa-edit"></i> Modifier
+                                        </button>
+                                        <button id="save-btn-comportement-{{ $dog->id }}" onclick="saveField('comportement', {{ $dog->id }})" class="hidden text-green-500 hover:text-green-700">
+                                            <i class="fas fa-save"></i> Sauvegarder
+                                        </button>
+                                    </div>
+                                
+                                    <!-- Besoins spéciaux -->
+                                    <div class="flex justify-between mt-2">
+                                        <span><strong>Besoins spéciaux :</strong></span>
+                                        <span id="dog-besoins_speciaux-{{ $dog->id }}" class="dog-info text-gray-600 bg-transparent">{{ $dog->besoins_speciaux }}</span>
+                                        <button id="edit-btn-besoins_speciaux-{{ $dog->id }}" onclick="editField('besoins_speciaux', {{ $dog->id }})" class="text-blue-500 hover:text-blue-700">
+                                            <i class="fas fa-edit"></i> Modifier
+                                        </button>
+                                        <button id="save-btn-besoins_speciaux-{{ $dog->id }}" onclick="saveField('besoins_speciaux', {{ $dog->id }})" class="hidden text-green-500 hover:text-green-700">
+                                            <i class="fas fa-save"></i> Sauvegarder
+                                        </button>
+                                    </div>
+                                
+                                    <!-- Stérilisation -->
+                                    <div class="flex justify-between mt-2">
+                                        <span><strong>Stérilisation :</strong></span>
+                                        <span id="dog-sterilise-{{ $dog->id }}" class="dog-info text-gray-600 bg-transparent">
+                                            @if ($dog->sterilise == 1) Oui @else Non @endif
+                                        </span>
+                                        <button id="edit-btn-sterilise-{{ $dog->id }}" onclick="editField('sterilise', {{ $dog->id }})" class="text-blue-500 hover:text-blue-700">
+                                            <i class="fas fa-edit"></i> Modifier
+                                        </button>
+                                        <button id="save-btn-sterilise-{{ $dog->id }}" onclick="saveField('sterilise', {{ $dog->id }})" class="hidden text-green-500 hover:text-green-700">
+                                            <i class="fas fa-save"></i> Sauvegarder
+                                        </button>
+                                    </div>
+                                    <div class="flex justify-between mt-4">
+                                        <button 
+                                            onclick="confirmDelete({{ $dog->id }})" 
+                                            class="text-red-500 hover:text-red-700">
+                                            <i class="fas fa-trash"></i> Supprimer
+                                        </button>
+                                    </div>
+                                </div>              
                             </div>
                         @endforeach
-                @endif
-                
-                @if (Auth::user()->role === 'dogsitter')
+                        <div id="confirmation-modal" class="hidden fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center">
+                            <div class="bg-white p-6 rounded-lg shadow-lg w-96">
+                                <p>Êtes-vous sûr de vouloir supprimer ce chien ?</p>
+                                <div class="flex justify-between mt-4">
+                                    <button onclick="deleteDog()" class="text-red-500 hover:text-red-700">Oui, supprimer</button>
+                                    <button onclick="closeModal()" class="text-gray-500 hover:text-gray-700">Annuler</button>
+                                </div>
+                            </div>
+                        </div>
+                @else
                     <p class="mb-2"><strong>Disponibilité :</strong>
                         @foreach (Auth::user()->disponibilites as $disponibilite)
                             {{ $disponibilite->jour_semaine }}@if(!$loop->last), @endif 
@@ -90,7 +174,6 @@
                         
                                 <button type="button" id="edit-btn"
                                     class="absolute top-3 right-3 text-gray-500 hover:text-gray-700 transition ">
-                                    <!-- Icône de crayon -->
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
                                         <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125" />
                                     </svg>
@@ -110,16 +193,13 @@
                             @csrf
                             <div class="relative w-full">
                                 <textarea id="description-text" name="description"
-                                    class="w-full p-3 lg text-black border-none bg-gradient-to-r from-yellow-100 to-orange-100 focus:outline-none rounded-lg"
+                                    class="w-full  p-3 lg text-black border-none bg-gradient-to-r from-yellow-100 to-orange-100 focus:outline-none rounded-lg"
                                     rows="4" readonly>{{ Auth::user()->description }}</textarea>
                         
                                 <button type="button" id="edit-btn"
-                                    class="absolute top-3 right-3 text-gray-500 hover:text-gray-700 transition ">
+                                    class="absolute top-3 right-3 text-gray-500 hover:text-gray-700 transition maxheight-[50px] ">
                                     <!-- Icône de crayon -->
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125" />
-                                    </svg>
-                                    
+                                    <i class="fas fa-edit"></i> Modifier
                                 </button>
                             </div>
                             <button type="submit" id="save-btn"
@@ -157,7 +237,6 @@
 </x-app-layout>
 
 <script>
-    /* pour afficher les chiens */
     function toggleDetails(id) {
         const details = document.getElementById(id);
         if (details.classList.contains('hidden')) {
@@ -166,24 +245,99 @@
             details.classList.add('hidden');
         }
     }
-    /* fonction pour ajouter un texte description */
     document.addEventListener("DOMContentLoaded", function () {
-    const editBtn = document.getElementById("edit-btn");
-    const saveBtn = document.getElementById("save-btn");
-    const descriptionText = document.getElementById("description-text");
+        const editBtn = document.getElementById("edit-btn");
+        const saveBtn = document.getElementById("save-btn");
+        const descriptionText = document.getElementById("description-text");
 
-    editBtn.addEventListener("click", function () {
-        descriptionText.removeAttribute("readonly");
-        descriptionText.classList.remove("bg-gray-100", "cursor-not-allowed", "text-gray-600");
-        descriptionText.classList.add("border-blue-500", "text-black");
-        saveBtn.classList.remove("hidden"); 
+        editBtn.addEventListener("click", function () {
+            descriptionText.removeAttribute("readonly");
+            descriptionText.classList.remove("bg-gray-100", "cursor-not-allowed", "text-gray-600");
+            descriptionText.classList.add("border-blue-500", "text-black");
+            saveBtn.classList.remove("hidden"); 
+        });
+
+        document.getElementById("description-form").addEventListener("submit", function () {
+            saveBtn.classList.add("hidden"); 
+            descriptionText.setAttribute("readonly", true);
+            descriptionText.classList.add("bg-gray-100", "cursor-not-allowed", "text-gray-600");
+        });
     });
 
-    document.getElementById("description-form").addEventListener("submit", function () {
-        saveBtn.classList.add("hidden"); 
-        descriptionText.setAttribute("readonly", true);
-        descriptionText.classList.add("bg-gray-100", "cursor-not-allowed", "text-gray-600");
+    function editField(field, dogId) {
+    let fieldText = document.getElementById(`dog-${field}-${dogId}`);
+    let fieldValue = fieldText.textContent;
+
+    if (field === 'sexe') {
+        fieldText.innerHTML = `<select id="input-${field}-${dogId}" class="p-2 border rounded">
+            <option value="F" ${fieldValue === 'Femelle' ? 'selected' : ''}>Femelle</option>
+            <option value="M" ${fieldValue === 'Male' ? 'selected' : ''}>Male</option>
+        </select>`;
+    } if (field === 'sterilise') {
+        fieldText.innerHTML = `<select id="input-${field}-${dogId}" class="py-2 border rounded">
+            <option value="0" ${fieldValue === '0' ? 'selected' : ''}>Non</option>
+            <option value="1" ${fieldValue === '1' ? 'selected' : ''}>Oui</option>
+        </select>`;
+    } else {
+        fieldText.innerHTML = `
+    <input type="text" value="${fieldValue}" id="input-${field}-${dogId}" class="p-2 bg-transparent focus:outline-none focus:ring-0 border-none w-full">`;
+    }
+
+    document.getElementById(`edit-btn-${field}-${dogId}`).classList.add('hidden');
+    document.getElementById(`save-btn-${field}-${dogId}`).classList.remove('hidden');
+}
+
+function saveField(field, dogId) {
+    let inputValue = document.getElementById(`input-${field}-${dogId}`).value;
+
+    fetch(`/dogs/${dogId}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+        },
+        body: JSON.stringify({
+            [field]: inputValue
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            const fieldText = document.getElementById(`dog-${field}-${dogId}`);
+            fieldText.textContent = inputValue === '1' ? 'Oui' : 'Non';
+            document.getElementById(`edit-btn-${field}-${dogId}`).classList.remove('hidden');
+            document.getElementById(`save-btn-${field}-${dogId}`).classList.add('hidden');
+
+        } else {
+            alert('Erreur lors de la mise à jour.');
+        }
+    })
+    .catch(error => {
+        console.error('Erreur:', error);
+        alert('Une erreur s\'est produite.');
     });
-});
+
+    let dogIdToDelete = null;
+
+    // Fonction pour afficher le modal
+    function confirmDelete(dogId) {
+        dogIdToDelete = dogId;
+        document.getElementById('confirmation-modal').classList.remove('hidden');
+    }
+
+    // Fonction pour fermer le modal sans supprimer
+    function closeModal() {
+        document.getElementById('confirmation-modal').classList.add('hidden');
+    }
+
+    // Fonction pour supprimer un chien (à implémenter avec votre logique backend)
+    function deleteDog() {
+        if (dogIdToDelete) {
+            // Remplacer cette ligne par l'appel à votre route de suppression
+            window.location.href = '/dogs/{id}/delete' + dogIdToDelete; // Exemple d'URL de suppression
+        }
+    }
+}
+
 </script>
 

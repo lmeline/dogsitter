@@ -78,6 +78,11 @@ Route::post('/prestations', [PrestationController::class, 'store'])->name('prest
 Route::get('/prestations/{id}', [PrestationController::class, 'show'])->name('prestations.show');
 
 Route::get('profil/ajoutchien', [DogController::class, 'create'])->name('dogs.create');
+Route::put('/dogs/{dog}', [DogController::class, 'update'])->name('dogs.update');
+Route::get('/dogs/{dog}/edit', [DogController::class, 'edit'])->name('dogs.edit');
+
+Route::get('/dogs/{id}/delete', [DogController::class, 'destroy'])->name('dogs.destroy');
+
 
 Route::get('/register/dog', [DogController::class, 'registerdog'])->name('register.dog');
 Route::post('/register/dog', [DogController::class, 'storeregisterdog'])->name('storeregisterdog');

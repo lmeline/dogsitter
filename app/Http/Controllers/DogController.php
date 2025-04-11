@@ -12,8 +12,8 @@ class DogController extends Controller
 {
     public function index()
     {
-       $dogs = Dog::all();
-       return view('dogs.index', compact('dogs'));
+        $dogs = Dog::all();
+        return view('dogs.index', compact('dogs'));
     }
 
     public function show($id)
@@ -25,7 +25,7 @@ class DogController extends Controller
     public function create()
     {
         $races = Race::orderBy('nom')->get();
-        return view('dogs.create',compact('races'));
+        return view('dogs.create', compact('races'));
     }
 
     public function registerdog()
@@ -34,40 +34,68 @@ class DogController extends Controller
         $user = Auth::user();
         if ($user == null) {
             return redirect(route('login'));
-        } 
-        return view('auth.registerdog', compact('user','races'));
+        }
+        return view('auth.registerdog', compact('user', 'races'));
     }
 
     public function storeregisterdog(Request $request): RedirectResponse
-{
- 
-    // Validation des données
-    $request->validate([
-        'nom' => ['required', 'string', 'max:255'],
-        'race' => ['required', 'string', 'max:255'],
-        'age' => ['required', 'integer'], 
-        'poids' => ['required', 'numeric'], 
-        'sexe' => ['required', 'string'], 
-        'comportement' => ['nullable', 'string', 'max:1000'], 
-        'besoins_speciaux' => ['nullable', 'string', 'max:1000'], 
-    ]);
+    {
 
-    // Création du chien
-    Dog::create([
-        'nom' => $request->nom,
-        'race' => $request->race,
-        'age' => $request->age,
-        'poids' => $request->poids,
-        'sexe' => $request->sexe,
-        'comportement' => $request->comportement ?? '', 
-        'besoins_speciaux' => $request->besoins_speciaux ?? '', 
-        'sterilise' => $request->sterilise ? true : false,
-        'proprietaire_id' => Auth::id(),
-    ]);
+        // Validation des données
+        $request->validate([
+            'nom' => ['required', 'string', 'max:255'],
+            'race' => ['required', 'string', 'max:255'],
+            'age' => ['required', 'integer'],
+            'poids' => ['required', 'numeric'],
+            'sexe' => ['required', 'string'],
+            'comportement' => ['nullable', 'string', 'max:1000'],
+            'besoins_speciaux' => ['nullable', 'string', 'max:1000'],
+        ]);
 
- 
-    // Redirection après la création avec un message de succès
-    return redirect()->route('index')->with('success', 'Le chien a été ajouté avec succès.');
-}
+        // Création du chien
+        Dog::create([
+            'nom' => $request->nom,
+            'race' => $request->race,
+            'age' => $request->age,
+            'poids' => $request->poids,
+            'sexe' => $request->sexe,
+            'comportement' => $request->comportement ?? '',
+            'besoins_speciaux' => $request->besoins_speciaux ?? '',
+            'sterilise' => $request->sterilise ? true : false,
+            'proprietaire_id' => Auth::id(),
+        ]);
 
+
+        // Redirection après la création avec un message de succès
+        return redirect()->route('index')->with('success', 'Le chien a été ajouté avec succès.');
+    }
+
+    public function edit($id)
+    {
+        $dog = Dog::findOrFail($id);
+        return view('profile', compact('dog'));
+    }
+
+    public function update(Request $request, Dog $dog)
+    {
+        $validated = $request->validate([
+            'nom' => 'nullable|string|max:255',
+            'race' => 'nullable|string|max:255',
+            'age' => 'nullable|integer|min:0',
+            'sexe' => 'nullable|in:F,M',
+            'comportement' => 'nullable|string|max:255',
+            'besoins_speciaux' => 'nullable|string|max:255',
+            'sterilise' => 'nullable|boolean',
+        ]);
+
+        $dog->update($validated);
+
+        return response()->json(['success' => true, 'dog' => $dog]);
+    }
+
+    public function destroy(Dog $dog)
+    {
+        $dog->delete();
+        return response()->json(['success' => true]);
+    }
 }
