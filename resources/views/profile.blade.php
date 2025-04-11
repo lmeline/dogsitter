@@ -51,6 +51,18 @@
                                         </button>
                                     </div>
                                 
+                                    <!-- Poids -->
+                                    <div class="flex justify-between items-center mt-2">
+                                        <span><strong>poids :</strong></span>
+                                        <span id="dog-poids-{{ $dog->id }}" class="dog-info text-gray-600 bg-transparent">{{ $dog->poids }} kgs</span>
+                                        <button id="edit-btn-poids-{{ $dog->id }}" onclick="editField('poids', {{ $dog->id }})" class="text-blue-500 hover:text-blue-700">
+                                            <i class="fas fa-edit"></i> Modifier
+                                        </button>
+                                        <button id="save-btn-poids-{{ $dog->id }}" onclick="saveField('poids', {{ $dog->id }})" class="hidden text-green-500 hover:text-green-700">
+                                            <i class="fas fa-save"></i> Sauvegarder
+                                        </button>
+                                    </div>
+                                
                                     <!-- Âge -->
                                     <div class="flex justify-between items-center mt-2">
                                         <span><strong>Âge :</strong></span>
