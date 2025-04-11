@@ -1,5 +1,4 @@
 <x-app-layout>
-
     <!-- Section Hero -->
     <section class="py-8">
         <div class="container mx-auto">
@@ -152,28 +151,6 @@
         </div>
     </section>
 
-    <!-- Section Actualités -->
-    <section>
-        <div class="container mx-auto">
-            <h2 class="text-3xl font-semibold text-gray-800 text-center mb-12 pt-16">Nos dernières actualités</h2>
-            <div class="grid grid-cols-1 sm:grid-cols-3 gap-8 mt-6">
-                <div class="bg-white p-6 shadow-lg rounded-lg">
-                    <h3 class="text-xl font-bold text-gray-800">Nouvelle fonctionnalité pour les dogsitters !</h3>
-                    <p class="text-gray-600 mt-3">Nous avons lancé un nouvel outil pour gérer vos disponibilités de
-                        manière plus intuitive. Découvrez-le dès maintenant dans votre espace personnel.</p>
-                </div>
-                <div class="bg-white p-6 shadow-lg rounded-lg">
-                    <h3 class="text-xl font-bold text-gray-800">Bientôt une nouvelle fonctionnalité pour les propriétaires</h3>
-                    <p class="text-gray-600 mt-3">Pouvoir mettre des avis sur vos dogsitters préférés</p>
-                </div>
-                <div class="bg-white p-6 shadow-lg rounded-lg">
-                    <h3 class="text-xl font-bold text-gray-800">De nouveaux dogsitters ajoutés !</h3>
-                    <p class="text-gray-600 mt-3">Nous avons élargi notre communauté de dogsitters. Découvrez des
-                        profils qualifiés près de chez vous pour garder votre chien en toute sécurité.</p>
-                </div>
-            </div>
-        </div>
-    </section>
 
     <!-- Section Chiffres clés -->
     <section>
@@ -212,24 +189,24 @@
                 <div class="text-center">
                     <h2 class="text-3xl mb-12 font-semibold text-gray-800">Témoignages de Nos Utilisateurs</h2>
                     <!-- Affichage des avis -->
-                    <div class="flex justify-center gap-8 mt-6">
-                        @foreach($avis as $avis)
-                            <div class="bg-white p-6 shadow-lg rounded-lg w-100">
+                    <div class="flex flex-col lg:flex-row justify-center gap-8 mt-6">
+                        @forelse($avis as $avis)
+                            <div class="bg-white p-6 shadow-lg rounded-lg w-full lg:w-1/3">
                                 <p class="text-gray-600 italic">"{{ $avis->commentaire }}"</p>
                                 <div class="mt-4 flex items-center justify-between">
                                     <div class="flex items-center">
-                                        <div class="flex items-center">
-                                            @for ($i = 1; $i <= 5; $i++)
-                                                <span class="text-3xl {{ $i <= $avis->rating ? 'text-yellow-500' : 'text-gray-300' }}">☆</span>
-                                            @endfor
-                                        </div>                                        
+                                        @for ($i = 1; $i <= 5; $i++)
+                                            <span class="text-3xl {{ $i <= $avis->rating ? 'text-yellow-500' : 'text-gray-300' }}">★</span>
+                                        @endfor
                                     </div>
                                     <div class="text-sm text-gray-500 ml-5">
                                         {{ $avis->user->name }}, {{ ucwords(strtolower($avis->user->ville->nom_de_la_commune)) }}
                                     </div>                                    
                                 </div>
                             </div>
-                        @endforeach
+                        @empty
+                            <p class="text-gray-500 italic text-center">Aucun commentaire pour le moment.</p>
+                        @endforelse
                     </div>
                 </div>
             </div>
@@ -244,19 +221,19 @@
                 <label for="rating" class="block text-gray-700 text-lg font-semibold">Note :</label>
                 <div class="rating-container flex items-center justify-center gap-2 mt-2 mb-5 text-5xl">
                     <input type="radio" name="rating" value="1" id="rating1" class="hidden" />
-                    <label for="rating1" class="cursor-pointer text-gray-300">☆</label>
+                    <label for="rating1" class="cursor-pointer text-gray-300">★</label>
                 
                     <input type="radio" name="rating" value="2" id="rating2" class="hidden" />
-                    <label for="rating2" class="cursor-pointer text-gray-300">☆</label>
+                    <label for="rating2" class="cursor-pointer text-gray-300">★</label>
                 
                     <input type="radio" name="rating" value="3" id="rating3" class="hidden" />
-                    <label for="rating3" class="cursor-pointer text-gray-300">☆</label>
+                    <label for="rating3" class="cursor-pointer text-gray-300">★</label>
                 
                     <input type="radio" name="rating" value="4" id="rating4" class="hidden" />
-                    <label for="rating4" class="cursor-pointer text-gray-300">☆</label>
+                    <label for="rating4" class="cursor-pointer text-gray-300">★</label>
                 
                     <input type="radio" name="rating" value="5" id="rating5" class="hidden" />
-                    <label for="rating5" class="cursor-pointer text-gray-300">☆</label>
+                    <label for="rating5" class="cursor-pointer text-gray-300">★</label>
                 </div>
                 
 
