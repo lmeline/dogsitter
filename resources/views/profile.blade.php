@@ -14,130 +14,131 @@
 
         <div class="flex flex-col md:flex-row w-full mt-12 mb-12 px-6 md:px-12 space-y-6 md:space-y-0 gap-x-6">
 
-            <div class="w-full md:w-1/2 bg-gradient-to-r from-green-100 to-pink-100 p-6 rounded-lg shadow-lg">
+            <div class="w-full md:w-1/3 bg-gradient-to-r from-green-100 to-pink-100 p-6 rounded-lg shadow-lg">
                 <h2 class="text-xl font-semibold mb-4 text-gray-800">Informations personnelles</h2>
                 <p class="mb-2"><strong>Ville :</strong> {{ Auth::user()->ville->nom_de_la_commune }}</p>
                 @if (Auth::user()->role === 'proprietaire')
                     <h3 class="text-xl font-semibold mb-4 text-gray-800 ">Information sur mon toutou</h3>
                         @foreach(Auth::user()->dogs as $dog)
-                            <div class="flex mb-5">
+                            <div class="flex justify-center mb-5">
                                 <button 
                                     onclick="toggleDetails('dog-details-{{ $dog->id }}')" 
-                                    class=" text-black w-80 h-10 bg-gradient-to-r from-yellow-300 to-pink-300 px-6 py-3 rounded-lg hover:from-yellow-400 hover:to-pink-400 transition ">
+                                    class=" text-black w-full sm:w-1/2 h-10 bg-gradient-to-r from-yellow-300 to-pink-300 px-6 py-3 rounded-lg hover:from-yellow-400 hover:to-pink-400 transition">
                                     Détails de {{ $dog->nom }}
                                 </button>
-                                <div id="dog-details-{{ $dog->id }}" class="mt-4 bg-white p-6 rounded-lg shadow-lg  hidden">
-                                    <!-- Nom -->
-                                    <div class="flex justify-between items-center mt-2">
-                                        <span><strong>Nom :</strong></span>
-                                        <span id="dog-nom-{{ $dog->id }}" class="dog-info text-gray-600 bg-transparent">{{ $dog->nom }}</span>
-                                        <button id="edit-btn-nom-{{ $dog->id }}" onclick="editField('nom', {{ $dog->id }})" class="text-blue-500 hover:text-blue-700">
-                                            <i class="fas fa-edit"></i> Modifier
-                                        </button>
-                                        <button id="save-btn-nom-{{ $dog->id }}" onclick="saveField('nom', {{ $dog->id }})" class="hidden text-green-500 hover:text-green-700">
-                                            <i class="fas fa-save"></i> Sauvegarder
-                                        </button>
-                                    </div>
-                                
-                                    <!-- Race -->
-                                    <div class="flex justify-between items-center mt-2">
-                                        <span><strong>Race :</strong></span>
-                                        <span id="dog-race-{{ $dog->id }}" class="dog-info text-gray-600 bg-transparent">{{ $dog->race }}</span>
-                                        <button id="edit-btn-race-{{ $dog->id }}" onclick="editField('race', {{ $dog->id }})" class="text-blue-500 hover:text-blue-700">
-                                            <i class="fas fa-edit"></i> Modifier
-                                        </button>
-                                        <button id="save-btn-race-{{ $dog->id }}" onclick="saveField('race', {{ $dog->id }})" class="hidden text-green-500 hover:text-green-700">
-                                            <i class="fas fa-save"></i> Sauvegarder
-                                        </button>
-                                    </div>
-                                
-                                    <!-- Poids -->
-                                    <div class="flex justify-between items-center mt-2">
-                                        <span><strong>Poids :</strong></span>
-                                        <span id="dog-poids-{{ $dog->id }}" class="dog-info text-gray-600 bg-transparent">{{ $dog->poids }} kgs</span>
-                                        <button id="edit-btn-poids-{{ $dog->id }}" onclick="editField('poids', {{ $dog->id }})" class="text-blue-500 hover:text-blue-700">
-                                            <i class="fas fa-edit"></i> Modifier
-                                        </button>
-                                        <button id="save-btn-poids-{{ $dog->id }}" onclick="saveField('poids', {{ $dog->id }})" class="hidden text-green-500 hover:text-green-700">
-                                            <i class="fas fa-save"></i> Sauvegarder
-                                        </button>
-                                    </div>
-                                
-                                    <!-- Âge -->
-                                    <div class="flex justify-between items-center mt-2">
-                                        <span><strong>Âge :</strong></span>
-                                        <span id="dog-age-{{ $dog->id }}" class="dog-info text-gray-600 bg-transparent">{{ $dog->age }} ans</span>
-                                        <button id="edit-btn-age-{{ $dog->id }}" onclick="editField('age', {{ $dog->id }})" class="text-blue-500 hover:text-blue-700">
-                                            <i class="fas fa-edit"></i> Modifier
-                                        </button>
-                                        <button id="save-btn-age-{{ $dog->id }}" onclick="saveField('age', {{ $dog->id }})" class="hidden text-green-500 hover:text-green-700">
-                                            <i class="fas fa-save"></i> Sauvegarder
-                                        </button>
-                                    </div>
-                                
-                                    <!-- Sexe -->
-                                    <div class="flex justify-between items-center mt-2">
-                                        <span><strong>Sexe :</strong></span>
-                                        <span id="dog-sexe-{{ $dog->id }}" class="dog-info text-gray-600 bg-transparent">
-                                            @if ($dog->sexe == "F") Femelle @else Mâle @endif
-                                        </span>
-                                        <button id="edit-btn-sexe-{{ $dog->id }}" onclick="editField('sexe', {{ $dog->id }})" class="text-blue-500 hover:text-blue-700">
-                                            <i class="fas fa-edit"></i> Modifier
-                                        </button>
-                                        <button id="save-btn-sexe-{{ $dog->id }}" onclick="saveField('sexe', {{ $dog->id }})" class="hidden text-green-500 hover:text-green-700">
-                                            <i class="fas fa-save"></i> Sauvegarder
-                                        </button>
-                                    </div>
-                                
-                                    <!-- Caractère -->
-                                    <div class="flex justify-between items-center mt-2">
-                                        <span><strong>Caractère :</strong></span>
-                                        <span id="dog-comportement-{{ $dog->id }}" class="dog-info text-gray-600 bg-transparent">{{ $dog->comportement }}</span>
-                                        <button id="edit-btn-comportement-{{ $dog->id }}" onclick="editField('comportement', {{ $dog->id }})" class="text-blue-500 hover:text-blue-700">
-                                            <i class="fas fa-edit"></i> Modifier
-                                        </button>
-                                        <button id="save-btn-comportement-{{ $dog->id }}" onclick="saveField('comportement', {{ $dog->id }})" class="hidden text-green-500 hover:text-green-700">
-                                            <i class="fas fa-save"></i> Sauvegarder
-                                        </button>
-                                    </div>
-                                
-                                    <!-- Besoins spéciaux -->
-                                    <div class="flex justify-between mt-2">
-                                        <span><strong>Besoins spéciaux :</strong></span>
-                                        <span id="dog-besoins_speciaux-{{ $dog->id }}" class="dog-info text-gray-600 bg-transparent">{{ $dog->besoins_speciaux }}</span>
-                                        <button id="edit-btn-besoins_speciaux-{{ $dog->id }}" onclick="editField('besoins_speciaux', {{ $dog->id }})" class="text-blue-500 hover:text-blue-700">
-                                            <i class="fas fa-edit"></i> Modifier
-                                        </button>
-                                        <button id="save-btn-besoins_speciaux-{{ $dog->id }}" onclick="saveField('besoins_speciaux', {{ $dog->id }})" class="hidden text-green-500 hover:text-green-700">
-                                            <i class="fas fa-save"></i> Sauvegarder
-                                        </button>
-                                    </div>
-                                
-                                    <!-- Stérilisation -->
-                                    <div class="flex justify-between mt-2">
-                                        <span><strong>Stérilisation :</strong></span>
-                                        <span id="dog-sterilise-{{ $dog->id }}" class="dog-info text-gray-600 bg-transparent">
-                                            @if ($dog->sterilise == 1) Oui @else Non @endif
-                                        </span>
-                                        <button id="edit-btn-sterilise-{{ $dog->id }}" onclick="editField('sterilise', {{ $dog->id }})" class="text-blue-500 hover:text-blue-700">
-                                            <i class="fas fa-edit"></i> Modifier
-                                        </button>
-                                        <button id="save-btn-sterilise-{{ $dog->id }}" onclick="saveField('sterilise', {{ $dog->id }})" class="hidden text-green-500 hover:text-green-700">
-                                            <i class="fas fa-save"></i> Sauvegarder
-                                        </button>
-                                    </div>
-                                
-                                    <!-- Bouton Supprimer -->
-                                    <div class="flex justify-end mt-6">
-                                        <button 
-                                            onclick="confirmDelete({{ $dog->id }})" 
-                                            class="text-red-500 hover:text-red-700 flex items-center space-x-2">
-                                            <i class="fas fa-trash-alt"></i>
-                                            <span>Supprimer</span>
-                                        </button>
-                                    </div>
-                                </div>              
                             </div>
+                                
+                            <div id="dog-details-{{ $dog->id }}" class="w-full bg-white p-2 mb-2 rounded-lg shadow-lg hidden">
+                                <!-- Nom -->
+                                <div class="flex justify-between items-center">
+                                    <span class="text-sm"><strong>Nom :</strong></span>
+                                    <span id="dog-nom-{{ $dog->id }}" class="dog-info text-gray-600 bg-transparent w-20 text-sm">{{ $dog->nom }}</span>
+                                    <button id="edit-btn-nom-{{ $dog->id }}" onclick="editField('nom', {{ $dog->id }})" class="text-blue-500 hover:text-blue-700">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button id="save-btn-nom-{{ $dog->id }}" onclick="saveField('nom', {{ $dog->id }})" class="hidden text-green-500 hover:text-green-700">
+                                        <i class="fas fa-save"></i>
+                                    </button>
+                                </div>
+                            
+                                <!-- Race -->
+                                <div class="flex justify-between items-center">
+                                    <span><strong>Race :</strong></span>
+                                    <span id="dog-race-{{ $dog->id }}" class="dog-info text-gray-600 bg-transparent">{{ $dog->race }}</span>
+                                    <button id="edit-btn-race-{{ $dog->id }}" onclick="editField('race', {{ $dog->id }})" class="text-blue-500 hover:text-blue-700">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button id="save-btn-race-{{ $dog->id }}" onclick="saveField('race', {{ $dog->id }})" class="hidden text-green-500 hover:text-green-700">
+                                        <i class="fas fa-save"></i>
+                                    </button>
+                                </div>
+                            
+                                <!-- Poids -->
+                                <div class="flex justify-between items-center mt-2">
+                                    <span><strong>Poids :</strong></span>
+                                    <span id="dog-poids-{{ $dog->id }}" class="dog-info text-gray-600 bg-transparent">{{ $dog->poids }} kgs</span>
+                                    <button id="edit-btn-poids-{{ $dog->id }}" onclick="editField('poids', {{ $dog->id }})" class="text-blue-500 hover:text-blue-700">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button id="save-btn-poids-{{ $dog->id }}" onclick="saveField('poids', {{ $dog->id }})" class="hidden text-green-500 hover:text-green-700">
+                                        <i class="fas fa-save"></i>
+                                    </button>
+                                </div>
+                            
+                                <!-- Âge -->
+                                <div class="flex justify-between items-center mt-2">
+                                    <span><strong>Âge :</strong></span>
+                                    <span id="dog-age-{{ $dog->id }}" class="dog-info text-gray-600 bg-transparent">{{ $dog->age }} ans</span>
+                                    <button id="edit-btn-age-{{ $dog->id }}" onclick="editField('age', {{ $dog->id }})" class="text-blue-500 hover:text-blue-700">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button id="save-btn-age-{{ $dog->id }}" onclick="saveField('age', {{ $dog->id }})" class="hidden text-green-500 hover:text-green-700">
+                                        <i class="fas fa-save"></i>
+                                    </button>
+                                </div>
+                            
+                                <!-- Sexe -->
+                                <div class="flex justify-between items-center mt-2">
+                                    <span><strong>Sexe :</strong></span>
+                                    <span id="dog-sexe-{{ $dog->id }}" class="dog-info text-gray-600 bg-transparent">
+                                        @if ($dog->sexe == "F") Femelle @else Mâle @endif
+                                    </span>
+                                    <button id="edit-btn-sexe-{{ $dog->id }}" onclick="editField('sexe', {{ $dog->id }})" class="text-blue-500 hover:text-blue-700">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button id="save-btn-sexe-{{ $dog->id }}" onclick="saveField('sexe', {{ $dog->id }})" class="hidden text-green-500 hover:text-green-700">
+                                        <i class="fas fa-save"></i>
+                                    </button>
+                                </div>
+                            
+                                <!-- Caractère -->
+                                <div class="flex justify-between">
+                                    <span class="mr-2 text-sm"><strong>Caractère :</strong></span>
+                                    <span id="dog-comportement-{{ $dog->id }}" class="dog-info text-gray-600 bg-transparent w-20 text-sm">{{ $dog->comportement }}</span>
+                                    <button id="edit-btn-comportement-{{ $dog->id }}" onclick="editField('comportement', {{ $dog->id }})" class="text-blue-500 hover:text-blue-700">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button id="save-btn-comportement-{{ $dog->id }}" onclick="saveField('comportement', {{ $dog->id }})" class="hidden text-green-500 hover:text-green-700">
+                                        <i class="fas fa-save"></i>
+                                    </button>
+                                </div>
+                            
+                                <!-- Besoins spéciaux -->
+                                <div class="flex justify-between">
+                                    <span class="mr-2"><strong>Besoins spéciaux </strong></span>
+                                    <span id="dog-besoins_speciaux-{{ $dog->id }}" class="dog-info text-gray-600 bg-transparent w-25">{{ $dog->besoins_speciaux }}</span>
+                                    <button id="edit-btn-besoins_speciaux-{{ $dog->id }}" onclick="editField('besoins_speciaux', {{ $dog->id }})" class="text-blue-500 hover:text-blue-700">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button id="save-btn-besoins_speciaux-{{ $dog->id }}" onclick="saveField('besoins_speciaux', {{ $dog->id }})" class="hidden text-green-500 hover:text-green-700">
+                                        <i class="fas fa-save"></i>
+                                    </button>
+                                </div>
+                            
+                                <!-- Stérilisation -->
+                                <div class="flex justify-between mt-2">
+                                    <span><strong>Stérilisation :</strong></span>
+                                    <span id="dog-sterilise-{{ $dog->id }}" class="dog-info text-gray-600 bg-transparent">
+                                        @if ($dog->sterilise == 1) Oui @else Non @endif
+                                    </span>
+                                    <button id="edit-btn-sterilise-{{ $dog->id }}" onclick="editField('sterilise', {{ $dog->id }})" class="text-blue-500 hover:text-blue-700">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button id="save-btn-sterilise-{{ $dog->id }}" onclick="saveField('sterilise', {{ $dog->id }})" class="hidden text-green-500 hover:text-green-700">
+                                        <i class="fas fa-save"></i>
+                                    </button>
+                                </div>
+                            
+                                <!-- Bouton Supprimer -->
+                                <div class="flex justify-end mt-6">
+                                    <button 
+                                        onclick="confirmDelete({{ $dog->id }})" 
+                                        class="text-red-500 hover:text-red-700 flex items-center space-x-2">
+                                        <i class="fas fa-trash-alt"></i>
+                                        <span>Supprimer</span>
+                                    </button>
+                                </div>
+                            </div>              
                         @endforeach
                         <div id="confirmation-modal" class="hidden fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center z-50">
                             <div class="bg-white p-6 rounded-lg shadow-lg w-96">
@@ -181,7 +182,7 @@
                 @endif
             </div>
 
-            <div class="w-full md:w-1/2 bg-gradient-to-r from-yellow-100 to-orange-100 p-6 rounded-lg shadow-lg">
+            <div class="w-full md:w-2/3 bg-gradient-to-r from-yellow-100 to-orange-100 p-6 rounded-lg shadow-lg">
                 
                 @if (Auth::user()->role === 'proprietaire')
                     <h3 class="text-xl font-semibold mb-2 text-gray-800">Ce que je recherche chez un dogsitter</h3>
