@@ -93,8 +93,9 @@ class DogController extends Controller
         return response()->json(['success' => true, 'dog' => $dog]);
     }
 
-    public function destroy(Dog $dog)
+    public function destroy($id)
     {
+        $dog = Dog::findOrFail($id);
         $dog->delete();
         return response()->json(['success' => true]);
     }

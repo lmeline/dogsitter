@@ -4,29 +4,29 @@
         <div class="text-black py-10 w-full flex items-center bg-gradient-to-r from-red-200 to-orange-200 rounded-lg shadow-lg">
         
             <div class="flex-shrink-0 mr-8">
-                <img src="{{Auth::user()->photo}}" alt="{{ Auth::user()->name }}" class="w-40 h-40 rounded-full border-4 border-white shadow-lg ml-10">
+                <img src="{{Auth::user()->photo}}" alt="{{ Auth::user()->name }}" class="w-20 h-20 sm:w-40 sm:h-40 rounded-full border-4 border-white shadow-lg ml-10">
             </div>
             
             <div class="flex flex-col justify-end">
-                <h1 class="text-3xl font-bold text-gray-800">{{ Auth::user()->name }} {{ Auth::user()->prenom }}</h1>
+                <h1 class="text-3xl-sm text-xl font-bold text-gray-800">{{ Auth::user()->name }} {{ Auth::user()->prenom }}</h1>
             </div>
         </div>
 
         <div class="flex flex-col md:flex-row w-full mt-12 mb-12 px-6 md:px-12 space-y-6 md:space-y-0 gap-x-6">
 
             <div class="w-full md:w-1/2 bg-gradient-to-r from-green-100 to-pink-100 p-6 rounded-lg shadow-lg">
-                <h2 class="text-2xl font-semibold mb-4 text-gray-800">Informations personnelles</h2>
+                <h2 class="text-xl font-semibold mb-4 text-gray-800">Informations personnelles</h2>
                 <p class="mb-2"><strong>Ville :</strong> {{ Auth::user()->ville->nom_de_la_commune }}</p>
                 @if (Auth::user()->role === 'proprietaire')
-                    <h3 class="text-xl font-semibold mb-2 text-gray-800 pt-2 ">Information sur mon toutou</h3>
+                    <h3 class="text-xl font-semibold mb-4 text-gray-800 ">Information sur mon toutou</h3>
                         @foreach(Auth::user()->dogs as $dog)
-                            <div class="mb-4">
+                            <div class="flex mb-5">
                                 <button 
                                     onclick="toggleDetails('dog-details-{{ $dog->id }}')" 
                                     class=" text-black w-80 h-10 bg-gradient-to-r from-yellow-300 to-pink-300 px-6 py-3 rounded-lg hover:from-yellow-400 hover:to-pink-400 transition ">
                                     Détails de {{ $dog->nom }}
                                 </button>
-                                <div id="dog-details-{{ $dog->id }}" class="mt-4 bg-white p-6 rounded-lg shadow-lg hidden">
+                                <div id="dog-details-{{ $dog->id }}" class="mt-4 bg-white p-6 rounded-lg shadow-lg  hidden">
                                     <!-- Nom -->
                                     <div class="flex justify-between items-center mt-2">
                                         <span><strong>Nom :</strong></span>
@@ -53,7 +53,7 @@
                                 
                                     <!-- Poids -->
                                     <div class="flex justify-between items-center mt-2">
-                                        <span><strong>poids :</strong></span>
+                                        <span><strong>Poids :</strong></span>
                                         <span id="dog-poids-{{ $dog->id }}" class="dog-info text-gray-600 bg-transparent">{{ $dog->poids }} kgs</span>
                                         <button id="edit-btn-poids-{{ $dog->id }}" onclick="editField('poids', {{ $dog->id }})" class="text-blue-500 hover:text-blue-700">
                                             <i class="fas fa-edit"></i> Modifier
@@ -74,12 +74,12 @@
                                             <i class="fas fa-save"></i> Sauvegarder
                                         </button>
                                     </div>
-                                    
+                                
                                     <!-- Sexe -->
                                     <div class="flex justify-between items-center mt-2">
                                         <span><strong>Sexe :</strong></span>
                                         <span id="dog-sexe-{{ $dog->id }}" class="dog-info text-gray-600 bg-transparent">
-                                            @if ($dog->sexe == "F") Femelle @else Male @endif
+                                            @if ($dog->sexe == "F") Femelle @else Mâle @endif
                                         </span>
                                         <button id="edit-btn-sexe-{{ $dog->id }}" onclick="editField('sexe', {{ $dog->id }})" class="text-blue-500 hover:text-blue-700">
                                             <i class="fas fa-edit"></i> Modifier
@@ -89,7 +89,7 @@
                                         </button>
                                     </div>
                                 
-                                    <!-- Comportement -->
+                                    <!-- Caractère -->
                                     <div class="flex justify-between items-center mt-2">
                                         <span><strong>Caractère :</strong></span>
                                         <span id="dog-comportement-{{ $dog->id }}" class="dog-info text-gray-600 bg-transparent">{{ $dog->comportement }}</span>
@@ -126,25 +126,33 @@
                                             <i class="fas fa-save"></i> Sauvegarder
                                         </button>
                                     </div>
-                                    <div class="flex justify-between mt-4">
+                                
+                                    <!-- Bouton Supprimer -->
+                                    <div class="flex justify-end mt-6">
                                         <button 
                                             onclick="confirmDelete({{ $dog->id }})" 
-                                            class="text-red-500 hover:text-red-700">
-                                            <i class="fas fa-trash"></i> Supprimer
+                                            class="text-red-500 hover:text-red-700 flex items-center space-x-2">
+                                            <i class="fas fa-trash-alt"></i>
+                                            <span>Supprimer</span>
                                         </button>
                                     </div>
                                 </div>              
                             </div>
                         @endforeach
-                        <div id="confirmation-modal" class="hidden fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center">
+                        <div id="confirmation-modal" class="hidden fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center z-50">
                             <div class="bg-white p-6 rounded-lg shadow-lg w-96">
-                                <p>Êtes-vous sûr de vouloir supprimer ce chien ?</p>
-                                <div class="flex justify-between mt-4">
-                                    <button onclick="deleteDog()" class="text-red-500 hover:text-red-700">Oui, supprimer</button>
-                                    <button onclick="closeModal()" class="text-gray-500 hover:text-gray-700">Annuler</button>
+                                <p class="text-lg">Êtes-vous sûr de vouloir supprimer ce chien ?</p>
+                                <div class="flex justify-end mt-6 space-x-4">
+                                    <button onclick="deleteDogAjax()" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded">
+                                        Oui, supprimer
+                                    </button>
+                                    <button onclick="closeModal()" class="bg-gray-300 hover:bg-gray-400 text-gray-700 px-4 py-2 rounded">
+                                        Annuler
+                                    </button>
                                 </div>
                             </div>
                         </div>
+                        
                 @else
                     <p class="mb-2"><strong>Disponibilité :</strong>
                         @foreach (Auth::user()->disponibilites as $disponibilite)
@@ -328,28 +336,45 @@ function saveField(field, dogId) {
         console.error('Erreur:', error);
         alert('Une erreur s\'est produite.');
     });
+}
 
     let dogIdToDelete = null;
 
-    // Fonction pour afficher le modal
     function confirmDelete(dogId) {
         dogIdToDelete = dogId;
         document.getElementById('confirmation-modal').classList.remove('hidden');
     }
 
-    // Fonction pour fermer le modal sans supprimer
     function closeModal() {
         document.getElementById('confirmation-modal').classList.add('hidden');
+        dogIdToDelete = null;
     }
 
-    // Fonction pour supprimer un chien (à implémenter avec votre logique backend)
-    function deleteDog() {
-        if (dogIdToDelete) {
-            // Remplacer cette ligne par l'appel à votre route de suppression
-            window.location.href = '/dogs/{id}/delete' + dogIdToDelete; // Exemple d'URL de suppression
-        }
-    }
-}
+    function deleteDogAjax() {
+        if (!dogIdToDelete) return;
 
+        fetch(`/dogs/${dogIdToDelete}/delete`, {
+            method: 'DELETE',
+            headers: {
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                'Accept': 'application/json',
+            }
+        })
+        .then(response => {
+            if (!response.ok) throw new Error('Suppression échouée');
+            return response.json();
+        })
+        .then(data => {
+            const detailsDiv = document.getElementById(`dog-details-${dogIdToDelete}`);
+            if (detailsDiv) detailsDiv.parentElement.remove(); // Supprime la carte entière
+            closeModal();
+            alert(data.message || "Chien supprimé avec succès.");
+        })
+        .catch(error => {
+            closeModal();
+            alert("Erreur : " + error.message);
+        });
+    }
 </script>
+
 
