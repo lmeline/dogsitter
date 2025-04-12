@@ -13,14 +13,20 @@ use App\Http\Controllers\AvisController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+// Requêtes pour la page d'accueil
+Route::get('/', [HomeController::class, 'index'])->name('index');
+Route::get('/avis/create', [AvisController::class, 'create'])->name('avis.create');
+Route::post('/avis', [AvisController::class, 'store'])->name('avis.store');
 
-Route::get('/trouvezsondogsitter', function () {
-    return view('dogsitters.index');
-})->middleware(['auth', 'verified'])->name('dogsitters.index');
+route::get('/conditions-utilisation', function () {
+    return view('footer.cgu');
+})->name('cgu');
 
+route::get('/politique-de-confidentialite', function () {
+    return view('footer.politique-confidentialite');
+})->name('cgu');
+
+// Requêtes pour la page profil
 Route::get('/pageprofil', function () {
     return view('profile');
 })->middleware(['auth', 'verified'])->name('profile');
@@ -31,64 +37,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::middleware(['auth'])->group(function () {
-    Route::get('/abonnement', [AbonnementController::class, 'show'])->name('abonnements.update');
-    Route::post('/abonnement', [AbonnementController::class, 'updateAbonnement'])->name('abonnements.update');
-});
-
 require __DIR__ . '/auth.php';
-
-
-Route::get('/dogs', [DogController::class, 'index'])->name('dogs.index');
-Route::get('/dogs/{id}', [DogController::class, 'show'])->name('dogs.show');
-
-route::get('/dogsitters', [ProfilDogsitterController::class, 'index'])->name('dogsitters.index');
-route::get('/dogsitters/{id}', [ProfilDogsitterController::class, 'show'])->name('dogsitters.show');
-Route::get('/dogsitters/filtrer', [ProfilDogsitterController::class, 'filter'])->name('dogsitters.filter');
-Route::get('/dogsitter/postersonannonce', [ProfilDogsitterController::class, 'annonce'])->name('dogsitters.annonce');
-Route::get('/dogsitter/calendar', [ProfilDogsitterController::class, 'showCalendar'])->name('dogsitters.calendar');
-
-route::get('/proprietaires', [ProprietaireController::class, 'index'])->name('proprietaires.index');
-//route::get('/proprietaires/{id}', [ProprietaireController::class, 'show'])->name('proprietaires.show');
-route::post('/update-description', [ProprietaireController::class, 'updateDescription'])->name('update.description');
-route::get('/proprietaires/mesprestations', [PrestationController::class, 'showPrestations'])->name('proprietaires.mesprestations');
-
-Route::post('/user-prestation', [PrestationTypesController::class, 'store'])->name('userPrestations.store');
-Route::get('/user-prestation/{id}', [PrestationTypesController::class, 'update'])->name('userPrestations.update');
-Route::get('/user-prestation/{id}/edit', [PrestationTypesController::class, 'edit'])->name('userPrestations.edit');
-Route::get('user-prestation/{id}/delete', [PrestationTypesController::class, 'destroy'])->name('userPrestations.destroy');
-
-Route::get('/', [HomeController::class, 'index'])->name('index');
-
-Route::get('/avis/create', [AvisController::class, 'create'])->name('avis.create');
-Route::post('/avis', [AvisController::class, 'store'])->name('avis.store');
-
-
-route::get('/conditions-utilisation', function () {
-    return view('footer.cgu');
-})->name('cgu');
-
-route::get('/politique-de-confidentialite', function () {
-    return view('footer.politique-confidentialite');
-})->name('cgu');
-
-Route::get('/prestations/create/{id}', [PrestationController::class, 'create'])->name('prestations.create');
-Route::get('/prestations', [PrestationController::class, 'index'])->name('prestations.index');
-Route::post('/prestations', [PrestationController::class, 'store'])->name('prestations.store');
-Route::get('/prestations/{id}', [PrestationController::class, 'show'])->name('prestations.show');
-
-Route::get('profil/ajoutchien', [DogController::class, 'create'])->name('dogs.create');
-Route::put('/dogs/{dog}', [DogController::class, 'update'])->name('dogs.update');
-Route::get('/dogs/{dog}/edit', [DogController::class, 'edit'])->name('dogs.edit');
-
-Route::delete('/dogs/{id}/delete', [DogController::class, 'destroy'])->name('dogs.destroy');
-
-
-Route::get('/register/dog', [DogController::class, 'registerdog'])->name('register.dog');
-Route::post('/register/dog', [DogController::class, 'storeregisterdog'])->name('storeregisterdog');
-
-Route::get('/choisir-abonnement', [AbonnementController::class, 'registerabonnement'])->name('register.abonnement');
-Route::post('/choisir-abonnement', [AbonnementController::class, 'chooseAbonnement'])->name('chooseAbonnement');
 
 Route::get('/error', function () {
     return view('erreurs.unauthorized');
@@ -110,6 +59,51 @@ Route::middleware('auth')->group(function () {
     Route::delete('/disponibilites/{id}', [DisponibiliteController::class, 'destroy'])->name('disponibilites.destroy');
     Route::post('/disponibilites/{id}', [DisponibiliteController::class, 'update'])->name('disponibilites.update');
     Route::get('/disponibilites/{id}/edit', [DisponibiliteController::class, 'edit'])->name('disponibilites.edit');
+
+        // Requêtes pour les chiens 
+    Route::get('/register/dog', [DogController::class, 'registerdog'])->name('register.dog');
+    Route::post('/register/dog', [DogController::class, 'storeregisterdog'])->name('storeregisterdog');
+    Route::get('profil/ajoutchien', [DogController::class, 'create'])->name('dogs.create');
+    Route::get('/dogs', [DogController::class, 'index'])->name('dogs.index');
+    Route::get('/dogs/{id}', [DogController::class, 'show'])->name('dogs.show');
+    Route::put('/dogs/{dog}', [DogController::class, 'update'])->name('dogs.update');
+    Route::get('/dogs/{dog}/edit', [DogController::class, 'edit'])->name('dogs.edit');
+    Route::delete('/dogs/{id}/delete', [DogController::class, 'destroy'])->name('dogs.destroy');
+
+    Route::get('/trouvezsondogsitter', function () {
+        return view('dogsitters.index');
+    })->middleware(['auth', 'verified'])->name('dogsitters.index');
+
+    // Requêtes pour les dogsitters
+    route::get('/dogsitters', [ProfilDogsitterController::class, 'index'])->name('dogsitters.index');
+    route::get('/dogsitters/{id}', [ProfilDogsitterController::class, 'show'])->name('dogsitters.show');
+    Route::get('/dogsitters/filtrer', [ProfilDogsitterController::class, 'filter'])->name('dogsitters.filter');
+    Route::get('/dogsitter/postersonannonce', [ProfilDogsitterController::class, 'annonce'])->name('dogsitters.annonce');
+    Route::get('/dogsitter/calendar', [ProfilDogsitterController::class, 'showCalendar'])->name('dogsitters.calendar');
+
+    Route::get('/abonnement', [AbonnementController::class, 'show'])->name('abonnements.update');
+    Route::post('/abonnement', [AbonnementController::class, 'updateAbonnement'])->name('abonnements.update');
+
+    Route::get('/choisir-abonnement', [AbonnementController::class, 'registerabonnement'])->name('register.abonnement');
+    Route::post('/choisir-abonnement', [AbonnementController::class, 'chooseAbonnement'])->name('chooseAbonnement');
+
+    Route::post('/user-prestation', [PrestationTypesController::class, 'store'])->name('userPrestations.store');
+    Route::get('/user-prestation/{id}', [PrestationTypesController::class, 'update'])->name('userPrestations.update');
+    Route::get('/user-prestation/{id}/edit', [PrestationTypesController::class, 'edit'])->name('userPrestations.edit');
+    Route::get('user-prestation/{id}/delete', [PrestationTypesController::class, 'destroy'])->name('userPrestations.destroy');
+
+    // Requêtes pour les proprietaires
+    route::get('/proprietaires', [ProprietaireController::class, 'index'])->name('proprietaires.index');
+    //route::get('/proprietaires/{id}', [ProprietaireController::class, 'show'])->name('proprietaires.show');
+    route::post('/update-description', [ProprietaireController::class, 'updateDescription'])->name('update.description');
+    route::get('/proprietaires/mesprestations', [PrestationController::class, 'showPrestations'])->name('proprietaires.mesprestations');
+
+
+    // Requêtes pour les prestations
+    Route::get('/prestations/create/{id}', [PrestationController::class, 'create'])->name('prestations.create');
+    Route::post('/prestations', [PrestationController::class, 'store'])->name('prestations.store');
+    Route::get('/prestations/{id}', [PrestationController::class, 'show'])->name('prestations.show');
+
 
 });
 

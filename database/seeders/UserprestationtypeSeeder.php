@@ -34,7 +34,7 @@ class UserprestationtypeSeeder extends Seeder
                     'prestation_type_id' => $prestation->id,
                 ], [
                     'prix' => rand(10, 50), // Prix aléatoire
-                    "duree" => Arr::random([30, 60, 90, 120]), // Durée aléatoire en heures
+                    "duree" => Arr::random([60]), // Durée aléatoire en heures
                     'created_at' => now(),
                     'updated_at' => now(),
                 ]);

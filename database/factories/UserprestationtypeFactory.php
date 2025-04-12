@@ -27,7 +27,7 @@ class UserprestationtypeFactory extends Factory
             'dogsitter_id' => User::inRandomOrder()->first()->id,
             'prestation_type_id' => Prestationtype::inRandomOrder()->first()->id,
             "prix" => rand(10, 20),
-            "duree" => Arr::random([30, 60, 90, 120]),
+            "duree" => Arr::random([60]),
         ];
     }
 }
