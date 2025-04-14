@@ -169,4 +169,21 @@ class MessageController extends Controller
 
     }
 
+    public function searchDogsitter(Request $request)
+    {
+        try{
+            $query = User::query();
+            $query->where('role', 'dogsitter');
+
+            if($request->filled('name')) {
+                $query->where('name', 'LIKE', "%{$request->name}%");
+            }
+            $users = $query->get();
+            return response()->json($users);
+        }catch(\Exception $e){
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
+
+    }
+
 }

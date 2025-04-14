@@ -114,6 +114,7 @@ Route::get('/search-dogsitters', [ProfilDogsitterController::class, 'search'])->
 Route::get('/search-villes', [ProfileController::class, 'searchVille'])->name('search.ville');
 Route::post('/save-ville', [ProfileController::class, 'saveVille'])->name('save.ville');
 Route::get('/search-owner', [MessageController::class, 'searchOwner'])->name('search.owner');
+Route::get('/search-dogsitter', [MessageController::class, 'searchDogsitter'])->name('search.dogsitter');
 Route::get('/messages/search', [MessageController::class, 'search'])->name('messages.search');
 
 

@@ -15,7 +15,9 @@
                 <!-- Conteneur du haut (fixe) -->
                     <div class="p-4 flex justify-between items-center">
                         <h2 class="text-xl font-semibold">Rechercher un propriétaire</h2>
-                        <button onclick="toggleModal()" class="text-gray-600 hover:text-gray-900 text-2xl">✖</button>
+                        <button onclick="toggleModal()" class="text-gray-600 hover:text-gray-900 text-2xl"><svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="100" height="100" viewBox="0 0 32 32">
+                            <path d="M 16 3 C 8.832031 3 3 8.832031 3 16 C 3 23.167969 8.832031 29 16 29 C 23.167969 29 29 23.167969 29 16 C 29 8.832031 23.167969 3 16 3 Z M 16 5 C 22.085938 5 27 9.914063 27 16 C 27 22.085938 22.085938 27 16 27 C 9.914063 27 5 22.085938 5 16 C 5 9.914063 9.914063 5 16 5 Z M 12.21875 10.78125 L 10.78125 12.21875 L 14.5625 16 L 10.78125 19.78125 L 12.21875 21.21875 L 16 17.4375 L 19.78125 21.21875 L 21.21875 19.78125 L 17.4375 16 L 21.21875 12.21875 L 19.78125 10.78125 L 16 14.5625 Z"></path>
+                            </svg></button>
                     </div>
             
                     <!-- Barre de recherche (fixe) -->
@@ -26,12 +28,14 @@
                 @else
                     <div class="p-4 flex justify-between items-center">
                         <h2 class="text-xl font-semibold">Rechercher un dogsitter</h2>
-                        <button onclick="toggleModal()" class="text-gray-600 hover:text-gray-900 text-2xl">✖</button>
+                        <button onclick="toggleModal()" class="text-gray-600 hover:text-gray-900 text-2xl"><svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="30" height="30" viewBox="0 0 32 32">
+                            <path d="M 16 3 C 8.832031 3 3 8.832031 3 16 C 3 23.167969 8.832031 29 16 29 C 23.167969 29 29 23.167969 29 16 C 29 8.832031 23.167969 3 16 3 Z M 16 5 C 22.085938 5 27 9.914063 27 16 C 27 22.085938 22.085938 27 16 27 C 9.914063 27 5 22.085938 5 16 C 5 9.914063 9.914063 5 16 5 Z M 12.21875 10.78125 L 10.78125 12.21875 L 14.5625 16 L 10.78125 19.78125 L 12.21875 21.21875 L 16 17.4375 L 19.78125 21.21875 L 21.21875 19.78125 L 17.4375 16 L 21.21875 12.21875 L 19.78125 10.78125 L 16 14.5625 Z"></path>
+                            </svg></button>
                     </div>
             
                     <!-- Barre de recherche (fixe) -->
                     <div class="p-4">
-                        <input type="text" id="searchInput" placeholder="Nom du dogsitter..."
+                        <input type="text" id="searchInput2" placeholder="Nom du dogsitter..."
                             class="w-full border border-gray-300 rounded-lg shadow-md">
                     </div>
                 @endif
@@ -154,6 +158,54 @@
                 timeout = setTimeout(fetchProprietaires, 500);
             });
             fetchProprietaires();
+        });
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const searchInput = document.getElementById('searchInput2');
+            const searchResults = document.getElementById('searchResults');
+            console.log("cc");
+            let timeout = null;
+            function fetchDogsitters() {
+                const search = encodeURIComponent(searchInput.value.trim());
+                const URL = `{{ route('search.dogsitter') }}?name=${search}`;
+
+                fetch(URL, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    }
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        searchResults.innerHTML = '';
+
+                        if (data.length === 0) {
+                            searchResults.innerHTML = '<p class="text-gray-500">Aucun propriétaire trouvé.</p>';
+                            return;
+                        }
+
+                        data.forEach(dogsitter => {
+                            searchResults.innerHTML += `
+                            <a href="/messages/create/${dogsitter.id}" class="block p-4 hover:bg-gray-100 transition">
+                                <div class="flex items-center">
+                                    <img src="${dogsitter.photo}" alt="${dogsitter.name}" class="w-12 h-12 rounded-full object-cover mr-4">
+                                    <div>
+                                        <h2 class="text-lg font-semibold">${dogsitter.name}</h2>
+                                        <p class="text-gray-500">${dogsitter.prenom}</p>
+                                    </div>
+                                </div>
+                            </a>`;
+                        });
+                    })
+                    .catch(error => {
+                        console.error('Error fetching dogsitters:', error);
+                    });
+            }
+            searchInput2.addEventListener('input', function () {
+                clearTimeout(timeout);
+                timeout = setTimeout(fetchDogsitters, 500);
+            });
+            fetchDogsitters();
         });
     </script>
 </x-app-layout>

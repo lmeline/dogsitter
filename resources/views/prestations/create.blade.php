@@ -99,7 +99,8 @@
                 selectOverlap: true,
                 selectable: true,
                 editable: false,
-                droppable: true,
+                droppable: false,
+                eventOverlap: false,
                 events: [
                     ...prestations.map(function (prestation) {
                         return {
@@ -138,6 +139,21 @@
                 },
                 dateClick: function (info) {
                     let clickedDate = new Date(info.date);
+
+                    // Vérifie si un événement existe à cette date
+                    let hasConflict = calendar.getEvents().some(event => {
+                        let eventStart = new Date(event.start);
+                        let eventEnd = new Date(event.end);
+
+                        return clickedDate >= eventStart && clickedDate < eventEnd;
+                    });
+
+                    if (hasConflict) {
+                        alert("Un créneau est déjà réservé à cette heure.");
+                        return; // On bloque l'ouverture du modal
+                    }
+
+                    // Sinon, on continue normalement
                     let dateDe = new Date(info.date);
                     let dateA = new Date(info.date);
                     dateA.setHours(dateA.getHours() + (spanDuree.textContent / 60));
@@ -146,13 +162,14 @@
                     heureA = dateA.toLocaleString('fr-FR', { hour: '2-digit', minute: '2-digit' });
 
                     spanDateDe.textContent = dateDe;
-                    spanDateA.textContent = dateA
+                    spanDateA.textContent = dateA;
                     txtPrestationDate.value = dateDe.toISOString().split('T')[0];
                     ddlPrestationDe.value = heureDe;
                     spanPrestationA.textContent = heureA;
 
                     prestationModal.classList.remove('hidden');
                 }
+
             });
             calendar.render();
         });

@@ -51,25 +51,18 @@ class PrestationController extends Controller
   // }
   public function create($id)
   {
-      // Récupérer l'utilisateur actuellement connecté (propriétaire)
       $proprietaire = Auth::user($id);
-  
-      // Récupérer le dogsitter en fonction de son ID
+
       $dogsitter = User::find($id);
-  
-      // Récupérer les prestations réservées par le propriétaire pour ce dogsitter
+
       $prestations = $proprietaire->prestationsAsproprietaire()->with(['dog', 'prestationType', 'dogsitter'])->get();
-  
-      // Récupérer les prestations réservées pour ce dogsitter
+        
       $prestationsDogsitter = $dogsitter->prestationsAsDogsitter()->with(['dog', 'prestationType', 'proprietaire'])->get();
-  
-      // Récupérer tous les chiens du propriétaire
+
       $dogs = Dog::where('proprietaire_id', $proprietaire->id)->get();
-  
-      // Récupérer les disponibilités du dogsitter
+
       $disponibilites = $dogsitter->disponibilites;
-  
-      // Tableau de correspondance des jours de la semaine
+
       $joursSemaine = [
           'Lundi' => 'Monday',
           'Mardi' => 'Tuesday',
@@ -79,12 +72,10 @@ class PrestationController extends Controller
           'Samedi' => 'Saturday',
           'Dimanche' => 'Sunday',
       ];
-  
-      // On ajuste la date des disponibilités en fonction des jours de la semaine
+
       foreach ($disponibilites as $disponibilite) {
           $jour = $disponibilite->jour_semaine;
-  
-          // Si le jour existe dans le tableau $joursSemaine, on l'ajoute à la disponibilité
+
           if (isset($joursSemaine[$jour])) {
               $jourAnglais = $joursSemaine[$jour];
               $date = Carbon::now()->next($jourAnglais);
@@ -92,7 +83,6 @@ class PrestationController extends Controller
           }
       }
   
-      // Passer les données à la vue
       return view('prestations.create', compact('dogsitter', 'proprietaire', 'dogs', 'disponibilites', 'prestations', 'prestationsDogsitter'));
   }
   
