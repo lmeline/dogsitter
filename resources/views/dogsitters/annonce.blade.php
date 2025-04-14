@@ -40,10 +40,18 @@
                     </div>
 
                     <div class="mb-6 text-center">
+                        @if($disponibilites != null)
+                        <button id="submitButton" type="submit"
+                                class="w-full bg-gradient-to-r from-yellow-300 to-pink-300 text-black font-semibold py-3 px-4 rounded-lg hover:bg-pink-600 transition-all duration-300">
+                            Ajouter
+                        </button>
+                        @else
                         <button type="submit"
                                 class="w-full bg-gradient-to-r from-yellow-300 to-pink-300 text-black font-semibold py-3 px-4 rounded-lg hover:bg-pink-600 transition-all duration-300">
-                            Enregistrer
+                            Modifier
                         </button>
+                        @endif
+
                     </div>
                 </form>
             </div>
@@ -101,30 +109,41 @@
             const selectJour = document.getElementById("jour_semaine");
             const heureDebutInput = document.getElementById("heure_debut");
             const heureFinInput = document.getElementById("heure_fin");
-            // Définir l'heure minimale et maximale
-            const minHeure = "07:00";  // Heure de début (07:00)
-            const maxHeure = "21:00";  // Heure de fin (21:00)
+            const submitButton = document.getElementById("submitButton");
+
+            const minHeure = "07:00";  
+            const maxHeure = "21:00";
 
             heureDebutInput.setAttribute("min", minHeure);
             heureFinInput.setAttribute("max", maxHeure);
-
-            // Vous pouvez également ajouter des conditions pour gérer les heures de fin
             heureFinInput.setAttribute("min", minHeure);
+
             const disponibilites = @json($disponibilites);
 
-            selectJour.addEventListener('change', function() {
-                const selectedDay = this.value;
+            // Définir la fonction manquante ici
+            function updateFormForSelectedDay(selectedDay) {
                 const available = disponibilites.find(d => d.jour_semaine === selectedDay);
 
                 if (available) {
                     heureDebutInput.value = available.heure_debut; 
-                    heureFinInput.value = available.heure_fin; 
+                    heureFinInput.value = available.heure_fin;
+                    submitButton.textContent = 'Modifier'; 
                 } else {
                     heureDebutInput.value = '';
                     heureFinInput.value = '';
+                    submitButton.textContent = 'Ajouter';
                 }
+            }
+
+            // Mise à jour initiale selon la valeur déjà sélectionnée
+            updateFormForSelectedDay(selectJour.value);
+
+            // Écouteur pour changer dynamiquement à chaque sélection de jour
+            selectJour.addEventListener('change', function() {
+                updateFormForSelectedDay(this.value);
             });
         });
+
 
         document.addEventListener("DOMContentLoaded", function() {
             const select = document.getElementById("prestation_type_id");

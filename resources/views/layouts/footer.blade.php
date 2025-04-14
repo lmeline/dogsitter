@@ -1,17 +1,10 @@
 <footer class="bg-gradient-to-r from-blue-200 via-green-200 to-yellow-200 text-gray-800 py-6">
 
     <div class="container mx-auto">
-        <h2 class="text-4xl font-bold text-center mb-5">Nos Informations et Services</h2>
+        <h2 class="text-4xl font-bold text-center mb-5">Nos Informations</h2>
 
         <!-- Utiliser Flexbox pour aligner les trois sections horizontalement -->
         <div class="flex flex-wrap justify-between space-x-4">
-            <!-- Aide et support -->
-            <ul class="flex-1 p-4 text-center">
-                <h3 class="text-xl font-bold mb-4">Aide et support</h3>
-                <li><a href="#" class="hover:underline">Aide / FAQ</a></li>
-                <li><a href="#" class="hover:underline">Plan du site</a></li>
-                <li><a href="#" class="hover:underline">Nous contacter</a></li>
-            </ul>
             <ul class="flex-1 p-4 text-center">
                 <h3 class="text-xl font-bold mb-4">Réseaux sociaux et communauté</h3>
                 <div class="flex justify-center space-x-2">
@@ -54,17 +47,7 @@
                         </g>
                     </svg>
                 </div>
-            </ul>
-            <!-- À propos de l'entreprise -->
-            <ul class="flex-1 p-4 text-center">
-                <h3 class="text-xl font-bold mb-4">À propos de l'entreprise</h3>
-                <li><a href="#" class="hover:underline">Carrières / Recrutement</a></li>
-                <li><a href="#" class="hover:underline">Presse / Partenaires</a></li>
-                <li><a href="#" class="hover:underline">Avis clients / Actualités</a></li>
-            </ul>
-
-            <!-- Réseaux sociaux -->
-            
+            </ul>         
         </div>
     </div>
 
