@@ -6,10 +6,12 @@
             {{-- Ajouter une disponibilité --}}
             <div class="bg-opacity-40 backdrop-blur-md bg-white shadow-lg rounded-lg p-8 w-full max-w-lg">
                 <h2 class="text-2xl font-semibold mb-4 text-center">Ajouter une disponibilité</h2>
-                <form action="{{ route('disponibilites.store') }}" method="POST">
+                <form id="disponibiliteForm" action="{{ route('disponibilites.store') }}" method="POST">
                     @csrf
-                    <input type="hidden" name="dogsitter_id" value="{{ auth()->id() }}">
-
+                    <input type="hidden" name="_method" id="formMethod" value="POST">
+                    <input type="hidden" name="dogsitter_id" value="{{ Auth::user()->id }}">
+                    <input type="hidden" name="disponibilite_id" id="disponibilite_id" value="">
+                
                     <div class="mb-6">
                         <label class="block text-lg font-semibold text-gray-700 mb-2">Jour :</label>
                         <select
@@ -24,39 +26,29 @@
                             <option value="Dimanche">Dimanche</option>
                         </select>
                     </div>
-
+                
                     <div class="mb-6">
                         <label class="block text-lg font-semibold text-gray-700 mb-2">Heure de début :</label>
                         <input
                             class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500"
                             type="time" name="heure_debut" id="heure_debut" required>
                     </div>
-
+                
                     <div class="mb-6">
                         <label class="block text-lg font-semibold text-gray-700 mb-2">Heure de fin :</label>
                         <input
                             class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500"
                             type="time" name="heure_fin" id="heure_fin" required>
                     </div>
-
+                
                     <div class="mb-6 text-center">
-                        @if($disponibilites != null)
                         <button id="submitButton" type="submit"
-                                class="w-full bg-gradient-to-r from-yellow-300 to-pink-300 text-black font-semibold py-3 px-4 rounded-lg hover:bg-pink-600 transition-all duration-300">
+                            class="w-full bg-gradient-to-r from-yellow-300 to-pink-300 text-black font-semibold py-3 px-4 rounded-lg hover:bg-pink-600 transition-all duration-300">
                             Ajouter
                         </button>
-                        @else
-                        <button type="submit"
-                                class="w-full bg-gradient-to-r from-yellow-300 to-pink-300 text-black font-semibold py-3 px-4 rounded-lg hover:bg-pink-600 transition-all duration-300">
-                            Modifier
-                        </button>
-                        @endif
-
                     </div>
-                </form>
+                </form>                
             </div>
-
-            {{-- Ajouter un tarif pour un type de prestation --}}
             <div class="bg-opacity-40 backdrop-blur-md bg-white shadow-lg rounded-lg p-8 w-full max-w-lg">
                 <h2 class="text-2xl font-semibold mb-4 text-center">Ajouter un tarif par prestation</h2>
                 <form action="{{ route('userPrestations.store') }}" method="POST" class="space-y-4">
@@ -88,8 +80,7 @@
                     </button>
                 </form>
             </div>
-        </div> <!-- Fin du conteneur flex -->
-
+        
         {{-- pop-up --}}
         @if (session('success'))
             <div class="bg-green-100 text-green-700 p-4 rounded-md mt-8 max-w-lg mx-auto">
@@ -104,67 +95,73 @@
         @endif
     </div>
 
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            const selectJour = document.getElementById("jour_semaine");
-            const heureDebutInput = document.getElementById("heure_debut");
-            const heureFinInput = document.getElementById("heure_fin");
-            const submitButton = document.getElementById("submitButton");
-
-            const minHeure = "07:00";  
-            const maxHeure = "21:00";
-
-            heureDebutInput.setAttribute("min", minHeure);
-            heureFinInput.setAttribute("max", maxHeure);
-            heureFinInput.setAttribute("min", minHeure);
-
+     <script>
+        document.addEventListener("DOMContentLoaded", function () {
             const disponibilites = @json($disponibilites);
 
-            // Définir la fonction manquante ici
-            function updateFormForSelectedDay(selectedDay) {
-                const available = disponibilites.find(d => d.jour_semaine === selectedDay);
+            const form = document.getElementById("disponibiliteForm");
+            const methodInput = document.getElementById("formMethod");
+            const disponibiliteIdInput = document.getElementById("disponibilite_id");
+            const jourSelect = document.getElementById("jour_semaine");
+            const heureDebut = document.getElementById("heure_debut");
+            const heureFin = document.getElementById("heure_fin");
+            const submitButton = document.getElementById("submitButton");
 
-                if (available) {
-                    heureDebutInput.value = available.heure_debut; 
-                    heureFinInput.value = available.heure_fin;
-                    submitButton.textContent = 'Modifier'; 
+            const minHeure = "07:00";
+            const maxHeure = "21:00";
+            heureDebut.setAttribute("min", minHeure);
+            heureFin.setAttribute("max", maxHeure);
+            heureFin.setAttribute("min", minHeure);
+
+            function updateFormForSelectedDay(jour) {
+                const dispo = disponibilites.find(d => d.jour_semaine === jour);
+
+                if (dispo) {
+                    // Mode modification
+                    form.action = `/disponibilites/${dispo.id}`;
+                    methodInput.value = "PUT";
+                    disponibiliteIdInput.value = dispo.id;
+
+                    heureDebut.value = dispo.heure_debut;
+                    heureFin.value = dispo.heure_fin;
+
+                    submitButton.textContent = "Modifier";
                 } else {
-                    heureDebutInput.value = '';
-                    heureFinInput.value = '';
-                    submitButton.textContent = 'Ajouter';
+                    // Mode ajout
+                    form.action = `{{ route('disponibilites.store') }}`;
+                    methodInput.value = "POST";
+                    disponibiliteIdInput.value = "";
+
+                    heureDebut.value = "";
+                    heureFin.value = "";
+
+                    submitButton.textContent = "Ajouter";
                 }
             }
 
-            // Mise à jour initiale selon la valeur déjà sélectionnée
-            updateFormForSelectedDay(selectJour.value);
-
-            // Écouteur pour changer dynamiquement à chaque sélection de jour
-            selectJour.addEventListener('change', function() {
-                updateFormForSelectedDay(this.value);
+            jourSelect.addEventListener("change", () => {
+                updateFormForSelectedDay(jourSelect.value);
             });
+
+            // Initialisation au chargement
+            updateFormForSelectedDay(jourSelect.value);
         });
-
-
         document.addEventListener("DOMContentLoaded", function() {
             const select = document.getElementById("prestation_type_id");
             const dureeDisplay = document.getElementById("dureeDisplay");
-    
+
             function updateDuree() {
                 const selectedId = select.value;
-    
-                // Condition pour afficher la durée
+
                 if (selectedId == 1) {
                     dureeDisplay.innerHTML = "Durée 1 jour ";
                 } else {
                     dureeDisplay.innerHTML = "Durée 1 heure";
                 }
             }
-    
             updateDuree();
-
             select.addEventListener("change", updateDuree);
         });
-
     </script>
 
 </x-app-layout>

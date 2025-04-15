@@ -25,8 +25,8 @@ class DisponibiliteSeeder extends Seeder
                     'dogsitter_id' => $dogsitter->id,
                     'jour_semaine' => $jour,
                 ], [
-                    'heure_debut' => fake()->time(),
-                    'heure_fin' => fake()->time(),
+                    'heure_debut' => fake()->time("H:i"),
+                    'heure_fin' => fake()->time("H:i"),
                     'created_at' => now(),
                     'updated_at' => now(),
                 ]);

@@ -57,7 +57,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/disponibilites', [DisponibiliteController::class, 'index'])->name('disponibilites.index');
     Route::post('/disponibilites', [DisponibiliteController::class, 'store'])->name('disponibilites.store');
     Route::delete('/disponibilites/{id}', [DisponibiliteController::class, 'destroy'])->name('disponibilites.destroy');
-    Route::post('/disponibilites/{id}', [DisponibiliteController::class, 'update'])->name('disponibilites.update');
+    Route::put('/disponibilites/{id}', [DisponibiliteController::class, 'update'])->name('disponibilites.update');
     Route::get('/disponibilites/{id}/edit', [DisponibiliteController::class, 'edit'])->name('disponibilites.edit');
 
         // Requêtes pour les chiens 
