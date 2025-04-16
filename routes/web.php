@@ -44,7 +44,7 @@ Route::get('/error', function () {
     return view('erreurs.unauthorized');
 })->name('errorPage');
 
-Route::middleware('auth')->middleware('verified')->group(function () {
+Route::middleware('auth')->group(function () {
     Route::get('/messages', [MessageController::class, 'index'])->name('messages.index');
 
     Route::get('/messages/create/{dogsitterId}', [MessageController::class, 'createDogsitter'])->name('messages.createDogsitter');

@@ -6,7 +6,7 @@
             </div>
         </div>
 
-        <div id="calendar" class="w-100 mx-auto h-[calc(120vh-2rem)] bg-opacity-40 backdrop-blur-md bg-white p-6 rounded-lg"></div>
+        <div id="calendar" class="w-100 mx-auto h-[calc(100vh-8rem)] bg-opacity-40 backdrop-blur-md bg-white p-6 rounded-lg"></div>
     </div>
 
     <!-- Popup Modal -->
@@ -87,12 +87,6 @@
                     start: 'today prev,next',
                     center: '',
                     end: 'title',
-                },
-                buttonText: {
-                    today: 'Aujourd\'hui',
-                    month: 'Mois',
-                    week: 'Semaine',
-                    day: 'Jour'
                 },
                 firstDay: 1,
                 allDaySlot: false,
