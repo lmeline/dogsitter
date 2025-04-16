@@ -106,16 +106,13 @@ class PrestationTypesController extends Controller
 
     public function destroy($id)
     {
-        $tarif = Userprestationtype::where('id', $id)
-            ->where('dogsitter_id', Auth::id())
-            ->first();
-
-        if (!$tarif) {
-            return redirect()->route('dogsitters.annonce')->with('error', 'Tarif non rencontré.');
-        }
-
-        $tarif->delete();
-
-        return redirect()->route('dogsitters.annonce')->with('success', 'Tarif supprimé.');
+        $prestation = Userprestationtype::findOrFail($id);
+        $prestation->delete();
+    
+        return response()->json([
+            'success' => true,
+            'message' => 'Le tarif a bien été supprimé.',
+        ]);
     }
+    
 }

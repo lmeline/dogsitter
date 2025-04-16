@@ -60,7 +60,7 @@
                 </form>   
                 <div id="deleteSection" class="mb-6 text-center">
                     <button id="deleteButton"
-                        class="w-full bg-red-500 text-white font-semibold py-2 px-4 rounded-lg hover:bg-red-600 transition duration-300">
+                        class="w-1/2 bg-red-500 text-white font-semibold py-2 px-4 rounded-lg hover:bg-red-600 transition duration-300">
                         Supprimer
                     </button>
                 </div>
@@ -74,6 +74,7 @@
                     @csrf
                     <input type="hidden" name="dogsitter_id" value="{{ Auth::user()->id }}" />
                     <input type="hidden" name="_method" id="formMethodTarif" value="POST">
+                    <input type="hidden" name="user_prestation_id" id="prestation_id" value="">
                     <input type="hidden" name="user_prestation_id" id="prestation_id" value="">
 
                     <div class="mb-6">
@@ -99,6 +100,12 @@
                             class="w-full bg-gradient-to-r from-yellow-300 to-pink-300 text-black px-6 py-3 font-semibold rounded-lg hover:from-yellow-400 hover:to-pink-400 transition">
                         Ajouter
                     </button>
+                    <div id="deleteSectionTarif" class="mb-6 text-center">
+                        <button id="deleteButtonTarif"
+                            class="w-1/2 bg-red-500 text-white font-semibold py-2 px-4 rounded-lg hover:bg-red-600 transition duration-300">
+                            Supprimer
+                        </button>
+                    </div>                    
                 </form>
             </div>
         </div>
@@ -187,7 +194,7 @@
                     alert("Erreur de communication avec le serveur.");
                 });
             }
-        }, 2000);  // 2 secondes de délai avant confirmation
+        }, 2000);  
 
         // Annuler le délai si l'utilisateur change d'avis
         const cancelButton = document.getElementById("cancelButton");  // Assure-toi d'avoir un bouton "annuler"
@@ -250,6 +257,51 @@
 
         updateDureeEtPrix();
         select.addEventListener("change", updateDureeEtPrix);
+
+        let timeoutId;
+
+        const cancelButton = document.getElementById("cancelButton");
+        if (cancelButton) {
+            cancelButton.addEventListener("click", () => {
+                clearTimeout(timeoutId);
+                console.log("Suppression annulée.");
+            });
+        }
+
+        document.getElementById("deleteButtonTarif").addEventListener("click", function (e) {
+            e.preventDefault();
+
+            const id = document.getElementById("prestation_id").value;
+            if (!id) return;
+
+            timeoutId = setTimeout(() => {
+                if (confirm("Êtes-vous sûr de vouloir supprimer ce tarif ?")) {
+                    fetch(`/user-prestation/${id}/delete`, {
+                        method: 'DELETE',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': document.querySelector('input[name="_token"]').value,
+                            'X-Requested-With': 'XMLHttpRequest',
+                        }
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            alert(data.message);
+                            location.reload();
+                        } else {
+                            alert(data.message);
+                        }
+                    })
+                    .catch(error => {
+                        console.error("Erreur AJAX :", error);
+                        alert("Erreur de communication avec le serveur.");
+                    });
+                }
+            }, 2000);
+        });
+
+
     });
 
     </script>

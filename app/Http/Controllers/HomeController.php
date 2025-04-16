@@ -14,7 +14,7 @@ class HomeController extends Controller
 {
 
     $avis = Avis::with('user')->latest()->take(3)->get();
-    $utilisateurs = User::all()->count();
+    $utilisateurs = User::where("role","!=", "admin")->count();
     $proprietaires = User::where('role','proprietaire')->count();
     $dogsitters = User::where('role','dogsitter')->count();
     

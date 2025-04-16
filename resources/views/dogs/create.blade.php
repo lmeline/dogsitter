@@ -12,7 +12,7 @@
                 <div>
                     <x-input-label for="nom" :value="__('Nom')" />
                     <x-text-input id="nom"
-                        class="block mt-1 w-full rounded border border-red-300 focus:ring-red-500 focus:border-red-500 dark:bg-white"
+                        class="block mt-1 w-full rounded border border-red-300 focus:ring-red-500 focus:border-red-500 dark:bg-white dark:text-black"
                         type="text" name="nom" :value="old('nom')" required autofocus autocomplete="nom" />
                     <x-input-error :messages="$errors->get('nom')" class="mt-2" />
                 </div>
