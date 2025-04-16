@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\Reservationconfirmee;
 use App\Models\Dog;
 use App\Models\Prestation;
 use Illuminate\Http\Request;
@@ -9,6 +10,7 @@ use App\Models\User;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Symfony\Component\Console\Output\ConsoleOutput;
 
 class PrestationController extends Controller
@@ -116,6 +118,8 @@ class PrestationController extends Controller
         'proprietaire_id' => Auth::id(),
       ]);
       $prestation->save();
+
+      Mail::to(Auth::user()->email)->send(new Reservationconfirmee($prestation));
 
       // PrestationDog::create([
       //   'prestation_id' => $prestation->id,
