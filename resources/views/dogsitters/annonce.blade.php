@@ -1,7 +1,17 @@
 <x-app-layout>
     <div class="container mx-auto px-4 py-8">
         <h2 class="text-3xl font-semibold mb-6 text-center text-gray-800">Poster son annonce</h2>
-
+              {{-- pop-up --}}
+            @if (session('success'))
+                <div class="bg-green-100 text-green-700 p-4 rounded-md mt-8 max-w-lg mx-auto mb-4">
+                    {{ session('success') }}
+                </div>
+            @endif
+            @if (session('warning'))
+                <div class="bg-yellow-100 text-yellow-700 p-4 rounded-md mt-8 max-w-lg mx-auto mb-4">
+                    <strong>Attention :</strong> {{ session('warning') }}
+                </div>
+            @endif
         <div class="flex flex-col lg:flex-row space-y-8 lg:space-y-0 lg:space-x-8 justify-center">
             {{-- Ajouter une disponibilité --}}
             <div class="bg-opacity-40 backdrop-blur-md bg-white shadow-lg rounded-lg p-8 w-full max-w-lg">
@@ -67,7 +77,7 @@
                     <div class="mb-6">
                         <label for="prix" class="block text-lg font-semibold text-gray-700 mb-2">Tarif (€) :</label>
                         <input type="number" name="prix" id="prix" class="w-full border-gray-300 rounded-lg px-3 py-2"
-                               step="001" min="1" required>
+                        step="001" min="1" required>
                     </div>
 
                     <!-- Zone où on affiche la durée -->
@@ -80,25 +90,15 @@
                     </button>
                 </form>
             </div>
+        </div>
         
-        {{-- pop-up --}}
-        @if (session('success'))
-            <div class="bg-green-100 text-green-700 p-4 rounded-md mt-8 max-w-lg mx-auto">
-                {{ session('success') }}
-            </div>
-        @endif
-
-        @if (session('warning'))
-            <div class="bg-yellow-100 text-yellow-700 p-4 rounded-md mt-8 max-w-lg mx-auto">
-                <strong>Attention :</strong> {{ session('warning') }}
-            </div>
-        @endif
     </div>
+       
 
      <script>
         document.addEventListener("DOMContentLoaded", function () {
-            const disponibilites = @json($disponibilites);
 
+            const disponibilites = @json($disponibilites);
             const form = document.getElementById("disponibiliteForm");
             const methodInput = document.getElementById("formMethod");
             const disponibiliteIdInput = document.getElementById("disponibilite_id");
@@ -138,29 +138,45 @@
                     submitButton.textContent = "Ajouter";
                 }
             }
-
             jourSelect.addEventListener("change", () => {
                 updateFormForSelectedDay(jourSelect.value);
             });
-
             // Initialisation au chargement
             updateFormForSelectedDay(jourSelect.value);
         });
+
         document.addEventListener("DOMContentLoaded", function() {
+            const tarif = @json($prestationtypes);
+            const prestation = @json($userPrestations);
             const select = document.getElementById("prestation_type_id");
+            const prixInput = document.getElementById("prix");
             const dureeDisplay = document.getElementById("dureeDisplay");
 
-            function updateDuree() {
+            const prixParPrestation = {};
+            prestation.forEach(p => {
+                prixParPrestation[p.prestation_type_id] = p.prix;
+            });
+
+            function updateDureeEtPrix() {
                 const selectedId = select.value;
 
+                // Mise à jour de la durée
                 if (selectedId == 1) {
-                    dureeDisplay.innerHTML = "Durée 1 jour ";
+                    dureeDisplay.innerHTML = "Durée 1 jour";
                 } else {
                     dureeDisplay.innerHTML = "Durée 1 heure";
                 }
+
+                // Mise à jour du tarif
+                if (prixParPrestation[selectedId]) {
+                    prixInput.value = prixParPrestation[selectedId];
+                } else {
+                    prixInput.value = "";
+                }
             }
-            updateDuree();
-            select.addEventListener("change", updateDuree);
+
+            updateDureeEtPrix();
+            select.addEventListener("change", updateDureeEtPrix);
         });
     </script>
 

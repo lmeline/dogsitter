@@ -1,7 +1,7 @@
 <x-app-layout>
     <div class="container mx-auto">
         <!-- <div class="w-full h-full"> -->
-        <div class="flex justify-between items-center w-[80%] mx-auto m-5">
+        <div class="flex justify-between items-center w-[60%] mx-auto m-5">
             <div class="flex-grow text-center">
                 <h1 class="font-bold text-3xl">Mes rendez-vous</h1>
             </div>
@@ -9,7 +9,7 @@
 
         <!-- FullCalendar container -->
         <div id="calendar"
-            class="w-100 mx-auto h-[calc(100vh-5rem)] bg-opacity-40 backdrop-blur-md bg-white p-6 rounded-lg"></div>
+            class="w-100 mx-auto h-[calc(120vh-2rem)] bg-opacity-40 backdrop-blur-md bg-white p-6 rounded-lg"></div>
 
     </div>
 
@@ -23,18 +23,24 @@
                     FullCalendar.plugins.timeGrid,
                     FullCalendar.plugins.interaction
                 ], // Activation des plugins
+                locale: 'fr',
                 initialView: 'timeGridWeek', // Vue par défaut (Semaine)
                 headerToolbar: {
                     start: 'today prev,next', // will normally be on the left. if RTL, will be on the right
                     center: '',
                     end: 'title', // will normally be on the right. if RTL, will be on the left
                 },
+                buttonText: {
+                    today: 'Aujourd\'hui',
+                    month: 'Mois',
+                    week: 'Semaine',
+                    day: 'Jour'
+                },
                 firstDay: 1, // Premier jour de la semaine (Lundi)
                 allDaySlot: false, // Désactive la ligne "All-day"
                 slotMinTime: "08:00:00", // Début de la journée
                 slotMaxTime: "20:00:00", // Fin de la journée
                 slotDuration: "00:30:00", // Durée des créneaux
-                locale: 'fr', // Langue
                 timeZone: 'local', // Fuseau horaire
                 height: 'auto', // Hauteur automatique  
 
