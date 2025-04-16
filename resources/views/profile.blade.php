@@ -23,7 +23,7 @@
                             <div class="flex justify-center mb-5">
                                 <button 
                                     onclick="toggleDetails('dog-details-{{ $dog->id }}')" 
-                                    class=" text-black w-full sm:w-1/2 h-10 bg-gradient-to-r from-yellow-300 to-pink-300 px-6 py-3 rounded-lg hover:from-yellow-400 hover:to-pink-400 transition">
+                                    class=" text-black w-full sm:w-full h-10 bg-gradient-to-r from-yellow-300 to-pink-300 px-6 py-3 rounded-lg hover:from-yellow-400 hover:to-pink-400 transition">
                                     Détails de {{ $dog->nom }}
                                 </button>
                             </div>
@@ -197,9 +197,7 @@
                         
                                 <button type="button" id="edit-btn"
                                     class="absolute top-3 right-3 text-gray-500 hover:text-gray-700 transition ">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125" />
-                                    </svg>
+                                    <i class="fas fa-edit"></i> Modifier
                                 </button>
                             </div>
                             <button type="submit" id="save-btn"
@@ -264,7 +262,7 @@
                         @if(Auth::id()!== Auth::user()->id)
                             <a href="{{ route('prestations.create', Auth::user()->id) }}" class="inline-block bg-gradient-to-r from-yellow-200 to-pink-300 text-white px-6 py-3 rounded-lg hover:from-yellow-300 hover:to-pink-400 transition text-sm">Cliquez ici</a>
                         @else
-                            <p class="text-gray-700 mb-4">Vous ne pouvez pas prendre rendez-vous avec vous-meme</p>
+                            <p class="text-gray-700 mb-4">Vous ne pouvez pas prendre rendez-vous avec vous-même</p>
                         @endif
 
                     {{-- <h3 class="text-xl font-semibold mb-2 text-gray-800 pt-2">Avis clients</h3>

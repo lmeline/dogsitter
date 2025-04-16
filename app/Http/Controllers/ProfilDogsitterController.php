@@ -99,10 +99,8 @@ class ProfilDogsitterController extends Controller
 
 public function showCalendar()
 {
-    // Récupérer toutes les prestations
     $prestations = Prestation::all();
     
-    // Modifier le format des dates pour chaque prestation
     $prestations->transform(function ($prestation) {
         $prestation->formatted_date_debut = Carbon::parse($prestation->date_debut)->format('Y-m-d\TH:i:s');
         $prestation->formatted_date_fin = Carbon::parse($prestation->date_fin)->format('Y-m-d\TH:i:s');

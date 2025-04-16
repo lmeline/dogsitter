@@ -76,26 +76,33 @@ class PrestationTypesController extends Controller
 
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'prix' => 'required|numeric|min:1',
-            'duree' => 'required|numeric|min:1',
-        ]);
-
-        $tarif = Userprestationtype::where('id', $id)
-            ->where('dogsitter_id', Auth::id())
-            ->first();
-
-        if (!$tarif) {
-            return redirect()->route('dogsitters.annonce')->with('error', 'Tarif non trouvé.');
+        //dd($request->all());
+        try{
+            $request->validate([
+                'prix' => 'required|numeric|min:1',
+                'duree' => 'required|numeric|min:1',
+            ]);
+    
+            $tarif = Userprestationtype::where('id', $id)
+                ->where('dogsitter_id', Auth::id())
+                ->first();
+    
+            if (!$tarif) {
+                return redirect()->route('dogsitters.annonce')->with('error', 'Tarif non trouvé.');
+            }
+    
+            $tarif->update([
+                'prix' => $request->prix,
+                'duree' => 1,
+            ]);
+    
+            return redirect()->route('dogsitters.annonce')->with('success', 'Tarif mis à jour.');
         }
-
-        $tarif->update([
-            'prix' => $request->prix,
-            'duree' => 1,
-        ]);
-
-        return redirect()->route('dogsitters.annonce')->with('success', 'Tarif mis à jour.');
+        catch(\Exception $e){
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
     }
+      
 
     public function destroy($id)
     {

@@ -21,7 +21,7 @@
                     <input type="hidden" name="_method" id="formMethod" value="POST">
                     <input type="hidden" name="dogsitter_id" value="{{ Auth::user()->id }}">
                     <input type="hidden" name="disponibilite_id" id="disponibilite_id" value="">
-                
+                    
                     <div class="mb-6">
                         <label class="block text-lg font-semibold text-gray-700 mb-2">Jour :</label>
                         <select
@@ -57,13 +57,24 @@
                             Ajouter
                         </button>
                     </div>
-                </form>                
+                </form>   
+                <div id="deleteSection" class="mb-6 text-center">
+                    <button id="deleteButton"
+                        class="w-full bg-red-500 text-white font-semibold py-2 px-4 rounded-lg hover:bg-red-600 transition duration-300">
+                        Supprimer
+                    </button>
+                </div>
+                           
             </div>
+
+            {{-- Ajouter un tarif par prestation --}}
             <div class="bg-opacity-40 backdrop-blur-md bg-white shadow-lg rounded-lg p-8 w-full max-w-lg">
                 <h2 class="text-2xl font-semibold mb-4 text-center">Ajouter un tarif par prestation</h2>
-                <form action="{{ route('userPrestations.store') }}" method="POST" class="space-y-4">
+                <form id="tarifForm" action="{{ route('userPrestations.store') }}" method="POST" class="space-y-4">
                     @csrf
                     <input type="hidden" name="dogsitter_id" value="{{ Auth::user()->id }}" />
+                    <input type="hidden" name="_method" id="formMethodTarif" value="POST">
+                    <input type="hidden" name="user_prestation_id" id="prestation_id" value="">
 
                     <div class="mb-6">
                         <label class="block text-lg font-semibold text-gray-700 mb-2" for="prestation_type_id">Type de prestation :</label>
@@ -84,7 +95,7 @@
                     <div id="dureeDisplay" class="text-lg font-semibold text-gray-700"></div>
                     <input type="hidden" name="duree" value="1">
 
-                    <button type="submit"
+                    <button type="submit" id="submitButtonTarif"
                             class="w-full bg-gradient-to-r from-yellow-300 to-pink-300 text-black px-6 py-3 font-semibold rounded-lg hover:from-yellow-400 hover:to-pink-400 transition">
                         Ajouter
                     </button>
@@ -97,87 +108,150 @@
 
      <script>
         document.addEventListener("DOMContentLoaded", function () {
+    const disponibilites = @json($disponibilites);
+    const form = document.getElementById("disponibiliteForm");
+    const methodInput = document.getElementById("formMethod");
+    const disponibiliteIdInput = document.getElementById("disponibilite_id");
+    const jourSelect = document.getElementById("jour_semaine");
+    const heureDebut = document.getElementById("heure_debut");
+    const heureFin = document.getElementById("heure_fin");
+    const submitButton = document.getElementById("submitButton");
 
-            const disponibilites = @json($disponibilites);
-            const form = document.getElementById("disponibiliteForm");
-            const methodInput = document.getElementById("formMethod");
-            const disponibiliteIdInput = document.getElementById("disponibilite_id");
-            const jourSelect = document.getElementById("jour_semaine");
-            const heureDebut = document.getElementById("heure_debut");
-            const heureFin = document.getElementById("heure_fin");
-            const submitButton = document.getElementById("submitButton");
+    const minHeure = "07:00";
+    const maxHeure = "21:00";
+    heureDebut.setAttribute("min", minHeure);
+    heureFin.setAttribute("max", maxHeure);
 
-            const minHeure = "07:00";
-            const maxHeure = "21:00";
-            heureDebut.setAttribute("min", minHeure);
-            heureFin.setAttribute("max", maxHeure);
-            heureFin.setAttribute("min", minHeure);
+    function updateFormForSelectedDay(jour) {
+        const dispo = disponibilites.find(d => d.jour_semaine === jour);
 
-            function updateFormForSelectedDay(jour) {
-                const dispo = disponibilites.find(d => d.jour_semaine === jour);
+        if (dispo) {
+            // Mode modification
+            form.action = `/disponibilites/${dispo.id}`;
+            methodInput.value = "PUT";
+            disponibiliteIdInput.value = dispo.id;
 
-                if (dispo) {
-                    // Mode modification
-                    form.action = `/disponibilites/${dispo.id}`;
-                    methodInput.value = "PUT";
-                    disponibiliteIdInput.value = dispo.id;
+            heureDebut.value = dispo.heure_debut.slice(0,5);
+            heureFin.value = dispo.heure_fin.slice(0,5);
 
-                    heureDebut.value = dispo.heure_debut;
-                    heureFin.value = dispo.heure_fin;
+            submitButton.textContent = "Modifier";
+        } else {
+            // Mode ajout
+            form.action = `{{ route('disponibilites.store') }}`;
+            methodInput.value = "POST";
+            disponibiliteIdInput.value = "";
+            heureDebut.value = "";
+            heureFin.value = "";
 
-                    submitButton.textContent = "Modifier";
-                } else {
-                    // Mode ajout
-                    form.action = `{{ route('disponibilites.store') }}`;
-                    methodInput.value = "POST";
-                    disponibiliteIdInput.value = "";
+            submitButton.textContent = "Ajouter";
+        }
+    }
+    jourSelect.addEventListener("change", () => {
+        updateFormForSelectedDay(jourSelect.value);
+    });
+    // Initialisation au chargement
+    updateFormForSelectedDay(jourSelect.value);
 
-                    heureDebut.value = "";
-                    heureFin.value = "";
+    const deleteButton = document.getElementById("deleteButton");
+    const deleteSection = document.getElementById("deleteSection");
+    let timeoutId;  // Variable pour stocker l'ID du timeout
 
-                    submitButton.textContent = "Ajouter";
-                }
+    deleteButton.addEventListener("click", function (e) {
+        e.preventDefault();
+        const id = disponibiliteIdInput.value;
+
+        if (!id) return;
+
+        // Délai de confirmation avant d'exécuter la suppression
+        timeoutId = setTimeout(() => {
+            if (confirm("Êtes-vous sûr de vouloir supprimer cette disponibilité ?")) {
+                fetch(`/disponibilites/${id}/delete`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': document.querySelector('input[name="_token"]').value,
+                        'X-Requested-With': 'XMLHttpRequest',
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert(data.message);
+                        location.reload();  // Recharge la page après la suppression
+                    } else {
+                        alert(data.message);
+                    }
+                })
+                .catch(error => {
+                    console.error("Erreur AJAX :", error);
+                    alert("Erreur de communication avec le serveur.");
+                });
             }
-            jourSelect.addEventListener("change", () => {
-                updateFormForSelectedDay(jourSelect.value);
+        }, 2000);  // 2 secondes de délai avant confirmation
+
+        // Annuler le délai si l'utilisateur change d'avis
+        const cancelButton = document.getElementById("cancelButton");  // Assure-toi d'avoir un bouton "annuler"
+        if (cancelButton) {
+            cancelButton.addEventListener("click", () => {
+                clearTimeout(timeoutId);  // Annule le délai
+                console.log("Le délai de suppression a été annulé.");
             });
-            // Initialisation au chargement
-            updateFormForSelectedDay(jourSelect.value);
+        }
+    });
+});
+    document.addEventListener("DOMContentLoaded", function() {
+        const tarif = @json($prestationtypes);
+        const prestation = @json($userPrestations);
+        const tarifForm = document.getElementById("tarifForm");
+        const methodInputTarif = document.getElementById("formMethodTarif");
+        const prestationIdInput = document.getElementById("prestation_id");
+        const select = document.getElementById("prestation_type_id");
+        const prixInput = document.getElementById("prix");
+        const dureeDisplay = document.getElementById("dureeDisplay");
+        const submitButtonTarif = document.getElementById("submitButtonTarif");
+
+        const prixParPrestation = {};
+        prestation.forEach(p => {
+            prixParPrestation[p.prestation_type_id] = p.prix;
         });
 
-        document.addEventListener("DOMContentLoaded", function() {
-            const tarif = @json($prestationtypes);
-            const prestation = @json($userPrestations);
-            const select = document.getElementById("prestation_type_id");
-            const prixInput = document.getElementById("prix");
-            const dureeDisplay = document.getElementById("dureeDisplay");
+        function updateDureeEtPrix() {
+            const selectedId = select.value;
 
-            const prixParPrestation = {};
-            prestation.forEach(p => {
-                prixParPrestation[p.prestation_type_id] = p.prix;
-            });
-
-            function updateDureeEtPrix() {
-                const selectedId = select.value;
-
-                // Mise à jour de la durée
-                if (selectedId == 1) {
-                    dureeDisplay.innerHTML = "Durée 1 jour";
-                } else {
-                    dureeDisplay.innerHTML = "Durée 1 heure";
-                }
-
-                // Mise à jour du tarif
-                if (prixParPrestation[selectedId]) {
-                    prixInput.value = prixParPrestation[selectedId];
-                } else {
-                    prixInput.value = "";
-                }
+            // Affiche durée
+            if (selectedId == 1) {
+                dureeDisplay.innerHTML = "Durée 1 jour";
+            } else {
+                dureeDisplay.innerHTML = "Durée 1 heure";
             }
 
-            updateDureeEtPrix();
-            select.addEventListener("change", updateDureeEtPrix);
-        });
+            // Si déjà une prestation → on passe en mode modification
+            if (prixParPrestation[selectedId]) {
+                const prestationExistante = prestation.find(p => p.prestation_type_id == selectedId);
+
+                prixInput.value = prixParPrestation[selectedId];
+                submitButtonTarif.textContent = "Modifier";
+
+                // On passe le formulaire en PUT
+                tarifForm.action = `/user-prestation/${prestationExistante.id}`;
+                methodInputTarif.value = "PUT";
+                prestationIdInput.value = prestationExistante.id;
+            } else {
+                prixInput.value = "";
+                submitButtonTarif.textContent = "Ajouter";
+
+                // Formulaire en POST
+                tarifForm.action = `{{ route('userPrestations.store') }}`;
+                methodInputTarif.value = "POST";
+                prestationIdInput.value = "";
+            }
+        }
+
+
+        updateDureeEtPrix();
+        select.addEventListener("change", updateDureeEtPrix);
+    });
+
     </script>
 
 </x-app-layout>

@@ -29,7 +29,6 @@ class DisponibiliteController extends Controller
     public function store(Request $request)
     {
         try {
-            dd($request->all());
             $request->validate([
                 'jour_semaine' => 'required|string',
                 'heure_debut' => 'required|date_format:H:i',
@@ -61,23 +60,35 @@ class DisponibiliteController extends Controller
     }
 
     public function destroy($id)
-    {
+{
+    try {
         $disponibilite = Disponibilite::where('id', $id)->where('dogsitter_id', Auth::id())->first();
 
-        if ($disponibilite) {
-            $disponibilite->delete();
-
-            $disponibilites = Disponibilite::where('dogsitter_id', Auth::id())->get();
-
-            return view('dogsitters.annonce', [
-                'disponibilites' => $disponibilites,
-                'prestationtypes' => Prestationtype::all(),
-                'success' => 'Disponibilité supprimée avec succès.'
-            ]);
+        if (!$disponibilite) {
+            return response()->json(['success' => false, 'message' => 'Disponibilité introuvable'], 404);
         }
 
-        return response()->json(['success' => false, 'message' => 'Disponibilité introuvable'], 404);
+        $disponibilite->delete();
+
+        // Récupérer les disponibilités restantes
+        $disponibilites = Disponibilite::where('dogsitter_id', Auth::id())->get();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Disponibilité supprimée avec succès.',
+            'disponibilites' => $disponibilites
+        ]);
+        
+    } catch (\Exception $e) {
+        return response()->json([
+            'success' => false,
+            'message' => 'Une erreur est survenue lors de la suppression.'
+        ], 500);
     }
+    return view('dogsitters.annonce');
+}
+
+    
 
     public function edit($id)
     {
@@ -96,11 +107,10 @@ class DisponibiliteController extends Controller
     public function update(Request $request, $id)
     {
         try {
-            //dd($request->all());
             $request->validate([
                 'jour_semaine' => 'required|string',
-                'heure_debut' => 'required|date_format:H:i',
-                'heure_fin' => 'required|date_format:H:i',
+                'heure_debut' => 'sometimes|date_format:H:i',
+                'heure_fin' => 'sometimes|date_format:H:i',
             ]);
 
             $disponibilite = Disponibilite::where('id', $id)

@@ -11,6 +11,7 @@ use App\Http\Controllers\ProprietaireController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\AvisController;
 use App\Http\Controllers\HomeController;
+use Illuminate\Auth\Events\Verified;
 use Illuminate\Support\Facades\Route;
 
 // Requêtes pour la page d'accueil
@@ -43,7 +44,7 @@ Route::get('/error', function () {
     return view('erreurs.unauthorized');
 })->name('errorPage');
 
-Route::middleware('auth')->group(function () {
+Route::middleware('auth')->middleware('verified')->group(function () {
     Route::get('/messages', [MessageController::class, 'index'])->name('messages.index');
 
     Route::get('/messages/create/{dogsitterId}', [MessageController::class, 'createDogsitter'])->name('messages.createDogsitter');
@@ -56,7 +57,6 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/disponibilites', [DisponibiliteController::class, 'index'])->name('disponibilites.index');
     Route::post('/disponibilites', [DisponibiliteController::class, 'store'])->name('disponibilites.store');
-    Route::delete('/disponibilites/{id}', [DisponibiliteController::class, 'destroy'])->name('disponibilites.destroy');
     Route::put('/disponibilites/{id}', [DisponibiliteController::class, 'update'])->name('disponibilites.update');
     Route::get('/disponibilites/{id}/edit', [DisponibiliteController::class, 'edit'])->name('disponibilites.edit');
 
@@ -88,9 +88,9 @@ Route::middleware('auth')->group(function () {
     Route::post('/choisir-abonnement', [AbonnementController::class, 'chooseAbonnement'])->name('chooseAbonnement');
 
     Route::post('/user-prestation', [PrestationTypesController::class, 'store'])->name('userPrestations.store');
-    Route::get('/user-prestation/{id}', [PrestationTypesController::class, 'update'])->name('userPrestations.update');
+    Route::put('/user-prestation/{id}', [PrestationTypesController::class, 'update'])->name('userPrestations.update');
     Route::get('/user-prestation/{id}/edit', [PrestationTypesController::class, 'edit'])->name('userPrestations.edit');
-    Route::get('user-prestation/{id}/delete', [PrestationTypesController::class, 'destroy'])->name('userPrestations.destroy');
+    Route::delete('user-prestation/{id}/delete', [PrestationTypesController::class, 'destroy'])->name('userPrestations.destroy');
 
     // Requêtes pour les proprietaires
     route::get('/proprietaires', [ProprietaireController::class, 'index'])->name('proprietaires.index');
@@ -116,6 +116,6 @@ Route::post('/save-ville', [ProfileController::class, 'saveVille'])->name('save.
 Route::get('/search-owner', [MessageController::class, 'searchOwner'])->name('search.owner');
 Route::get('/search-dogsitter', [MessageController::class, 'searchDogsitter'])->name('search.dogsitter');
 Route::get('/messages/search', [MessageController::class, 'search'])->name('messages.search');
-
+Route::delete('/disponibilites/{id}/delete', [DisponibiliteController::class, 'destroy'])->name('disponibilites.destroy');
 
 
