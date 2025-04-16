@@ -59,9 +59,6 @@ class ProfilDogsitterController extends Controller
                 $query->where('nom_de_la_commune', 'LIKE', "%{$request->ville}%");
             });
         }
-        if ($request->filled('note_moyenne')) {
-            $query->where('note_moyenne', '>=', $request->note_moyenne);
-        }
         $users = $query->with('ville')->get();
         return response()->json($users);
     }

@@ -28,8 +28,6 @@ class UserSeeder extends Seeder
             'description' => "admin",
             'remember_token' => Str::random(10),
             'photo' => 'https://i.pravatar.cc/300?img=' . rand(1, 70),
-            'note_moyenne' => 5,
-            'nb_notes' => 5,
             'email_verified_at' => now(),
             'password' => Hash::make('admin')
         ]);
@@ -46,8 +44,6 @@ class UserSeeder extends Seeder
             'description' => "propriétaire",
             'remember_token' => Str::random(10),
             'photo' => 'https://i.pravatar.cc/300?img=' . rand(1, 70),
-            'note_moyenne' => 5,
-            'nb_notes' => 5,
             'email_verified_at' => now(),
             'password' => Hash::make('propriétaire')
         ]);
@@ -64,8 +60,6 @@ class UserSeeder extends Seeder
             'description' => "dogsitter",
             'remember_token' => Str::random(10),
             'photo' => 'https://i.pravatar.cc/300?img=' . rand(1, 70),
-            'note_moyenne' => 5,
-            'nb_notes' => 5,
             'abonnement_type_id' => 1,
             'email_verified_at' => now(),
             'password' => Hash::make('dogsitter')

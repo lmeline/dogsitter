@@ -1,7 +1,7 @@
 <x-app-layout>
     <div class="container mx-auto py-10">
         <form id="searchForm">
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4 mb-4">
                 <!-- Recherche par nom -->
                 <input type="text" id="search" name="name" placeholder="Nom de famille"
                     class="w-full h-10 rounded-lg border border-gray-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-pink-500">
@@ -12,14 +12,6 @@
                     <ul id="villeSuggestions"
                         class="absolute w-full bg-white border border-gray-300 rounded mt-1 hidden"></ul>
                 </div>
-
-                <select id="note_moyenne" name="note_moyenne"
-                    class="w-full h-10 rounded-lg border border-gray-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-pink-500">
-                    <option value="">Toutes notes</option>
-                    <option value="4">4+ étoiles</option>
-                    <option value="3">3+ étoiles</option>
-                    <option value="2">2+ étoiles</option>
-                </select>
             </div>
         </form>
 
@@ -38,7 +30,6 @@
                             class="w-24 h-24 rounded-full object-cover ml-4 border-4 border-white" />
                     </div>
                     <p class="text-gray-600 mt-2">Ville: {{ $dogsitter->ville->nom_de_la_commune }}</p>
-                    <p class="text-gray-600">Note moyenne: {{ $dogsitter->note_moyenne }}/5 </p>
                 </a>
             @endforeach
         </div>
@@ -63,7 +54,6 @@
     document.addEventListener('DOMContentLoaded', function () {
         const searchInput = document.getElementById('search');
         const villeInput = document.getElementById('ville');
-        const noteMoyenneInput = document.getElementById('note_moyenne');
         const dogsittersContainer = document.getElementById('dogsittersContainer');
 
         let timeout = null;
@@ -71,9 +61,8 @@
         function fetchDogSitters() {
             const search = encodeURIComponent(searchInput.value.trim());
             const ville = encodeURIComponent(villeInput.value.trim());
-            const noteMoyenne = encodeURIComponent(noteMoyenneInput.value.trim());
 
-            const URL = `{{ route('search.dogsitters') }}?name=${search}&ville=${ville}&note_moyenne=${noteMoyenne}`;
+            const URL = `{{ route('search.dogsitters') }}?name=${search}&ville=${ville}`;
 
             fetch(URL, {
                 method: 'GET',
@@ -103,14 +92,13 @@
                             <img src="${dogsitter.photo}" alt="${dogsitter.name}" class="w-24 h-24 rounded-full object-cover ml-4 border-4 border-white"/>
                         </div>
                         <p class="text-gray-600 mt-2">Ville: ${dogsitter.ville.nom_de_la_commune}</p>
-                        <p class="text-gray-600">Note moyenne: ${dogsitter.note_moyenne}/5 </p>
                     </a>`;
                     });
                 })
                 .catch(error => console.error('Erreur:', error));
         }
 
-        [searchInput, villeInput, noteMoyenneInput].forEach(input => {
+        [searchInput, villeInput].forEach(input => {
             input.addEventListener('input', function () {
                 clearTimeout(timeout);
                 timeout = setTimeout(fetchDogSitters, 500);

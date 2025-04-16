@@ -6,7 +6,7 @@
             </div>
         </div>
 
-        <div id="calendar" class="w-100 mx-auto h-[calc(100vh-8rem)] bg-opacity-40 backdrop-blur-md bg-white p-6 rounded-lg"></div>
+        <div id="calendar" class="w-100 mx-auto sm:h-[calc(100vh-8rem)] h-[calc(100vh-8rem)] bg-opacity-40 backdrop-blur-md bg-white p-6 rounded-lg"></div>
     </div>
 
     <!-- Popup Modal -->
@@ -69,6 +69,7 @@
 
     <script>
         let prestationsDogsitter = @json($prestationsDogsitter);
+        let disponibilitesDogsitter = @json($disponibilitesDogsitter);
         let calendar = null;
         let currentUserId = @json(Auth::user()->id);
         let prestations = @json($prestations);

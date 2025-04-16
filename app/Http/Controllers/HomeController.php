@@ -22,7 +22,7 @@ class HomeController extends Controller
     ->whereMonth('date_debut', Carbon::now()->subMonth()->month)
     ->count();
    
-    $moyenneNotes = User::avg('note_moyenne');
+    $moyenneNotes = Avis::avg('rating');    
     $pourcentageSatisfaction = round(($moyenneNotes / 5) * 100,2);
 
     return view('index', compact('avis','proprietaires','dogsitters','utilisateurs','prestations','pourcentageSatisfaction'));

@@ -18,7 +18,6 @@ return new class extends Migration {
             $table->foreignId('prestation_type_id')->nullable()->constrained('prestations_types');
             $table->dateTime('date_debut')->nullable();
             $table->dateTime('date_fin')->nullable();
-            $table->decimal('quantite', 8, 2)->default(1);
             $table->decimal('prix_total', 8, 2)->default(0);
             $table->enum('statut', ['en cours', 'termine', 'annule', 'en attente de paiement']);
             $table->dateTime('created_at')->useCurrent();

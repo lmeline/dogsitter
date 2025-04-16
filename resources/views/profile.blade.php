@@ -162,8 +162,6 @@
                             {{ $disponibilite->jour_semaine }}@if(!$loop->last), @endif 
                         @endforeach
                     </p>
-                    <p class="mb-2"><strong>Nombre de notes :</strong> {{ Auth::user()->nb_notes }}</p>
-                    <p class="mb-2"><strong>Note /5 :</strong> {{ Auth::user()->note_moyenne }}</p>
                     @foreach(Auth::user()->prestationtypes as $prestationtype)
                         @if($prestationtype->id === 1)
                             <p class="mb-2">
