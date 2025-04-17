@@ -11,7 +11,7 @@
                 </p>
             </div>
 
-            @auth
+            @auth 
                 <!-- Conteneur Principal -->
                 <div class="flex flex-col lg:flex-row items-center lg:items-start lg:space-x-8">
                     <!--  Avantages -->
