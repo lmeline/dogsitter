@@ -69,7 +69,7 @@
 
     <script>
         let prestationsDogsitter = @json($prestationsDogsitter);
-        let disponibilitesDogsitter = @json($disponibilitesDogsitter);
+        //let disponibilitesDogsitter = @json($disponibilitesDogsitter);
         let calendar = null;
         let currentUserId = @json(Auth::user()->id);
         let prestations = @json($prestations);
