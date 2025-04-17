@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\Reservationconfirmee;
 use App\Models\Dog;
 use App\Models\Prestation;
 use Illuminate\Http\Request;
@@ -9,6 +10,7 @@ use App\Models\User;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Symfony\Component\Console\Output\ConsoleOutput;
 
 class PrestationController extends Controller
@@ -140,6 +142,9 @@ class PrestationController extends Controller
     $prestation->load('prestationType');
 
     $output->writeln($prestation->dogsitter);
+
+    Mail::to($prestation->proprietaire->email)->send(new Reservationconfirmee($prestation));
+
     return response()->json([
       'success' => true,
       'message' => 'Prestation créée avec succès',
