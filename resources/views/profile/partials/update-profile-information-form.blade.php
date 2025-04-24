@@ -53,7 +53,7 @@
                 <x-text-input id="villeInput" type="text" 
                     class="block mt-1 w-full border rounded-lg" :value="old('nom_de_la_commune', $user->ville->nom_de_la_commune)"/>
                 <ul id="villeContainer" class="hidden absolute mt-8 w-full max-h-[12rem] top-[2.3rem] rounded bg-white dark:bg-zinc-600 ring-1 ring-zinc-300 dark:ring-zinc-400 overflow-y-auto z-10 shadow-lg" ></ul>
-                <input type="hidden" id="villeId" name="ville_id" >
+                <input type="hidden" id="villeId" name="ville_id" value="{{ $user->ville_id }}" >
             </div>
         
             <!-- Champ du code postal -->
