@@ -19,7 +19,7 @@ return new class extends Migration {
             $table->dateTime('date_debut')->nullable();
             $table->dateTime('date_fin')->nullable();
             $table->decimal('prix_total', 8, 2)->default(0);
-            $table->enum('statut', ['en cours', 'termine', 'annule', 'en attente de paiement']);
+            $table->enum('statut', ['en cours', 'terminée', 'annulée', 'confirmée']);
             $table->dateTime('created_at')->useCurrent();
             $table->dateTime('updated_at')->useCurrent()->useCurrentOnUpdate();
         });

@@ -18,7 +18,7 @@
                     <div class="grid grid-cols-1 sm:grid-cols-4 gap-8 mb-12">
                         <!-- Image -->
                         <div class="w-full h-full flex justify-center items-center">
-                            <img src="/images/Pax.jpg" alt="Dog Sitting"
+                            <img src="/images/paxa.jpg" alt="Dog Sitting"
                                 class="w-2/3 lg:w-1/2 h-auto rounded-lg shadow-md">
                         </div>                        
                         <div class="bg-white p-6 shadow-lg rounded-lg text-center">

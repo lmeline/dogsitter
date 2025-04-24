@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id();
             $table->decimal('montant',8,2);
             $table->dateTime('date_paiement');
-            $table->enum('mode_paiement', ['paypal', 'CB', 'cheque']);
             $table->foreignId('user_id')->constrained('users')->onDelete('restrict');
             $table->dateTime('created_at')->useCurrent();
             $table->dateTime('updated_at')->useCurrent()->useCurrentOnUpdate();
