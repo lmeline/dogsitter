@@ -71,7 +71,6 @@ class RegisteredUserController extends Controller
 
     public function storedogsitter(Request $request)
     {
-        try{
             $request->validate([
                 'name' => ['required', 'string', 'max:255'],
                 'prenom' => ['required', 'string', 'max:70'],
@@ -121,10 +120,6 @@ class RegisteredUserController extends Controller
             Auth::login($user);
     
             return redirect()->intended(route('register.abonnement'));
-        } catch(Exception $e ){
-            return response()->json(['error' => $e->getMessage()]);
-        }
-
-       
+    
     }
 }

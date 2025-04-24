@@ -159,11 +159,9 @@ class PrestationController extends Controller
     if ($user->role === 'proprietaire') {
 
       $prestations = $user->prestationsAsproprietaire;
-      $prestationDogs = Prestation::with('prestationDogs.dog')->get();
     } elseif ($user->role === 'dogsitter') {
 
       $prestations = $user->prestationsAsdogsitter;
-      $prestationDogs = Prestation::with('prestationDogs.dog')->get();
     } else {
 
       $prestations = collect();
