@@ -15,42 +15,6 @@ use Symfony\Component\Console\Output\ConsoleOutput;
 
 class PrestationController extends Controller
 {
-
-
-  // public function create($id)
-  // {
-  //   $proprietaires = User::where('role', 'proprietaire')->get();
-  //   $dogsitter = User::find($id);
-  //   $prestations = $proprietaires->prestationsAsproprietaire()->with(['dog', 'prestationType', 'dogsitter'])->get();
-  //   $prestationsDogsitter = $dogsitter->prestationsAsDogsitter()->with(['dog', 'prestationType', 'proprietaire'])->get();
-  //   $proprietaire = Auth::user();
-  //   $dogs = Dog::find($id);
-  //   $disponibilites = $dogsitter->disponibilites;
-
-  //   $joursSemaine = [
-  //     'Lundi' => 'Monday',
-  //     'Mardi' => 'Tuesday',
-  //     'Mercredi' => 'Wednesday',
-  //     'Jeudi' => 'Thursday',
-  //     'Vendredi' => 'Friday',
-  //     'Samedi' => 'Saturday',
-  //     'Dimanche' => 'Sunday',
-  //   ];
-
-  //   foreach ($disponibilites as $disponibilite) {
-  //     $jour = $disponibilite->jour_semaine;
-
-
-  //     if (isset($joursSemaine[$jour])) {
-  //       $jourAnglais = $joursSemaine[$jour];
-
-  //       $date = Carbon::now()->next($jourAnglais);
-  //       $disponibilite->date = $date->format('Y-m-d');
-  //     }
-  //   }
-
-  //   return view('prestations.create', compact('dogsitter', 'proprietaire', 'dogs', 'disponibilites', 'prestations'));
-  // }
   public function create($id)
   {
       $proprietaire = Auth::user($id);
@@ -94,7 +58,6 @@ class PrestationController extends Controller
     $output = new ConsoleOutput();
     $output->writeln($request->all());
 
-
     $request->validate([
       'date_debut' => ['required', 'date', 'before:date_fin'],
       'date_fin' => ['required', 'date', 'after:date_debut'],
@@ -119,14 +82,6 @@ class PrestationController extends Controller
       ]);
       $prestation->save();
 
-      // PrestationDog::create([
-      //   'prestation_id' => $prestation->id,
-      //   'dog_id' => $request->input('dog'),
-      //   'prix' => UserPrestationType::where('dogsitter_id', $request->input('dogsitter_id'))->where('prestation_type_id', $request->input('prestation_type_id'))->first()->prix
-      // ]);
-
-      // return redirect()->route('proprietaires.mesprestations')->with('success', 'Prestation créée avec succès');
-
     } catch (Exception $e) {
       $output->writeln("Erreur lors de l'enregistrement de la prestation : " . $e->getMessage());
       return redirect()->back()->withErrors(['prestation' => 'Erreur lors de l\'enregistrement de la prestation.']);
@@ -143,7 +98,7 @@ class PrestationController extends Controller
 
     $output->writeln($prestation->dogsitter);
 
-    Mail::to($prestation->proprietaire->email)->send(new Reservationconfirmee($prestation));
+    //Mail::to($prestation->proprietaire->email)->send(new Reservationconfirmee($prestation));
 
     return response()->json([
       'success' => true,
@@ -158,7 +113,7 @@ class PrestationController extends Controller
 
     if ($user->role === 'proprietaire') {
 
-      $prestations = $user->prestationsAsproprietaire;
+      $prestations = $user->prestationsAsproprietaire()->with('dog')->get();
     } elseif ($user->role === 'dogsitter') {
 
       $prestations = $user->prestationsAsdogsitter;
@@ -201,6 +156,18 @@ class PrestationController extends Controller
     } catch (Exception $e) {
       return response()->json(['error' => $e->getMessage()]);
     }
+  }
+
+  public function destroy($id)
+  {
+      $prestation = Prestation::find($id);
+
+      if ($prestation) {
+          $prestation->delete();
+          return response()->json(['success' => true]);
+      }
+
+      return response()->json(['success' => false, 'message' => 'Prestation non trouvée']);
   }
 
 }

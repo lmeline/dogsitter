@@ -28,7 +28,7 @@
                         </option>
                     @endforeach
                 </select>
-                <span id="spanDuree" name="duree" class="p-2 text-gray-300">60</span>
+                <span id="spanDuree" name="duree" class="p-2 hidden text-gray-300">60</span>
 
                 <label class="block mb-2">Chien :</label>
                 <select id="ddlDog" name="dog" class="block mt-1 border rounded-lg border-pink-300 focus:ring-pink-500 focus:border-pink-500" required>
@@ -44,7 +44,7 @@
                 <label class="block mb-2">Date et heure :</label>
                 <input type="date" id="txtPrestationDate" name="prestationDate" class="w-180 border rounded-lg p-2 mb-4">
                 <label for="ddlPrestationDe">De : </label>
-                <select id="ddlPrestationDe" name="prestationDe" class="w-100 border rounded-lg">
+                <select id="ddlPrestationDe" name="prestationDe" class=" w-100 border rounded-lg">
                     @for($hour = 8; $hour <= 20; $hour += 0.5)
                         @php
                             $formattedHour = str_pad(floor($hour), 2, '0', STR_PAD_LEFT);
@@ -62,6 +62,22 @@
                 <div class="flex justify-end">
                     <button type="button" id="closeModal" class="bg-gray-500 text-white px-4 py-2 rounded-lg mr-2">Annuler</button>
                     <button type="submit" class="bg-pink-500 text-white px-4 py-2 rounded-lg">Ajouter</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal d'annulation -->
+    <div id="cancelPrestationModal" class="hidden fixed inset-0 bg-gray-600 bg-opacity-50 flex justify-center items-center z-50">
+        <div class="bg-white p-6 rounded-lg shadow-lg w-96">
+            <h2 class="text-xl font-bold mb-4">Annuler la prestation</h2>
+            <p id="modalPrestationTitle" class="mb-4 text-gray-700"></p>
+
+            <form id="cancelPrestationForm">
+                <input type="hidden" id="modalPrestationId" name="prestation_id">
+                <div class="flex justify-end">
+                    <button type="button" class="bg-gray-400 text-white px-4 py-2 rounded mr-2" onclick="document.getElementById('cancelPrestationModal').classList.add('hidden')">Annuler</button>
+                    <button type="submit" class="bg-red-600 text-white px-4 py-2 rounded">Confirmer</button>
                 </div>
             </form>
         </div>
@@ -104,6 +120,7 @@
                 events: [
                     ...prestations.map(function (prestation) {
                         return {
+                            id: prestation.id,
                             title: prestation.dog.nom + "\n" + prestation.prestation_type.nom + ' avec ' + prestation.dogsitter.prenom,
                             start: prestation.date_debut,
                             end: prestation.date_fin,
@@ -140,7 +157,13 @@
                 dateClick: function (info) {
                     let clickedDate = new Date(info.date);
 
-                    // Vérifie si un événement existe à cette date
+                    let today = new Date();
+                    today.setHours(0, 0, 0, 0); 
+                    if (clickedDate < today) {
+                        alert("Vous ne pouvez pas créer une prestation dans le passé.");
+                        return; 
+                    }
+
                     let hasConflict = calendar.getEvents().some(event => {
                         let eventStart = new Date(event.start);
                         let eventEnd = new Date(event.end);
@@ -150,13 +173,12 @@
 
                     if (hasConflict) {
                         alert("Un créneau est déjà réservé à cette heure.");
-                        return; // On bloque l'ouverture du modal
+                        return; 
                     }
 
-                    // Sinon, on continue normalement
                     let dateDe = new Date(info.date);
                     let dateA = new Date(info.date);
-                    dateA.setHours(dateA.getHours() + (spanDuree.textContent / 60));
+                    dateA.setMinutes(dateA.getMinutes() + parseInt(spanDuree.textContent));
 
                     heureDe = dateDe.toLocaleString('fr-FR', { hour: '2-digit', minute: '2-digit' });
                     heureA = dateA.toLocaleString('fr-FR', { hour: '2-digit', minute: '2-digit' });
@@ -168,6 +190,17 @@
                     spanPrestationA.textContent = heureA;
 
                     prestationModal.classList.remove('hidden');
+                },
+                
+                eventClick: function (info) {
+                    // Ouvrir la modal pour annuler la prestation
+                    const prestationId = info.event.id;
+                    const prestationTitle = info.event.title;
+
+                    // Remplir les informations dans la modal
+                    document.getElementById('modalPrestationTitle').textContent = prestationTitle;
+                    document.getElementById('modalPrestationId').value = prestationId; // ou autre usage
+                    document.getElementById('cancelPrestationModal').classList.remove('hidden'); // Afficher la modal
                 }
 
             });
@@ -245,5 +278,37 @@
                 })
                 .catch(error => console.error('Erreur:', error));
         });
+
+
+        document.getElementById('cancelPrestationForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+            const prestationId = document.getElementById('modalPrestationId').value;
+
+            fetch(`/prestations/${prestationId}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert("Prestation annulée.");
+                    const event = calendar.getEventById(prestationId);
+                    if (event) {
+                        event.remove();
+                    }
+                    document.getElementById('cancelPrestationModal').classList.add('hidden');
+                } else {
+                    alert("Erreur : " + data.message);
+                }
+            })
+            .catch(error => {
+                console.error("Erreur lors de l'annulation :", error);
+            });
+        });
+
+
     </script>
 </x-app-layout>

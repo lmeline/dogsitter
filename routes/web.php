@@ -103,6 +103,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/prestations/create/{id}', [PrestationController::class, 'create'])->name('prestations.create');
     Route::post('/prestations', [PrestationController::class, 'store'])->name('prestations.store');
     Route::get('/prestations/{id}', [PrestationController::class, 'show'])->name('prestations.show');
+    Route::delete('/prestations/{id}', [PrestationController::class, 'destroy'])->name('prestations.destroy');
 
 
 });

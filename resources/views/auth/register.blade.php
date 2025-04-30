@@ -76,7 +76,7 @@
                     <x-input-label for="ville" :value="__('City')" />
                     <input id="villeInput" type="text"
                            class="block mt-1 w-full border rounded-lg"
-                           placeholder="Commencez à taper une ville">
+                           placeholder="Rentrez une ville ">
                     <ul id="villeContainer" class="hidden absolute mt-8 w-full max-h-[12rem] top-[2.3rem] rounded bg-white ring-1 overflow-y-auto z-10 shadow-lg"></ul>
                     <input type="hidden" id="villeId" name="ville_id">
                 </div>

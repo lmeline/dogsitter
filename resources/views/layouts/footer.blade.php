@@ -1,11 +1,8 @@
-<footer class="bg-gradient-to-r from-blue-200 via-green-200 to-yellow-200 text-gray-800 py-6">
-
-    <div class="container mx-auto">
-        <h2 class="text-4xl font-bold text-center mb-5">Nos Informations</h2>
+<footer class="bg-gradient-to-r from-blue-200 via-green-200 to-yellow-200 text-gray-800 py-3">
 
         <!-- Utiliser Flexbox pour aligner les trois sections horizontalement -->
         <div class="flex flex-wrap justify-between space-x-4">
-            <ul class="flex-1 p-4 text-center">
+            <ul class="flex-1 text-center">
                 <h3 class="text-xl font-bold mb-4">Réseaux sociaux et communauté</h3>
                 <div class="flex justify-center space-x-2">
                     <svg viewBox="0 0 24 24" fill="none" weight="24" height="24" xmlns="http://www.w3.org/2000/svg">
@@ -49,7 +46,6 @@
                 </div>
             </ul>         
         </div>
-    </div>
 
     <!-- Infos de bas de page -->
     <div class="container mx-auto text-center">

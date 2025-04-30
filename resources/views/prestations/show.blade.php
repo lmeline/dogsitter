@@ -19,20 +19,12 @@
                 @if(Auth::user()->role === 'proprietaire')
                     <p><strong class="font-semibold text-black">Dogsitter :</strong> {{ $prestation->dogsitter->name }}</p>
                 @endif
-                <p><strong class="font-semibold text-gray-700">Chien(s) :</strong>
-                    @foreach($prestation->prestationDogs as $prestationDog)
-                       {{ $prestationDog->dog->nom }}
-                    @endforeach
-                </p>
+                <p><strong class="font-semibold text-gray-700">Chien :</strong> {{ $prestation->dog ? $prestation->dog->nom : 'N/A' }}</p>
                 <p><strong class="font-semibold text-gray-700">Service :</strong> {{ $prestation->prestationType ? $prestation->prestationType->nom : 'N/A' }}</p>
                 <p><strong class="font-semibold text-gray-700">Date de début :</strong> {{ $prestation->formatted_date_debut }}</p>
                 <p><strong class="font-semibold text-gray-700">Date de fin :</strong> {{ $prestation->formatted_date_fin }}</p>
                 <p><strong class="font-semibold text-gray-700">Statut :</strong> {{ $prestation->statut }}</p>
-                <p><strong class="font-semibold text-gray-700">Prix :</strong>
-                    @foreach($prestation->prestationDogs as $prestationDog)
-                        {{ $prestationDog->prix }} €
-                    @endforeach
-                </p>
+                <p><strong class="font-semibold text-gray-700">Prix :</strong> {{ $prestation->prix_total }} €</p>
                 @if (Auth::user()->role === "proprietaire")
                     <form action="{{ route('messages.create', $prestation->dogsitter->id) }}" method="GET">
                         @csrf
