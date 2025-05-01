@@ -68,7 +68,8 @@
                                 <!-- Âge -->
                                 <div class="flex justify-between items-center mt-2">
                                     <span class="text-sm"><strong>Âge :</strong></span>
-                                    <span id="dog-age-{{ $dog->id }}" class="dog-info text-gray-600 bg-transparent text-sm">{{ $dog->age }} ans</span>
+                                    <span id="dog-age-{{ $dog->id }}" class="dog-info text-gray-600 bg-transparent text-sm" data-birthdate="{{ $dog->date_naissance }}"></span>
+
                                     <button id="edit-btn-age-{{ $dog->id }}" onclick="editField('age', {{ $dog->id }})" class="text-blue-500 hover:text-blue-700">
                                         <i class="fas fa-edit"></i>
                                     </button>
@@ -262,16 +263,6 @@
                         @else
                             <p class="text-gray-700 mb-4">Vous ne pouvez pas prendre rendez-vous avec vous-même</p>
                         @endif
-
-                    {{-- <h3 class="text-xl font-semibold mb-2 text-gray-800 pt-2">Avis clients</h3>
-                        @foreach (Auth::user()->prestationsAsdogsitter as $prestation)
-                            @if($prestation->avis)
-                                <div class="border-t border-gray-300 pt-4 mt-4">
-                                    <h4 class="font-semibold text-gray-800">{{ $prestation->proprietaire->name.' '. $prestation->proprietaire->prenom.' '.$prestation->avis->created_at }}</h4>
-                                    <p class="text-gray-700 mb-4">{{ $prestation->avis->commentaire }}</p>
-                                </div>
-                            @endif
-                        @endforeach --}}
                 @endif
             </div>
         </div>
@@ -396,7 +387,30 @@ function saveField(field, dogId) {
             closeModal();
             alert("Erreur : " + error.message);
         });
+    }    
+    document.addEventListener('DOMContentLoaded', function () {
+        const dogSpans = document.querySelectorAll('.dog-info');
+
+        dogSpans.forEach(span => {
+            const birthDate = span.getAttribute('data-birthdate');
+            const age = calculateDogAge(birthDate);
+            span.textContent = age + ' ans';
+        });
+    });
+    function calculateDogAge(birthDate) {
+        const today = new Date();
+        const birthDateObj = new Date(birthDate);
+
+        let age = today.getFullYear() - birthDateObj.getFullYear();
+        const monthDifference = today.getMonth() - birthDateObj.getMonth();
+
+        if (monthDifference < 0 || (monthDifference === 0 && today.getDate() < birthDateObj.getDate())) {
+            age--;
+        }
+
+        return age;
     }
+
 </script>
 
 

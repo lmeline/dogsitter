@@ -29,7 +29,7 @@ class DogFactory extends Factory
         return [
             'nom' => fake()->firstName(),
             'race' => $race_id,
-            'age' => fake()->numberBetween(1, 20),
+            'date_naissance' => fake()->date(),
             'poids' => fake()->numberBetween(1, 70),
             'besoins_speciaux' => fake()->sentence(),
             'comportement' => fake()->sentence(),

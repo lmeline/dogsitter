@@ -45,7 +45,7 @@
                 <!-- Conteneur Principal -->
                 <div class="flex flex-col lg:flex-row items-center lg:items-start lg:space-x-8">
                     <!-- Image -->
-                    <div class="w-full lg:w-1/3 mb-8 lg:mb-0">
+                    <div class="w-full lg:w-1/3 mb-8 lg:mb-0 flex justify-center">
                         <img src="{{ asset('images/paxa.jpg') }}" alt="Dog Sitting pax"
                             class="w-2/3 lg:w-1/2 h-auto rounded-lg shadow-md">
                     </div>

@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('nom',70)->index()->nullable(false);
             $table->string('race',70)->index()->nullable(false);
-            $table->integer('age')->index()->nullable(false);
+            $table->date('date_naissance')->index()->nullable(false);
             $table->integer('poids')->nullable(false);
             $table->text('comportement')->nullable(true);
             $table->text('besoins_speciaux')->nullable(true);
