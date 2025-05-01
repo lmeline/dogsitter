@@ -45,7 +45,7 @@ class DogController extends Controller
         $request->validate([
             'nom' => ['required', 'string', 'max:255'],
             'race' => ['required', 'string', 'max:255'],
-            'age' => ['required', 'integer'],
+            'date_naissance' => ['required', 'date'],
             'poids' => ['required', 'numeric'],
             'sexe' => ['required', 'string'],
             'comportement' => ['nullable', 'string', 'max:1000'],
@@ -56,7 +56,7 @@ class DogController extends Controller
         Dog::create([
             'nom' => $request->nom,
             'race' => $request->race,
-            'age' => $request->age,
+            'date_naissance' => $request->date_naissance,
             'poids' => $request->poids,
             'sexe' => $request->sexe,
             'comportement' => $request->comportement ?? '',
@@ -81,7 +81,7 @@ class DogController extends Controller
         $validated = $request->validate([
             'nom' => 'nullable|string|max:255',
             'race' => 'nullable|string|max:255',
-            'age' => 'nullable|integer|min:0',
+            'date_naissance' => 'nullable|date',
             'sexe' => 'nullable|in:F,M',
             'comportement' => 'nullable|string|max:255',
             'besoins_speciaux' => 'nullable|string|max:255',

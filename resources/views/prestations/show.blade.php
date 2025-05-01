@@ -46,6 +46,13 @@
             <div class="mt-6">
                 <a href="{{ route('proprietaires.mesprestations') }}" class="bg-gradient-to-r from-yellow-300 to-pink-300 text-black px-6 py-3 rounded-lg hover:from-yellow-400 hover:to-pink-400 transition">Retour aux Prestations</a>
             </div>
+            <form action="{{ route('prestations.destroy', $prestation->id) }}" method="POST" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette prestation ?');">
+                @csrf
+                @method('DELETE')
+                <button type="submit" class="mt-6 bg-gradient-to-r from-red-300 to-pink-400 text-black px-6 py-3 rounded-lg hover:from-red-400 hover:to-pink-500 transition">
+                    Supprimer la prestation
+                </button>
+            </form>            
        @else
             <div class="mt-6">
                 <a href="{{ route('dogsitters.calendar') }}" class="bg-gradient-to-r from-yellow-300 to-pink-300 text-black px-6 py-3 rounded-lg hover:from-yellow-400 hover:to-pink-400 transition">Retour aux Prestations</a>

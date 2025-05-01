@@ -29,8 +29,8 @@ class Dog extends Model
         return $this->belongsTo(User::class,'proprietaire_id');
     }
 
-    public function prestations_dogs(): HasMany
+    public function prestation():BelongsTo
     {
-        return $this->hasMany(PrestationDog::class);
+        return $this->belongsTo(Prestation::class,'prestation_id');
     }
 }

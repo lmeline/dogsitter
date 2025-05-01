@@ -48,6 +48,12 @@
                 <x-text-input id="date_naissance" class="block mt-1 w-full border" type="date" name="date_naissance" :value="old('date_naissance')" required />
                 <x-input-error :messages="$errors->get('date_naissance')" class="mt-2" />
             </div>
+            <!-- Photo de profil -->
+            <div class="mt-4">
+                <x-input-label for="photo" :value="__('Photo de profil')" />
+                <input type="file" id="photo" name="photo" accept="image/*" class="block mt-1 w-full border border-pink-300 focus:ring-pink-500 focus:border-pink-500" />
+                <x-input-error :messages="$errors->get('photo')" class="mt-2" />
+            </div>
 
             <!-- Email -->
             <div class="mt-4">

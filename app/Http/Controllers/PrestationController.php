@@ -87,13 +87,9 @@ class PrestationController extends Controller
       return redirect()->back()->withErrors(['prestation' => 'Erreur lors de l\'enregistrement de la prestation.']);
     }
 
-    // Chargement de la relation dogsitter
     $prestation->load('dogsitter');
-    // Chargement de la relation proprietaire
     $prestation->load('proprietaire');
-    // Chargement de la relation dog
     $prestation->load('dog');
-    // Chargement de la relation prestationType
     $prestation->load('prestationType');
 
     $output->writeln($prestation->dogsitter);
@@ -131,8 +127,6 @@ class PrestationController extends Controller
 
     $prestation->formatted_date_debut = Carbon::parse($prestation->date_debut)->translatedFormat('d F Y à H:i');
     $prestation->formatted_date_fin = Carbon::parse($prestation->date_fin)->translatedFormat('d F Y à H:i');
-    $prestationDogs = Prestation::with('prestationDogs.dog')->get();
-
     return view('prestations.show', compact('prestation'));
   }
 
@@ -164,10 +158,9 @@ class PrestationController extends Controller
 
       if ($prestation) {
           $prestation->delete();
-          return response()->json(['success' => true]);
+          return redirect()->route('proprietaires.mesprestations')->with('success', 'Prestation supprimée avec succès.');
       }
-
-      return response()->json(['success' => false, 'message' => 'Prestation non trouvée']);
+      return redirect()->route('proprietaires.mesprestations')->with('success', 'Prestation supprimée avec succès.');
   }
 
 }

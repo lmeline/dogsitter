@@ -47,9 +47,24 @@ class RegisteredUserController extends Controller
             'ville_id' => ['required', 'exists:villes,id'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
             'date_naissance' => ['required', 'date', 'before:18 year ago'],
-            'photo' => ['nullable', 'string', 'max:255'],
+            'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
             'role' =>['required', 'string', 'max:255']
         ]);
+
+        $photoPath = null;
+        if ($request->hasFile('photo')) {
+            // Récupérer le fichier téléchargé
+            $file = $request->file('photo');
+            
+            // Créer un nom unique pour la photo
+            $filename = uniqid('profile_') . '.' . $file->getClientOriginalExtension();
+    
+            // Sauvegarder l'image dans le dossier 'public/profile_photos'
+            $file->storeAs('storage/app/public/photo', $filename);
+    
+            // Enregistrer le chemin de la photo dans la variable
+            $photoPath = $filename;
+        };
 
         $user = User::create([
             'name' => $request->name,
@@ -61,7 +76,7 @@ class RegisteredUserController extends Controller
             'code_postal' => $request->code_postal,
             'ville_id' => $request->ville_id,
             'password' => Hash::make($request->password),
-            'photo' => $request->photo,
+            'photo' => $photoPath,  // Sauvegarde du nom de la photo dans la base
             'role' => $request->role
         ]);
 

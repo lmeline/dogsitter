@@ -4,7 +4,9 @@
         <div class="text-black py-10 w-full flex items-center bg-gradient-to-r from-red-200 to-orange-200 rounded-lg shadow-lg">
         
             <div class="flex-shrink-0 mr-8">
-                <img src="{{Auth::user()->photo}}" alt="{{ Auth::user()->name }}" class="w-20 h-20 sm:w-40 sm:h-40 rounded-full border-4 border-white shadow-lg ml-10">
+                <img src="{{ asset('storage/photo/' . Auth::user()->photo) }}" alt="Photo de profil" class="w-24 h-24 rounded-full object-cover">
+
+                {{-- <img src="{{Auth::user()->photo}}" alt="{{ Auth::user()->name }}" class="w-20 h-20 sm:w-40 sm:h-40 rounded-full border-4 border-white shadow-lg ml-10"> --}}
             </div>
             
             <div class="flex flex-col justify-end">
