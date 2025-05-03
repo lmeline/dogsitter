@@ -35,9 +35,8 @@
         </div>
     </div>
 
-    <!-- Afficher la pagination -->
     <div class="mt-8 flex justify-center">
-        <!-- Masquer le texte "Page X sur Y" -->
+
         <style>
             .pagination .page-item .page-link[rel="prev"],
             .pagination .page-item .page-link[rel="next"] {

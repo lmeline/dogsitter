@@ -16,14 +16,23 @@ class ProfilDogsitterController extends Controller
 {
     public function index()
     {
-        $dogsitters = User::where('role', 'dogsitter')->paginate(20);
-        $villes = User::distinct('ville_id')->where('role', 'dogsitter')->pluck('ville_id')->toArray();
-
-        $villesDetails = Ville::whereIn('id', $villes)->get();
-
+        $dogsitters = User::where('role', 'dogsitter')
+            ->whereHas('prestationtypes', function ($query) {
+                $query->whereNotNull('users_prestations_types.prix')
+                      ->where('users_prestations_types.prix', '>', 0);
+            })
+            ->whereHas('disponibilites')
+            ->with(['ville', 'prestationtypes'])
+            ->paginate(20);
+    
+        // Récupérer les villes des dogsitters filtrés
+        $villesIds = $dogsitters->pluck('ville_id')->unique()->toArray();
+        $villes = Ville::whereIn('id', $villesIds)->get();
+    
         return view('dogsitters.index', compact('dogsitters', 'villes'));
     }
-
+    
+    
 
     public function show($id)
     {

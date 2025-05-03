@@ -55,7 +55,7 @@
             console.log(disponibilites); 
 
             const datesDisponibles = disponibilites.map(d => d.date);
-
+            const horairesDisponibles = disponibilites.map(d => d.creneauxhoraire);
             console.log(datesDisponibles); 
 
             flatpickr("#datepicker", {
