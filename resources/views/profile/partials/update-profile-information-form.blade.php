@@ -31,13 +31,6 @@
             </div>
         </div>
 
-        <!-- Champ pour l'adresse -->
-        {{-- <div>
-            <x-input-label for="adresse" :value="__('Address')" />
-            <x-text-input id="adresse" class="block mt-1 w-full h-10" type="text" name="adresse" :value="old('adresse', $user->adresse)" required autocomplete="adresse" />
-            <x-input-error :messages="$errors->get('adresse')" class="mt-2" />
-        </div> --}}
-
         <!-- Grille pour les champs "Ville" et "Code postal" -->
         <div class="grid grid-cols-2 gap-4">
             <div class="relative">

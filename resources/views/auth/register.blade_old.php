@@ -49,13 +49,6 @@
                 <x-input-error :messages="$errors->get('email')" class="mt-2" />
             </div>
 
-            <!-- Adresse -->
-            <!-- <div class="mt-4">
-                <x-input-label for="adresse" :value="__('Adresse')" />
-                <x-text-input id="adresse" class="block mt-1 w-full border border-pink-300 focus:ring-pink-500 focus:border-pink-500" type="text" name="adresse" :value="old('adresse')" required autocomplete="adresse" />
-                <x-input-error :messages="$errors->get('adresse')" class="mt-2" />
-            </div> -->
-
             <!-- Code postal et Ville -->
             <div class="flex w-full gap-2 mt-4">
                 <div class="relative">
@@ -138,12 +131,6 @@
                         <x-input-error :messages="$errors->get('email')" class="mt-2" />
                     </div>
 
-                    <!-- Adresse
-                    <div class="mt-4">
-                        <x-input-label for="adresse" :value="__('Adresse')" />
-                        <x-text-input id="adresse" class="block mt-1 w-full border border-pink-300 focus:ring-pink-500 focus:border-pink-500" type="text" name="adresse" :value="old('adresse')" required autocomplete="adresse" />
-                        <x-input-error :messages="$errors->get('adresse')" class="mt-2" />
-                    </div> -->
                     <!-- Code postal et Ville -->
                     <div class="flex w-full gap-2 mt-4">
                         <div class="relative">

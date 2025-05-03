@@ -37,7 +37,6 @@ class UserFactory extends Factory
             'prenom' => fake()->firstName(),
             'date_naissance' => fake()->date(),
             'email' => fake()->unique()->safeEmail(),
-            //'adresse' => fake()->streetAddress(),
             'ville_id' => $ville->id,
             'code_postal' => $ville->code_postal,
             'role' => $role,

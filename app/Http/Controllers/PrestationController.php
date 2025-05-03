@@ -16,20 +16,56 @@ use Symfony\Component\Console\Output\ConsoleOutput;
 
 class PrestationController extends Controller
 {
+  public function createold($id)
+  {
+    $proprietaire = Auth::user($id);
+
+    $dogsitter = User::find($id);
+
+    $prestations = $proprietaire->prestationsAsproprietaire()->with(['dog', 'prestationType', 'dogsitter'])->get();
+
+    $prestationsDogsitter = $dogsitter->prestationsAsDogsitter()->with(['dog', 'prestationType', 'proprietaire'])->get();
+
+    $dogs = Dog::where('proprietaire_id', $proprietaire->id)->get();
+
+    $disponibilites = $dogsitter->disponibilites;
+
+    $joursSemaine = [
+      'Lundi' => 'Monday',
+      'Mardi' => 'Tuesday',
+      'Mercredi' => 'Wednesday',
+      'Jeudi' => 'Thursday',
+      'Vendredi' => 'Friday',
+      'Samedi' => 'Saturday',
+      'Dimanche' => 'Sunday',
+    ];
+
+    foreach ($disponibilites as $disponibilite) {
+      $jour = $disponibilite->jour_semaine;
+
+      if (isset($joursSemaine[$jour])) {
+        $jourAnglais = $joursSemaine[$jour];
+        $date = Carbon::now()->next($jourAnglais);
+        $disponibilite->date = $date->format('Y-m-d');
+      }
+    }
+
+    return view('prestations.create', compact('dogsitter', 'proprietaire', 'dogs', 'disponibilites', 'prestations', 'prestationsDogsitter'));
+  }
+
   public function create($id)
   {
       $proprietaire = Auth::user($id);
-
       $dogsitter = User::find($id);
-    
+  
       $prestations = $proprietaire->prestationsAsproprietaire()->with(['dog', 'prestationType', 'dogsitter'])->get();
-        
       $prestationsDogsitter = $dogsitter->prestationsAsDogsitter()->with(['dog', 'prestationType', 'proprietaire'])->get();
-
       $dogs = Dog::where('proprietaire_id', $proprietaire->id)->get();
-
+  
+      // Récupérer les disponibilités du dogsitter
       $disponibilites = $dogsitter->disponibilites;
-
+  
+      // Tableau des jours de la semaine en français -> anglais
       $joursSemaine = [
           'Lundi' => 'Monday',
           'Mardi' => 'Tuesday',
@@ -39,18 +75,33 @@ class PrestationController extends Controller
           'Samedi' => 'Saturday',
           'Dimanche' => 'Sunday',
       ];
-
+  
+      // Initialisation d'un tableau pour stocker les disponibilités formatées
+      $disponibilitesFormatees = [];
+  
+      // Parcourir chaque disponibilité et la formater
       foreach ($disponibilites as $disponibilite) {
           $jour = $disponibilite->jour_semaine;
-
+  
+          // Vérifier si le jour existe dans le tableau des jours de la semaine
           if (isset($joursSemaine[$jour])) {
               $jourAnglais = $joursSemaine[$jour];
+  
+              // Calculer la prochaine occurrence de ce jour
               $date = Carbon::now()->next($jourAnglais);
-              $disponibilite->date = $date->format('Y-m-d');
+  
+              // Ajouter la disponibilité formatée
+              $disponibilitesFormatees[] = [
+                  'jour' => $jour, // Lundi, Mardi, etc.
+                  'heure_debut' => $disponibilite->heure_debut,
+                  'heure_fin' => $disponibilite->heure_fin,
+                  'date' => $date->format('Y-m-d'), // Format de la date de la prochaine occurrence
+              ];
           }
       }
   
-      return view('prestations.create', compact('dogsitter', 'proprietaire', 'dogs', 'disponibilites', 'prestations', 'prestationsDogsitter'));
+      // Passer les variables à la vue
+      return view('prestations.create', compact('dogsitter', 'proprietaire', 'dogs', 'disponibilites', 'prestations', 'prestationsDogsitter', 'disponibilitesFormatees'));
   }
   
   public function store(Request $request)
@@ -87,7 +138,6 @@ class PrestationController extends Controller
         'prix_total' => $prix,
       ]);
       $prestation->save();
-
     } catch (Exception $e) {
       $output->writeln("Erreur lors de l'enregistrement de la prestation : " . $e->getMessage());
       return redirect()->back()->withErrors(['prestation' => 'Erreur lors de l\'enregistrement de la prestation.']);
@@ -160,13 +210,12 @@ class PrestationController extends Controller
 
   public function destroy($id)
   {
-      $prestation = Prestation::find($id);
+    $prestation = Prestation::find($id);
 
-      if ($prestation) {
-          $prestation->delete();
-          return redirect()->route('proprietaires.mesprestations')->with('success', 'Prestation supprimée avec succès.');
-      }
+    if ($prestation) {
+      $prestation->delete();
       return redirect()->route('proprietaires.mesprestations')->with('success', 'Prestation supprimée avec succès.');
+    }
+    return redirect()->route('proprietaires.mesprestations')->with('success', 'Prestation supprimée avec succès.');
   }
-
 }

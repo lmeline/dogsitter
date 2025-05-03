@@ -135,9 +135,8 @@
                     }).map(function (disponibilite) {
                         return {
                             title: "Disponible", // Titre des créneaux de disponibilité
-                            start: disponibilite.date + 'T' + disponibilite.heure_debut,
-                            end: disponibilite.date + 'T' + disponibilite.heure_fin,
-
+                            start: disponibilite.date + ' ' + disponibilite.heure_debut,
+                            end: disponibilite.date + ' ' + disponibilite.heure_fin,
                             allDay: false,
                             extendedProps: {
                                 type: 'disponibilite'
@@ -178,18 +177,6 @@
                         alert("Un créneau est déjà réservé à cette heure.");
                         return; 
                     }
-                    let isInDispo = disponibilites.some(function (dispo) {
-                        let dispoStart = new Date(dispo.date + 'T' + dispo.heure_debut);
-                        let dispoEnd = new Date(dispo.date + 'T' + dispo.heure_fin);
-
-                        return clickedDate >= dispoStart && clickedDate < dispoEnd;
-                    });
-
-                    if (!isInDispo) {
-                        alert("Ce créneau n’est pas dans une plage horaire disponible du dogsitter.");
-                        return;
-                    }
-
 
                     let dateDe = new Date(info.date);
                     let dateA = new Date(info.date);
@@ -224,9 +211,12 @@
             let selectedOption = this.options[this.selectedIndex];
             let duree = selectedOption.getAttribute('data-duree');
             let prestationPrix = selectedOption.getAttribute('data-prix');
-            spanDuree.textContent = duree;
-            spanPrixTotal.textContent = prestationPrix + '€';
 
+            // Mise à jour du texte pour la durée et le prix
+            spanDuree.textContent = duree;
+            spanPrixTotal.textContent = prestationPrix + '€'; // Affichez le prix avec le symbole €
+
+            // Calcul de la date de fin basée sur la durée
             let startDate = new Date(txtPrestationDate.value + 'T' + ddlPrestationDe.value);
             let endDate = new Date(startDate);
             endDate.setMinutes(endDate.getMinutes() + duree);
@@ -256,7 +246,7 @@
             let dateDe = txtPrestationDate.value + ' ' + ddlPrestationDe.value;
             let dateA = txtPrestationDate.value + ' ' + spanPrestationA.textContent;
             let dogSitterId = {{ $dogsitter->id }};
-            let prixTotal = spanPrixTotal.textContent.replace('€', '');  
+            let prixTotal = spanPrixTotal.textContent.replace('€', '');  // Retirer le symbole '€' avant d'envoyer le prix
 
             fetch('/prestations', {
                 method: 'POST',
@@ -270,7 +260,7 @@
                     date_debut: dateDe,
                     date_fin: dateA,
                     dogsitter_id: dogSitterId,
-                    prix_total: prixTotal  
+                    prix_total: prixTotal  // Envoi du prix sans le symbole '€'
                 })
             })
             .then(response => response.json())
