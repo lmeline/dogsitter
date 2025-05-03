@@ -49,19 +49,12 @@
                 <x-input-error :messages="$errors->get('email')" class="mt-2" />
             </div>
 
-            <!-- Numéro de téléphone -->
-            <div class="mt-4">
-                <x-input-label for="telephone" :value="__('Telephone number')" />
-                <x-text-input id="telephone" class="block mt-1 w-full border border-pink-300 focus:ring-pink-500 focus:border-pink-500" type="text" name="telephone" :value="old('telephone')" required autocomplete="username" />
-                <x-input-error :messages="$errors->get('telephone')" class="mt-2" />
-            </div>
-
             <!-- Adresse -->
-            <div class="mt-4">
+            <!-- <div class="mt-4">
                 <x-input-label for="adresse" :value="__('Adresse')" />
                 <x-text-input id="adresse" class="block mt-1 w-full border border-pink-300 focus:ring-pink-500 focus:border-pink-500" type="text" name="adresse" :value="old('adresse')" required autocomplete="adresse" />
                 <x-input-error :messages="$errors->get('adresse')" class="mt-2" />
-            </div>
+            </div> -->
 
             <!-- Code postal et Ville -->
             <div class="flex w-full gap-2 mt-4">
@@ -144,18 +137,13 @@
                         <x-text-input id="email" class="block mt-1 w-full border border-yellow-300 focus:ring-yellow-500 focus:border-yellow-500" type="email" name="email" :value="old('email')" required autocomplete="username" />
                         <x-input-error :messages="$errors->get('email')" class="mt-2" />
                     </div>
-                    <!-- Numéro de téléphone -->
-                    <div class="mt-4">
-                        <x-input-label for="telephone" :value="__('Telephone number')" />
-                        <x-text-input id="telephone" class="block mt-1 w-full border border-pink-300 focus:ring-pink-500 focus:border-pink-500" type="text" name="telephone" :value="old('telephone')" required autocomplete="username" />
-                        <x-input-error :messages="$errors->get('telephone')" class="mt-2" />
-                    </div>
-                    <!-- Adresse -->
+
+                    <!-- Adresse
                     <div class="mt-4">
                         <x-input-label for="adresse" :value="__('Adresse')" />
                         <x-text-input id="adresse" class="block mt-1 w-full border border-pink-300 focus:ring-pink-500 focus:border-pink-500" type="text" name="adresse" :value="old('adresse')" required autocomplete="adresse" />
                         <x-input-error :messages="$errors->get('adresse')" class="mt-2" />
-                    </div>
+                    </div> -->
                     <!-- Code postal et Ville -->
                     <div class="flex w-full gap-2 mt-4">
                         <div class="relative">

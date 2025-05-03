@@ -49,11 +49,11 @@
                 <x-input-error :messages="$errors->get('date_naissance')" class="mt-2" />
             </div>
             <!-- Photo de profil -->
-            <div class="mt-4">
+            {{-- <div class="mt-4">
                 <x-input-label for="photo" :value="__('Photo de profil')" />
                 <input type="file" id="photo" name="photo" accept="image/*" class="block mt-1 w-full border border-pink-300 focus:ring-pink-500 focus:border-pink-500" />
                 <x-input-error :messages="$errors->get('photo')" class="mt-2" />
-            </div>
+            </div> --}}
 
             <!-- Email -->
             <div class="mt-4">
@@ -61,20 +61,13 @@
                 <x-text-input id="email" class="block mt-1 w-full border" type="email" name="email" :value="old('email')" required />
                 <x-input-error :messages="$errors->get('email')" class="mt-2" />
             </div>
-
-            <!-- Téléphone -->
-            <div class="mt-4">
-                <x-input-label for="telephone" :value="__('Telephone number')" />
-                <x-text-input id="telephone" class="block mt-1 w-full border" type="text" name="telephone" :value="old('telephone')" required />
-                <x-input-error :messages="$errors->get('telephone')" class="mt-2" />
-            </div>
-
+{{-- 
             <!-- Adresse -->
             <div class="mt-4">
                 <x-input-label for="adresse" :value="__('Adresse')" />
                 <x-text-input id="adresse" class="block mt-1 w-full border" type="text" name="adresse" :value="old('adresse')" required />
                 <x-input-error :messages="$errors->get('adresse')" class="mt-2" />
-            </div>
+            </div> --}}
 
             <!-- Ville et Code postal -->
             <div class="flex w-full gap-2 mt-4">

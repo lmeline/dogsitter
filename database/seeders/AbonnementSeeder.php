@@ -17,19 +17,37 @@ class AbonnementSeeder extends Seeder
         [
             'nom' => 'Abonnement par mois ',
             'prix' => 29.99,
-            'description' => 'Avec cet abonnement, profitez d\'un profil complet avec photo, description, et avis clients. Vous pouvez publier jusqu\'à 10 annonces actives pour vos services (garde, promenade) et bénéficier d\'une meilleure visibilité dans les résultats de recherche. Accédez également aux statistiques de base et recevez des avis clients.',
+            'description' => '✅ Recevez des demandes de prestation directement des propriétaires
+                            ✅ Affichez votre calendrier et vos disponibilités en temps réel
+                            ✅ Échangez facilement via la messagerie intégrée
+                            🌟 Mise en avant prioritaire dans les résultats de recherche
+                            🎖️ Badge de confiance "Dogsitter Certifié" visible sur votre profil
+                            📈 Plus de visibilité, plus de réservations !
+
+                            💶 14,90 € / mois, sans engagement
+                            🔐 Abonnement résiliable à tout moment depuis votre espace',
             
         ],
         [
             'nom' => 'Abonnement sur l\'année',
             'prix' => 299.9,
-            'description'=>'Optez pour cet abonnement et bénéficiez d\'un profil complet avec photo, description et avis clients, ainsi que la possibilité de publier jusqu\'à 10 annonces actives pour vos services (garde, promenade). Profitez d\'une meilleure visibilité dans les résultats de recherche et accédez aux statistiques de base. De plus, en choisissant l\'abonnement annuel, vous obtenez 2 mois offerts sur le prix total !',
+            'description'=>'✅ Recevez des demandes de propriétaires sans limitation
+            ✅ Affichez votre planning et gérez vos disponibilités facilement
+            ✅ Messagerie directe avec les propriétaires
+            🌟 Mise en avant prioritaire dans les résultats de recherche
+            🎖️ Badge "Dogsitter Certifié" visible sur votre profil
+            📈 Boostez votre visibilité et votre taux de réservation
+            
+            💶 14,90 € / mois après la période d\’essai
+            🔐 Sans engagement – annulation possible à tout moment
+            
+            🎁 Inscrivez-vous maintenant et profitez de vos 2 premiers mois gratuits !',
             
         ],
         [
             'nom' => 'Pas d\'abonnement',
             'prix'=>0,
-            'description'=>'Profitez d\'un mois d\'essai gratuit avec toutes les fonctionnalités de notre abonnement : un profil complet avec photo, description, et avis clients, la possibilité de publier jusqu\'à 10 annonces actives, ainsi qu\'un accès aux statistiques détaillées. Après ce mois d\'essai, vous pourrez choisir de continuer avec notre offre annuelle avantageuse.',
+            'description'=>'Profitez d\'un mois d\'essai gratuit avec toutes les fonctionnalités de notre abonnement : un profil complet avec photo, description Après ce mois d\'essai, vous pourrez choisir de continuer avec notre offre annuelle avantageuse.',
         ],
         ]);
     }

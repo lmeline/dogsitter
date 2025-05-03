@@ -116,9 +116,8 @@
                         };
                     }),
                     ...prestationsDogsitter.map(function (prestation) {
-                        // Vérifie si l'utilisateur connecté a pris la prestation
                         let isCurrentUser = prestation.proprietaire_id === currentUserId;
-                        let eventTitle = isCurrentUser ? prestation.dog.nom + " - " + prestation.prestation_type.nom : "Déjà réservée"; // Titre conditionnel
+                        let eventTitle = isCurrentUser ? prestation.dog.nom + " - " + prestation.prestation_type.nom : "Déjà réservée"; 
                         return {
                             title: eventTitle,
                             start: prestation.date_debut,
