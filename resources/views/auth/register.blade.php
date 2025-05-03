@@ -61,13 +61,7 @@
                 <x-text-input id="email" class="block mt-1 w-full border" type="email" name="email" :value="old('email')" required />
                 <x-input-error :messages="$errors->get('email')" class="mt-2" />
             </div>
-{{-- 
-            <!-- Adresse -->
-            <div class="mt-4">
-                <x-input-label for="adresse" :value="__('Adresse')" />
-                <x-text-input id="adresse" class="block mt-1 w-full border" type="text" name="adresse" :value="old('adresse')" required />
-                <x-input-error :messages="$errors->get('adresse')" class="mt-2" />
-            </div> --}}
+
 
             <!-- Ville et Code postal -->
             <div class="flex w-full gap-2 mt-4">

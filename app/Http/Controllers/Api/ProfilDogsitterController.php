@@ -65,7 +65,6 @@ class ProfilDogsitterController extends Controller
         $dogsitter->date_naissance = $request->date_naissance;
         $dogsitter->code_postal = $request->code_postal;
         $dogsitter->ville = $request->ville;
-        //$dogsitter->adresse = $request->adresse;
         $dogsitter->save();
 
         return response()->json($dogsitter);

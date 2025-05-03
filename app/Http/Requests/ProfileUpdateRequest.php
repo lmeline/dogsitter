@@ -27,7 +27,6 @@ class ProfileUpdateRequest extends FormRequest
             ],
             //'photo' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
             'ville_id' => ['required', 'exists:villes,id'],
-            //'adresse' => ['required', 'string', 'max:255'],
             'code_postal' => ['required', 'string', 'max:20'],
             'prenom' => ['required', 'string', 'max:70'],
         ];

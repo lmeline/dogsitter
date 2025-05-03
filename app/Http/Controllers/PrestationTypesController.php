@@ -51,7 +51,7 @@ class PrestationTypesController extends Controller
                 'dogsitter_id' => $request->dogsitter_id,
                 'prestation_type_id' => $request->prestation_type_id,
                 'prix' => $request->prix,
-                'duree' => 1,
+                'duree' => 60,
             ]);
 
             session()->flash('success', 'Tarif ajouté avec succès.');
