@@ -68,16 +68,16 @@
                 <div class="relative w-full">
                     <x-input-label for="ville" :value="__('City')" />
                     <input id="villeInput" type="text"
-                           class="block mt-1 w-full border rounded-lg"
+                           class="block mt-1 w-full border rounded-lg border border-pink-300 focus:ring-pink-500 focus:border-pink-500"
                            placeholder="Rentrez une ville ">
-                    <ul id="villeContainer" class="hidden absolute mt-8 w-full max-h-[12rem] top-[2.3rem] rounded bg-white ring-1 overflow-y-auto z-10 shadow-lg"></ul>
+                    <ul id="villeContainer" class="hidden absolute mt-8 w-full max-h-[12rem] top-[2.3rem] rounded bg-white ring-1 overflow-y-auto z-10 shadow-lg "></ul>
                     <input type="hidden" id="villeId" name="ville_id">
                 </div>
 
                 <div class="relative w-full">
                     <x-input-label for="code_postal" :value="__('Postal code')" />
                     <input id="codePostalInput" name="code_postal"
-                           class="block mt-1 w-full border rounded-lg" readonly>
+                           class="block mt-1 w-full border rounded-lg border border-pink-300 focus:ring-pink-500 focus:border-pink-500" readonly>
                 </div>
             </div>
 

@@ -25,12 +25,13 @@ class ProfilDogsitterController extends Controller
             ->with(['ville', 'prestationtypes'])
             ->paginate(20);
     
-        // Récupérer les villes des dogsitters filtrés
+        // Villes uniquement des dogsitters filtrés
         $villesIds = $dogsitters->pluck('ville_id')->unique()->toArray();
         $villes = Ville::whereIn('id', $villesIds)->get();
     
         return view('dogsitters.index', compact('dogsitters', 'villes'));
     }
+    
     
     
 
