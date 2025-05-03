@@ -62,10 +62,8 @@ class PrestationController extends Controller
       $prestationsDogsitter = $dogsitter->prestationsAsDogsitter()->with(['dog', 'prestationType', 'proprietaire'])->get();
       $dogs = Dog::where('proprietaire_id', $proprietaire->id)->get();
   
-      // Récupérer les disponibilités du dogsitter
       $disponibilites = $dogsitter->disponibilites;
-  
-      // Tableau des jours de la semaine en français -> anglais
+
       $joursSemaine = [
           'Lundi' => 'Monday',
           'Mardi' => 'Tuesday',
@@ -76,34 +74,48 @@ class PrestationController extends Controller
           'Dimanche' => 'Sunday',
       ];
   
-      // Initialisation d'un tableau pour stocker les disponibilités formatées
       $disponibilitesFormatees = [];
-  
-      // Parcourir chaque disponibilité et la formater
+      $today = Carbon::now(); 
+      $endDate = Carbon::now()->addMonths(3); 
+    
       foreach ($disponibilites as $disponibilite) {
           $jour = $disponibilite->jour_semaine;
   
-          // Vérifier si le jour existe dans le tableau des jours de la semaine
           if (isset($joursSemaine[$jour])) {
               $jourAnglais = $joursSemaine[$jour];
   
-              // Calculer la prochaine occurrence de ce jour
               $date = Carbon::now()->next($jourAnglais);
-  
-              // Ajouter la disponibilité formatée
-              $disponibilitesFormatees[] = [
-                  'jour' => $jour, // Lundi, Mardi, etc.
-                  'heure_debut' => $disponibilite->heure_debut,
-                  'heure_fin' => $disponibilite->heure_fin,
-                  'date' => $date->format('Y-m-d'), // Format de la date de la prochaine occurrence
+              if ($date->isBefore($today)) {
+                $date = $date->addWeek(); 
+            }
+            while ($date->isBefore($endDate)) {
+                $disponibilitesFormatees[] = [
+                    'jour' => $jour,
+                    'heure_debut' => $disponibilite->heure_debut,
+                    'heure_fin' => $disponibilite->heure_fin,
+                    'date' => $date->format('Y-m-d'), 
+                ];
+                $date = $date->addWeek();
+            }
+          }
+          $creneauxDisponibles = [];
+
+          foreach ($disponibilitesFormatees as $disponibilite) {
+              $date = $disponibilite['date'];
+              $heure_debut = $disponibilite['heure_debut'];
+              $heure_fin = $disponibilite['heure_fin'];
+
+              // Ajoute un tableau de créneaux horaires pour chaque date
+              $creneauxDisponibles[$date][] = [
+                  'heure_debut' => $heure_debut,
+                  'heure_fin' => $heure_fin,
               ];
           }
       }
-  
-      // Passer les variables à la vue
-      return view('prestations.create', compact('dogsitter', 'proprietaire', 'dogs', 'disponibilites', 'prestations', 'prestationsDogsitter', 'disponibilitesFormatees'));
+      return view('prestations.create', compact('dogsitter', 'proprietaire', 'dogs', 'disponibilites', 'prestations', 'prestationsDogsitter', 'disponibilitesFormatees', 'creneauxDisponibles'));
   }
   
+
   public function store(Request $request)
   {
 
