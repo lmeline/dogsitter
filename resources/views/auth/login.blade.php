@@ -35,12 +35,12 @@
         <div class="flex items-center justify-end mt-4">
             <div class="flex flex-col gap-2">
                 @if (Route::has('register'))
-                    <a class="underline text-sm text-black dark:text-white hover:text-black dark:hover:text-black rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-black" href="{{ route('register') }}">
+                    <a class="underline text-sm text-black dark:text-white hover:text-black dark:hover:text-orange rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-black" href="{{ route('register') }}">
                         {{ __('Pas encore de compte ?') }}
                     </a>
                 @endif
                 @if (Route::has('password.request'))
-                    <a class="underline text-sm text-black dark:text-white hover:text-black dark:hover:text-black rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-black" href="{{ route('password.request') }}">
+                    <a class="underline text-sm text-black dark:text-white hover:text-black dark:hover:text-orange rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-black" href="{{ route('password.request') }}">
                         {{ __('Mot de passe oublié ?') }}
                     </a>
                 @endif
