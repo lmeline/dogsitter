@@ -44,7 +44,7 @@ class RegisteredUserController extends Controller
             'ville_id' => ['required', 'exists:villes,id'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
             'date_naissance' => ['required', 'date', 'before:18 year ago'],
-            //'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
+            'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
             'role' =>['required', 'string', 'max:255']
         ]);
 
@@ -71,7 +71,7 @@ class RegisteredUserController extends Controller
             'code_postal' => $request->code_postal,
             'ville_id' => $request->ville_id,
             'password' => Hash::make($request->password),
-            //'photo' => $photoPath,  // Sauvegarde du nom de la photo dans la base
+            'photo' => $photoPath,  // Sauvegarde du nom de la photo dans la base
             'role' => $request->role
         ]);
 
