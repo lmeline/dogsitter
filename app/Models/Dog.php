@@ -14,7 +14,7 @@ class Dog extends Model
 
     protected $fillable = [
         'nom',
-        'age',
+        'date_naissance',
         'race',
         'poids',
         'comportement',

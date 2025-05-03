@@ -2,13 +2,11 @@
     <div class="flex pt-10 flex-col items-center bg-gradient-to-br from-yellow-50 via-rose-50 to-green-50">
 
         <div class="text-black py-10 w-full flex items-center bg-gradient-to-r from-red-200 to-orange-200 rounded-lg shadow-lg">
-        
-            <div class="flex-shrink-0 mr-8">
-                <img src="{{ asset('storage/photo/' . Auth::user()->photo) }}" alt="Photo de profil" class="w-24 h-24 rounded-full object-cover">
 
-                {{-- <img src="{{Auth::user()->photo}}" alt="{{ Auth::user()->name }}" class="w-20 h-20 sm:w-40 sm:h-40 rounded-full border-4 border-white shadow-lg ml-10"> --}}
+            <div class="flex-shrink-0 mr-8">
+                <img src="{{Auth::user()->photo}}" alt="{{ Auth::user()->name }}" class="w-20 h-20 sm:w-40 sm:h-40 rounded-full border-4 border-white shadow-lg ml-10">
             </div>
-            
+
             <div class="flex flex-col justify-end">
                 <h1 class="text-3xl-sm text-xl font-bold text-gray-800">{{ Auth::user()->name }} {{ Auth::user()->prenom }}</h1>
             </div>
@@ -29,7 +27,7 @@
                                     Détails de {{ $dog->nom }}
                                 </button>
                             </div>
-                                
+
                             <div id="dog-details-{{ $dog->id }}" class="w-full bg-white p-2 mb-2 rounded-lg shadow-lg hidden">
                                 <!-- Nom -->
                                 <div class="flex justify-between items-center">
@@ -42,7 +40,7 @@
                                         <i class="fas fa-save"></i>
                                     </button>
                                 </div>
-                            
+
                                 <!-- Race -->
                                 <div class="flex justify-between items-center">
                                     <span class="text-sm"><strong>Race :</strong></span>
@@ -54,7 +52,7 @@
                                         <i class="fas fa-save"></i>
                                     </button>
                                 </div>
-                            
+
                                 <!-- Poids -->
                                 <div class="flex justify-between items-center mt-2">
                                     <span class="text-sm"><strong>Poids :</strong></span>
@@ -66,11 +64,11 @@
                                         <i class="fas fa-save"></i>
                                     </button>
                                 </div>
-                            
+
                                 <!-- Âge -->
                                 <div class="flex justify-between items-center mt-2">
                                     <span class="text-sm"><strong>Âge :</strong></span>
-                                    <span id="dog-age-{{ $dog->id }}" class="dog-info text-gray-600 bg-transparent text-sm" data-birthdate="{{ $dog->date_naissance }}"></span>
+                                    <span id="dog-age-{{ $dog->id }}" class="dog-info text-gray-600 bg-transparent text-sm" data-birthdate="{{ $dog->date_naissance }}"> {{ $dog->date_naissance }}</span>
 
                                     <button id="edit-btn-age-{{ $dog->id }}" onclick="editField('age', {{ $dog->id }})" class="text-blue-500 hover:text-blue-700">
                                         <i class="fas fa-edit"></i>
@@ -79,7 +77,7 @@
                                         <i class="fas fa-save"></i>
                                     </button>
                                 </div>
-                            
+
                                 <!-- Sexe -->
                                 <div class="flex justify-between items-center">
                                     <span class="text-sm"><strong>Sexe :</strong></span>
@@ -93,7 +91,7 @@
                                         <i class="fas fa-save"></i>
                                     </button>
                                 </div>
-                            
+
                                 <!-- Caractère -->
                                 <div class="flex justify-between items-start">
                                     <span class="text-sm"><strong class="whitespace-nowrap">Caractère :</strong></span>
@@ -105,7 +103,7 @@
                                         <i class="fas fa-save"></i>
                                     </button>
                                 </div>
-                            
+
                                 <!-- Besoins spéciaux -->
                                 <div class="flex justify-between items-start">
                                     <span class="text-sm"><strong class="whitespace-nowrap">Besoins <br> spéciaux :</strong></span>
@@ -119,7 +117,7 @@
                                         <i class="fas fa-save"></i>
                                     </button>
                                 </div>
-                                
+
                                 <!-- Stérilisation -->
                                 <div class="flex justify-between mt-2">
                                     <span class="text-sm"><strong>Stérilisation :</strong></span>
@@ -133,7 +131,7 @@
                                         <i class="fas fa-save"></i>
                                     </button>
                                 </div>
-                            
+
                                 <!-- Bouton Supprimer -->
                                 <div class="flex justify-end mt-2">
                                     <button 
@@ -158,7 +156,7 @@
                                 </div>
                             </div>
                         </div>
-                        
+
                 @else
                     <p class="mb-2"><strong>Disponibilité :</strong>
                         @foreach (Auth::user()->disponibilites as $disponibilite)
@@ -178,7 +176,7 @@
                             </p>
                         @endif
                     @endforeach
-                
+
                     @if(Auth::user()->prestationtypes->isEmpty())
                         <p class="mb-2">Aucun tarif défini.</p>
                     @endif
@@ -186,7 +184,7 @@
             </div>
 
             <div class="w-full md:w-2/3 bg-gradient-to-r from-yellow-100 to-orange-100 p-6 rounded-lg shadow-lg">
-                
+
                 @if (Auth::user()->role === 'proprietaire')
                     <h3 class="text-xl font-semibold mb-2 text-gray-800">Ce que je recherche chez un dogsitter</h3>
                         <form action="{{ route('update.description') }}" method="POST" id="description-form" class="w-full">
@@ -195,7 +193,7 @@
                                 <textarea id="description-text" name="description"
                                     class="w-full p-3 lg text-black border-none bg-gradient-to-r from-yellow-100 to-orange-100 focus:outline-none rounded-lg"
                                     rows="4" readonly>{{ Auth::user()->description }}</textarea>
-                        
+
                                 <button type="button" id="edit-btn"
                                     class="absolute top-3 right-3 text-gray-500 hover:text-gray-700 transition ">
                                     <i class="fas fa-edit"></i> Modifier
@@ -215,7 +213,7 @@
                                     Détails de {{ $dog->nom }}
                                 </button>
                             </div>
-                                
+
                             <div id="dog-details-{{ $dog->id }}" class="w-full bg-white p-2 mb-2 rounded-lg shadow-lg hidden">
                                 <!-- Nom -->
                                 <div class="flex justify-between items-center">
@@ -229,7 +227,7 @@
                                     </button>
                                 </div>
                         @endforeach
-                    
+
                 @endif
 
                 @if (Auth::user()->role === 'dogsitter')
@@ -240,7 +238,7 @@
                                 <textarea id="description-text" name="description"
                                     class="w-full  p-3 lg text-black border-none bg-gradient-to-r from-yellow-100 to-orange-100 focus:outline-none rounded-lg"
                                     rows="4" readonly>{{ Auth::user()->description }}</textarea>
-                        
+
                                 <button type="button" id="edit-btn"
                                     class="absolute top-3 right-3 text-gray-500 hover:text-gray-700 transition maxheight-[50px] ">
                                     <!-- Icône de crayon -->
@@ -258,13 +256,23 @@
                                 <li>{{$prestationtype->nom }}</li>
                             @endforeach
                         </ul>
-                    
+
                     <h3 class="text-xl font-semibold mb-2 text-gray-800 pt-2">Prendre rendez-vous</h3>
                         @if(Auth::id()!== Auth::user()->id)
                             <a href="{{ route('prestations.create', Auth::user()->id) }}" class="inline-block bg-gradient-to-r from-yellow-200 to-pink-300 text-white px-6 py-3 rounded-lg hover:from-yellow-300 hover:to-pink-400 transition text-sm">Cliquez ici</a>
                         @else
                             <p class="text-gray-700 mb-4">Vous ne pouvez pas prendre rendez-vous avec vous-même</p>
                         @endif
+
+                    {{-- <h3 class="text-xl font-semibold mb-2 text-gray-800 pt-2">Avis clients</h3>
+                        @foreach (Auth::user()->prestationsAsdogsitter as $prestation)
+                            @if($prestation->avis)
+                                <div class="border-t border-gray-300 pt-4 mt-4">
+                                    <h4 class="font-semibold text-gray-800">{{ $prestation->proprietaire->name.' '. $prestation->proprietaire->prenom.' '.$prestation->avis->created_at }}</h4>
+                                    <p class="text-gray-700 mb-4">{{ $prestation->avis->commentaire }}</p>
+                                </div>
+                            @endif
+                        @endforeach --}}
                 @endif
             </div>
         </div>
@@ -389,30 +397,5 @@ function saveField(field, dogId) {
             closeModal();
             alert("Erreur : " + error.message);
         });
-    }    
-    document.addEventListener('DOMContentLoaded', function () {
-        const dogSpans = document.querySelectorAll('.dog-info');
-
-        dogSpans.forEach(span => {
-            const birthDate = span.getAttribute('data-birthdate');
-            const age = calculateDogAge(birthDate);
-            span.textContent = age + ' ans';
-        });
-    });
-    function calculateDogAge(birthDate) {
-        const today = new Date();
-        const birthDateObj = new Date(birthDate);
-
-        let age = today.getFullYear() - birthDateObj.getFullYear();
-        const monthDifference = today.getMonth() - birthDateObj.getMonth();
-
-        if (monthDifference < 0 || (monthDifference === 0 && today.getDate() < birthDateObj.getDate())) {
-            age--;
-        }
-
-        return age;
     }
-
 </script>
-
-

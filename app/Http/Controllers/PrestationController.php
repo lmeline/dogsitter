@@ -7,6 +7,7 @@ use App\Models\Dog;
 use App\Models\Prestation;
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Userprestationtype;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Support\Facades\Auth;
@@ -20,7 +21,7 @@ class PrestationController extends Controller
       $proprietaire = Auth::user($id);
 
       $dogsitter = User::find($id);
-
+    
       $prestations = $proprietaire->prestationsAsproprietaire()->with(['dog', 'prestationType', 'dogsitter'])->get();
         
       $prestationsDogsitter = $dogsitter->prestationsAsDogsitter()->with(['dog', 'prestationType', 'proprietaire'])->get();
@@ -71,6 +72,10 @@ class PrestationController extends Controller
       return redirect()->back()->withErrors(['dog' => 'Le chien sélectionné ne vous appartient pas.']);
     }
 
+    $prix = Userprestationtype::where('dogsitter_id', $request->input('dogsitter_id'))
+      ->where('prestation_type_id', $request->input('prestation_type_id'))
+      ->first()
+      ->prix;
     try {
       $prestation = Prestation::create([
         'date_debut' => $request->input('date') . ' ' . $request->input('date_debut'),
@@ -79,6 +84,7 @@ class PrestationController extends Controller
         'dogsitter_id' => $request->input('dogsitter_id'),
         'dog_id' => $request->input('dog_id'),
         'proprietaire_id' => Auth::id(),
+        'prix_total' => $prix,
       ]);
       $prestation->save();
 

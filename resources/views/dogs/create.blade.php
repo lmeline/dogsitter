@@ -33,16 +33,9 @@
 
             <!-- Age -->
             <div class="mt-4">
-                <x-input-label for="age" :value="__('Age')" />
-                <select id="age" name="age"
-                    class="block mt-1 w-full border border-orange-300 focus:ring-orange-500 focus:border-orange-500 rounded-md">
-                    @for ($i = 1; $i <= 25; $i++)
-                        <option value="{{ $i }}" {{ old('age') == $i ? 'selected' : '' }}>
-                            {{ $i }} an{{ $i > 1 ? 's' : '' }}
-                        </option>
-                    @endfor
-                </select>
-                <x-input-error :messages="$errors->get('age')" class="mt-2" />
+                <x-input-label for="date_naissance" :value="__('Date of birth')" />
+                <x-text-input id="date_naissance" class="block mt-1 w-full border" type="date" name="date_naissance" :value="old('date_naissance')" required />
+                <x-input-error :messages="$errors->get('date_naissance')" class="mt-2" />
             </div>
 
             <!-- Poids -->

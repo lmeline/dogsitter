@@ -22,10 +22,12 @@
                             $heures = floor($prestationType->pivot->duree / 60);
                             $minutes = $prestationType->pivot->duree % 60;
                         @endphp
-                        <option data-duree="{{ $prestationType->pivot->duree }}" value="{{ $prestationType->id }}">
-                            {{ $prestationType->nom }} - {{ sprintf('%0d', $heures) }}h{{ sprintf('%02d', $minutes) }},
-                            {{ number_format($prestationType->pivot->prix, 2) + 0 }}€
-                        </option>
+                        <option 
+                        data-duree="{{ $prestationType->pivot->duree }}" 
+                        data-prix="{{ $prestationType->pivot->prix }}" 
+                        value="{{ $prestationType->id }}">
+                        {{ $prestationType->nom }} - {{ sprintf('%0d', $heures) }}h{{ sprintf('%02d', $minutes) }}, {{ number_format($prestationType->pivot->prix, 2) + 0 }}€
+                    </option>
                     @endforeach
                 </select>
                 <span id="spanDuree" name="duree" class="p-2 hidden text-gray-300">60</span>
@@ -40,6 +42,7 @@
 
                 <span id="spanDateDe" class="inline-block w-[200px] p-2 text-gray-300"></span>
                 <span id="spanDateA" class="inline-block w-[200px] p-2 text-gray-300"></span>
+                <span id="spanPrixTotal" class="block mt-2 text-gray-700 font-semibold"></span>
 
                 <label class="block mb-2">Date et heure :</label>
                 <input type="date" id="txtPrestationDate" name="prestationDate" class="w-180 border rounded-lg p-2 mb-4">
@@ -192,6 +195,9 @@
             let selectedOption = this.options[this.selectedIndex];
             let duree = selectedOption.getAttribute('data-duree');
             spanDuree.textContent = duree;
+            let prestationPrix = selectedOption.getAttribute('data-prix');
+            spanPrixTotal.textContent = prestationPrix;
+
 
             let startDate = new Date(txtPrestationDate.value + 'T' + ddlPrestationDe.value);
             let endDate = new Date(txtPrestationDate.value + 'T' + ddlPrestationDe.value);
@@ -235,7 +241,8 @@
                     dog_id: dogId,
                     date_debut: dateDe,
                     date_fin: dateA,
-                    dogsitter_id: dogSitterId
+                    dogsitter_id: dogSitterId,
+                    prix_total: spanPrixTotal.textContent
                 })
             })
                 .then(response => response.json())
