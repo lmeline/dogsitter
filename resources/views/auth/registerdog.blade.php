@@ -83,8 +83,8 @@
             </div>
         
             <div class="block mt-4">
-                    <input id="sterilise" type="checkbox" name="sterilise" class="rounded-full h-[1.1rem] w-[1.1rem] border border-pink-300 focus:ring-pink-500 focus:border-pink-500 dark:text-white">
-                   <label for="sterilise"> Stérilisé</label>
+                    <input id="sterilise" type="checkbox" name="sterilise" class="rounded-full h-[1.1rem] w-[1.1rem] border border-pink-300 focus:ring-pink-500 focus:border-pink-500">
+                   <label for="sterilise" class="dark:text-white"> Stérilisé</label>
             </div>
             
 

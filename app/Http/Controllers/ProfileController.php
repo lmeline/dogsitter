@@ -36,7 +36,7 @@ class ProfileController extends Controller
              'name' => $request->name,
              'prenom' => $request->prenom,
              'numero_telephone' => $request->numero_telephone,
-             'adresse' => $request->adresse,
+             //'adresse' => $request->adresse,
              'code_postal' =>$request->code_postal,
              'ville_id' => $request->ville_id,
              'email' => $request->email

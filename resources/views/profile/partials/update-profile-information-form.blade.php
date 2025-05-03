@@ -31,20 +31,12 @@
             </div>
         </div>
 
-        <!-- Champ pour le numéro de téléphone -->
-        <div>
-            <x-input-label for="numero_telephone" :value="__('Telephone number')" />
-            <x-text-input id="numero_telephone" class="block mt-1 w-full h-10" type="text" name="numero_telephone" :value="old('numero_telephone', $user->numero_telephone)" required autocomplete="telephone" />
-            <x-input-error :messages="$errors->get('numero_telephone')" class="mt-2" />
-        </div>
-       
-        
         <!-- Champ pour l'adresse -->
-        <div>
+        {{-- <div>
             <x-input-label for="adresse" :value="__('Address')" />
             <x-text-input id="adresse" class="block mt-1 w-full h-10" type="text" name="adresse" :value="old('adresse', $user->adresse)" required autocomplete="adresse" />
             <x-input-error :messages="$errors->get('adresse')" class="mt-2" />
-        </div>
+        </div> --}}
 
         <!-- Grille pour les champs "Ville" et "Code postal" -->
         <div class="grid grid-cols-2 gap-4">
