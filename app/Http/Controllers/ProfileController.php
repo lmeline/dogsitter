@@ -38,8 +38,8 @@ class ProfileController extends Controller
              'numero_telephone' => $request->numero_telephone,
              'code_postal' =>$request->code_postal,
              'ville_id' => $request->ville_id,
-             'email' => $request->email
-             //'photo' => $request->photo
+             'email' => $request->email,
+             'photo' => $request->photo
          ]);
         
     
