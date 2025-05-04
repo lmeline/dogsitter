@@ -19,3 +19,15 @@ window.FullCalendar = {
     }
 };
 
+import flatpickr from "flatpickr";
+import { French } from "flatpickr/dist/l10n/fr.js";
+
+
+document.addEventListener('DOMContentLoaded', function () {
+    flatpickr(".flatpickr", {
+        locale: French,
+        dateFormat: "d/m/Y",
+        enableTime: true,
+        time_24hr: true,
+    });
+});

@@ -1,69 +1,89 @@
 <x-app-layout>
-    <div class="min-h-screen flex justify-center items-center">
-        <form x-data="{ choosen: 0 }" class="container flex flex-col items-center border border-pink-300 rounded-lg p-6 bg-white shadow-lg w-full" method="POST" action="{{ route('prestations.store') }}">
+    <div class="min-h-screen flex justify-center items-center py-10 px-4">
+        <form x-data="{ choosen: 0 }" 
+              class="w-full max-w-2xl bg-white shadow-xl rounded-2xl border border-pink-200 p-8 space-y-6" 
+              method="POST" 
+              action="{{ route('prestations.store') }}">
+            
             @csrf
-            <input type="text" name="dogsitter_id" value="{{ $dogsitter->id }}" >
-            <h2 class="text-2xl font-semibold text-center text-pink-600 mb-6">Créer une prestation</h2>
+            <input type="hidden" name="dogsitter_id" value="{{ $dogsitter->id }}">
 
-            {{-- Selection du chien --}}
-            <div class="mb-4">
-                <label for="dog" class="block text-gray-700">Choisir le chien</label>
-                <select id="ddlDog" name="dog_id" class="block w-full mt-1 border rounded-lg border-pink-300 focus:ring-pink-500 focus:border-pink-500" required>
+            <h2 class="text-3xl font-semibold text-center text-black">Créer une prestation</h2>
+
+            {{-- Sélection du chien --}}
+            <div>
+                <label for="ddlDog" class="block text-sm font-medium text-gray-700 mb-1">Choisir le chien</label>
+                <select id="ddlDog" name="dog_id" class="w-full rounded-lg border border-pink-300 focus:ring-pink-500 focus:border-pink-500">
                     @foreach(Auth::user()->dogs as $dog)
                         <option value="{{ $dog->id }}">{{ $dog->nom }}</option>
                     @endforeach
                 </select>
             </div>
-            
-            {{-- Selection du type de prestation --}}
-            <div class="flex w-full gap-2 justify-center">
-                @foreach ($dogsitter->prestationtypes as $prestationType)
-                    <div id="{{ $prestationType->id }}" @click="choosen = $el.id; document.querySelector('#prestation_type_id').value = $el.id" class="flex flex-col items-center justify-center text-center px-3 py-2 border border-pink-300 rounded-lg hover:bg-pink-200 cursor-pointer" :class="choosen == '{{ $prestationType->id }}' ? 'bg-pink-200' : ''">
-                        <p class="font-medium">{{ $prestationType->nom }} <span>@if ($prestationType->id > 1) (1h) @endif</span></p>
-                    </div>
-                @endforeach
-                <input type="text" name="prestation_type_id" id="prestation_type_id" value="">
-            </div>
 
-            {{-- Selection de date --}}
-            <div class="mt-2">
-                <div class="form-group mb-4">
-                    <label for="date" class="block text-gray-700">Sélectionnez une date</label>
-                    <input type="text" id="datepicker" name="date" class="form-control mt-1 block w-full border rounded-lg border-pink-300 focus:ring-pink-500 focus:border-pink-500" placeholder="Sélectionner une date" required>
+            {{-- Type de prestation --}}
+            <div>
+                <p class="text-sm font-medium text-gray-700 mb-2">Type de prestation</p>
+                <div class="flex flex-wrap gap-3">
+                    @foreach ($dogsitter->prestationtypes as $prestationType)
+                        <div 
+                            id="{{ $prestationType->id }}" 
+                            @click="choosen = $el.id; document.querySelector('#prestation_type_id').value = $el.id" 
+                            class="px-4 py-2 rounded-xl border border-pink-300 text-sm cursor-pointer transition 
+                                   hover:bg-pink-100"
+                            :class="choosen == '{{ $prestationType->id }}' ? 'bg-pink-200 font-semibold' : ''">
+                            {{ $prestationType->nom }} 
+                            @if ($prestationType->id > 1) <span class="text-gray-500">(1h)</span> @endif
+                        </div>
+                    @endforeach
+                    <input type="hidden" name="prestation_type_id" id="prestation_type_id">
                 </div>
             </div>
 
-            {{-- Selection des horaires --}}
-            <input type="text"  name="heure_debut" id="heure_debut">
-            <input type="text" name="heure_fin" id="heure_fin">
+            {{-- Sélection de la date --}}
+            <div>
+                <label for="datepicker" class="block text-sm font-medium text-gray-700 mb-1">Sélectionnez une date</label>
+                <input 
+                    type="text" 
+                    id="datepicker" 
+                    name="date" 
+                    class="w-full rounded-lg border border-pink-300 focus:ring-pink-500 focus:border-pink-500" 
+                    placeholder="Sélectionner une date" 
+                    required>
+            </div>
 
-            <div  id="garde" class="mt-4">
-                <div>
-                    <div class="flex gap-10">
-                        <div>
-                            <p>Horaires de début :</p>
-                            <div id="horaire-options-debut" class="grid grid-cols-2 sm:grid-cols-4 gap-4">
-                            </div>
-                        </div>
-                        
-                        <div x-show="choosen == 1">
-                            <p>Horaires de fin :</p>
-                            <div id="horaire-options-fin" class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+            {{-- Sélection des horaires --}}
+            <input type="hidden" name="heure_debut" id="heure_debut">
+            <input type="hidden" name="heure_fin" id="heure_fin">
 
-                            </div>
-                            
+            <div id="garde">
+                <div class="grid sm:grid-cols-2 gap-6">
+                    <div>
+                        <p class="text-sm font-medium text-gray-700 mb-2">Horaires de début :</p>
+                        <div id="horaire-options-debut" class="grid grid-cols-2 gap-3">
+                            <!-- Options JS -->
                         </div>
-                        
                     </div>
-                    <button type="submit" class="mt-4 mx-auto bg-pink-300 hover:bg-pink-400 transition text-white font-bold py-2 px-4 rounded">Réserver</button>
+                    <div x-show="choosen == 1">
+                        <p class="text-sm font-medium text-gray-700 mb-2">Horaires de fin :</p>
+                        <div id="horaire-options-fin" class="grid grid-cols-2 gap-3">
+                            <!-- Options JS -->
+                        </div>
+                    </div>
                 </div>
+            </div>
+
+            <div class="pt-4 text-center">
+                <button 
+                    type="submit" 
+                    class="bg-gradient-to-r from-yellow-300 to-pink-300 text-black hover:bg-pink-600 text-black font-semibold py-2 px-6 rounded-full shadow-md transition">
+                    Réserver
+                </button>
             </div>
         </form>
     </div>
-    
-    
-    <!-- Initialisation de Flatpickr pour le champ de date -->
+
     <script>
+        
         document.addEventListener('DOMContentLoaded', function () {
             const creneaux = @json($creneaux);
             console.log(creneaux);
@@ -105,9 +125,6 @@
                     });
                 }
             }
-
-
-
 
             window.injectHorairesFin = function(element, hour) {
                 let selectedHour = parseInt(hour.substring(0, 2));
@@ -178,25 +195,26 @@
     
             flatpickr("#datepicker", {
                 dateFormat: "Y-m-d",
+                "locale": "fr",
                 minDate: "today",
                 altInput: true,
                 altFormat: "F j, Y",
                 disableMobile: true,
-                locale: { firstDayOfWeek: 1 },
                 onChange: function(selectedDates, dateStr) {
                     console.log(dateStr);
                     injectHoraires(horaireContainerDebut, dateStr);
                 },
                 disable: [
                     function (date) {
-                        const joursDisponibles = @json($joursDisponibles); // Ex: ['Monday', 'Tuesday']
+                        const joursDisponibles = @json($joursDisponibles); 
                         const nomJour = date.toLocaleDateString('en-US', { weekday: 'long' });
                         return !joursDisponibles.includes(nomJour);
                     }
                 ], 
             });
         });
+
     </script>
     
-    </x-app-layout>
+</x-app-layout>
     
