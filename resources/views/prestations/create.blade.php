@@ -2,7 +2,7 @@
     <div class="min-h-screen flex justify-center items-center">
         <form x-data="{ choosen: 0 }" class="container flex flex-col items-center border border-pink-300 rounded-lg p-6 bg-white shadow-lg w-full" method="POST" action="{{ route('prestations.store') }}">
             @csrf
-            <input type="text" name="dogsitter_id" value="{{ $dogsitter->id }}" class="hidden">
+            <input type="text" name="dogsitter_id" value="{{ $dogsitter->id }}" >
             <h2 class="text-2xl font-semibold text-center text-pink-600 mb-6">Créer une prestation</h2>
 
             {{-- Selection du chien --}}
@@ -22,7 +22,7 @@
                         <p class="font-medium">{{ $prestationType->nom }} <span>@if ($prestationType->id > 1) (1h) @endif</span></p>
                     </div>
                 @endforeach
-                <input type="text" name="prestation_type_id" class="hidden" id="prestation_type_id" value="">
+                <input type="text" name="prestation_type_id" id="prestation_type_id" value="">
             </div>
 
             {{-- Selection de date --}}
@@ -34,8 +34,8 @@
             </div>
 
             {{-- Selection des horaires --}}
-            <input type="text" class="hidden" name="heure_debut" id="heure_debut">
-            <input type="text" class="hidden" name="heure_fin" id="heure_fin">
+            <input type="text"  name="heure_debut" id="heure_debut">
+            <input type="text" name="heure_fin" id="heure_fin">
 
             <div  id="garde" class="mt-4">
                 <div>
@@ -146,7 +146,11 @@
                         }
                     });
 
-                    displayedHoraires = horairesDay.map(heure => `${heure}:00`);
+                    displayedHoraires = horairesDay.map(heure => {
+                        if(heure < 10) {
+                            return `0${heure}:00`;
+                        }
+                        return `${heure}:00`});
 
                     if (displayedHoraires.length != 0) {
                         displayedHoraires.forEach(element => {
@@ -189,7 +193,7 @@
                         const nomJour = date.toLocaleDateString('en-US', { weekday: 'long' });
                         return !joursDisponibles.includes(nomJour);
                     }
-                ],
+                ], 
             });
         });
     </script>

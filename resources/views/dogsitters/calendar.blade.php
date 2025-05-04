@@ -47,7 +47,7 @@
                 events: [
                     @foreach($prestations as $prestation)
                             {
-                            title: '{{ $prestation->prestationType->nom }} - {{$prestation->proprietaire->name}}',
+                            title: '{{ $prestation->prestationType->nom }}-{{$prestation->proprietaire->name}} -- {{ $prestation->statut }}',
                             start: '{{ $prestation->formatted_date_debut }}', // Assurez-vous que le format de la date est valide pour FullCalendar
                             end: '{{ $prestation->formatted_date_fin }}', // Idem pour la date de fin
                             description: 'Prix: {{ $prestation->prix }} €',

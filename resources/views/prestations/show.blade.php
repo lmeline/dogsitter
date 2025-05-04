@@ -13,7 +13,6 @@
         >
             <div class="space-y-4">
                 @if(Auth::user()->role === 'dogsitter')
-                    <p><strong class="font-semibold text-gray-700">Numéro de la prestation :</strong> {{ $prestation->id }}</p>
                     <p><strong class="font-semibold text-gray-700">Propriétaire :</strong> {{ $prestation->proprietaire->name }}</p>
                 @endif
                 @if(Auth::user()->role === 'proprietaire')
@@ -43,20 +42,53 @@
             </div>
         </div>
        @if (Auth::user()->role === "proprietaire")
-            <div class=" flex column justify-between gap-2">
+            <div class=" mt-8 flex flex-col sm:flex-row justify-between items-center gap-4 sm:gap-6">
                 <form action="{{ route('prestations.destroy', $prestation->id) }}" method="POST" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette prestation ?');">
                     @csrf
                     @method('DELETE')
-                    <button type="submit" class="mt-6 bg-gradient-to-r from-red-300 to-pink-400 text-black px-6 py-3 rounded-lg hover:from-red-400 hover:to-pink-500 transition">
+                    <button type="submit" class="inline-block bg-gradient-to-r from-red-300 to-pink-300 text-black font-semibold py-2 px-6 rounded-full shadow-md hover:from-red-400 hover:to-pink-400 transition duration-300">
                         Supprimer la prestation
                     </button>
                 </form>
-                <a href="{{ route('proprietaires.mesprestations') }}" class=" mt-6 bg-gradient-to-r from-yellow-300 to-pink-300 text-black px-6 py-3 rounded-lg hover:from-yellow-400 hover:to-pink-400 transition">Retour aux Prestations</a>
+                <a href="{{ route('proprietaires.mesprestations') }}"  class="inline-block bg-gradient-to-r from-yellow-300 to-pink-300 text-black font-semibold py-2 px-6 rounded-full shadow-md hover:from-yellow-400 hover:to-pink-400 transition duration-300">
+                    ← Retour aux prestations
+                </a>
             </div>          
        @else
-            <div class="mt-6">
-                <a href="{{ route('dogsitters.calendar') }}" class="bg-gradient-to-r from-yellow-300 to-pink-300 text-black px-6 py-3 rounded-lg hover:from-yellow-400 hover:to-pink-400 transition">Retour aux Prestations</a>
-            </div>
+            {{-- Actions : valider ou annuler --}}
+            <div class="mt-8 flex flex-col sm:flex-row justify-between items-center gap-4 sm:gap-6">
+                {{-- Bloc Valider + Annuler --}}
+                <div class="flex gap-4">
+                    <form method="POST" action="{{ route('prestations.valider', $prestation->id) }}">
+                        @csrf
+                        @method('PATCH')
+                        <button
+                            class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-6 rounded-full shadow-md transition duration-300">
+                            ✅ Valider
+                        </button>
+                    </form>
+            
+                    <form method="POST" action="{{ route('prestations.annuler', $prestation->id) }}"
+                        onsubmit="return confirm('Êtes-vous sûr de vouloir annuler cette prestation ?');">
+                        @csrf
+                        @method('PATCH')
+                        <button
+                            class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-6 rounded-full shadow-md transition duration-300">
+                            ❌ Annuler
+                        </button>
+                    </form>
+                </div>
+            
+                {{-- Bouton Retour aligné à droite --}}
+                <div class="ml-auto">
+                    <a href="{{ route('dogsitters.calendar') }}"
+                    class="inline-block bg-gradient-to-r from-yellow-300 to-pink-300 text-black font-semibold py-2 px-6 rounded-full shadow-md hover:from-yellow-400 hover:to-pink-400 transition duration-300">
+                        ← Retour aux prestations
+                    </a>
+                </div>
+            </div>        
+    </div>    
+             
        @endif
        
     </div>

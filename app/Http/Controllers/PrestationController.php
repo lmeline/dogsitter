@@ -99,6 +99,9 @@ class PrestationController extends Controller
 
     $reservees = [];
     foreach ($prestationsDogsitter as $prestationDogsitter) {
+      if($prestationDogsitter->statut == 'annulée'){
+        continue;
+      }
       if (Carbon::parse($prestationDogsitter->date_debut)->isBefore($today)) {
         continue;
       }
@@ -115,7 +118,7 @@ class PrestationController extends Controller
 
     //return response()->json(['creneaux' => $creneaux, 'reservees' => $reservees]);
 
-    return view('prestations.create', compact('dogsitter', 'proprietaire', 'dogs', 'creneaux', 'reservees','joursDisponibles'));
+    return view('prestations.create', compact('dogsitter', 'proprietaire', 'dogs', 'creneaux', 'reservees', 'joursDisponibles'));
   }
 
   public function store(Request $request)
@@ -143,9 +146,9 @@ class PrestationController extends Controller
       $nbHeures = $debut->diffInHours($fin);
 
       $prix = (Userprestationtype::where('dogsitter_id', $request->input('dogsitter_id'))
-      ->where('prestation_type_id', $request->input('prestation_type_id'))
-      ->first()
-      ->prix) * $nbHeures;
+        ->where('prestation_type_id', $request->input('prestation_type_id'))
+        ->first()
+        ->prix) * $nbHeures;
 
       $prestation = Prestation::create([
         'date_debut' => $request->input('date') . ' ' . $request->input('heure_debut') . ':00',
@@ -230,5 +233,23 @@ class PrestationController extends Controller
       return redirect()->route('proprietaires.mesprestations')->with('success', 'Prestation supprimée avec succès.');
     }
     return redirect()->route('proprietaires.mesprestations')->with('success', 'Prestation supprimée avec succès.');
+  }
+
+  public function valider($id)
+  {
+    $prestation = Prestation::findOrFail($id);
+    $prestation->statut = 'validée';
+    $prestation->save();
+
+    return back()->with('success', 'Prestation validée.');
+  }
+
+  public function annuler($id)
+  {
+    $prestation = Prestation::findOrFail($id);
+    $prestation->statut = 'annulée';
+    $prestation->save();
+
+    return back()->with('success', 'Prestation annulée.');
   }
 }
