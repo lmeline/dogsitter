@@ -55,66 +55,72 @@ class PrestationController extends Controller
 
   public function create($id)
   {
-      $proprietaire = Auth::user($id);
-      $dogsitter = User::find($id);
-  
-      $prestations = $proprietaire->prestationsAsproprietaire()->with(['dog', 'prestationType', 'dogsitter'])->get();
-      $prestationsDogsitter = $dogsitter->prestationsAsDogsitter()->with(['dog', 'prestationType', 'proprietaire'])->get();
-      $dogs = Dog::where('proprietaire_id', $proprietaire->id)->get();
-  
-      $disponibilites = $dogsitter->disponibilites;
+    $proprietaire = Auth::user($id);
+    $dogsitter = User::find($id);
 
-      $joursSemaine = [
-          'Lundi' => 'Monday',
-          'Mardi' => 'Tuesday',
-          'Mercredi' => 'Wednesday',
-          'Jeudi' => 'Thursday',
-          'Vendredi' => 'Friday',
-          'Samedi' => 'Saturday',
-          'Dimanche' => 'Sunday',
-      ];
-  
-      $disponibilitesFormatees = [];
-      $today = Carbon::now(); 
-      $endDate = Carbon::now()->addMonths(3); 
-    
-      foreach ($disponibilites as $disponibilite) {
-          $jour = $disponibilite->jour_semaine;
-  
-          if (isset($joursSemaine[$jour])) {
-              $jourAnglais = $joursSemaine[$jour];
-  
-              $date = Carbon::now()->next($jourAnglais);
-              if ($date->isBefore($today)) {
-                $date = $date->addWeek(); 
-            }
-            while ($date->isBefore($endDate)) {
-                $disponibilitesFormatees[] = [
-                    'jour' => $jour,
-                    'heure_debut' => $disponibilite->heure_debut,
-                    'heure_fin' => $disponibilite->heure_fin,
-                    'date' => $date->format('Y-m-d'), 
-                ];
-                $date = $date->addWeek();
-            }
-          }
-          $creneauxDisponibles = [];
+    $prestations = $proprietaire->prestationsAsproprietaire()->with(['dog', 'prestationType', 'dogsitter'])->get();
+    $prestationsDogsitter = $dogsitter->prestationsAsDogsitter()->with(['dog', 'prestationType', 'proprietaire'])->get();
+    $dogs = Dog::where('proprietaire_id', $proprietaire->id)->get();
 
-          foreach ($disponibilitesFormatees as $disponibilite) {
-              $date = $disponibilite['date'];
-              $heure_debut = $disponibilite['heure_debut'];
-              $heure_fin = $disponibilite['heure_fin'];
+    $disponibilites = $dogsitter->disponibilites;
 
-              // Ajoute un tableau de créneaux horaires pour chaque date
-              $creneauxDisponibles[$date][] = [
-                  'heure_debut' => $heure_debut,
-                  'heure_fin' => $heure_fin,
-              ];
-          }
+    $joursSemaine = [
+      'Lundi' => 'Monday',
+      'Mardi' => 'Tuesday',
+      'Mercredi' => 'Wednesday',
+      'Jeudi' => 'Thursday',
+      'Vendredi' => 'Friday',
+      'Samedi' => 'Saturday',
+      'Dimanche' => 'Sunday',
+    ];
+
+    $disponibilitesFormatees = [];
+    $today = Carbon::now();
+    $endDate = Carbon::now()->addMonths(3);
+    $creneauxDisponibles = []; // ✅ Bien placé ici, avant la boucle
+
+    foreach ($disponibilites as $disponibilite) {
+      $jour = $disponibilite->jour_semaine;
+
+      if (isset($joursSemaine[$jour])) {
+        $jourAnglais = $joursSemaine[$jour];
+
+        $date = Carbon::now()->next($jourAnglais);
+        if ($date->isBefore($today)) {
+          $date = $date->addWeek();
+        }
+
+        while ($date->isBefore($endDate)) {
+          $disponibilitesFormatees[] = [
+            'jour' => $jour,
+            'heure_debut' => $disponibilite->heure_debut,
+            'heure_fin' => $disponibilite->heure_fin,
+            'date' => $date->format('Y-m-d'),
+          ];
+          $date = $date->addWeek();
+        }
       }
-      return view('prestations.create', compact('dogsitter', 'proprietaire', 'dogs', 'disponibilites', 'prestations', 'prestationsDogsitter', 'disponibilitesFormatees', 'creneauxDisponibles'));
+    }
+
+    foreach ($disponibilitesFormatees as $disponibilite) {
+      $date = $disponibilite['date'];
+      $heureDebut = Carbon::parse($disponibilite['heure_debut']);
+      $heureFin = Carbon::parse($disponibilite['heure_fin']);
+
+      while ($heureDebut->lessThan($heureFin)) {
+        $heureCreneau = $heureDebut->format('H:i:s');
+
+        $creneauxDisponibles[$date][] = [
+          'heure' => $heureCreneau,
+        ];
+
+        $heureDebut->addHour();
+      }
+    }
+
+    return view('prestations.create', compact('dogsitter', 'proprietaire', 'dogs', 'disponibilites', 'prestations', 'prestationsDogsitter', 'disponibilitesFormatees', 'creneauxDisponibles'));
   }
-  
+
 
   public function store(Request $request)
   {
