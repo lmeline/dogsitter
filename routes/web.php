@@ -104,6 +104,8 @@ Route::middleware('auth')->group(function () {
     Route::post('/prestations', [PrestationController::class, 'store'])->name('prestations.store');
     Route::get('/prestations/{id}', [PrestationController::class, 'show'])->name('prestations.show');
     Route::delete('/prestations/{id}', [PrestationController::class, 'destroy'])->name('prestations.destroy');
+    Route::patch('/prestations/{id}/validee', [PrestationController::class, 'valider'])->name('prestations.valider');
+    Route::patch('/prestations/{id}/annulee', [PrestationController::class, 'annuler'])->name('prestations.annuler');
 
 
 });
