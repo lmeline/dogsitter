@@ -44,11 +44,15 @@
        @if (Auth::user()->role === "proprietaire")
             <div class=" mt-8 flex flex-col sm:flex-row justify-between items-center gap-4 sm:gap-6">
                 <form action="{{ route('prestations.destroy', $prestation->id) }}" method="POST" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette prestation ?');">
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit" class="inline-block bg-gradient-to-r from-red-300 to-pink-300 text-black font-semibold py-2 px-6 rounded-full shadow-md hover:from-red-400 hover:to-pink-400 transition duration-300">
-                        Supprimer la prestation
-                    </button>
+                    @if($prestation->statut === 'en attente')
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="inline-block bg-gradient-to-r from-red-300 to-pink-300 text-black font-semibold py-2 px-6 rounded-full shadow-md hover:from-red-400 hover:to-pink-400 transition duration-300">
+                            Supprimer la prestation
+                        </button>
+                    @else
+                        <p> Vous ne pouvez plus supprimer cette prestation car elle a été validée.</p>
+                    @endif
                 </form>
                 <a href="{{ route('proprietaires.mesprestations') }}"  class="inline-block bg-gradient-to-r from-yellow-300 to-pink-300 text-black font-semibold py-2 px-6 rounded-full shadow-md hover:from-yellow-400 hover:to-pink-400 transition duration-300">
                     ← Retour aux prestations
