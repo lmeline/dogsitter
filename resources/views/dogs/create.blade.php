@@ -3,7 +3,7 @@
 
     <div class="flex flex-col sm:justify-center items-center mt-4 sm:pt-0 max-w-3xl mx-auto px-4 py-6">
         <h1 class="text-center mb-5 font-bold text-3xl pt-5">Ajoutez un chien</h1>
-        <form method="POST" action="{{ route('storeregisterdog') }}"
+        <form method="POST" action="{{ route('storeregisterdog') }}" enctype="multipart/form-data"
             class="overflow-y-auto px-6 py-4 bg-white dark:bg-gray-800 shadow-md sm:rounded-lg space-y-4">
             @csrf
 
@@ -86,8 +86,14 @@
             <!-- Stérilisé -->
             <div class="mt-4 flex items-center gap-2">
                 <input id="sterilise" type="checkbox" name="sterilise"
-                    class="rounded-full h-[1.1rem] w-[1.1rem] border border-pink-300 focus:ring-pink-500 focus:border-pink-500 dark:text-white">
+                    class="rounded-full h-[1.1rem] w-[1.1rem] border border-pink-300 focus:ring-pink-500 focus:border-pink-500">
                 <label for="sterilise" class="text-sm dark:text-white"> Stérilisé</label>
+            </div>
+
+            <div class="mt-4">
+                <x-input-label for="photo" :value="__('Photo du chien')" />
+                <input type="file" id="photo" name="photo" class="block mt-1 w-full border rounded border-pink-300 focus:ring-pink-500 focus:border-pink-500 dark:text-white" />
+                <x-input-error :messages="$errors->get('photo')" class="mt-2" />
             </div>
 
             <!-- Submit Button -->

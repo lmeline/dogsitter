@@ -72,17 +72,16 @@
             @endif
         </div>
         <!-- Champ pour la photo de profil -->
-        {{-- <div>
+        <div>
             <x-input-label for="photo" :value="__('Photo de profil')" />
             <input 
                 id="photo" 
                 class="block mt-1 w-full h-10 border-gray-300 rounded-md" 
                 type="file" 
                 name="photo" 
-                accept="image/*" 
             />
             <x-input-error :messages="$errors->get('photo')" class="mt-2" />
-        </div> --}}
+        </div>
         <!-- Boutons de soumission -->
         <div class="flex items-center gap-4">
             <x-primary-button>{{ __('Save') }}</x-primary-button>
