@@ -58,11 +58,13 @@ class PrestationController extends Controller
     $proprietaire = Auth::user($id);
     $dogsitter = User::find($id);
 
-    $prestations = $proprietaire->prestationsAsproprietaire()->with(['dog', 'prestationType', 'dogsitter'])->get();
-    $prestationsDogsitter = $dogsitter->prestationsAsDogsitter()->with(['dog', 'prestationType', 'proprietaire'])->get();
+    //$prestations = $proprietaire->prestationsAsproprietaire()->with(['dog', 'prestationType', 'dogsitter'])->get();
+    $prestationsDogsitter = $dogsitter->prestationsAsDogsitter()->get();
+    //return response()->json($prestationsDogsitter);
     $dogs = Dog::where('proprietaire_id', $proprietaire->id)->get();
 
     $disponibilites = $dogsitter->disponibilites;
+    //return response()->json($disponibilites);
 
     $joursSemaine = [
       'Lundi' => 'Monday',
@@ -74,63 +76,55 @@ class PrestationController extends Controller
       'Dimanche' => 'Sunday',
     ];
 
-    $disponibilitesFormatees = [];
     $today = Carbon::now();
     $endDate = Carbon::now()->addMonths(3);
-    $creneauxDisponibles = []; // ✅ Bien placé ici, avant la boucle
 
-    foreach ($disponibilites as $disponibilite) {
-      $jour = $disponibilite->jour_semaine;
+    $tempDisponibilites = $disponibilites->toBase();
+    foreach ($tempDisponibilites as $disponibilite) {
+      $disponibilite->jour_semaine = $joursSemaine[$disponibilite->jour_semaine];
+    }
+    //return response()->json($tempDisponibilites);
 
-      if (isset($joursSemaine[$jour])) {
-        $jourAnglais = $joursSemaine[$jour];
+    $creneaux = [];
 
-        $date = Carbon::now()->next($jourAnglais);
-        if ($date->isBefore($today)) {
-          $date = $date->addWeek();
-        }
+    foreach ($tempDisponibilites as $disponibilite) {
+      $debut = Carbon::parse($disponibilite->heure_debut);
+      $fin = Carbon::parse($disponibilite->heure_fin);
 
-        while ($date->isBefore($endDate)) {
-          $disponibilitesFormatees[] = [
-            'jour' => $jour,
-            'heure_debut' => $disponibilite->heure_debut,
-            'heure_fin' => $disponibilite->heure_fin,
-            'date' => $date->format('Y-m-d'),
-          ];
-          $date = $date->addWeek();
-        }
+      while ($debut->lessThan($fin)) {
+        $creneaux[$disponibilite->jour_semaine][] = $debut->format('H:i');
+        $debut->addHour();
       }
     }
 
-    foreach ($disponibilitesFormatees as $disponibilite) {
-      $date = $disponibilite['date'];
-      $heureDebut = Carbon::parse($disponibilite['heure_debut']);
-      $heureFin = Carbon::parse($disponibilite['heure_fin']);
-
-      while ($heureDebut->lessThan($heureFin)) {
-        $heureCreneau = $heureDebut->format('H:i:s');
-
-        $creneauxDisponibles[$date][] = [
-          'heure' => $heureCreneau,
-        ];
-
-        $heureDebut->addHour();
+    $reservees = [];
+    foreach ($prestationsDogsitter as $prestationDogsitter) {
+      if (Carbon::parse($prestationDogsitter->date_debut)->isBefore($today)) {
+        continue;
       }
-    }
+      $date = Carbon::parse($prestationDogsitter->date_debut)->format('Y-m-d');
+      $heureDebut = Carbon::parse($prestationDogsitter->date_debut)->format('H:i');
+      $heureFin = Carbon::parse($prestationDogsitter->date_fin)->format('H:i');
 
-    return view('prestations.create', compact('dogsitter', 'proprietaire', 'dogs', 'disponibilites', 'prestations', 'prestationsDogsitter', 'disponibilitesFormatees', 'creneauxDisponibles'));
+      $reservees[$date][] = [
+        'heure_debut' => $heureDebut,
+        'heure_fin' => $heureFin,
+      ];
+    }
+    $joursDisponibles = array_unique(array_column($tempDisponibilites->toArray(), 'jour_semaine'));
+
+    //return response()->json(['creneaux' => $creneaux, 'reservees' => $reservees]);
+
+    return view('prestations.create', compact('dogsitter', 'proprietaire', 'dogs', 'creneaux', 'reservees','joursDisponibles'));
   }
-
 
   public function store(Request $request)
   {
 
-    $output = new ConsoleOutput();
-    $output->writeln($request->all());
-
     $request->validate([
-      'date_debut' => ['required', 'date', 'before:date_fin'],
-      'date_fin' => ['required', 'date', 'after:date_debut'],
+      'date' => ['required', 'date_format:Y-m-d'],
+      'heure_debut' => ['required', 'date_format:H:i', 'before:heure_fin'],
+      'heure_fin' => ['required', 'date_format:H:i', 'after:heure_debut'],
       'dog_id' => ['required', 'exists:dogs,id'],
       'prestation_type_id' => ['required', 'exists:prestations_types,id'],
       'dogsitter_id' => ['required', 'exists:users,id'],
@@ -141,14 +135,21 @@ class PrestationController extends Controller
       return redirect()->back()->withErrors(['dog' => 'Le chien sélectionné ne vous appartient pas.']);
     }
 
-    $prix = Userprestationtype::where('dogsitter_id', $request->input('dogsitter_id'))
+
+    try {
+
+      $debut = Carbon::parse($request->heure_debut);
+      $fin = Carbon::parse($request->heure_fin);
+      $nbHeures = $debut->diffInHours($fin);
+
+      $prix = (Userprestationtype::where('dogsitter_id', $request->input('dogsitter_id'))
       ->where('prestation_type_id', $request->input('prestation_type_id'))
       ->first()
-      ->prix;
-    try {
+      ->prix) * $nbHeures;
+
       $prestation = Prestation::create([
-        'date_debut' => $request->input('date') . ' ' . $request->input('date_debut'),
-        'date_fin' => $request->input('date') . ' ' . $request->input('date_fin'),
+        'date_debut' => $request->input('date') . ' ' . $request->input('heure_debut') . ':00',
+        'date_fin' => $request->input('date') . ' ' . $request->input('heure_fin') . ':00',
         'prestation_type_id' => $request->input('prestation_type_id'),
         'dogsitter_id' => $request->input('dogsitter_id'),
         'dog_id' => $request->input('dog_id'),
@@ -157,7 +158,6 @@ class PrestationController extends Controller
       ]);
       $prestation->save();
     } catch (Exception $e) {
-      $output->writeln("Erreur lors de l'enregistrement de la prestation : " . $e->getMessage());
       return redirect()->back()->withErrors(['prestation' => 'Erreur lors de l\'enregistrement de la prestation.']);
     }
 
@@ -166,15 +166,10 @@ class PrestationController extends Controller
     $prestation->load('dog');
     $prestation->load('prestationType');
 
-    $output->writeln($prestation->dogsitter);
 
     //Mail::to($prestation->proprietaire->email)->send(new Reservationconfirmee($prestation));
 
-    return response()->json([
-      'success' => true,
-      'message' => 'Prestation créée avec succès',
-      'prestation' => $prestation,
-    ]);
+    return redirect()->route('proprietaires.mesprestations')->with('success', 'Prestation enregistrée.');
   }
 
   public function showPrestations()
