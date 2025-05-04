@@ -219,7 +219,7 @@
                                     @foreach ($dogsWithPhoto as $dog)
                                         <div class="flex flex-col items-center">
                                             <div class="relative">
-                                                <img src="{{ asset('storage/' . $dog->photo) }}" alt="{{ $dog->nom }}" class="w-32 h-32 sm:w-40 sm:h-40 rounded-full border-4 border-white shadow-lg">
+                                                <img src="{{ asset('storage/' . $dog->photo) }}" alt="{{ $dog->nom }}" class="w-50 h-50 sm:w-40 sm:h-40 rounded-full border-4 border-white shadow-lg">
                                                 <form action="{{ route('dogs.delete', $dog->id) }}" method="POST" class="absolute top-3 right-3">
                                                     @csrf
                                                     @method('DELETE')
