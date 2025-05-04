@@ -38,8 +38,14 @@ class DogController extends Controller
             'sexe' => ['required', 'string'],
             'comportement' => ['nullable', 'string', 'max:1000'],
             'besoins_speciaux' => ['nullable', 'string', 'max:1000'],
+            'photo' => ['nullable', 'image', 'max:2048'],
         ]);
 
+        $photoPath = null;
+        if ($request->hasFile('photo') && $request->file('photo')->isValid()) {
+            $photoPath = $request->file('photo')->store('dogs-photos', 'public');
+        }
+        //dd($photoPath);
         // Création du chien
         Dog::create([
             'nom' => $request->nom,
@@ -51,6 +57,7 @@ class DogController extends Controller
             'besoins_speciaux' => $request->besoins_speciaux ?? '',
             'sterilise' => $request->sterilise ? true : false,
             'proprietaire_id' => Auth::id(),
+            'photo' => $photoPath,
         ]);
 
 
@@ -86,5 +93,13 @@ class DogController extends Controller
         $dog = Dog::findOrFail($id);
         $dog->delete();
         return response()->json(['success' => true]);
+    }
+
+    public function deletephoto($id)
+    {
+        $dog = Dog::findOrFail($id);
+        $dog->photo = null;
+        $dog->save();
+        return view('profile', compact('dog'));
     }
 }
