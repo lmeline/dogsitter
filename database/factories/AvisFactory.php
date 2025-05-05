@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -16,9 +17,11 @@ class AvisFactory extends Factory
      */
     public function definition(): array
     {
+        $users = User::where('role', 'proprietaire','dogsitter')->pluck('id')->toArray();
         return [
+            'user_id' => fake()->randomElement($users),
             'commentaire' => fake()->sentence(),
-            'prestation_id' => fake()->numberBetween(1, 40),
+            'rating' => fake()->numberBetween(1, 5),
         ];
     }
 }
