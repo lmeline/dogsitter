@@ -1,14 +1,13 @@
 <x-app-layout>
     <div class="flex pt-10 flex-col items-center bg-gradient-to-br from-yellow-50 via-rose-50 to-green-50">
-
         <div class="text-black py-10 w-full flex items-center bg-gradient-to-r from-red-200 to-orange-200 rounded-lg shadow-lg">
 
             <div class="flex-shrink-0 mr-8">
-                <img src="/storage/{{ Auth::user()->photo }}" alt="{{ Auth::user()->name }}" class="w-20 h-20 sm:w-40 sm:h-40 rounded-full border-4 border-white shadow-lg ml-10">
+                <img src="/storage/{{ $user->photo }}" alt="{{ $user->name }}" class="w-20 h-20 sm:w-40 sm:h-40 rounded-full border-4 border-white shadow-lg ml-10">
             </div>
 
             <div class="flex flex-col justify-end">
-                <h1 class="text-3xl-sm text-xl font-bold text-gray-800">{{ Auth::user()->name }} {{ Auth::user()->prenom }}</h1>
+                <h1 class="text-3xl-sm text-xl font-bold text-gray-800">{{ $user->name }} {{ $user->prenom }}</h1>
             </div>
         </div>
 
@@ -16,10 +15,11 @@
 
             <div class="w-full md:w-1/3 bg-gradient-to-r from-green-100 to-pink-100 p-6 rounded-lg shadow-lg">
                 <h2 class="text-xl font-semibold mb-4 text-gray-800">Informations personnelles</h2>
-                <p class="mb-2"><strong>Ville :</strong> {{ Auth::user()->ville->nom_de_la_commune }}</p>
-                @if (Auth::user()->role === 'proprietaire')
-                    <h3 class="text-xl font-semibold mb-4 text-gray-800 ">Information sur mon toutou</h3>
-                        @foreach(Auth::user()->dogs as $dog)
+                <p class="mb-2"><strong>Ville :</strong> {{ $user->ville->nom_de_la_commune }}</p>
+                @if ($user->role === 'proprietaire')
+                    <h3 class="text-xl font-semibold mb-4 text-gray-800  ">Information sur mon toutou</h3>
+                        @foreach($user->dogs as $dog)
+                        
                             <div class="flex justify-center mb-5">
                                 <button 
                                     onclick="toggleDetails('dog-details-{{ $dog->id }}')" 
@@ -28,7 +28,7 @@
                                 </button>
                             </div>
 
-                            <div id="dog-details-{{ $dog->id }}" class="w-full bg-white p-2 mb-2 rounded-lg shadow-lg hidden">
+                            <div id="dog-details-{{ $dog->id }}" class="w-full bg-white p-2  rounded-lg shadow-lg hidden grid grid-cols-1 md:grid-cols-2 gap-6 mt-2">
                                 <!-- Nom -->
                                 <div class="flex justify-between items-center">
                                     <span class="text-sm"><strong>Nom :</strong></span>
@@ -159,11 +159,11 @@
 
                 @else
                     <p class="mb-2"><strong>Disponibilité :</strong>
-                        @foreach (Auth::user()->disponibilites as $disponibilite)
+                        @foreach ($user->disponibilites as $disponibilite)
                             {{ $disponibilite->jour_semaine }}@if(!$loop->last), @endif 
                         @endforeach
                     </p>
-                    @foreach(Auth::user()->prestationtypes as $prestationtype)
+                    @foreach($user->prestationtypes as $prestationtype)
                         @if($prestationtype->id === 1)
                             <p class="mb-2">
                                 <strong>Tarif de {{ $prestationtype->nom }} :</strong>
@@ -177,7 +177,7 @@
                         @endif
                     @endforeach
 
-                    @if(Auth::user()->prestationtypes->isEmpty())
+                    @if($user->prestationtypes->isEmpty())
                         <p class="mb-2">Aucun tarif défini.</p>
                     @endif
                 @endif
@@ -185,18 +185,18 @@
 
             <div class="w-full md:w-2/3 bg-gradient-to-r from-yellow-100 to-orange-100 p-6 rounded-lg shadow-lg">
 
-                @if (Auth::user()->role === 'proprietaire')
+                @if ($user->role === 'proprietaire')
                     <h3 class="text-xl font-semibold mb-2 text-gray-800">Ce que je recherche chez un dogsitter</h3>
                         <form action="{{ route('update.description') }}" method="POST" id="description-form" class="w-full">
                             @csrf
                             <div class="relative w-full">
                                 <textarea id="description-text" name="description"
                                     class="w-full p-3 lg text-black border-none bg-gradient-to-r from-yellow-100 to-orange-100 focus:outline-none rounded-lg"
-                                    rows="4" readonly>{{ Auth::user()->description }}</textarea>
+                                    rows="4" readonly>{{ $user->description }}</textarea>
 
                                 <button type="button" id="edit-btn"
                                     class="absolute top-3 right-3 text-gray-500 hover:text-gray-700 transition ">
-                                    <i class="fas fa-edit"></i> Modifier
+                                    <i class="fas fa-edit"></i>
                                 </button>
                             </div>
                             <button type="submit" id="save-btn"
@@ -207,7 +207,7 @@
                         <h3 class="text-xl font-semibold mb-4 text-gray-800 ">Photos de mes chiens</h3>
                         <div class="flex flex-wrap justify-center gap-6 mb-5">
                             @php
-                                $dogsWithPhoto = Auth::user()->dogs->filter(function ($dog) {
+                                $dogsWithPhoto = $user->dogs->filter(function ($dog) {
                                     return $dog->photo && file_exists(public_path('storage/' . $dog->photo));
                                 });
                             @endphp
@@ -235,19 +235,19 @@
                         </div>
                 @endif
 
-                @if (Auth::user()->role === 'dogsitter')
+                @if ($user->role === 'dogsitter')
                     <h3 class="text-xl font-semibold mb-2 text-gray-800 pt-2">A propos de moi et mes expériences</h3>
                         <form action="{{ route('update.description') }}" method="POST" id="description-form" class="w-full">
                             @csrf
                             <div class="relative w-full">
                                 <textarea id="description-text" name="description"
                                     class="w-full  p-3 lg text-black border-none bg-gradient-to-r from-yellow-100 to-orange-100 focus:outline-none rounded-lg"
-                                    rows="4" readonly>{{ Auth::user()->description }}</textarea>
+                                    rows="4" readonly>{{ $user->description }}</textarea>
 
                                 <button type="button" id="edit-btn"
                                     class="absolute top-3 right-3 text-gray-500 hover:text-gray-700 transition maxheight-[50px] ">
                                     <!-- Icône de crayon -->
-                                    <i class="fas fa-edit"></i> Modifier
+                                    <i class="fas fa-edit"></i> 
                                 </button>
                             </div>
                             <button type="submit" id="save-btn"
@@ -257,14 +257,14 @@
                         </form>
                     <h3 class="text-xl font-semibold mb-2 text-gray-800 pt-2">Services</h3>
                         <ul class="list-disc pl-6 text-gray-700 space-y-1">
-                            @foreach (Auth::user()->prestationtypes as $prestationtype)
+                            @foreach ($user->prestationtypes as $prestationtype)
                                 <li>{{$prestationtype->nom }}</li>
                             @endforeach
                         </ul>
 
                     <h3 class="text-xl font-semibold mb-2 text-gray-800 pt-2">Prendre rendez-vous</h3>
-                        @if(Auth::id()!== Auth::user()->id)
-                            <a href="{{ route('prestations.create', Auth::user()->id) }}" class="inline-block bg-gradient-to-r from-yellow-200 to-pink-300 text-white px-6 py-3 rounded-lg hover:from-yellow-300 hover:to-pink-400 transition text-sm">Cliquez ici</a>
+                        @if(Auth::id()!== $user->id)
+                            <a href="{{ route('prestations.create', $user->id) }}" class="inline-block bg-gradient-to-r from-yellow-200 to-pink-300 text-white px-6 py-3 rounded-lg hover:from-yellow-300 hover:to-pink-400 transition text-sm">Cliquez ici</a>
                         @else
                             <p class="text-gray-700 mb-4">Vous ne pouvez pas prendre rendez-vous avec vous-même</p>
                         @endif
@@ -284,6 +284,7 @@
             details.classList.add('hidden');
         }
     }
+    // Modifier la description
     document.addEventListener("DOMContentLoaded", function () {
         const editBtn = document.getElementById("edit-btn");
         const saveBtn = document.getElementById("save-btn");
@@ -303,6 +304,7 @@
         });
     });
 
+    // Modifier un champ
     function editField(field, dogId) {
     let fieldText = document.getElementById(`dog-${field}-${dogId}`);
     let fieldValue = fieldText.textContent;
@@ -359,6 +361,7 @@ function saveField(field, dogId) {
 
     let dogIdToDelete = null;
 
+    // Confirmer la suppression
     function confirmDelete(dogId) {
         dogIdToDelete = dogId;
         document.getElementById('confirmation-modal').classList.remove('hidden');
@@ -369,6 +372,7 @@ function saveField(field, dogId) {
         dogIdToDelete = null;
     }
 
+    // Supprimer un chien
     function deleteDogAjax() {
         if (!dogIdToDelete) return;
 
@@ -394,4 +398,22 @@ function saveField(field, dogId) {
             alert("Erreur : " + error.message);
         });
     }
+
+    // Calculer l'age des chiens
+    document.addEventListener('DOMContentLoaded', () => {
+        document.querySelectorAll('[id^="dog-age-"]')
+        .forEach(el => {
+        const birthDate = new Date(el.dataset.birthdate);
+        const today = new Date();
+        let age = today.getFullYear() - birthDate.getFullYear();
+        const m = today.getMonth() - birthDate.getMonth();
+
+        if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+            age--;
+        }
+
+        el.textContent = `${age} an${age > 1 ? 's' : ''}`;
+    });
+});
+
 </script>

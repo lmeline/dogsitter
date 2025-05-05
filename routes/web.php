@@ -11,6 +11,7 @@ use App\Http\Controllers\ProprietaireController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\AvisController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ProfiluserController;
 use Illuminate\Auth\Events\Verified;
 use Illuminate\Support\Facades\Route;
 
@@ -28,14 +29,16 @@ route::get('/politique-de-confidentialite', function () {
 })->name('cgu');
 
 // Requêtes pour la page profil
-Route::get('/pageprofil', function () {
-    return view('profile');
-})->middleware(['auth', 'verified'])->name('profile');
+// Route::get('/pageprofil', function () {
+//     return view('profile');
+// })->middleware(['auth', 'verified'])->name('profile');
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    
 });
 
 require __DIR__ . '/auth.php';
@@ -46,6 +49,7 @@ Route::get('/error', function () {
 
 Route::middleware('auth')->group(function () {
     Route::get('/messages', [MessageController::class, 'index'])->name('messages.index');
+    Route::get('/pageprofil',[ProfiluserController::class, 'index'])->name('profile');
 
     Route::get('/messages/create/{dogsitterId}', [MessageController::class, 'createDogsitter'])->name('messages.createDogsitter');
     Route::get('/messages/create/{proprietaireId}', [MessageController::class, 'createProprietaire'])->name('messages.createProprietaire');
