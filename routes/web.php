@@ -10,6 +10,7 @@ use App\Http\Controllers\ProfilDogsitterController;
 use App\Http\Controllers\ProprietaireController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\AvisController;
+use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Auth\Events\Verified;
 use Illuminate\Support\Facades\Route;
@@ -107,8 +108,15 @@ Route::middleware('auth')->group(function () {
     Route::patch('/prestations/{id}/validee', [PrestationController::class, 'valider'])->name('prestations.valider');
     Route::patch('/prestations/{id}/annulee', [PrestationController::class, 'annuler'])->name('prestations.annuler');
 
-
 });
+
+Route::get('/prix', function () {
+    return view('prestations.pricing');
+})->name('prix');
+
+Route::get('checkout/{plan?}', CheckoutController::class)->name('checkout');
+
+Route::view('/payment/success', 'prestations.success')->middleware(['auth', 'verified'])->name('success-checkout');
 
 
 // Requêtes ajax 
