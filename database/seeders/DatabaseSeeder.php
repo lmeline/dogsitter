@@ -22,9 +22,9 @@ class DatabaseSeeder extends Seeder
       DisponibiliteSeeder::class,
       RaceSeeder::class,
       DogSeeder::class,
-        //PrestationSeeder::class,
-        //AvisSeeder::class,
       UserprestationtypeSeeder::class,
+      PrestationSeeder::class,
+      AvisSeeder::class,
     ]);
   }
 }

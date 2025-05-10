@@ -23,8 +23,11 @@ class Userprestationtype extends Pivot
         return $this->belongsTo(User::class);
     }
 
-    public function prestationtype()
-    {
-        return $this->belongsTo(Prestationtype::class, 'prestation_type_id');
-    }
+    public function prestationtypes()
+{
+    return $this->belongsToMany(PrestationType::class, 'users_prestations_types', 'dogsitter_id', 'prestation_type_id')
+                ->withPivot('prix', 'duree');
+}
+
+
 }

@@ -16,52 +16,118 @@ use Symfony\Component\Console\Output\ConsoleOutput;
 
 class PrestationController extends Controller
 {
+  public function createold($id)
+  {
+    $proprietaire = Auth::user($id);
+
+    $dogsitter = User::find($id);
+
+    $prestations = $proprietaire->prestationsAsproprietaire()->with(['dog', 'prestationType', 'dogsitter'])->get();
+
+    $prestationsDogsitter = $dogsitter->prestationsAsDogsitter()->with(['dog', 'prestationType', 'proprietaire'])->get();
+
+    $dogs = Dog::where('proprietaire_id', $proprietaire->id)->get();
+
+    $disponibilites = $dogsitter->disponibilites;
+
+    $joursSemaine = [
+      'Lundi' => 'Monday',
+      'Mardi' => 'Tuesday',
+      'Mercredi' => 'Wednesday',
+      'Jeudi' => 'Thursday',
+      'Vendredi' => 'Friday',
+      'Samedi' => 'Saturday',
+      'Dimanche' => 'Sunday',
+    ];
+
+    foreach ($disponibilites as $disponibilite) {
+      $jour = $disponibilite->jour_semaine;
+
+      if (isset($joursSemaine[$jour])) {
+        $jourAnglais = $joursSemaine[$jour];
+        $date = Carbon::now()->next($jourAnglais);
+        $disponibilite->date = $date->format('Y-m-d');
+      }
+    }
+
+    return view('prestations.create', compact('dogsitter', 'proprietaire', 'dogs', 'disponibilites', 'prestations', 'prestationsDogsitter'));
+  }
+
   public function create($id)
   {
-      $proprietaire = Auth::user($id);
+    $proprietaire = Auth::user($id);
+    $dogsitter = User::find($id);
 
-      $dogsitter = User::find($id);
-    
-      $prestations = $proprietaire->prestationsAsproprietaire()->with(['dog', 'prestationType', 'dogsitter'])->get();
-        
-      $prestationsDogsitter = $dogsitter->prestationsAsDogsitter()->with(['dog', 'prestationType', 'proprietaire'])->get();
+    //$prestations = $proprietaire->prestationsAsproprietaire()->with(['dog', 'prestationType', 'dogsitter'])->get();
+    $prestationsDogsitter = $dogsitter->prestationsAsDogsitter()->get();
+    //return response()->json($prestationsDogsitter);
+    $dogs = Dog::where('proprietaire_id', $proprietaire->id)->get();
 
-      $dogs = Dog::where('proprietaire_id', $proprietaire->id)->get();
+    $disponibilites = $dogsitter->disponibilites;
+    //return response()->json($disponibilites);
 
-      $disponibilites = $dogsitter->disponibilites;
+    $joursSemaine = [
+      'Lundi' => 'Monday',
+      'Mardi' => 'Tuesday',
+      'Mercredi' => 'Wednesday',
+      'Jeudi' => 'Thursday',
+      'Vendredi' => 'Friday',
+      'Samedi' => 'Saturday',
+      'Dimanche' => 'Sunday',
+    ];
 
-      $joursSemaine = [
-          'Lundi' => 'Monday',
-          'Mardi' => 'Tuesday',
-          'Mercredi' => 'Wednesday',
-          'Jeudi' => 'Thursday',
-          'Vendredi' => 'Friday',
-          'Samedi' => 'Saturday',
-          'Dimanche' => 'Sunday',
-      ];
+    $today = Carbon::now();
+    $endDate = Carbon::now()->addMonths(3);
 
-      foreach ($disponibilites as $disponibilite) {
-          $jour = $disponibilite->jour_semaine;
+    $tempDisponibilites = $disponibilites->toBase();
+    foreach ($tempDisponibilites as $disponibilite) {
+      $disponibilite->jour_semaine = $joursSemaine[$disponibilite->jour_semaine];
+    }
+    //return response()->json($tempDisponibilites);
 
-          if (isset($joursSemaine[$jour])) {
-              $jourAnglais = $joursSemaine[$jour];
-              $date = Carbon::now()->next($jourAnglais);
-              $disponibilite->date = $date->format('Y-m-d');
-          }
+    $creneaux = [];
+
+    foreach ($tempDisponibilites as $disponibilite) {
+      $debut = Carbon::parse($disponibilite->heure_debut);
+      $fin = Carbon::parse($disponibilite->heure_fin);
+
+      while ($debut->lessThan($fin)) {
+        $creneaux[$disponibilite->jour_semaine][] = $debut->format('H:i');
+        $debut->addHour();
       }
-  
-      return view('prestations.create', compact('dogsitter', 'proprietaire', 'dogs', 'disponibilites', 'prestations', 'prestationsDogsitter'));
+    }
+
+    $reservees = [];
+    foreach ($prestationsDogsitter as $prestationDogsitter) {
+      if($prestationDogsitter->statut == 'annulée'){
+        continue;
+      }
+      if (Carbon::parse($prestationDogsitter->date_debut)->isBefore($today)) {
+        continue;
+      }
+      $date = Carbon::parse($prestationDogsitter->date_debut)->format('Y-m-d');
+      $heureDebut = Carbon::parse($prestationDogsitter->date_debut)->format('H:i');
+      $heureFin = Carbon::parse($prestationDogsitter->date_fin)->format('H:i');
+
+      $reservees[$date][] = [
+        'heure_debut' => $heureDebut,
+        'heure_fin' => $heureFin,
+      ];
+    }
+    $joursDisponibles = array_unique(array_column($tempDisponibilites->toArray(), 'jour_semaine'));
+
+    //return response()->json(['creneaux' => $creneaux, 'reservees' => $reservees]);
+
+    return view('prestations.create', compact('dogsitter', 'proprietaire', 'dogs', 'creneaux', 'reservees', 'joursDisponibles'));
   }
-  
+
   public function store(Request $request)
   {
 
-    $output = new ConsoleOutput();
-    $output->writeln($request->all());
-
     $request->validate([
-      'date_debut' => ['required', 'date', 'before:date_fin'],
-      'date_fin' => ['required', 'date', 'after:date_debut'],
+      'date' => ['required', 'date_format:Y-m-d'],
+      'heure_debut' => ['required', 'date_format:H:i', 'before:heure_fin'],
+      'heure_fin' => ['required', 'date_format:H:i', 'after:heure_debut'],
       'dog_id' => ['required', 'exists:dogs,id'],
       'prestation_type_id' => ['required', 'exists:prestations_types,id'],
       'dogsitter_id' => ['required', 'exists:users,id'],
@@ -72,14 +138,21 @@ class PrestationController extends Controller
       return redirect()->back()->withErrors(['dog' => 'Le chien sélectionné ne vous appartient pas.']);
     }
 
-    $prix = Userprestationtype::where('dogsitter_id', $request->input('dogsitter_id'))
-      ->where('prestation_type_id', $request->input('prestation_type_id'))
-      ->first()
-      ->prix;
+
     try {
+
+      $debut = Carbon::parse($request->heure_debut);
+      $fin = Carbon::parse($request->heure_fin);
+      $nbHeures = $debut->diffInHours($fin);
+
+      $prix = (Userprestationtype::where('dogsitter_id', $request->input('dogsitter_id'))
+        ->where('prestation_type_id', $request->input('prestation_type_id'))
+        ->first()
+        ->prix) * $nbHeures;
+
       $prestation = Prestation::create([
-        'date_debut' => $request->input('date') . ' ' . $request->input('date_debut'),
-        'date_fin' => $request->input('date') . ' ' . $request->input('date_fin'),
+        'date_debut' => $request->input('date') . ' ' . $request->input('heure_debut') . ':00',
+        'date_fin' => $request->input('date') . ' ' . $request->input('heure_fin') . ':00',
         'prestation_type_id' => $request->input('prestation_type_id'),
         'dogsitter_id' => $request->input('dogsitter_id'),
         'dog_id' => $request->input('dog_id'),
@@ -87,9 +160,7 @@ class PrestationController extends Controller
         'prix_total' => $prix,
       ]);
       $prestation->save();
-
     } catch (Exception $e) {
-      $output->writeln("Erreur lors de l'enregistrement de la prestation : " . $e->getMessage());
       return redirect()->back()->withErrors(['prestation' => 'Erreur lors de l\'enregistrement de la prestation.']);
     }
 
@@ -98,15 +169,10 @@ class PrestationController extends Controller
     $prestation->load('dog');
     $prestation->load('prestationType');
 
-    $output->writeln($prestation->dogsitter);
 
     //Mail::to($prestation->proprietaire->email)->send(new Reservationconfirmee($prestation));
 
-    return response()->json([
-      'success' => true,
-      'message' => 'Prestation créée avec succès',
-      'prestation' => $prestation,
-    ]);
+    return redirect()->route('proprietaires.mesprestations')->with('success', 'Prestation enregistrée.');
   }
 
   public function showPrestations()
@@ -160,13 +226,30 @@ class PrestationController extends Controller
 
   public function destroy($id)
   {
-      $prestation = Prestation::find($id);
+    $prestation = Prestation::find($id);
 
-      if ($prestation) {
-          $prestation->delete();
-          return redirect()->route('proprietaires.mesprestations')->with('success', 'Prestation supprimée avec succès.');
-      }
+    if ($prestation) {
+      $prestation->delete();
       return redirect()->route('proprietaires.mesprestations')->with('success', 'Prestation supprimée avec succès.');
+    }
+    return redirect()->route('proprietaires.mesprestations')->with('success', 'Prestation supprimée avec succès.');
   }
 
+  public function valider($id)
+  {
+    $prestation = Prestation::findOrFail($id);
+    $prestation->statut = 'validée';
+    $prestation->save();
+
+    return back()->with('success', 'Prestation validée.');
+  }
+
+  public function annuler($id)
+  {
+    $prestation = Prestation::findOrFail($id);
+    $prestation->statut = 'annulée';
+    $prestation->save();
+
+    return back()->with('success', 'Prestation annulée.');
+  }
 }

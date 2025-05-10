@@ -10,6 +10,7 @@ use App\Http\Controllers\ProfilDogsitterController;
 use App\Http\Controllers\ProprietaireController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\AvisController;
+use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Auth\Events\Verified;
 use Illuminate\Support\Facades\Route;
@@ -69,6 +70,7 @@ Route::middleware('auth')->group(function () {
     Route::put('/dogs/{dog}', [DogController::class, 'update'])->name('dogs.update');
     Route::get('/dogs/{dog}/edit', [DogController::class, 'edit'])->name('dogs.edit');
     Route::delete('/dogs/{id}/delete', [DogController::class, 'destroy'])->name('dogs.destroy');
+    Route::delete('/dogs/{dog}/delete/photo', [DogController::class, 'deletephoto'])->name('dogs.delete');    
 
     Route::get('/trouvezsondogsitter', function () {
         return view('dogsitters.index');
@@ -77,7 +79,6 @@ Route::middleware('auth')->group(function () {
     // Requêtes pour les dogsitters
     route::get('/dogsitters', [ProfilDogsitterController::class, 'index'])->name('dogsitters.index');
     route::get('/dogsitters/{id}', [ProfilDogsitterController::class, 'show'])->name('dogsitters.show');
-    Route::get('/dogsitters/filtrer', [ProfilDogsitterController::class, 'filter'])->name('dogsitters.filter');
     Route::get('/dogsitter/postersonannonce', [ProfilDogsitterController::class, 'annonce'])->name('dogsitters.annonce');
     Route::get('/dogsitter/calendar', [ProfilDogsitterController::class, 'showCalendar'])->name('dogsitters.calendar');
 
@@ -104,9 +105,16 @@ Route::middleware('auth')->group(function () {
     Route::post('/prestations', [PrestationController::class, 'store'])->name('prestations.store');
     Route::get('/prestations/{id}', [PrestationController::class, 'show'])->name('prestations.show');
     Route::delete('/prestations/{id}', [PrestationController::class, 'destroy'])->name('prestations.destroy');
-
+    Route::patch('/prestations/{id}/validee', [PrestationController::class, 'valider'])->name('prestations.valider');
+    Route::patch('/prestations/{id}/annulee', [PrestationController::class, 'annuler'])->name('prestations.annuler');
 
 });
+
+Route::get('/prix', function () {
+    return view('abonnements.pricing');
+})->middleware(['auth', 'verified'])->name('prix');
+Route::get('checkout/{plan?}', CheckoutController::class)->name('checkout');
+Route::view('/payment/success', 'abonnements.success')->middleware(['auth', 'verified'])->name('success-checkout');
 
 
 // Requêtes ajax 

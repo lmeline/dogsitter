@@ -4,7 +4,7 @@
         <div class="text-black py-10 w-full flex items-center bg-gradient-to-r from-red-200 to-orange-200 rounded-lg shadow-lg">
 
             <div class="flex-shrink-0 mr-8">
-                <img src="{{Auth::user()->photo}}" alt="{{ Auth::user()->name }}" class="w-20 h-20 sm:w-40 sm:h-40 rounded-full border-4 border-white shadow-lg ml-10">
+                <img src="/storage/{{ Auth::user()->photo }}" alt="{{ Auth::user()->name }}" class="w-20 h-20 sm:w-40 sm:h-40 rounded-full border-4 border-white shadow-lg ml-10">
             </div>
 
             <div class="flex flex-col justify-end">
@@ -205,29 +205,34 @@
                             </button>
                         </form>
                         <h3 class="text-xl font-semibold mb-4 text-gray-800 ">Photos de mes chiens</h3>
-                        @foreach(Auth::user()->dogs as $dog)
-                            <div class="flex justify-center mb-5">
-                                <button 
-                                    onclick="toggleDetails('dog-details-{{ $dog->id }}')" 
-                                    class=" text-black w-full sm:w-1/2 h-10 bg-gradient-to-r from-yellow-300 to-pink-300 px-6 py-3 rounded-lg hover:from-yellow-400 hover:to-pink-400 transition">
-                                    Détails de {{ $dog->nom }}
-                                </button>
-                            </div>
-
-                            <div id="dog-details-{{ $dog->id }}" class="w-full bg-white p-2 mb-2 rounded-lg shadow-lg hidden">
-                                <!-- Nom -->
-                                <div class="flex justify-between items-center">
-                                    <span class="text-sm"><strong>Nom :</strong></span>
-                                    <span id="dog-nom-{{ $dog->id }}" class="dog-info text-gray-600 bg-transparent text-sm">{{ $dog->nom }}</span>
-                                    <button id="edit-btn-nom-{{ $dog->id }}" onclick="editField('nom', {{ $dog->id }})" class="text-blue-500 hover:text-blue-700">
-                                        <i class="fas fa-edit"></i>
-                                    </button>
-                                    <button id="save-btn-nom-{{ $dog->id }}" onclick="saveField('nom', {{ $dog->id }})" class="hidden text-green-500 hover:text-green-700">
-                                        <i class="fas fa-save"></i>
-                                    </button>
+                        <div class="flex flex-wrap justify-center gap-6 mb-5">
+                            @php
+                                $dogsWithPhoto = Auth::user()->dogs->filter(function ($dog) {
+                                    return $dog->photo && file_exists(public_path('storage/' . $dog->photo));
+                                });
+                            @endphp
+                            
+                            @if ($dogsWithPhoto->isEmpty())
+                                <p>Aucune photo disponible.</p>
+                            @else
+                                <div class="flex flex-wrap justify-center gap-6">
+                                    @foreach ($dogsWithPhoto as $dog)
+                                        <div class="flex flex-col items-center">
+                                            <div class="relative">
+                                                <img src="{{ asset('storage/' . $dog->photo) }}" alt="{{ $dog->nom }}" class="w-50 h-50 sm:w-40 sm:h-40 rounded-full border-4 border-white shadow-lg">
+                                                <form action="{{ route('dogs.delete', $dog->id) }}" method="POST" class="absolute top-3 right-3">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="text-red-500 hover:text-red-700 transition">
+                                                        <i class="fas fa-trash-alt"></i>
+                                                    </button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    @endforeach
                                 </div>
-                        @endforeach
-
+                            @endif
+                        </div>
                 @endif
 
                 @if (Auth::user()->role === 'dogsitter')
@@ -264,15 +269,6 @@
                             <p class="text-gray-700 mb-4">Vous ne pouvez pas prendre rendez-vous avec vous-même</p>
                         @endif
 
-                    {{-- <h3 class="text-xl font-semibold mb-2 text-gray-800 pt-2">Avis clients</h3>
-                        @foreach (Auth::user()->prestationsAsdogsitter as $prestation)
-                            @if($prestation->avis)
-                                <div class="border-t border-gray-300 pt-4 mt-4">
-                                    <h4 class="font-semibold text-gray-800">{{ $prestation->proprietaire->name.' '. $prestation->proprietaire->prenom.' '.$prestation->avis->created_at }}</h4>
-                                    <p class="text-gray-700 mb-4">{{ $prestation->avis->commentaire }}</p>
-                                </div>
-                            @endif
-                        @endforeach --}}
                 @endif
             </div>
         </div>
@@ -389,7 +385,7 @@ function saveField(field, dogId) {
         })
         .then(data => {
             const detailsDiv = document.getElementById(`dog-details-${dogIdToDelete}`);
-            if (detailsDiv) detailsDiv.parentElement.remove(); // Supprime la carte entière
+            if (detailsDiv) detailsDiv.parentElement.remove();
             closeModal();
             alert(data.message || "Chien supprimé avec succès.");
         })

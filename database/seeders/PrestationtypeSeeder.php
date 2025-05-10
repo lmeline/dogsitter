@@ -19,23 +19,11 @@ class PrestationtypeSeeder extends Seeder
                 'nom' => 'garde',
             ],
             [
-                'nom' => 'garde de nuit',
-            ],
-            [
-                'nom' => 'garde à domicile',
-            ],
-            [
                 'nom' => 'promenade ',
             ],
             [
                 'nom' => 'visite à domicile',
-            ],
-            [
-                'nom' => 'toilettage',
-            ],
-            [
-                'nom' => 'transport',
-            ],
+            ]
 
         ]);
     }

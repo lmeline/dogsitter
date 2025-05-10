@@ -2,7 +2,7 @@
     <div class="container mx-auto">
         <div class="flex justify-between items-center w-[80%] mx-auto m-5">
             <div class="flex-grow text-center">
-                <h1 class="font-bold text-3xl">Prendre un rendez-vous avec </h1>
+                <h1 class="font-bold text-3xl">Prendre un rendez-vous avec {{ $dogsitter->name }} </h1>
             </div>
         </div>
 
@@ -26,7 +26,7 @@
                         data-duree="{{ $prestationType->pivot->duree }}" 
                         data-prix="{{ $prestationType->pivot->prix }}" 
                         value="{{ $prestationType->id }}">
-                        {{ $prestationType->nom }} - {{ sprintf('%0d', $heures) }}h{{ sprintf('%02d', $minutes) }}, {{ number_format($prestationType->pivot->prix, 2) + 0 }}€
+                        {{ $prestationType->nom }} - {{ sprintf('%0d', $heures) }}h{{ sprintf('%02d', $minutes) }}, {{ number_format($prestationType->pivot->prix, 2) }}€
                     </option>
                     @endforeach
                 </select>
@@ -69,8 +69,12 @@
             </form>
         </div>
     </div>
+
     <script>
+        let currentDogsitterId = @json($dogsitter->id);
         let prestationsDogsitter = @json($prestationsDogsitter);
+        let disponibilites = @json($disponibilitesFormatees);
+
         let calendar = null; 
         let currentUserId = @json(Auth::user()->id);
         let prestations = @json($prestations);
@@ -104,7 +108,7 @@
                 droppable: false,
                 eventOverlap: false,
                 events: [
-                    ...prestations.map(function (prestation) {
+                    ...prestations.filter((prestation) => prestation.dogsitter_id === currentDogsitterId).map(function (prestation) {
                         return {
                             id: prestation.id,
                             title: prestation.dog.nom + "\n" + prestation.prestation_type.nom + ' avec ' + prestation.dogsitter.prenom,
@@ -114,9 +118,8 @@
                         };
                     }),
                     ...prestationsDogsitter.map(function (prestation) {
-                        // Vérifie si l'utilisateur connecté a pris la prestation
                         let isCurrentUser = prestation.proprietaire_id === currentUserId;
-                        let eventTitle = isCurrentUser ? prestation.dog.nom + " - " + prestation.prestation_type.nom : "Déjà réservée"; // Titre conditionnel
+                        let eventTitle = isCurrentUser ? prestation.dog.nom + " - " + prestation.prestation_type.nom : "Déjà réservée"; 
                         return {
                             title: eventTitle,
                             start: prestation.date_debut,
@@ -124,6 +127,19 @@
                             allDay: false,
                             extendedProps: {
                                 hidden: isCurrentUser // Marque l'événement comme caché si c'est l'utilisateur connecté
+                            }
+                        };
+                    }),
+                    ...disponibilites.filter(function (disponibilite) {
+                        return disponibilite.dogsitter_id === currentDogsitterId; // Filtrer selon l'ID du dogsitter
+                    }).map(function (disponibilite) {
+                        return {
+                            title: "Disponible", // Titre des créneaux de disponibilité
+                            start: disponibilite.date + ' ' + disponibilite.heure_debut,
+                            end: disponibilite.date + ' ' + disponibilite.heure_fin,
+                            allDay: false,
+                            extendedProps: {
+                                type: 'disponibilite'
                             }
                         };
                     })
@@ -194,14 +210,15 @@
         document.getElementById('ddlPrestation').addEventListener('change', function () {
             let selectedOption = this.options[this.selectedIndex];
             let duree = selectedOption.getAttribute('data-duree');
-            spanDuree.textContent = duree;
             let prestationPrix = selectedOption.getAttribute('data-prix');
-            spanPrixTotal.textContent = prestationPrix;
 
+            // Mise à jour du texte pour la durée et le prix
+            spanDuree.textContent = duree;
+            spanPrixTotal.textContent = prestationPrix + '€'; // Affichez le prix avec le symbole €
 
+            // Calcul de la date de fin basée sur la durée
             let startDate = new Date(txtPrestationDate.value + 'T' + ddlPrestationDe.value);
-            let endDate = new Date(txtPrestationDate.value + 'T' + ddlPrestationDe.value);
-
+            let endDate = new Date(startDate);
             endDate.setMinutes(endDate.getMinutes() + duree);
             let heureA = endDate.toLocaleString('fr-FR', { hour: '2-digit', minute: '2-digit' });
             spanPrestationA.textContent = heureA;
@@ -229,6 +246,7 @@
             let dateDe = txtPrestationDate.value + ' ' + ddlPrestationDe.value;
             let dateA = txtPrestationDate.value + ' ' + spanPrestationA.textContent;
             let dogSitterId = {{ $dogsitter->id }};
+            let prixTotal = spanPrixTotal.textContent.replace('€', '');  // Retirer le symbole '€' avant d'envoyer le prix
 
             fetch('/prestations', {
                 method: 'POST',
@@ -242,25 +260,29 @@
                     date_debut: dateDe,
                     date_fin: dateA,
                     dogsitter_id: dogSitterId,
-                    prix_total: spanPrixTotal.textContent
+                    prix_total: prixTotal  // Envoi du prix sans le symbole '€'
                 })
             })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        alert('Prestation ajoutée avec succès !');
-                        calendar.addEvent({
-                            title: data.prestation.dog.nom + "\n" + data.prestation.prestation_type.nom + ' avec ' + data.prestation.dogsitter.prenom,
-                            start: data.prestation.date_debut,
-                            end: data.prestation.date_fin,
-                            allDay: false
-                        });
-                        prestationModal.classList.add('hidden');
-                    } else {
-                        alert('Erreur lors de l\'ajout de la prestation : ' + data.message);
-                    }
-                })
-                .catch(error => console.error('Erreur:', error));
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert('Prestation ajoutée avec succès !');
+                    calendar.addEvent({
+                        title: data.prestation.dog.nom + "\n" + data.prestation.prestation_type.nom + ' avec ' + data.prestation.dogsitter.prenom,
+                        start: data.prestation.date_debut,
+                        end: data.prestation.date_fin,
+                        allDay: false
+                    });
+                    prestationModal.classList.add('hidden');
+                } else {
+                    alert('Erreur lors de l\'ajout de la prestation : ' + data.message);
+                }
+            })
+            .catch(error => console.error('Erreur:', error));
+        });
+
+        let filteredPrestations = prestationsDogsitter.filter(function (prestation) {
+            return prestation.dogsitter_id === currentDogsitterId;
         });
 
     </script>

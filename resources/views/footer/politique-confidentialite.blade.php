@@ -14,7 +14,7 @@
         </p>
         <ul class="list-disc list-inside text-gray-700 mb-6">
             <li><strong>Données fournies par les utilisateurs :</strong> Lors de l'inscription, nous collectons votre
-                nom, email, adresse, numéro de téléphone, etc.</li>
+                nom,prenom, email etc.</li>
             <li><strong>Données d'utilisation :</strong> Informations sur votre utilisation du Site, telles que votre
                 adresse IP, le type de navigateur, les pages visitées, et le temps passé sur le Site.</li>
             <li><strong>Données liées aux transactions :</strong> Historique des paiements, abonnements et prestations

@@ -83,10 +83,14 @@
             </div>
         
             <div class="block mt-4">
-                    <input id="sterilise" type="checkbox" name="sterilise" class="rounded-full h-[1.1rem] w-[1.1rem] border border-pink-300 focus:ring-pink-500 focus:border-pink-500 dark:text-white">
-                   <label for="sterilise"> Stérilisé</label>
+                    <input id="sterilise" type="checkbox" name="sterilise" class="rounded-full h-[1.1rem] w-[1.1rem] border border-pink-300 focus:ring-pink-500 focus:border-pink-500">
+                   <label for="sterilise" class="dark:text-white"> Stérilisé</label>
             </div>
-            
+            <div class="mt-4">
+                <x-input-label for="photo" :value="__('Photo du chien')" />
+                <input type="file" id="photo" name="photo" class="block mt-1 w-full border border-pink-300 focus:ring-pink-500 focus:border-pink-500" />
+                <x-input-error :messages="$errors->get('photo')" class="mt-2" />
+            </div>
 
             <div class="mt-4">
                 <button class="mx-4 px-4 py-2 bg-yellow-600 text-white font-semibold rounded-md shadow-md hover:bg-yellow-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 transition duration-200 ease-in-out">

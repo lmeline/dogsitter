@@ -73,8 +73,7 @@ class UserController extends Controller
         $user->date_naissance = $request->date_naissance;
         $user->code_postal = $request->code_postal;
         $user->ville = $request->ville;
-        $user->adresse = $request->adresse;
-    
+
         // Si vous avez des champs spécifiques selon le rôle, vous pouvez les traiter ici
         // Par exemple :
         if ($user->role === 'dogsitter') {

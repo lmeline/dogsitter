@@ -51,7 +51,7 @@
             <!-- Photo de profil -->
             <div class="mt-4">
                 <x-input-label for="photo" :value="__('Photo de profil')" />
-                <input type="file" id="photo" name="photo" accept="image/*" class="block mt-1 w-full border border-pink-300 focus:ring-pink-500 focus:border-pink-500" />
+                <input type="file" id="photo" name="photo" class="block mt-1 w-full border border-pink-300 focus:ring-pink-500 focus:border-pink-500" />
                 <x-input-error :messages="$errors->get('photo')" class="mt-2" />
             </div>
 
@@ -62,35 +62,22 @@
                 <x-input-error :messages="$errors->get('email')" class="mt-2" />
             </div>
 
-            <!-- Téléphone -->
-            <div class="mt-4">
-                <x-input-label for="telephone" :value="__('Telephone number')" />
-                <x-text-input id="telephone" class="block mt-1 w-full border" type="text" name="telephone" :value="old('telephone')" required />
-                <x-input-error :messages="$errors->get('telephone')" class="mt-2" />
-            </div>
-
-            <!-- Adresse -->
-            <div class="mt-4">
-                <x-input-label for="adresse" :value="__('Adresse')" />
-                <x-text-input id="adresse" class="block mt-1 w-full border" type="text" name="adresse" :value="old('adresse')" required />
-                <x-input-error :messages="$errors->get('adresse')" class="mt-2" />
-            </div>
 
             <!-- Ville et Code postal -->
             <div class="flex w-full gap-2 mt-4">
                 <div class="relative w-full">
                     <x-input-label for="ville" :value="__('City')" />
                     <input id="villeInput" type="text"
-                           class="block mt-1 w-full border rounded-lg"
+                           class="block mt-1 w-full border rounded-lg border border-pink-300 focus:ring-pink-500 focus:border-pink-500"
                            placeholder="Rentrez une ville ">
-                    <ul id="villeContainer" class="hidden absolute mt-8 w-full max-h-[12rem] top-[2.3rem] rounded bg-white ring-1 overflow-y-auto z-10 shadow-lg"></ul>
+                    <ul id="villeContainer" class="hidden absolute mt-8 w-full max-h-[12rem] top-[2.3rem] rounded bg-white ring-1 overflow-y-auto z-10 shadow-lg "></ul>
                     <input type="hidden" id="villeId" name="ville_id">
                 </div>
 
                 <div class="relative w-full">
                     <x-input-label for="code_postal" :value="__('Postal code')" />
                     <input id="codePostalInput" name="code_postal"
-                           class="block mt-1 w-full border rounded-lg" readonly>
+                           class="block mt-1 w-full border rounded-lg border border-pink-300 focus:ring-pink-500 focus:border-pink-500" readonly>
                 </div>
             </div>
 

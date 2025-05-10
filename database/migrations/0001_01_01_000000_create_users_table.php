@@ -16,9 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('prenom', 70);
             $table->date('date_naissance');
-            $table->string('numero_telephone');
             $table->string('email')->unique();
-            $table->string('adresse');
             $table->foreignId('ville_id')->constrained('villes');
             $table->string('code_postal', 20);
             $table->enum('role', ['admin', 'proprietaire', 'dogsitter'])->default('proprietaire');

@@ -16,21 +16,27 @@ class DisponibiliteSeeder extends Seeder
     {
         $joursSemaine = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'];
 
-        // Récupère tous les dogsitters
         $dogsitters = User::where('role', 'dogsitter')->get();
-
+        
         foreach ($dogsitters as $dogsitter) {
             foreach ($joursSemaine as $jour) {
+                $heureDebut = fake()->numberBetween(8, 18); 
+                $heureFin = fake()->numberBetween($heureDebut + 1, 20);
+        
+                // Formatage en H:i (ex. 08:00)
+                $heureDebutStr = sprintf('%02d:00', $heureDebut);
+                $heureFinStr = sprintf('%02d:00', $heureFin);
+        
                 Disponibilite::firstOrCreate([
                     'dogsitter_id' => $dogsitter->id,
                     'jour_semaine' => $jour,
                 ], [
-                    'heure_debut' => fake()->time("H:i"),
-                    'heure_fin' => fake()->time("H:i"),
+                    'heure_debut' => $heureDebutStr,
+                    'heure_fin' => $heureFinStr,
                     'created_at' => now(),
                     'updated_at' => now(),
                 ]);
             }
-        }
+        }        
     }
 }

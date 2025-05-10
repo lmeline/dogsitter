@@ -11,11 +11,12 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Laravel\Cashier\Billable;
 use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable //implements MustVerifyEmail
 {
-    use HasFactory, Notifiable, Messagable, HasApiTokens;
+    use HasFactory, Notifiable, Messagable, HasApiTokens,Billable;
 
     /**
      * The attributes that are mass assignable.
@@ -26,8 +27,6 @@ class User extends Authenticatable //implements MustVerifyEmail
         'name',
         'prenom',
         'email',
-        'numero_telephone',
-        'adresse',
         'code_postal',
         'date_naissance',
         'ville_id',

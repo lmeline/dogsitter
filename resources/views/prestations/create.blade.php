@@ -1,275 +1,220 @@
 <x-app-layout>
-    <div class="container mx-auto">
-        <div class="flex justify-between items-center w-[80%] mx-auto m-5">
-            <div class="flex-grow text-center">
-                <h1 class="font-bold text-3xl">Prendre un rendez-vous avec {{ $dogsitter->name }} </h1>
-            </div>
-        </div>
+    <div class="min-h-screen flex justify-center items-center py-10 px-4">
+        <form x-data="{ choosen: 0 }" 
+              class="w-full max-w-2xl bg-white shadow-xl rounded-2xl border border-pink-200 p-8 space-y-6" 
+              method="POST" 
+              action="{{ route('prestations.store') }}">
+            
+            @csrf
+            <input type="hidden" name="dogsitter_id" value="{{ $dogsitter->id }}">
 
-        <div id="calendar" class="w-100 mx-auto sm:h-[calc(100vh-8rem)] h-[calc(100vh-8rem)] bg-opacity-40 backdrop-blur-md bg-white p-6 rounded-lg"></div>
-    </div>
+            <h2 class="text-3xl font-semibold text-center text-black">Créer une prestation</h2>
 
-    <!-- Popup Modal -->
-    <div id="prestationModal" class="hidden fixed inset-0 bg-gray-600 bg-opacity-50 flex justify-center items-center">
-        <div class="bg-white p-6 rounded-lg shadow-lg w-600">
-            <h2 class="text-xl font-bold mb-4">Créer une nouvelle prestation</h2>
-            <form id="prestationForm">
-                <label class="block mb-2">Prestation :</label>
-                <select id="ddlPrestation" name="prestation" class="mt-1 border rounded-lg border-pink-300 focus:ring-pink-500 focus:border-pink-500" required>
-                    <option value="" data-duree="60">Sélectionner une prestation</option>
-                    @foreach ($dogsitter->prestationtypes as $prestationType)
-                        @php
-                            $heures = floor($prestationType->pivot->duree / 60);
-                            $minutes = $prestationType->pivot->duree % 60;
-                        @endphp
-                        <option 
-                        data-duree="{{ $prestationType->pivot->duree }}" 
-                        data-prix="{{ $prestationType->pivot->prix }}" 
-                        value="{{ $prestationType->id }}">
-                        {{ $prestationType->nom }} - {{ sprintf('%0d', $heures) }}h{{ sprintf('%02d', $minutes) }}, {{ number_format($prestationType->pivot->prix, 2) }}€
-                    </option>
-                    @endforeach
-                </select>
-                <span id="spanDuree" name="duree" class="p-2 hidden text-gray-300">60</span>
-
-                <label class="block mb-2">Chien :</label>
-                <select id="ddlDog" name="dog" class="block mt-1 border rounded-lg border-pink-300 focus:ring-pink-500 focus:border-pink-500" required>
-                    <option value="">Sélectionner un chien</option>
+            {{-- Sélection du chien --}}
+            <div>
+                <label for="ddlDog" class="block text-sm font-medium text-gray-700 mb-1">Choisir le chien</label>
+                <select id="ddlDog" name="dog_id" class="w-full rounded-lg border border-pink-300 focus:ring-pink-500 focus:border-pink-500">
                     @foreach(Auth::user()->dogs as $dog)
                         <option value="{{ $dog->id }}">{{ $dog->nom }}</option>
                     @endforeach
                 </select>
+            </div>
 
-                <span id="spanDateDe" class="inline-block w-[200px] p-2 text-gray-300"></span>
-                <span id="spanDateA" class="inline-block w-[200px] p-2 text-gray-300"></span>
-                <span id="spanPrixTotal" class="block mt-2 text-gray-700 font-semibold"></span>
-
-                <label class="block mb-2">Date et heure :</label>
-                <input type="date" id="txtPrestationDate" name="prestationDate" class="w-180 border rounded-lg p-2 mb-4">
-                <label for="ddlPrestationDe">De : </label>
-                <select id="ddlPrestationDe" name="prestationDe" class=" w-100 border rounded-lg">
-                    @for($hour = 8; $hour <= 20; $hour += 0.5)
-                        @php
-                            $formattedHour = str_pad(floor($hour), 2, '0', STR_PAD_LEFT);
-                            $formattedMinute = ($hour - floor($hour)) * 60;
-                            $formattedMinute = str_pad($formattedMinute, 2, '0', STR_PAD_LEFT);
-                        @endphp
-                        <option value="{{ $formattedHour }}:{{ $formattedMinute }}">
-                            {{ $formattedHour }}:{{ $formattedMinute }}
-                        </option>
-                    @endfor
-                </select>
-                <label for="spanPrestationA">à : </label>
-                <span id="spanPrestationA" name="prestationA" class="w-100 border p-2 mb-4 rounded-lg"></span>
-
-                <div class="flex justify-end">
-                    <button type="button" id="closeModal" class="bg-gray-500 text-white px-4 py-2 rounded-lg mr-2">Annuler</button>
-                    <button type="submit" class="bg-pink-500 text-white px-4 py-2 rounded-lg">Ajouter</button>
+            {{-- Type de prestation --}}
+            <div>
+                <p class="text-sm font-medium text-gray-700 mb-2">Type de prestation</p>
+                <div class="flex flex-wrap gap-3">
+                    @foreach ($dogsitter->prestationtypes as $prestationType)
+                        <div 
+                            id="{{ $prestationType->id }}" 
+                            @click="choosen = $el.id; document.querySelector('#prestation_type_id').value = $el.id" 
+                            class="px-4 py-2 rounded-xl border border-pink-300 text-sm cursor-pointer transition 
+                                   hover:bg-pink-100"
+                            :class="choosen == '{{ $prestationType->id }}' ? 'bg-pink-200 font-semibold' : ''">
+                            {{ $prestationType->nom }} 
+                            @if ($prestationType->id > 1) <span class="text-gray-500">(1h)</span> @endif
+                        </div>
+                    @endforeach
+                    <input type="hidden" name="prestation_type_id" id="prestation_type_id">
                 </div>
-            </form>
-        </div>
+            </div>
+
+            {{-- Sélection de la date --}}
+            <div>
+                <label for="datepicker" class="block text-sm font-medium text-gray-700 mb-1">Sélectionnez une date</label>
+                <input 
+                    type="text" 
+                    id="datepicker" 
+                    name="date" 
+                    class="w-full rounded-lg border border-pink-300 focus:ring-pink-500 focus:border-pink-500" 
+                    placeholder="Sélectionner une date" 
+                    required>
+            </div>
+
+            {{-- Sélection des horaires --}}
+            <input type="hidden" name="heure_debut" id="heure_debut">
+            <input type="hidden" name="heure_fin" id="heure_fin">
+
+            <div id="garde">
+                <div class="grid sm:grid-cols-2 gap-6">
+                    <div>
+                        <p class="text-sm font-medium text-gray-700 mb-2">Horaires de début :</p>
+                        <div id="horaire-options-debut" class="grid grid-cols-2 gap-3">
+                            <!-- Options JS -->
+                        </div>
+                    </div>
+                    <div x-show="choosen == 1">
+                        <p class="text-sm font-medium text-gray-700 mb-2">Horaires de fin :</p>
+                        <div id="horaire-options-fin" class="grid grid-cols-2 gap-3">
+                            <!-- Options JS -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pt-4 text-center">
+                <button 
+                    type="submit" 
+                    class="bg-gradient-to-r from-yellow-300 to-pink-300 text-black hover:bg-pink-600 text-black font-semibold py-2 px-6 rounded-full shadow-md transition">
+                    Réserver
+                </button>
+            </div>
+        </form>
     </div>
 
     <script>
-        let currentDogsitterId = @json($dogsitter->id);
-        let prestationsDogsitter = @json($prestationsDogsitter);
-        let calendar = null; 
-        let currentUserId = @json(Auth::user()->id);
-        let prestations = @json($prestations);
-        console.log(prestations);
-
+        
         document.addEventListener('DOMContentLoaded', function () {
-            const calendarElement = document.getElementById('calendar');
-            calendar = new FullCalendar.Calendar(calendarElement, {
-                plugins: [
-                    FullCalendar.plugins.dayGrid,
-                    FullCalendar.plugins.timeGrid,
-                    FullCalendar.plugins.interaction
-                ],
-                initialView: 'timeGridWeek',
-                headerToolbar: {
-                    start: 'today prev,next',
-                    center: '',
-                    end: 'title',
-                },
-                firstDay: 1,
-                allDaySlot: false,
-                slotMinTime: "08:00:00",
-                slotMaxTime: "20:00:00",
-                slotDuration: "00:30:00",
-                locale: 'fr',
-                height: 'auto',
-                eventOverlap: true,
-                selectOverlap: true,
-                selectable: true,
-                editable: false,
-                droppable: false,
-                eventOverlap: false,
-                events: [
-                    ...prestations.filter((prestation) => prestation.dogsitter_id === currentDogsitterId).map(function (prestation) {
-                        return {
-                            id: prestation.id,
-                            title: prestation.dog.nom + "\n" + prestation.prestation_type.nom + ' avec ' + prestation.dogsitter.prenom,
-                            start: prestation.date_debut,
-                            end: prestation.date_fin,
-                            allDay: false
-                        };
-                    }),
-                    ...prestationsDogsitter.map(function (prestation) {
-                        // Vérifie si l'utilisateur connecté a pris la prestation
-                        let isCurrentUser = prestation.proprietaire_id === currentUserId;
-                        let eventTitle = isCurrentUser ? prestation.dog.nom + " - " + prestation.prestation_type.nom : "Déjà réservée"; // Titre conditionnel
-                        return {
-                            title: eventTitle,
-                            start: prestation.date_debut,
-                            end: prestation.date_fin,
-                            allDay: false,
-                            extendedProps: {
-                                hidden: isCurrentUser // Marque l'événement comme caché si c'est l'utilisateur connecté
-                            }
-                        };
-                    })
-                ],
-                eventDidMount: function (info) {
-                    // Si l'événement est marqué comme caché, on cache son affichage et ne le laisse pas prendre de place
-                    if (info.event.extendedProps.hidden) {
-                        info.el.style.visibility = 'hidden';  // Cache l'événement sans laisser de place
-                        info.el.style.height = '100%'; // Cache l'événement sans qu'il prenne de place
+            const creneaux = @json($creneaux);
+            console.log(creneaux);
+            const dejaReservees = @json($reservees);
+            console.log(dejaReservees);
+
+            const horaireContainerDebut = document.getElementById('horaire-options-debut');
+            const horaireContainerFin = document.getElementById('horaire-options-fin');
+            const datepicker = document.getElementById('datepicker');
+    
+
+            function injectHoraires(horaireContainer, date) {
+                horaireContainer.innerHTML = '';
+                const dateObj = new Date(date);
+                const dayOfWeek = dateObj.toLocaleDateString("en-US", { weekday: "long" });
+                let displayedHoraires = [];
+                Object.entries(creneaux).forEach(([jour, horaires]) => {
+                    if (dayOfWeek === jour) {
+                        displayedHoraires = horaires;
+                        console.log(horaires);
+                        Object.entries(dejaReservees).forEach(([dateReservee, horairesReservees]) => {
+                            if (date === dateReservee) {
+                                console.log(horairesReservees);
+                                horairesReservees.forEach(horaireReservee => {
+                                    console.log(horaires);
+                                    console.log(horaireReservee['heure_debut']);
+                                    horaires = horaires.filter(horaire => horaire < horaireReservee['heure_debut'] || horaire >= horaireReservee['heure_fin']);
+                                })
+                                displayedHoraires = horaires;
+                            } 
+                        })
                     }
-                },
-                eventContent: function (arg) {
-                    return {
-                        html: arg.event.title.replace(/\n/g, '<br>')
-                    };
-                },
-                dateClick: function (info) {
-                    let clickedDate = new Date(info.date);
+                    
+                });
 
-                    let today = new Date();
-                    today.setHours(0, 0, 0, 0); 
-                    if (clickedDate < today) {
-                        alert("Vous ne pouvez pas créer une prestation dans le passé.");
-                        return; 
-                    }
-
-                    let hasConflict = calendar.getEvents().some(event => {
-                        let eventStart = new Date(event.start);
-                        let eventEnd = new Date(event.end);
-
-                        return clickedDate >= eventStart && clickedDate < eventEnd;
+                if (displayedHoraires.length != 0) {
+                    displayedHoraires.forEach(hour => {
+                        horaireContainer.innerHTML += `<div onclick="injectHorairesFin(this, '${hour}'); document.querySelector('#heure_debut').value = '${hour}'" class="px-2 py-1 border border-pink-300 rounded-lg hover:bg-pink-200 cursor-pointer hourDebut"><p>${hour.replace(":", "h")}</p></div>`;
                     });
-
-                    if (hasConflict) {
-                        alert("Un créneau est déjà réservé à cette heure.");
-                        return; 
-                    }
-
-                    let dateDe = new Date(info.date);
-                    let dateA = new Date(info.date);
-                    dateA.setMinutes(dateA.getMinutes() + parseInt(spanDuree.textContent));
-
-                    heureDe = dateDe.toLocaleString('fr-FR', { hour: '2-digit', minute: '2-digit' });
-                    heureA = dateA.toLocaleString('fr-FR', { hour: '2-digit', minute: '2-digit' });
-
-                    spanDateDe.textContent = dateDe;
-                    spanDateA.textContent = dateA;
-                    txtPrestationDate.value = dateDe.toISOString().split('T')[0];
-                    ddlPrestationDe.value = heureDe;
-                    spanPrestationA.textContent = heureA;
-
-                    prestationModal.classList.remove('hidden');
-                },
-                eventClick: function (info) {
-                    const prestationId = info.event.id;
-                    window.location.href = '/prestations/' + prestationId;
-                
-                },
-
-            });
-            calendar.render();
-        });
-
-        document.getElementById('closeModal').addEventListener('click', function () {
-            prestationModal.classList.add('hidden');
-        });
-
-        document.getElementById('ddlPrestation').addEventListener('change', function () {
-            let selectedOption = this.options[this.selectedIndex];
-            let duree = selectedOption.getAttribute('data-duree');
-            let prestationPrix = selectedOption.getAttribute('data-prix');
-
-            // Mise à jour du texte pour la durée et le prix
-            spanDuree.textContent = duree;
-            spanPrixTotal.textContent = prestationPrix + '€'; // Affichez le prix avec le symbole €
-
-            // Calcul de la date de fin basée sur la durée
-            let startDate = new Date(txtPrestationDate.value + 'T' + ddlPrestationDe.value);
-            let endDate = new Date(startDate);
-            endDate.setMinutes(endDate.getMinutes() + duree);
-            let heureA = endDate.toLocaleString('fr-FR', { hour: '2-digit', minute: '2-digit' });
-            spanPrestationA.textContent = heureA;
-        });
-
-        ddlPrestationDe = document.getElementById('ddlPrestationDe');
-        ddlPrestationDe.addEventListener('change', function () {
-            let selectedOption = this.options[this.selectedIndex];
-            let duree = spanDuree.textContent;
-            let startDate = new Date(txtPrestationDate.value + 'T' + ddlPrestationDe.value);
-            let endDate = new Date(startDate);
-            spanDateDe.value = startDate;
-            endDate.setMinutes(endDate.getMinutes() + parseInt(duree));
-            spanDateA.textContent = endDate;
-            let heureA = endDate.toLocaleString('fr-FR', { hour: '2-digit', minute: '2-digit' });
-            spanPrestationA.textContent = heureA;
-        });
-
-        prestationForm = document.getElementById('prestationForm');
-        prestationForm.addEventListener('submit', function (event) {
-            event.preventDefault();
-
-            let prestationTypeId = ddlPrestation.value;
-            let dogId = ddlDog.value;
-            let dateDe = txtPrestationDate.value + ' ' + ddlPrestationDe.value;
-            let dateA = txtPrestationDate.value + ' ' + spanPrestationA.textContent;
-            let dogSitterId = {{ $dogsitter->id }};
-            let prixTotal = spanPrixTotal.textContent.replace('€', '');  // Retirer le symbole '€' avant d'envoyer le prix
-
-            fetch('/prestations', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                },
-                body: JSON.stringify({
-                    prestation_type_id: prestationTypeId,
-                    dog_id: dogId,
-                    date_debut: dateDe,
-                    date_fin: dateA,
-                    dogsitter_id: dogSitterId,
-                    prix_total: prixTotal  // Envoi du prix sans le symbole '€'
-                })
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    alert('Prestation ajoutée avec succès !');
-                    calendar.addEvent({
-                        title: data.prestation.dog.nom + "\n" + data.prestation.prestation_type.nom + ' avec ' + data.prestation.dogsitter.prenom,
-                        start: data.prestation.date_debut,
-                        end: data.prestation.date_fin,
-                        allDay: false
-                    });
-                    prestationModal.classList.add('hidden');
-                } else {
-                    alert('Erreur lors de l\'ajout de la prestation : ' + data.message);
                 }
-            })
-            .catch(error => console.error('Erreur:', error));
-        });
+            }
 
-        let filteredPrestations = prestationsDogsitter.filter(function (prestation) {
-            return prestation.dogsitter_id === currentDogsitterId;
+            window.injectHorairesFin = function(element, hour) {
+                let selectedHour = parseInt(hour.substring(0, 2));
+                    document.querySelectorAll('.hourDebut').forEach(el => {
+                        if (el !== element) {
+                            el.classList.remove('bg-pink-300');
+                        } else {
+                            el.classList.add('bg-pink-300');
+                        }
+                    })
+
+                if (document.querySelector('#prestation_type_id').value == 1) {
+                    document.querySelector('#heure_fin').value = '';
+                    horaireContainerFin.innerHTML = '';
+                    let date = document.getElementById('datepicker').value;
+                    const dateObj = new Date(date);
+                    const dayOfWeek = dateObj.toLocaleDateString("en-US", { weekday: "long" });
+                    let displayedHoraires = [];
+                    let horairesDay = [];
+                    let horairesPrises = [];
+                    Object.entries(creneaux).forEach(([jour, horaires]) => {
+                        if (dayOfWeek === jour) {
+                            horairesDay = horaires.map(heure => parseInt(heure.substring(0, 2)));
+                            horairesDay.push(horairesDay[horairesDay.length - 1] + 1);
+                            horairesDay = horairesDay.filter(heure => heure > selectedHour);
+                            console.log(horairesDay);
+                            Object.entries(dejaReservees).forEach(([dateReservee, horairesReservees]) => {
+                                if (date === dateReservee) {
+                                    horairesReservees.forEach(horaireReservee => {
+                                        if (parseInt(horaireReservee['heure_debut'].substring(0, 2)) >= selectedHour) {
+                                            horairesDay = horairesDay.filter(heure => heure <= parseInt(horaireReservee['heure_debut'].substring(0, 2)))
+                                        }                                   
+                                    })
+                                }
+                            })
+                        }
+                    });
+
+                    displayedHoraires = horairesDay.map(heure => {
+                        if(heure < 10) {
+                            return `0${heure}:00`;
+                        }
+                        return `${heure}:00`});
+
+                    if (displayedHoraires.length != 0) {
+                        displayedHoraires.forEach(element => {
+                            horaireContainerFin.innerHTML += `<div onclick="toggleHoraireFin(this); document.querySelector('#heure_fin').value = '${element}'" class="px-2 py-1 border border-pink-300 rounded-lg hover:bg-pink-200 cursor-pointer hourFin"><p>${element.replace(":", "h")}</p></div>`;
+                        });
+                    }
+                } else {
+                    document.querySelector('#heure_fin').value = (selectedHour+1) + ':00';
+                }
+                
+            };
+
+            window.toggleHoraireFin = function(element) {
+                document.querySelectorAll('.hourFin').forEach(el => {
+                    if (el !== element) {
+                        el.classList.remove('bg-pink-300');
+                    } else {
+                        el.classList.add('bg-pink-300');
+                    }
+                })
+
+            }
+
+
+    
+            flatpickr("#datepicker", {
+                dateFormat: "Y-m-d",
+                "locale": "fr",
+                minDate: "today",
+                altInput: true,
+                altFormat: "F j, Y",
+                disableMobile: true,
+                onChange: function(selectedDates, dateStr) {
+                    console.log(dateStr);
+                    injectHoraires(horaireContainerDebut, dateStr);
+                },
+                disable: [
+                    function (date) {
+                        const joursDisponibles = @json($joursDisponibles); 
+                        const nomJour = date.toLocaleDateString('en-US', { weekday: 'long' });
+                        return !joursDisponibles.includes(nomJour);
+                    }
+                ], 
+            });
         });
 
     </script>
+    
 </x-app-layout>
+    

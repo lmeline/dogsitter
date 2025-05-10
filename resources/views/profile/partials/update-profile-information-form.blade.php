@@ -31,21 +31,6 @@
             </div>
         </div>
 
-        <!-- Champ pour le numéro de téléphone -->
-        <div>
-            <x-input-label for="numero_telephone" :value="__('Telephone number')" />
-            <x-text-input id="numero_telephone" class="block mt-1 w-full h-10" type="text" name="numero_telephone" :value="old('numero_telephone', $user->numero_telephone)" required autocomplete="telephone" />
-            <x-input-error :messages="$errors->get('numero_telephone')" class="mt-2" />
-        </div>
-       
-        
-        <!-- Champ pour l'adresse -->
-        <div>
-            <x-input-label for="adresse" :value="__('Address')" />
-            <x-text-input id="adresse" class="block mt-1 w-full h-10" type="text" name="adresse" :value="old('adresse', $user->adresse)" required autocomplete="adresse" />
-            <x-input-error :messages="$errors->get('adresse')" class="mt-2" />
-        </div>
-
         <!-- Grille pour les champs "Ville" et "Code postal" -->
         <div class="grid grid-cols-2 gap-4">
             <div class="relative">
@@ -87,17 +72,16 @@
             @endif
         </div>
         <!-- Champ pour la photo de profil -->
-        {{-- <div>
+        <div>
             <x-input-label for="photo" :value="__('Photo de profil')" />
             <input 
                 id="photo" 
                 class="block mt-1 w-full h-10 border-gray-300 rounded-md" 
                 type="file" 
                 name="photo" 
-                accept="image/*" 
             />
             <x-input-error :messages="$errors->get('photo')" class="mt-2" />
-        </div> --}}
+        </div>
         <!-- Boutons de soumission -->
         <div class="flex items-center gap-4">
             <x-primary-button>{{ __('Save') }}</x-primary-button>

@@ -27,7 +27,7 @@ class UserFactory extends Factory
         $ville = Ville::inRandomOrder()->first();
         $role = fake()->randomElement(['admin', 'proprietaire', 'dogsitter']);
         if ($role == 'dogsitter') {
-            $abonnement_type_id = fake()->numberBetween(1, 3);
+            $abonnement_type_id = fake()->numberBetween(1, 2);
         } else {
             $abonnement_type_id = null;
         }
@@ -36,9 +36,7 @@ class UserFactory extends Factory
             'name' => fake()->lastName(),
             'prenom' => fake()->firstName(),
             'date_naissance' => fake()->date(),
-            'numero_telephone' => fake()->phoneNumber(),
             'email' => fake()->unique()->safeEmail(),
-            'adresse' => fake()->streetAddress(),
             'ville_id' => $ville->id,
             'code_postal' => $ville->code_postal,
             'role' => $role,

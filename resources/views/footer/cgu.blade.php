@@ -69,7 +69,7 @@
         </p>
         <p class="text-gray-700 mt-2">
             <strong>Email :</strong> contact@patteapatte.com<br>
-            <strong>Adresse :</strong> [Votre adresse postale]
+            <strong>Adresse :</strong> Rue du 12 Régiment de Zouaves, 84000 Avignon
         </p>
     </div>
 </x-app-layout>

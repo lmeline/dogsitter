@@ -22,6 +22,7 @@ class Dog extends Model
         'sexe',
         'sterilise',
         'proprietaire_id',
+        'photo'
     ];
 
     public function proprietaire(): BelongsTo

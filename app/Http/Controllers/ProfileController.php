@@ -9,7 +9,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
-use League\Csv\Reader;
 
 class ProfileController extends Controller
 {
@@ -36,11 +35,10 @@ class ProfileController extends Controller
              'name' => $request->name,
              'prenom' => $request->prenom,
              'numero_telephone' => $request->numero_telephone,
-             'adresse' => $request->adresse,
              'code_postal' =>$request->code_postal,
              'ville_id' => $request->ville_id,
-             'email' => $request->email
-             //'photo' => $request->photo
+             'email' => $request->email,
+             'photo' => $request->photo
          ]);
         
     
