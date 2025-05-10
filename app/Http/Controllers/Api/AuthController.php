@@ -14,8 +14,8 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         $output = new ConsoleOutput();
-        $output->writeln("Login attempt with email: " . $request->email);
-        $output->writeln("Login attempt with password: " . $request->password);
+        //$output->writeln("Login attempt with email: " . $request->email);
+        //$output->writeln("Login attempt with password: " . $request->password);
 
         try {
             $validator = Validator::make($request->all(), [

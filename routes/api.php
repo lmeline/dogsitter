@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\ProprietaireController;
 use App\Http\Controllers\Api\RaceController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\VilleController;
+use App\Http\Controllers\Api\PrestationTypeController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -37,4 +38,8 @@ Route::middleware('auth:sanctum')->post('/races', [RaceController::class, 'store
 Route::middleware('auth:sanctum')->delete('/races/{id}', [RaceController::class, 'destroy']);
 Route::middleware('auth:sanctum')->put('/races/{id}', [RaceController::class, 'update']);
 
+Route::get('/prestations_types',[PrestationTypeController::class,'index']);
+Route::middleware('auth:sanctum')->post('/prestations_types', [PrestationTypeController::class, 'store']);
+Route::middleware('auth:sanctum')->delete('/prestations_types/{id}', [PrestationTypeController::class, 'destroy']);
+Route::middleware('auth:sanctum')->put('/prestations_types/{id}', [PrestationTypeController::class, 'update']);
 
