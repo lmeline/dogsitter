@@ -51,7 +51,7 @@
             <!-- Photo de profil -->
             <div class="mt-4">
                 <x-input-label for="photo" :value="__('Photo de profil')" />
-                <input type="file" id="photo" name="photo" class="block mt-1 w-full border border-pink-300 focus:ring-pink-500 focus:border-pink-500" />
+                <input type="file" id="photo" name="photo" class="block mt-1 w-full border border-pink-300 focus:ring-pink-500 focus:border-pink-500 dark:text-white" />
                 <x-input-error :messages="$errors->get('photo')" class="mt-2" />
             </div>
 

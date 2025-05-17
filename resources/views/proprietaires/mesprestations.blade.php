@@ -19,12 +19,14 @@
                     >
                         <div class="mb-4">
                             <h4 class="text-lg font-semibold text-black dark:text-gray-800">
-                                Prestation avec 
-                                <span class="text-indigo-600 dark:text-indigo-400">
-                                    {{ $prestation->dogsitter ? $prestation->dogsitter->name : 'N/A' }}
-                                    {{ $prestation->dogsitter ? $prestation->dogsitter->prenom : 'N/A' }}
-                                    
-                                </span>
+                                Prestation avec
+                                <a href="{{ route('dogsitters.show', $prestation->dogsitter->id) }}"> 
+                                    <span class="text-indigo-600 dark:text-indigo-400">
+                                        {{ $prestation->dogsitter ? $prestation->dogsitter->name : 'N/A' }}
+                                        {{ $prestation->dogsitter ? $prestation->dogsitter->prenom : 'N/A' }}
+                                        
+                                    </span>
+                                </a>
                             </h4>
                         </div>
 
@@ -36,6 +38,15 @@
                                     {{ $prestation->statut === 'Confirmé' ? 'bg-green-200 text-green-800' : 'bg-yellow-200 text-yellow-800' }}">
                                     {{ $prestation->statut }}
                                 </span>
+                            </p>
+                            <p>
+                                <strong>Date de début :</strong> {{$prestation->date_debut }}
+                            </p>
+                            <p>
+                                <strong>Date de fin :</strong> {{$prestation->date_fin }}
+                            </p>
+                            <p>
+                               
                             </p>
                         </div>
 

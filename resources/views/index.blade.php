@@ -256,10 +256,10 @@
             
             stars.forEach((label, index) => {
                 if (index < rating) {
-                    label.textContent = '★'; // Étoile pleine
+                    label.textContent = '★'; 
                     label.classList.add('text-yellow-500');
                 } else {
-                    label.textContent = '☆'; // Étoile vide
+                    label.textContent = '☆'; 
                     label.classList.remove('text-yellow-500');
                 }
             });

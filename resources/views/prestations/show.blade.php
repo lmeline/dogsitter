@@ -13,7 +13,7 @@
         >
             <div class="space-y-4">
                 @if(Auth::user()->role === 'dogsitter')
-                    <p><strong class="font-semibold text-gray-700">Propriétaire :</strong> {{ $prestation->proprietaire->name }}</p>
+                    <p><strong class="font-semibold text-gray-700">Propriétaire :</strong> <a class="hover:gray-200" href="{{ route('proprietaires.show', $prestation->proprietaire->id) }}">{{ $prestation->proprietaire->name }}</a></p>
                 @endif
                 @if(Auth::user()->role === 'proprietaire')
                     <p><strong class="font-semibold text-black">Dogsitter :</strong> {{ $prestation->dogsitter->name }}</p>

@@ -84,8 +84,12 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/abonnement', [AbonnementController::class, 'show'])->name('abonnements.update');
     Route::post('/abonnement', [AbonnementController::class, 'updateAbonnement'])->name('abonnements.update');
+    Route::get('abonnement/prix', function () {
+        return view('abonnements.pricing');
+    })->middleware(['auth', 'verified',])->name('prix');
+    Route::get('checkout/{plan?}', CheckoutController::class)->name('checkout');
+    Route::view('/payment/success', 'abonnements.success')->middleware(['auth', 'verified'])->name('success-checkout');
 
-    Route::get('/choisir-abonnement', [AbonnementController::class, 'registerabonnement'])->name('register.abonnement');
     Route::post('/choisir-abonnement', [AbonnementController::class, 'chooseAbonnement'])->name('chooseAbonnement');
 
     Route::post('/user-prestation', [PrestationTypesController::class, 'store'])->name('userPrestations.store');
@@ -95,7 +99,7 @@ Route::middleware('auth')->group(function () {
 
     // Requêtes pour les proprietaires
     route::get('/proprietaires', [ProprietaireController::class, 'index'])->name('proprietaires.index');
-    //route::get('/proprietaires/{id}', [ProprietaireController::class, 'show'])->name('proprietaires.show');
+    route::get('/proprietaires/{id}', [ProprietaireController::class, 'show'])->name('proprietaires.show');
     route::post('/update-description', [ProprietaireController::class, 'updateDescription'])->name('update.description');
     route::get('/proprietaires/mesprestations', [PrestationController::class, 'showPrestations'])->name('proprietaires.mesprestations');
 
@@ -110,11 +114,7 @@ Route::middleware('auth')->group(function () {
 
 });
 
-Route::get('/prix', function () {
-    return view('abonnements.pricing');
-})->middleware(['auth', 'verified'])->name('prix');
-Route::get('checkout/{plan?}', CheckoutController::class)->name('checkout');
-Route::view('/payment/success', 'abonnements.success')->middleware(['auth', 'verified'])->name('success-checkout');
+
 
 
 // Requêtes ajax 

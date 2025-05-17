@@ -99,7 +99,7 @@ class PrestationController extends Controller
 
     $reservees = [];
     foreach ($prestationsDogsitter as $prestationDogsitter) {
-      if($prestationDogsitter->statut == 'annulée'){
+      if ($prestationDogsitter->statut == 'annulée') {
         continue;
       }
       if (Carbon::parse($prestationDogsitter->date_debut)->isBefore($today)) {
@@ -182,6 +182,13 @@ class PrestationController extends Controller
     if ($user->role === 'proprietaire') {
 
       $prestations = $user->prestationsAsproprietaire()->with('dog')->get();
+
+      $prestations = $prestations->map(function ($prestation) {
+        $prestation->date_debut = Carbon::parse($prestation->date_debut)->translatedFormat('d F Y à H:i');
+        $prestation->date_fin = Carbon::parse($prestation->date_fin)->translatedFormat('d F Y à H:i');
+        return $prestation;
+      });
+
     } elseif ($user->role === 'dogsitter') {
 
       $prestations = $user->prestationsAsdogsitter;

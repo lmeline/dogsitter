@@ -9,18 +9,7 @@ use Illuminate\Support\Facades\Auth;
 class AbonnementController extends Controller
 {
 
-    public function registerabonnement()
-    {
-        $user = Auth::user();
-        
-        if (!$user) {
-            return redirect(route('login'))->with('error', 'Veuillez vous connecter pour choisir un abonnement.');
-        }
-    
-        $abonnements_types = Abonnement::all();
-    
-        return view('auth.registerabonnement', compact('user', 'abonnements_types'));
-    }
+
 
     public function chooseAbonnement(Request $request)
 {

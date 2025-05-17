@@ -72,7 +72,7 @@ class RegisteredUserController extends Controller
         if ($request->role == 'proprietaire') {
             return redirect()->route('register.dog');
         } else {
-            return redirect()->route('register.abonnement');
+            return redirect()->route('abonnements.pricing');
         }
     }
 }
