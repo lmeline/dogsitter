@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use Illuminate\Routing\Controller;
 use App\Models\Ville;
 use Illuminate\Http\Request;
+use Symfony\Component\Console\Output\ConsoleOutput;
 
 class VilleController extends Controller
 {
@@ -13,7 +14,8 @@ class VilleController extends Controller
      */
     public function index()
     {
-        return response()->json(Ville::all());
+        //return response()->json(Ville::all());
+        return response()->json(Ville::with('users')->get());
     }
 
     /**
@@ -21,6 +23,7 @@ class VilleController extends Controller
      */
     public function create()
     {
+
         //
     }
 
@@ -53,7 +56,10 @@ class VilleController extends Controller
                 'code_postal' => $request->code_postal
             ]);
 
-            return response()->json(['message' => 'Ville ajoutée avec succès', 'race' => $ville], 201);
+            $output = new ConsoleOutput();
+            $output->writeln($ville);
+
+            return response()->json(['message' => 'Ville ajoutée avec succès', 'ville' => $ville], 201);
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], 500);
         }
@@ -117,6 +123,10 @@ class VilleController extends Controller
             $ville = Ville::find($id);
             if (!$ville) {
                 return response()->json(['error' => 'Ville non trouvée'], 404);
+            }
+            // Vérifiez si la ville est associée à des utilisateurs
+            if ($ville->users()->exists()) {
+                return response()->json(['error' => 'Impossible de supprimer cette ville car elle est associée à des utilisateurs'], 400);
             }
 
             $ville->delete();
