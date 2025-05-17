@@ -4,5 +4,6 @@
             <h1 class="text-2xl font-bold text-green-600 mb-4">Merci pour votre abonnement !</h1>
             <p class="text-gray-700 text-lg">Votre souscription a été enregistrée avec succès.</p>
         </div>
+        <a href="{{ route('index') }}" class="mt-4 text-blue-500 hover:underline">Retourner à l'accueil</a>
     </div>
 </x-app-layout>

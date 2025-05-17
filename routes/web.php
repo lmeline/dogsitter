@@ -87,6 +87,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/abonnement/prix', function () {
         return view('abonnements.pricing');
     })->middleware(['auth', 'verified',])->name('prix');
+    
     Route::get('checkout/{plan?}', CheckoutController::class)->name('checkout');
     Route::view('/payment/success', 'abonnements.success')->middleware(['auth', 'verified'])->name('success-checkout');
 
