@@ -34,12 +34,11 @@
                 <a href="{{ route('checkout', ['plan' => 'price_1RM73dPq260KNrONj176TJRk']) }}" class="mt-5 py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-indigo-600 text-white hover:bg-indigo-700 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-black-600" >
                  Choisir cet abonnement
                 </a>
-            </diiiv>
+            </div>
             <!-- End Card -->
         </div>
         <!-- End Grid -->
     </div>
     <!-- End Pricing -->
-
 
 </x-app-layout>
