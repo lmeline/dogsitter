@@ -8,6 +8,7 @@ use App\Http\Controllers\Api\RaceController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\VilleController;
 use App\Http\Controllers\Api\PrestationTypeController;
+use App\Http\Controllers\Api\AbonnementTypeController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -47,3 +48,4 @@ Route::middleware('auth:sanctum')->post('/prestations_types', [PrestationTypeCon
 Route::middleware('auth:sanctum')->delete('/prestations_types/{id}', [PrestationTypeController::class, 'destroy']);
 Route::middleware('auth:sanctum')->put('/prestations_types/{id}', [PrestationTypeController::class, 'update']);
 
+Route::get('/abonnements_types', [AbonnementTypeController::class, 'index']);
