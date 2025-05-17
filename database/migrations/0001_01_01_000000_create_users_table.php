@@ -29,7 +29,8 @@ return new class extends Migration
 
 
             $table->text('description')->nullable();
-            $table->foreignId('abonnement_type_id')->nullable()->constrained('abonnements_types');
+            // La table abonnementsTyopes a été stupprimée au profit de l'API Stripe
+            //$table->foreignId('abonnement_type_id')->nullable()->constrained('abonnements_types');
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {

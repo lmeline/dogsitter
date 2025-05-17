@@ -54,7 +54,6 @@ class UserSeeder extends Seeder
             'description' => "dogsitter",
             'remember_token' => Str::random(10),
             'photo' => 'https://i.pravatar.cc/300?img=' . rand(1, 70),
-            'abonnement_type_id' => 1,
             'email_verified_at' => now(),
             'password' => Hash::make('dogsitter')
         ]);

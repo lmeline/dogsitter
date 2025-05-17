@@ -26,11 +26,6 @@ class UserFactory extends Factory
     {
         $ville = Ville::inRandomOrder()->first();
         $role = fake()->randomElement(['admin', 'proprietaire', 'dogsitter']);
-        if ($role == 'dogsitter') {
-            $abonnement_type_id = fake()->numberBetween(1, 2);
-        } else {
-            $abonnement_type_id = null;
-        }
 
         return [
             'name' => fake()->lastName(),
@@ -43,10 +38,8 @@ class UserFactory extends Factory
             'description' => fake()->sentence(),
             'remember_token' => Str::random(10),
             'photo' => 'https://i.pravatar.cc/300?img=' . rand(1, 70),
-            'abonnement_type_id' => $abonnement_type_id,
             'email_verified_at' => now(),
             'password' => static::$password ??= Hash::make('password'),
-
         ];
     }
 

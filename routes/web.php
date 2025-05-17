@@ -14,7 +14,9 @@ use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Auth\Events\Verified;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\StripeController;
 
+Route::get('/test', [StripeController::class,'listPrices'])->name('test');
 // Requêtes pour la page d'accueil
 Route::get('/', [HomeController::class, 'index'])->name('index');
 Route::get('/avis/create', [AvisController::class, 'create'])->name('avis.create');
@@ -61,7 +63,7 @@ Route::middleware('auth')->group(function () {
     Route::put('/disponibilites/{id}', [DisponibiliteController::class, 'update'])->name('disponibilites.update');
     Route::get('/disponibilites/{id}/edit', [DisponibiliteController::class, 'edit'])->name('disponibilites.edit');
 
-        // Requêtes pour les chiens 
+    // Requêtes pour les chiens 
     Route::get('/register/dog', [DogController::class, 'registerdog'])->name('register.dog');
     Route::post('/register/dog', [DogController::class, 'storeregisterdog'])->name('storeregisterdog');
     Route::get('profil/ajoutchien', [DogController::class, 'create'])->name('dogs.create');
@@ -70,7 +72,7 @@ Route::middleware('auth')->group(function () {
     Route::put('/dogs/{dog}', [DogController::class, 'update'])->name('dogs.update');
     Route::get('/dogs/{dog}/edit', [DogController::class, 'edit'])->name('dogs.edit');
     Route::delete('/dogs/{id}/delete', [DogController::class, 'destroy'])->name('dogs.destroy');
-    Route::delete('/dogs/{dog}/delete/photo', [DogController::class, 'deletephoto'])->name('dogs.delete');    
+    Route::delete('/dogs/{dog}/delete/photo', [DogController::class, 'deletephoto'])->name('dogs.delete');
 
     Route::get('/trouvezsondogsitter', function () {
         return view('dogsitters.index');
@@ -87,7 +89,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/abonnement/prix', function () {
         return view('abonnements.pricing');
     })->middleware(['auth', 'verified',])->name('prix');
-    
+
     Route::get('checkout/{plan?}', CheckoutController::class)->name('checkout');
     Route::view('/payment/success', 'abonnements.success')->middleware(['auth', 'verified'])->name('success-checkout');
 
