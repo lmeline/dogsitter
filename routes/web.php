@@ -84,7 +84,7 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/abonnement', [AbonnementController::class, 'show'])->name('abonnements.update');
     Route::post('/abonnement', [AbonnementController::class, 'updateAbonnement'])->name('abonnements.update');
-    Route::get('abonnement/prix', function () {
+    Route::get('/abonnement/prix', function () {
         return view('abonnements.pricing');
     })->middleware(['auth', 'verified',])->name('prix');
     Route::get('checkout/{plan?}', CheckoutController::class)->name('checkout');
