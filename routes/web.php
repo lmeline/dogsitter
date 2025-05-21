@@ -129,5 +129,9 @@ Route::get('/search-owner', [MessageController::class, 'searchOwner'])->name('se
 Route::get('/search-dogsitter', [MessageController::class, 'searchDogsitter'])->name('search.dogsitter');
 Route::get('/messages/search', [MessageController::class, 'search'])->name('messages.search');
 Route::delete('/disponibilites/{id}/delete', [DisponibiliteController::class, 'destroy'])->name('disponibilites.destroy');
+Route::post('/threads/{thread}/messages', [MessageController::class, 'addMessage'])->name('addMessage');
+Route::get('/threads/{thread}/messages', [MessageController::class, 'fetchMessages'])->name('messages.fetch');
+Route::get('/threads/messages', [MessageController::class, 'fetchThreads'])->name('threads.fetch');
+
 
 
