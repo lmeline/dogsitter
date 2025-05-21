@@ -246,7 +246,7 @@ class MessageController extends Controller
 
                 $lastMessage = $thread->messages->first(); // Le premier message de la collection (car on a fait latest()->limit(1))
 
-                return [
+                return [ 
                     'id' => $thread->id,
                     'other_user_name' => $otherUser->name . ' ' . $otherUser->prenom,
                     'other_user_photo' => asset($otherUser->photo ?? 'images/default-avatar.jpg'),
