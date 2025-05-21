@@ -163,7 +163,6 @@
         document.addEventListener('DOMContentLoaded', function () {
             const searchInput = document.getElementById('searchInput2');
             const searchResults = document.getElementById('searchResults');
-            console.log("cc");
             let timeout = null;
             function fetchDogsitters() {
                 const search = encodeURIComponent(searchInput.value.trim());
@@ -207,5 +206,7 @@
             });
             fetchDogsitters();
         });
+
+        
     </script>
 </x-app-layout>
