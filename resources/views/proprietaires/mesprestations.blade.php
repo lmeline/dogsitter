@@ -50,12 +50,12 @@
                             </p>
                         </div>
 
-                        <div class="mt-6 flex justify-between items-center">
-                            <a href="{{ route('prestations.show', $prestation->id) }}" 
+                        {{-- <div class="mt-6 flex justify-between items-center">
+                            <a href="{{ route('proprietaires.showPrestations', $prestation->id) }}" 
                                 class="text-sm text-orange-500 font-semibold hover:text-red-700">
                                 Voir les détails →
                             </a>
-                        </div>
+                        </div> --}}
                     </div>
                 @endforeach
             </div>

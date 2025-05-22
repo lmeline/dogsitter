@@ -104,13 +104,13 @@ Route::middleware('auth')->group(function () {
     route::get('/proprietaires', [ProprietaireController::class, 'index'])->name('proprietaires.index');
     route::get('/proprietaires/{id}', [ProprietaireController::class, 'show'])->name('proprietaires.show');
     route::post('/update-description', [ProprietaireController::class, 'updateDescription'])->name('update.description');
-    route::get('/proprietaires/mesprestations', [PrestationController::class, 'showPrestations'])->name('proprietaires.mesprestations');
+    route::get('/proprietaire/mesprestations', [PrestationController::class, 'showPrestations'])->name('proprietaires.mesprestations');
 
 
     // Requêtes pour les prestations
     Route::get('/prestations/create/{id}', [PrestationController::class, 'create'])->name('prestations.create');
     Route::post('/prestations', [PrestationController::class, 'store'])->name('prestations.store');
-    Route::get('/prestations/{id}', [PrestationController::class, 'show'])->name('prestations.show');
+    Route::get('/prestations/{id}', [PrestationController::class, 'showPrestationforDogsitter'])->name('prestations.showPrestationforDogsitter');
     Route::delete('/prestations/{id}', [PrestationController::class, 'destroy'])->name('prestations.destroy');
     Route::patch('/prestations/{id}/validee', [PrestationController::class, 'valider'])->name('prestations.valider');
     Route::patch('/prestations/{id}/annulee', [PrestationController::class, 'annuler'])->name('prestations.annuler');
