@@ -11,6 +11,15 @@
                     <ul id="villeSuggestions"
                         class="absolute w-full bg-white border border-gray-300 rounded mt-1 hidden"></ul>
                 </div>
+                <div class="relative">
+                    <select id="prestationTypes" name="prestationTypes"
+                        class="w-full h-10 rounded-lg border border-gray-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-pink-500">
+                        <option value="">-- Sélectionnez un service --</option>
+                        @foreach ($prestationtypes as $prestationtype)
+                            <option value="{{ $prestationtype->id }}">{{ $prestationtype->nom }}</option>
+                        @endforeach
+                    </select>
+                </div>
             </div>
         </form>
 
@@ -44,7 +53,6 @@
         </style>
         {{ $dogsitters->links() }}
     </div>
-
 </x-app-layout>
 
 <script>
