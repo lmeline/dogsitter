@@ -16,6 +16,7 @@ class ProfilDogsitterController extends Controller
 {
     public function index()
     {
+        $prestationtypes = Prestationtype::all();
         $dogsitters = User::where('role', 'dogsitter')
             ->whereHas('prestationtypes', function ($query) {
                 $query->whereNotNull('users_prestations_types.prix')
@@ -29,7 +30,7 @@ class ProfilDogsitterController extends Controller
         $villesIds = $dogsitters->pluck('ville_id')->unique()->toArray();
         $villes = Ville::whereIn('id', $villesIds)->get();
     
-        return view('dogsitters.index', compact('dogsitters', 'villes'));
+        return view('dogsitters.index', compact('dogsitters', 'villes','prestationtypes'));
     }
     
     

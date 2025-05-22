@@ -3,7 +3,7 @@
     <section class="py-8">
         <div class="container mx-auto">
             <!-- Titre Principal -->
-            <div class="text-center text-black mb-12">
+            <div class="text-center text-black mb-8">
                 <h1 class="text-5xl font-bold mb-4">Bienvenue sur Patte à Patte</h1>
                 <p class="text-xl">
                     Le Dog Sitting de Confiance pour Votre Compagnon à Quatre Pattes <br>
@@ -15,7 +15,7 @@
                 <!-- Conteneur Principal -->
                 <div class="flex flex-col lg:flex-row items-center lg:items-start lg:space-x-8">
                     <!--  Avantages -->
-                    <div class="grid grid-cols-1 sm:grid-cols-4 gap-8 mb-12">
+                    <div class="grid grid-cols-1 sm:grid-cols-4 gap-8 mb-8">
                         <!-- Image -->
                         <div class="w-full h-full flex justify-center items-center">
                             <img src="/images/paxa.jpg" alt="Dog Sitting pax"
@@ -77,87 +77,77 @@
     </section>
 
     <!-- Section Features -->
-    <section>
-        <div class="container mx-auto">
-            <h2 class="text-3xl font-semibold text-center mb-12 pt-16 text-black">Comment ça fonctionne ?</h2>
+<section>
+    <div class="container mx-auto">
+        <h2 class="text-3xl font-semibold text-center mb-8 pt-16 text-black">Comment ça fonctionne ?</h2>
 
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <!-- Feature 1 -->
-                <div class=" p-6 rounded-lg shadow-lg text-center backdrop-blur-md bg-white/70">
-                    <h3 class="text-2xl font-semibold mb-4 text-orange-300">Créer votre profil gratuitement</h3>
-                    <p class="text-gray-600 mb-4"> Inscrivez-vous en quelques minutes, complétez les informations sur
-                        votre chien, et découvrez les dog sitters disponibles près de chez vous.</p>
-                </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <!-- Étape 1 -->
+            <div class="p-6 rounded-lg shadow-lg text-center backdrop-blur-md bg-white/70">
+                <h3 class="text-2xl font-semibold mb-4 text-orange-400">1. Inscription</h3>
+                <p class="text-gray-700 mb-2"><span class="font-semibold text-gray-800">Propriétaire :</span> créez votre profil gratuitement, ajoutez les informations sur votre chien et votre lieu de résidence.</p>
+                <p class="text-gray-700"><span class="font-semibold text-gray-800">Dogsitter :</span> complétez votre profil vitrine pour vous présenter et indiquer vos disponibilités.</p>
+            </div>
 
-                <!-- Feature 2 -->
-                <div class=" p-6 rounded-lg shadow-lg text-center backdrop-blur-md bg-white/70">
-                    <h3 class="text-2xl font-semibold mb-4 text-gray-400">Choississez votre dogsitter</h3>
-                    <p class="text-gray-600 mb-4">Parcourez les profils détaillés des dog sitters, lisez les avis
-                        d’autres propriétaires, et sélectionnez celui qui correspond le mieux aux besoins de votre
-                        compagnon.</p>
-                </div>
+            <!-- Étape 2 -->
+            <div class="p-6 rounded-lg shadow-lg text-center backdrop-blur-md bg-white/70">
+                <h3 class="text-2xl font-semibold mb-4 text-gray-500">2. Mise en relation</h3>
+                <p class="text-gray-700 mb-2"><span class="font-semibold text-gray-800">Propriétaire :</span> explorez les profils des dogsitters et contactez celui qui vous inspire confiance.</p>
+                <p class="text-gray-700"><span class="font-semibold text-gray-800">Dogsitter :</span> recevez des messages de propriétaires et échangez pour organiser la prestation.</p>
+            </div>
 
-                <!-- Feature 3 -->
-                <div class="p-6 rounded-lg shadow-lg text-center backdrop-blur-md bg-white/70">
-                    <h3 class="text-2xl font-semibold mb-4 text-blue-300">Reservez et partez l'esprit tranquille</h3>
-                    <p class="text-gray-600 mb-4">Planifiez les dates, échangez avec le dog sitter, et suivez les mises
-                        à jour en temps réel pendant la garde, tout en bénéficiant de notre assurance et de notre
-                        assistance 24h/24.</p>
-                </div>
+            <!-- Étape 3 -->
+            <div class="p-6 rounded-lg shadow-lg text-center backdrop-blur-md bg-white/70">
+                <h3 class="text-2xl font-semibold mb-4 text-blue-400">3. Réservation</h3>
+                <p class="text-gray-700 mb-2"><span class="font-semibold text-gray-800">Propriétaire :</span> réservez les dates en toute sérénité et partez l'esprit tranquille.</p>
+                <p class="text-gray-700"><span class="font-semibold text-gray-800">Dogsitter :</span> confirmez la prestation et accueillez l’animal dans un cadre chaleureux et sécurisé.</p>
             </div>
         </div>
-    </section>
+    </div>
+</section>
+
 
     <!-- Section Subscriptions -->
-    <section>
-        <div class="container mx-auto">
-            <h2 class="text-3xl font-semibold text-center mb-12 pt-16 text-gray-800">Nos abonnements pour les dogsitters
-            </h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <!-- Subscription 1 -->
-                <div class=" p-6 rounded-lg shadow-lg text-left backdrop-blur-md bg-white/70">
-                    <h3 class="text-2xl font-semibold mb-4 text-center text-orange-300">Abonnement / Mois</h3>
-                    <ul class="mb-4">
-                        <li class="font-semibold">Mensuel: <span class="font-normal">29 € par mois</span></li>
-                    </ul>
-                    <ul class="space-y-2">
-                        <li class="font-semibold">Services inclus:</li>
-                        <li>- Profil complet avec photo, description, et avis clients</li>
-                        <li>- 10 annonces actives pour des services (garde, promenade)</li>
-                        <li>- Visibilité dans les résultats de recherche</li>
-                        <li>- Accès aux statistiques de base (visites de profil, clics)</li>
-                        <li>- Réception d'avis et évaluations clients</li>
-                    </ul>
-                </div>
+<section>
+    <div class="container mx-auto pt-16">
+        <h2 class="text-3xl font-semibold text-center mb-8 text-black">Nos abonnements pour les dogsitters</h2>
 
-                <!-- Subscription 2 -->
-                <div class="p-6 rounded-lg shadow-lg text-left backdrop-blur-md bg-white/70">
-                    <h3 class="text-2xl font-semibold mb-4 text-center text-blue-300">Abonnement / Annuel </h3>
-                    <ul class="mb-4">
-                        <li class="font-semibold">Annuel: <span class="font-normal">290 € par an (2 mois offerts)</span>
-                        </li>
-                    </ul>
-                    <ul class="space-y-2">
-                        <li class="font-semibold">Services inclus:</li>
-                        <li>- Profil complet avec photo, description, et avis clients</li>
-                        <li>- 10 annonces actives pour des services (garde, promenade)</li>
-                        <li>- Visibilité avec mise en avant dans les résultats de recherche</li>
-                        <li>- Accès aux statistiques de base (visites de profil, clics)</li>
-                        <li>- Réception d'avis et évaluations clients</li>
+        <div class="mx-auto p-6 rounded-lg shadow-lg backdrop-blur-md bg-white/70">
+            <p class="text-lg text-gray-700 mb-6">
+                Sur notre site, nous souhaitons offrir aux dogsitters un espace dédié, où ils peuvent se présenter de manière sérieuse et professionnelle. Pour cela, nous proposons la possibilité de créer un <strong>profil vitrine</strong>, accessible via un abonnement.
+            </p>
 
-                    </ul>
+            <div class="mb-6">
+                <h3 class="text-2xl font-semibold text-gray-800 mb-4">Deux formules sont disponibles :</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="p-4 rounded-lg border border-orange-200 bg-orange-50">
+                        <h4 class="text-xl font-semibold text-orange-600 mb-2">Abonnement mensuel</h4>
+                        <p class="text-gray-700">Pour ceux qui préfèrent avancer pas à pas.</p>
+                        <p class="text-lg font-bold text-orange-700 mt-2">29,90€ / mois</p>
+                    </div>
+                    <div class="p-4 rounded-lg border border-blue-200 bg-blue-50">
+                        <h4 class="text-xl font-semibold text-blue-400 mb-2">Abonnement annuel</h4>
+                        <p class="text-gray-700">Pour ceux qui s’inscrivent dans la durée avec constance.</p>
+                        <p class="text-lg font-bold text-blue-500 mt-2">199,90€ / an</p>
+                    </div>
                 </div>
             </div>
+
+            <p class="text-gray-700">
+                Ces abonnements permettent d’afficher son profil dans un cadre coloré et soigné, auprès de familles en recherche de personnes de confiance. Cela reflète un engagement sincère dans l’activité de dogsitting, dans le respect des animaux et des maîtres.
+            </p>
         </div>
-    </section>
+    </div>
+</section>
+
 
 
     <!-- Section Chiffres clés -->
     <section>
         <div class="container mx-auto pt-16">
-            <div class="bg-gray-100 py-12 mb-12">
-                <div class="text-center">
-                    <h2 class="text-3xl font-semibold text-gray-800">Quelques chiffres sur Patte à Patte</h2>
+            <h2 class="text-3xl font-semibold text-center mb-8 text-black">Quelques chiffres sur Patte à Patte</h2>
+            <div class="bg-white/70 p-6 rounded-lg shadow-lg backdrop-blur-md bg-white/70">
+                <div class="text-center ">
                     <p class="text-lg text-gray-600 mt-4">Plus de {{ $utilisateurs }} utilisateurs satisfaits et une communauté
                         grandissante chaque jour !</p>
                 </div>
@@ -181,9 +171,9 @@
 
     <!-- Section Avis et temoignages -->
         <section>
-            <div class="container mx-auto pb-16">
+            <div class="container mx-auto p-16 ">
                 <div class="text-center">
-                    <h2 class="text-3xl mb-12 font-semibold text-gray-800">Témoignages de Nos Utilisateurs</h2>
+                    <h2 class="text-3xl font-semibold text-center mb-8 text-black">Témoignages de Nos Utilisateurs</h2>
                     <!-- Affichage des avis -->
                     <div class="flex flex-col lg:flex-row justify-center gap-8 mt-6">
                         @forelse($avis as $avis)
@@ -211,7 +201,7 @@
         <div class="container mx-auto pb-8 text-center">
             <h3 class="text-2xl font-semibold text-gray-800 ">Laissez Votre Avis</h3>
             <p class="text-gray-600 mt-2">Nous apprécions vos retours pour améliorer nos services !</p>
-            <form action="{{ route('avis.store') }}" method="POST" class="mt-6 mb-5 max-w-3xl mx-auto bg-white p-6 shadow-lg rounded-lg">
+            <form action="{{ route('avis.store') }}" method="POST" class="mt-6 mb-5 max-w-3xl mx-auto bg-white/70 p-6 shadow-lg rounded-lg">
                 @csrf
                 <!-- Note -->
                 <label for="rating" class="block text-gray-700 text-lg font-semibold">Note :</label>
