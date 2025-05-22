@@ -16,11 +16,6 @@ class RaceController extends Controller
         return response()->json(Race::all());
     }
 
-    public function __construct()
-    {
-        $this->middleware('auth:sanctum');
-    }
-
     /**
      * Store a newly created resource in storage.
      */

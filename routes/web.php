@@ -84,8 +84,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/dogsitter/postersonannonce', [ProfilDogsitterController::class, 'annonce'])->name('dogsitters.annonce');
     Route::get('/dogsitter/calendar', [ProfilDogsitterController::class, 'showCalendar'])->name('dogsitters.calendar');
 
-    Route::get('/abonnement', [AbonnementController::class, 'show'])->name('abonnements.update');
-    Route::post('/abonnement', [AbonnementController::class, 'updateAbonnement'])->name('abonnements.update');
+    Route::get('/abonnement', [AbonnementController::class, 'show'])->name('abonnements.pricing');
+    Route::get('/abonnement/', function () {
+        return view('abonnements.pricing');
+    })->middleware(['auth', 'verified',])->name('abonnements.pricing');
     Route::get('/abonnement/prix', function () {
         return view('abonnements.pricing');
     })->middleware(['auth', 'verified',])->name('prix');

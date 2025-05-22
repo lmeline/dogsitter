@@ -93,17 +93,16 @@
                             <x-dropdown-link :href="route('profile')" :active="request()->routeIs('profile')">
                                 {{ __('Profile') }}
                             </x-dropdown-link>
+                            <x-dropdown-link :href="route('profile.edit')" :active="request()->routeIs('profile.edit')">
+                                {{ __('Account') }}
+                            </x-dropdown-link>
                             @if(Auth::user()->role === 'proprietaire')
                                 <x-dropdown-link :href="route('dogs.create')" :active="request()->routeIs('dogs.create')">
                                     {{ __('Add a dog') }}
                                 </x-dropdown-link>
-                            @endif
-                            <x-dropdown-link :href="route('profile.edit')" :active="request()->routeIs('profile.edit')">
-                                {{ __('Account') }}
-                            </x-dropdown-link>
-                            @if(Auth::user()->role === 'dogsitter')
-                                <x-dropdown-link :href="route('abonnements.update')"
-                                    :active="request()->routeIs('abonnements.update')">
+                            @else
+                                <x-dropdown-link :href="route('prix')"
+                                    :active="request()->routeIs('prix')">
                                     {{ __('Subcription') }}
                                 </x-dropdown-link>
                                 <x-dropdown-link :href="route('dogsitters.annonce')"
@@ -200,6 +199,18 @@
                     <x-responsive-nav-link :href="route('profile.edit')">
                         {{ __('Account') }}
                     </x-responsive-nav-link>
+                    @if(Auth::user()->role === 'dogsitter')
+                        <x-responsive-nav-link :href="route('prix')">
+                            {{ __('Subcription') }}
+                        </x-responsive-nav-link>
+                        <x-responsive-nav-link :href="route('dogsitters.annonce')">
+                            {{ __('Post your ad') }}
+                        </x-responsive-nav-link>
+                    @else
+                        <x-responsive-nav-link :href="route('dogs.create')">
+                            {{ __('Add a dog') }}
+                        </x-responsive-nav-link>
+                    @endif
                     <!-- Authentication -->
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
