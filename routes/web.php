@@ -104,7 +104,7 @@ Route::middleware('auth')->group(function () {
     route::get('/proprietaires', [ProprietaireController::class, 'index'])->name('proprietaires.index');
     route::get('/proprietaires/{id}', [ProprietaireController::class, 'show'])->name('proprietaires.show');
     route::post('/update-description', [ProprietaireController::class, 'updateDescription'])->name('update.description');
-    route::get('/proprietaires/mesprestations', [PrestationController::class, 'showPrestations'])->name('proprietaires.mesprestations');
+    route::get('/proprietaire/mesprestations', [PrestationController::class, 'showPrestations'])->name('proprietaires.mesprestations');
 
 
     // Requêtes pour les prestations
@@ -118,8 +118,6 @@ Route::middleware('auth')->group(function () {
 });
 
 
-
-
 // Requêtes ajax 
 Route::get('/prestations/calendar/getprestations', [PrestationController::class, 'getprestations']);
 Route::get('/search-dogsitters', [ProfilDogsitterController::class, 'search'])->name('search.dogsitters');
@@ -129,5 +127,9 @@ Route::get('/search-owner', [MessageController::class, 'searchOwner'])->name('se
 Route::get('/search-dogsitter', [MessageController::class, 'searchDogsitter'])->name('search.dogsitter');
 Route::get('/messages/search', [MessageController::class, 'search'])->name('messages.search');
 Route::delete('/disponibilites/{id}/delete', [DisponibiliteController::class, 'destroy'])->name('disponibilites.destroy');
+Route::post('/threads/{thread}/messages', [MessageController::class, 'addMessage'])->name('addMessage');
+Route::get('/threads/{thread}/messages', [MessageController::class, 'fetchMessages'])->name('messages.fetch');
+Route::get('/threads/messages', [MessageController::class, 'fetchThreads'])->name('threads.fetch');
+
 
 

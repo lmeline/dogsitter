@@ -16,43 +16,6 @@ use Symfony\Component\Console\Output\ConsoleOutput;
 
 class PrestationController extends Controller
 {
-  public function createold($id)
-  {
-    $proprietaire = Auth::user($id);
-
-    $dogsitter = User::find($id);
-
-    $prestations = $proprietaire->prestationsAsproprietaire()->with(['dog', 'prestationType', 'dogsitter'])->get();
-
-    $prestationsDogsitter = $dogsitter->prestationsAsDogsitter()->with(['dog', 'prestationType', 'proprietaire'])->get();
-
-    $dogs = Dog::where('proprietaire_id', $proprietaire->id)->get();
-
-    $disponibilites = $dogsitter->disponibilites;
-
-    $joursSemaine = [
-      'Lundi' => 'Monday',
-      'Mardi' => 'Tuesday',
-      'Mercredi' => 'Wednesday',
-      'Jeudi' => 'Thursday',
-      'Vendredi' => 'Friday',
-      'Samedi' => 'Saturday',
-      'Dimanche' => 'Sunday',
-    ];
-
-    foreach ($disponibilites as $disponibilite) {
-      $jour = $disponibilite->jour_semaine;
-
-      if (isset($joursSemaine[$jour])) {
-        $jourAnglais = $joursSemaine[$jour];
-        $date = Carbon::now()->next($jourAnglais);
-        $disponibilite->date = $date->format('Y-m-d');
-      }
-    }
-
-    return view('prestations.create', compact('dogsitter', 'proprietaire', 'dogs', 'disponibilites', 'prestations', 'prestationsDogsitter'));
-  }
-
   public function create($id)
   {
     $proprietaire = Auth::user($id);
@@ -203,7 +166,6 @@ class PrestationController extends Controller
   public function show($id)
   {
     $prestation = Prestation::find($id);
-
     $prestation->formatted_date_debut = Carbon::parse($prestation->date_debut)->translatedFormat('d F Y à H:i');
     $prestation->formatted_date_fin = Carbon::parse($prestation->date_fin)->translatedFormat('d F Y à H:i');
     return view('prestations.show', compact('prestation'));
