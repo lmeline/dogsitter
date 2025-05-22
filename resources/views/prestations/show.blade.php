@@ -59,28 +59,37 @@
                 </a>
             </div>          
        @else
-            {{-- Actions : valider ou annuler --}}
             <div class="mt-8 flex flex-col sm:flex-row justify-between items-center gap-4 sm:gap-6">
-                {{-- Bloc Valider + Annuler --}}
                 <div class="flex gap-4">
-                    <form method="POST" action="{{ route('prestations.valider', $prestation->id) }}">
-                        @csrf
-                        @method('PATCH')
-                        <button
-                            class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-6 rounded-full shadow-md transition duration-300">
-                            ✅ Valider
-                        </button>
-                    </form>
-            
-                    <form method="POST" action="{{ route('prestations.annuler', $prestation->id) }}"
-                        onsubmit="return confirm('Êtes-vous sûr de vouloir annuler cette prestation ?');">
-                        @csrf
-                        @method('PATCH')
-                        <button
-                            class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-6 rounded-full shadow-md transition duration-300">
-                            ❌ Annuler
-                        </button>
-                    </form>
+                    @if($prestation->statut === 'en attente')
+                        <form method="POST" action="{{ route('prestations.valider', $prestation->id) }}">
+                            @csrf
+                            @method('PATCH')
+                            <button
+                                class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-6 rounded-full shadow-md transition duration-300">
+                                ✅ Valider
+                            </button>
+                        </form>
+                        <form method="POST" action="{{ route('prestations.annuler', $prestation->id) }}"
+                            onsubmit="return confirm('Êtes-vous sûr de vouloir annuler cette prestation ?');">
+                            @csrf
+                            @method('PATCH')
+                            <button
+                                class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-6 rounded-full shadow-md transition duration-300">
+                                ❌ Annuler
+                            </button>
+                        </form>
+                    @elseif($prestation->statut === 'validée')
+                     <form method="POST" action="{{ route('prestations.annuler', $prestation->id) }}"
+                            onsubmit="return confirm('Êtes-vous sûr de vouloir annuler cette prestation ?');">
+                            @csrf
+                            @method('PATCH')
+                            <button
+                                class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-6 rounded-full shadow-md transition duration-300">
+                                ❌ Annuler
+                            </button>
+                        </form>
+                    @endif
                 </div>
             
                 {{-- Bouton Retour aligné à droite --}}

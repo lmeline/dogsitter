@@ -26,10 +26,10 @@ class StripeController extends Controller
             'customer' => 'cus_SKOv3XV0YBEPdS',
         ]);
 
-        return response()->json($subscriptions);
+        //return response()->json($subscriptions);
 
 
-        //return response()->json($customers);
+        return response()->json($customers);
 
         //return view('abonnements.pricing', compact($prices));
     }
