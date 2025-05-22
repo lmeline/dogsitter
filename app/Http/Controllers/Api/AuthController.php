@@ -32,8 +32,6 @@ class AuthController extends Controller
             //$user = User::where('email', $request->email)->first();
             $user = User::where('email', "admin@gmail.com")->first();
 
-            $output->writeln("USer  found");
-
             $output->writeln("User found: " . ($user ? 'yes' : 'no'));
             $output->writeln("User email: " . $request->email);
 
