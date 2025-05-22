@@ -42,7 +42,6 @@
                 display: none;
             }
         </style>
-
         {{ $dogsitters->links() }}
     </div>
 
