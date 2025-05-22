@@ -9,8 +9,6 @@ use Illuminate\Support\Facades\Auth;
 class AbonnementController extends Controller
 {
 
-
-
     public function chooseAbonnement(Request $request)
 {
     $request->validate([

@@ -161,9 +161,9 @@
                     <p class="text-lg text-gray-600 mt-4">Plus de {{ $utilisateurs }} utilisateurs satisfaits et une communauté
                         grandissante chaque jour !</p>
                 </div>
-                <div class="grid grid-cols-2 sm:grid-cols-4 gap-8 text-center mt-10">
+                <div class="flex justify-center items-center gap-12 text-center mt-10">
                     <div>
-                        <h3 class="text-xl font-bold text-gray-800">{{$dogsitters}}</h3>
+                        <h3 class="text-xl font-bold text-gray-800">{{ $dogsitters }}</h3>
                         <p class="text-gray-600">Dogsitters</p>
                     </div>
                     <div>
@@ -171,12 +171,8 @@
                         <p class="text-gray-600">Propriétaires</p>
                     </div>
                     <div>
-                        <h3 class="text-xl font-bold text-gray-800">{{ $pourcentageSatisfaction }} % </h3>
+                        <h3 class="text-xl font-bold text-gray-800">{{ $pourcentageSatisfaction }} %</h3>
                         <p class="text-gray-600">Taux de Satisfaction</p>
-                    </div>
-                    <div>
-                        <h3 class="text-xl font-bold text-gray-800">{{ $prestations }}</h3>
-                        <p class="text-gray-600">Réservations chaque mois</p>
                     </div>
                 </div>
             </div>
@@ -212,7 +208,7 @@
             </div>
         </section>
     @auth
-        <div class="container mx-auto pb-16 text-center">
+        <div class="container mx-auto pb-8 text-center">
             <h3 class="text-2xl font-semibold text-gray-800 ">Laissez Votre Avis</h3>
             <p class="text-gray-600 mt-2">Nous apprécions vos retours pour améliorer nos services !</p>
             <form action="{{ route('avis.store') }}" method="POST" class="mt-6 mb-5 max-w-3xl mx-auto bg-white p-6 shadow-lg rounded-lg">

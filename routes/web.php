@@ -84,8 +84,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/dogsitter/postersonannonce', [ProfilDogsitterController::class, 'annonce'])->name('dogsitters.annonce');
     Route::get('/dogsitter/calendar', [ProfilDogsitterController::class, 'showCalendar'])->name('dogsitters.calendar');
 
-    Route::get('/abonnement', [AbonnementController::class, 'show'])->name('abonnements.update');
-    Route::post('/abonnement', [AbonnementController::class, 'updateAbonnement'])->name('abonnements.update');
+    Route::get('/abonnement', [AbonnementController::class, 'show'])->name('abonnements.pricing');
+    Route::get('/abonnement/', function () {
+        return view('abonnements.pricing');
+    })->middleware(['auth', 'verified',])->name('abonnements.pricing');
     Route::get('/abonnement/prix', function () {
         return view('abonnements.pricing');
     })->middleware(['auth', 'verified',])->name('prix');
@@ -104,7 +106,7 @@ Route::middleware('auth')->group(function () {
     route::get('/proprietaires', [ProprietaireController::class, 'index'])->name('proprietaires.index');
     route::get('/proprietaires/{id}', [ProprietaireController::class, 'show'])->name('proprietaires.show');
     route::post('/update-description', [ProprietaireController::class, 'updateDescription'])->name('update.description');
-    route::get('/proprietaires/mesprestations', [PrestationController::class, 'showPrestations'])->name('proprietaires.mesprestations');
+    route::get('/proprietaire/mesprestations', [PrestationController::class, 'showPrestations'])->name('proprietaires.mesprestations');
 
 
     // Requêtes pour les prestations
@@ -116,8 +118,6 @@ Route::middleware('auth')->group(function () {
     Route::patch('/prestations/{id}/annulee', [PrestationController::class, 'annuler'])->name('prestations.annuler');
 
 });
-
-
 
 
 // Requêtes ajax 

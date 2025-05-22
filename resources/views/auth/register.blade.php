@@ -74,7 +74,7 @@
                     <input type="hidden" id="villeId" name="ville_id">
                 </div>
 
-                <div class="relative w-full">
+                <div class="relative w-full hidden">
                     <x-input-label for="code_postal" :value="__('Postal code')" />
                     <input id="codePostalInput" name="code_postal"
                            class="block mt-1 w-full border rounded-lg border border-pink-300 focus:ring-pink-500 focus:border-pink-500" readonly>

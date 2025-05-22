@@ -64,7 +64,16 @@
                         Supprimer
                     </button>
                 </div>
-                           
+                <div class="mb-6">
+                    <label class="flex items-center space-x-4">
+                        <span class="text-lg font-semibold text-gray-700">Jour Off :</span>
+                        <div class="relative">
+                            <input type="checkbox" id="jour_off" name="jour_off" value="1" class="sr-only peer">
+                            <div class="w-11 h-6 bg-gray-300 rounded-full peer peer-checked:bg-red-500 transition duration-300"></div>
+                            <div class="absolute top-0.5 left-0.5 w-5 h-5 bg-white rounded-full transition-all duration-300 peer-checked:translate-x-5"></div>
+                        </div>
+                    </label>
+                </div>
             </div>
 
             {{-- Ajouter un tarif par prestation --}}

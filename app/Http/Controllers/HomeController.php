@@ -17,15 +17,11 @@ class HomeController extends Controller
     $utilisateurs = User::where("role","!=", "admin")->count();
     $proprietaires = User::where('role','proprietaire')->count();
     $dogsitters = User::where('role','dogsitter')->count();
-    
-    $prestations = Prestation::whereYear('date_debut', Carbon::now()->year)
-    ->whereMonth('date_debut', Carbon::now()->subMonth()->month)
-    ->count();
    
     $moyenneNotes = Avis::avg('rating');    
     $pourcentageSatisfaction = round(($moyenneNotes / 5) * 100,2);
 
-    return view('index', compact('avis','proprietaires','dogsitters','utilisateurs','prestations','pourcentageSatisfaction'));
+    return view('index', compact('avis','proprietaires','dogsitters','utilisateurs','pourcentageSatisfaction'));
 }
 
     
