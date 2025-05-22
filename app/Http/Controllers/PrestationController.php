@@ -163,7 +163,7 @@ class PrestationController extends Controller
     return view('proprietaires.mesprestations', compact('prestations'));
   }
 
-  public function showPrestationforDogsitter($id)
+  public function show($id)
   {
     $prestation = Prestation::find($id);
     $prestation->formatted_date_debut = Carbon::parse($prestation->date_debut)->translatedFormat('d F Y à H:i');
