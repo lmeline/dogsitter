@@ -45,7 +45,7 @@
             <div class="relative">
                 <x-input-label for="code_postal" :value="__('Postal code')" />
                 <x-text-input id="codePostalInput" name="code_postal" 
-                    class="block mt-1 w-full border rounded-lg disabled "  :value="old('colde_postal', $user->code_postal)" readonly/>
+                    class="block mt-1 w-full border rounded-lg "  :value="old('colde_postal', $user->code_postal)" disabled/>
             </div>
         </div>
         <!-- Champ pour l'email -->
