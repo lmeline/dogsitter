@@ -45,7 +45,7 @@
             <div class="relative">
                 <x-input-label for="code_postal" :value="__('Postal code')" />
                 <x-text-input id="codePostalInput" name="code_postal" 
-                    class="block mt-1 w-full border rounded-lg"  :value="old('colde_postal', $user->code_postal)" readonly/>
+                    class="block mt-1 w-full border rounded-lg disabled "  :value="old('colde_postal', $user->code_postal)" readonly/>
             </div>
         </div>
         <!-- Champ pour l'email -->
@@ -76,7 +76,7 @@
             <x-input-label for="photo" :value="__('Photo de profil')" />
             <input 
                 id="photo" 
-                class="block mt-1 w-full h-10 border-gray-300 rounded-md" 
+                class="block mt-1 w-full h-10 border-pink-300 rounded-md dark:text-white"  
                 type="file" 
                 name="photo" 
             />
