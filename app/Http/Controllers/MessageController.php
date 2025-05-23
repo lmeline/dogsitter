@@ -213,12 +213,11 @@ class MessageController extends Controller
     {
         try {
             $user = Auth::user();
-            $search = $request->input('search'); // Pour la recherche dans les threads
+            $search = $request->input('search'); 
 
             $threads = Thread::whereHas('participants', function ($query) use ($user) {
                 $query->where('user_id', $user->id);
             })
-            // Ajoutez un filtre de recherche si le terme est présent
             ->when($search, function ($query, $search) {
                 $query->whereHas('users', function ($q) use ($search) {
                     $q->where('name', 'like', '%' . $search . '%')
@@ -226,7 +225,6 @@ class MessageController extends Controller
                 });
             })
             ->with(['users', 'messages' => function ($query) {
-                // Charge uniquement le dernier message de chaque thread
                 $query->latest()->limit(1);
             }])
             ->get();
@@ -234,17 +232,16 @@ class MessageController extends Controller
             $formattedThreads = $threads->map(function ($thread) use ($user) {
                 $otherUser = $thread->users->where('id', '!=', $user->id)->first();
 
-                // Si pour une raison bizarre il n'y a pas d'autre utilisateur, on ignore ce thread
                 if (!$otherUser) {
                     return null;
                 }
 
                 $unreadCountThread = $thread->messages()
                     ->where('lu', false)
-                    ->where('user_id', '!=', $user->id) // Messages non lus reçus par l'utilisateur actuel
+                    ->where('user_id', '!=', $user->id) 
                     ->count();
 
-                $lastMessage = $thread->messages->first(); // Le premier message de la collection (car on a fait latest()->limit(1))
+                $lastMessage = $thread->messages->first(); 
 
                 return [ 
                     'id' => $thread->id,
@@ -254,7 +251,7 @@ class MessageController extends Controller
                     'unread_count' => $unreadCountThread,
                     'thread_url' => route('messages.show', $thread->id),
                 ];
-            })->filter()->values(); // Filtre les nulls et réindexe
+            })->filter()->values();
 
             return response()->json($formattedThreads);
 

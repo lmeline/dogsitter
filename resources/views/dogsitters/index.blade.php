@@ -2,7 +2,6 @@
     <div class="container mx-auto py-10">
         <form id="searchForm">
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4 mb-4">
-                <!-- Recherche par nom -->
                 <input type="text" id="search" name="name" placeholder="Nom de famille"
                     class="w-full h-10 rounded-lg border border-gray-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-pink-500">
 
@@ -11,6 +10,15 @@
                         class="w-full h-10 rounded-lg border border-gray-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-pink-500">
                     <ul id="villeSuggestions"
                         class="absolute w-full bg-white border border-gray-300 rounded mt-1 hidden"></ul>
+                </div>
+                <div class="relative">
+                    <select id="prestationTypes" name="prestationTypes"
+                        class="w-full h-10 rounded-lg border border-gray-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-pink-500">
+                        <option value="">-- Sélectionnez un service --</option>
+                        @foreach ($prestationtypes as $prestationtype)
+                            <option value="{{ $prestationtype->id }}">{{ $prestationtype->nom }}</option>
+                        @endforeach
+                    </select>
                 </div>
             </div>
         </form>
@@ -43,10 +51,8 @@
                 display: none;
             }
         </style>
-
         {{ $dogsitters->links() }}
     </div>
-
 </x-app-layout>
 
 <script>
