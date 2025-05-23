@@ -12,7 +12,7 @@
         @csrf
     </form>
 
-    <form method="post" action="{{ route('profile.update') }}" class="mt-6 space-y-6">
+    <form method="post" action="{{ route('profile.update') }}" class="mt-6 space-y-6" enctype="multipart/form-data">
         @csrf
         @method('patch')
 
@@ -129,7 +129,6 @@
                 })
                 .then(response=> response.json())
                 .then(data=>{
-                    //console.log(data)
                     villeContainer.innerHTML = '';
                     if(data.length === 0){
                         villeContainer.innerHTML = '<p class="text-gray-500"> Aucun résultat trouvé </p>';
@@ -143,7 +142,6 @@
                         li.classList.add('p-2', 'cursor-pointer', 'hover:bg-gray-200');
                         li.setAttribute('data-id',ville.id);
                         li.setAttribute('data-code_postal', ville.code_postal)
-                        //console.log(ville.code_postal);
                         li.addEventListener('click', handleVilleClick); 
                         
                         villeContainer.appendChild(li);

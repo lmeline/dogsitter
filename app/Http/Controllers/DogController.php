@@ -45,7 +45,6 @@ class DogController extends Controller
         if ($request->hasFile('photo') && $request->file('photo')->isValid()) {
             $photoPath = $request->file('photo')->store('dogs-photos', 'public');
         }
-        //dd($photoPath);
         // Création du chien
         Dog::create([
             'nom' => $request->nom,
