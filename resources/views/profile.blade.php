@@ -219,9 +219,12 @@
                                 <div class="flex flex-wrap justify-center gap-6">
                                     @foreach ($dogsWithPhoto as $dog)
                                         <div class="flex flex-col items-center">
-                                            <div class="relative">
-                                                <img src="{{ asset('storage/' . $dog->photo) }}" alt="{{ $dog->nom }}" class="w-50 h-50 sm:w-40 sm:h-40 rounded-full border-4 border-white shadow-lg">
-                                                <form action="{{ route('dogs.delete', $dog->id) }}" method="POST" class="absolute top-3 right-3">
+                                            <div class="relative group">
+                                                <img src="{{ asset('storage/' . $dog->photo) }}" title="{{ $dog->nom }}" alt="{{ $dog->nom }}" class="w-50 h-50 sm:w-40 sm:h-40 rounded-full border-4 border-white shadow-lg">
+                                                 <span class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-3 py-1 bg-gray-800 text-white text-sm rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none whitespace-nowrap">
+                                                    {{ $dog->nom }}
+                                                </span>
+                                                <form action="{{ route('dogs.delete', $dog->id) }}" method="POST" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce chien ? Cette action est irréversible.');" class="absolute top-3 right-3">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="text-red-500 hover:text-red-700 transition">
