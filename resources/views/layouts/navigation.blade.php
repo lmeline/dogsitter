@@ -101,8 +101,8 @@
                                     {{ __('Add a dog') }}
                                 </x-dropdown-link>
                             @else
-                                <x-dropdown-link :href="route('prix')"
-                                    :active="request()->routeIs('prix')">
+                                <x-dropdown-link :href="route('abonnements.update')"
+                                    :active="request()->routeIs('abonnements.update')">
                                     {{ __('Subcription') }}
                                 </x-dropdown-link>
                                 <x-dropdown-link :href="route('dogsitters.annonce')"

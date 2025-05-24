@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Stripe\Stripe;
 use Stripe\Price;
 use Stripe\Customer;
@@ -13,24 +14,20 @@ class StripeController extends Controller
     {
         Stripe::setApiKey(env('STRIPE_SECRET'));
 
-        //$prices = Price::all(['limit' => 10]);
+    
         $prices = Price::all();
-        $customers = Customer::all(['limit' => 10]);
-        // Retourner comme JSON ou afficher
+        $customers = Customer::all();
 
         // Retrieve a specific customer
-        //$customer = Customer::retrieve('cus_SKOv3XV0YBEPdS');
-        //return response()->json($customer);
+        // $customer = Customer::retrieve('cus_SKOv3XV0YBEPdS');
+         return response()->json($customers);
 
-        $subscriptions = Subscription::all([
-            'customer' => 'cus_SKOv3XV0YBEPdS',
-        ]);
+        // $subscriptions = Subscription::all([
+        //     'customer' => 'cus_SKOv3XV0YBEPdS',
+        // ]);
 
         //return response()->json($subscriptions);
-
-
-        return response()->json($customers);
-
+        //return response()->json($customers);
         //return view('abonnements.pricing', compact($prices));
     }
 

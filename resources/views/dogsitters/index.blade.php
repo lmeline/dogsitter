@@ -133,7 +133,7 @@
                                         ? `${prestation.pivot.prix} €`
                                         : 'N/A';
                                     return `<p class="text-gray-600"> ${prestation.nom} : ${price}</p>`; 
-                                }).join('') // <-- IMPORTANT: Join with an empty string
+                                }).join('')
                                 : 'Non spécifié'
                             }
                         </p>

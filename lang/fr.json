@@ -151,6 +151,7 @@
     "of": "de",
     "OK": "OK",
     "Once your account is deleted, all of its resources and data will be permanently deleted. Please enter your password to confirm you would like to permanently delete your account." :"Une fois votre compte supprimé, toutes ses ressources et données seront définitivement effacées. Veuillez entrer votre mot de passe pour confirmer que vous souhaitez supprimer votre compte.",
+    "Once your account is deleted, all of its resources and data will be permanently deleted. Please enter your password to confirm you would like to permanently delete your account. Before deleting your account, please cancel your subscription on Stripe.":"Une fois votre compte supprimé, toutes ses ressources et données seront définitivement effacées. Veuillez entrer votre mot de passe pour confirmer que vous souhaitez supprimer votre compte. Avant de supprimer votre compte, veuillez annuler votre abonnement sur Stripe.",
     "Open": "Ouvrir",
     "Open in a current window": "Ouvrir dans une fenêtre actuelle",
     "Open in a new window": "Ouvrir dans une nouvelle fenêtre",

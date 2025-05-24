@@ -17,6 +17,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\StripeController;
 
 Route::get('/test', [StripeController::class,'listPrices'])->name('test');
+Route::get('/abonnement/modifier', [StripeController::class, 'showUpdateForm'])->name('subscription.update.form');
+Route::post('/subscription/cancel', [StripeController::class, 'cancel'])->name('subscription.cancel');
+Route::get('/subscription/resume', [StripeController::class, 'resume'])->name('subscription.resume');
 // Requêtes pour la page d'accueil
 Route::get('/', [HomeController::class, 'index'])->name('index');
 Route::get('/avis/create', [AvisController::class, 'create'])->name('avis.create');
@@ -84,13 +87,12 @@ Route::middleware('auth')->group(function () {
     Route::get('/dogsitter/postersonannonce', [ProfilDogsitterController::class, 'annonce'])->name('dogsitters.annonce');
     Route::get('/dogsitter/calendar', [ProfilDogsitterController::class, 'showCalendar'])->name('dogsitters.calendar');
 
-    Route::get('/abonnement', [AbonnementController::class, 'show'])->name('abonnements.pricing');
-    Route::get('/abonnement/', function () {
-        return view('abonnements.pricing');
-    })->middleware(['auth', 'verified',])->name('abonnements.pricing');
+    // Requêtes pour les abonnements
+    Route::get('/abonnement/update', [ProfilDogsitterController::class, 'showAbonnement'])->name('abonnements.update');
     Route::get('/abonnement/prix', function () {
         return view('abonnements.pricing');
     })->middleware(['auth', 'verified',])->name('prix');
+    Route::post('/abonnement/annuler', [ProfilDogsitterController::class, 'cancel'])->name('abonnements.cancel');
 
     Route::get('checkout/{plan?}', CheckoutController::class)->name('checkout');
     Route::view('/payment/success', 'abonnements.success')->middleware(['auth', 'verified'])->name('success-checkout');
