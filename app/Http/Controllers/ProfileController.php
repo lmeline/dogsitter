@@ -26,24 +26,26 @@ class ProfileController extends Controller
      * Update the user's profile information.
      */
 
-     public function update(ProfileUpdateRequest $request): RedirectResponse
-     {
+    public function update(ProfileUpdateRequest $request): RedirectResponse
+    {
 
-         $user = Auth::user();
-     
-         $user->update([
-             'name' => $request->name,
-             'prenom' => $request->prenom,
-             'numero_telephone' => $request->numero_telephone,
-             'code_postal' =>$request->code_postal,
-             'ville_id' => $request->ville_id,
-             'email' => $request->email,
-             'photo' => $request->photo
-         ]);
-        
-    
-         return Redirect::route('profile.edit')->with('status', 'profile-updated');
-     }
+        $user = Auth::user();
+        $photoPath = $user->photo ?? 'profile-photos/avatar_par_defaut.webp';
+        if ($request->hasFile('photo') && $request->file('photo')->isValid()) {
+            $photoPath = $request->file('photo')->store('profile-photos', 'public');
+        }
+        $user->update([
+            'name' => $request->name,
+            'prenom' => $request->prenom,
+            'numero_telephone' => $request->numero_telephone,
+            'photo' => $photoPath,
+            'code_postal' => $request->code_postal,
+            'ville_id' => $request->ville_id,
+            'email' => $request->email,
+        ]);
+
+        return Redirect::route('profile.edit')->with('status', 'profile-updated');
+    }
     /**
      * Delete the user's account.
      */
@@ -77,29 +79,28 @@ class ProfileController extends Controller
 
         return response()->json($villes);
     }
-    
+
 
     public function saveVille(Request $request)
     {
 
         $request->validate([
-            'id' => 'required|exists:villes,id',  
+            'id' => 'required|exists:villes,id',
             'nom_de_la_commune' => 'required|string|max:255',
-            'code_postal' => 'required|string|max:5', 
+            'code_postal' => 'required|string|max:5',
         ]);
-    
-       
+
+
         $ville = Ville::find($request->id);
-    
+
         if ($ville) {
-           
+
             $ville->nom_de_la_commune = $request->nom_de_la_commune;
             $ville->code_postal = $request->code_postal;
-            $ville->save();  
+            $ville->save();
         }
-    
-       
+
+
         return response()->json(['success' => true, 'message' => 'Ville mise à jour avec succès']);
     }
-    
-} 
+}

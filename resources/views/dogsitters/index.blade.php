@@ -11,6 +11,15 @@
                     <ul id="villeSuggestions"
                         class="absolute w-full bg-white border border-gray-300 rounded mt-1 hidden"></ul>
                 </div>
+                <div class="relative">
+                    <select id="prestationTypes" name="prestationTypes"
+                        class="w-full h-10 rounded-lg border border-gray-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-pink-500">
+                        <option value="">-- Sélectionnez un service --</option>
+                        @foreach ($prestationtypes as $prestationtype)
+                            <option value="{{ $prestationtype->id }}">{{ $prestationtype->nom }}</option>
+                        @endforeach
+                    </select>
+                </div>
             </div>
         </form>
 
@@ -29,6 +38,7 @@
                             class="w-24 h-24 rounded-full object-cover ml-4 border-4 border-white" />
                     </div>
                     <p class="text-gray-600 mt-2">Ville: {{ $dogsitter->ville->nom_de_la_commune }}</p>
+                    <p class="text-gray-600 mt-2">Type de prestations: {{ $dogsitter->prestationTypes->implode('nom', ', ') }}</p>
                 </a>
             @endforeach
         </div>
@@ -44,7 +54,6 @@
         </style>
         {{ $dogsitters->links() }}
     </div>
-
 </x-app-layout>
 
 <script>

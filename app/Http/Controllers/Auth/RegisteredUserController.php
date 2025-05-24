@@ -48,7 +48,7 @@ class RegisteredUserController extends Controller
             'role' => ['required', 'string', 'max:255']
         ]);
 
-        $photoPath = null;
+        $photoPath = $user->photo ?? 'profile-photos/avatar_par_defaut.webp';;
         if ($request->hasFile('photo') && $request->file('photo')->isValid()) {
             $photoPath = $request->file('photo')->store('profile-photos', 'public');
         }
