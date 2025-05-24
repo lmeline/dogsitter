@@ -57,7 +57,7 @@ class UserSeeder extends Seeder
             'email_verified_at' => now(),
             'password' => Hash::make('dogsitter')
         ]);
-        User::factory(80)->create();
+        User::factory(200)->create();
 
     }
 }
