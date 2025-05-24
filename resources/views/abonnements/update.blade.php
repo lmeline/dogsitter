@@ -49,19 +49,32 @@
                 @endif
                 @if ($subscriptions && count($subscriptions->data))
                     @php $sub = $subscriptions->data[0]; @endphp
+                    @if ($sub->cancel_at_period_end)
+                        <div class="bg-orange-100 border-l-4 border-orange-500 text-orange-700 p-4 mb-4 rounded">
+                            <p class="font-bold">Abonnement annulé</p>
+                            <p>
+                                Votre abonnement a été annulé. Il restera actif jusqu'au 
+                                <strong>{{ \Carbon\Carbon::createFromTimestamp($sub->current_period_end)->format('d/m/Y') }}</strong>.
+                            </p>
+                        </div>
+                    @endif
                     <p class="text-black-700 dark:text-black-300 mb-4">
-                        Vous êtes actuellement abonné(e) au plan : <span class="font-semibold">{{ $sub->plan->nickname ?? 'Inconnu' }}</span><br>
-                        ID d’abonnement Stripe : <span class="font-mono text-sm">{{ $sub->id }}</span><br>
-                        Statut de l’abonnement : <span class="font-semibold">{{ ucfirst($sub->status) }}</span><br>
-                        Prochaine facturation : <span class="font-semibold">{{ \Carbon\Carbon::createFromTimestamp($sub->current_period_end)->format('d/m/Y') }}</span>
+                        Vous êtes actuellement abonné(e) au plan : 
+                        <span class="font-semibold">{{ $sub->plan->nickname ?? 'Inconnu' }}</span><br>
+                        Statut de l’abonnement : 
+                        <span class="font-semibold">{{ ucfirst($sub->status) }}</span><br>
+                        Prochaine facturation : 
+                        <span class="font-semibold">{{ \Carbon\Carbon::createFromTimestamp($sub->current_period_end)->format('d/m/Y') }}</span>
                     </p>
-                    <form action="{{ route('abonnements.cancel') }}" method="POST">
-                        @csrf
-                        <input type="hidden" name="subscription_id" value="{{ $sub->id }}">
-                        <button type="submit" class="...">
-                            Annuler l'abonnement
-                        </button>
-                    </form>
+                    @if (!$sub->cancel_at_period_end)
+                        <form action="{{ route('abonnements.cancel') }}" method="POST">
+                            @csrf
+                            <input type="hidden" name="subscription_id" value="{{ $sub->id }}">
+                            <button type="submit" class="mt-4 py-2 px-4 bg-red-600 text-white rounded hover:bg-red-700">
+                                Annuler l'abonnement
+                            </button>
+                        </form>
+                    @endif
                 @else
                     <p class="text-black-700 dark:text-black-300">
                         Vous n'avez pas d'abonnement actif pour le moment.
