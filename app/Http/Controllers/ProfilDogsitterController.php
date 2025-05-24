@@ -76,6 +76,12 @@ class ProfilDogsitterController extends Controller
                     $subQuery->where('prestations_types.id', $request->prestationTypes);
                 });
             }
+            if($request->filled('priceMin') && $request->filled('priceMax')) {
+                $query->whereHas('prestationTypes', function ($subQuery) use ($request) {
+                  $subQuery->where('prestations_types.id', $request->prestationTypes);
+        });
+                
+            }
             $users = $query->with('prestationTypes','ville')->get();
             return response()->json($users);
         } catch (\Exception $e) {

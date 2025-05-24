@@ -20,12 +20,16 @@
                         @endforeach
                     </select>
                 </div>
-                <div class="relative">
-                    <label for="priceRange" class="block text-sm font-medium text-gray-700">Tarif maximum : <span id="priceValue"></span> €</label>
-                    <input type="range" id="priceRange" name="priceMax" min="0" max="100" value="100"
-                        class="w-full h-10 rounded-lg border border-gray-300 px-4 py-2 ">
-                    {{-- Vous pouvez ajuster min/max/value selon les prix attendus pour vos services --}}
-                    {{-- 'value' devrait être le max par défaut pour afficher tous les dogsitters --}}
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                    <div class="relative">
+                        <input type="number" id="priceMin" name="priceMin" placeholder="Tarif minimum (€)" min="0" step="5"
+                            class="w-full h-10 rounded-lg border border-gray-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-pink-500">
+                    </div>
+
+                    <div class="relative">
+                        <input type="number" id="priceMax" name="priceMax" placeholder="Tarif maximum (€)" min="0" step="5"
+                            class="w-full h-10 rounded-lg border border-gray-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-pink-500">
+                    </div>
                 </div>
             </div>
         </form>
@@ -45,7 +49,13 @@
                             class="w-24 h-24 rounded-full object-cover ml-4 border-4 border-white" />
                     </div>
                     <p class="text-gray-600 mt-2">Ville: {{ $dogsitter->ville->nom_de_la_commune }}</p>
-                    <p class="text-gray-600 mt-2">Type de prestations: {{ $dogsitter->prestationTypes->implode('nom', ', ') }}</p>
+                    <p class="text-gray-600 mt-2">Type de prestations: {{ $dogsitter->prestationTypes->implode('nom', ' , ') }}</p>
+                   <p class="text-gray-600 mt-2">
+                        Tarif par prestation : <br>
+                        @foreach($dogsitter->prestationTypes as $prestation)
+                            {{ $prestation->nom }} : {{ $prestation->pivot->prix }} € <br>
+                        @endforeach
+                    </p>
                 </a>
             @endforeach
         </div>
@@ -69,6 +79,8 @@
         const villeInput = document.getElementById('ville');
         const prestationTypesInput = document.getElementById('prestationTypes');
         const dogsittersContainer = document.getElementById('dogsittersContainer');
+        const priceMinInput = document.getElementById('priceMin');
+        const priceMaxInput = document.getElementById('priceMax');
 
         let timeout = null;
 
@@ -76,7 +88,9 @@
             const search = encodeURIComponent(searchInput.value.trim());
             const ville = encodeURIComponent(villeInput.value.trim());
             const prestationTypes = encodeURIComponent(prestationTypesInput.value);
-            const URL = `{{ route('search.dogsitters') }}?name=${search}&ville=${ville}&prestationTypes=${prestationTypes}`;
+            const priceMin = encodeURIComponent(priceMinInput.value.trim());
+            const priceMax = encodeURIComponent(priceMaxInput.value.trim());
+            const URL = `{{ route('search.dogsitters') }}?name=${search}&ville=${ville}&prestationTypes=${prestationTypes}&priceMin=${priceMin}&priceMax=${priceMax}`;
 
             fetch(URL, {
                 method: 'GET',
@@ -107,16 +121,29 @@
                         <p class="text-gray-600 mt-2">Ville: ${dogsitter.ville.nom_de_la_commune}</p>
                        <p class="text-gray-600 mt-2">Type de prestations: ${
                             dogsitter.prestation_types && dogsitter.prestation_types.length > 0
-                                ? dogsitter.prestation_types.map(type => type.nom).join(', ') 
+                                ? dogsitter.prestation_types.map(type => type.nom).join(' , ') 
                                 : 'Non spécifié'
-                        }</p>
+                            }
+                        </p>
+                        <p class="text-gray-600 mt-2">
+                            Tarif par prestation : <br>
+                            ${dogsitter.prestation_types && dogsitter.prestation_types.length > 0
+                                ? dogsitter.prestation_types.map(prestation => {
+                                    const price = prestation.pivot && prestation.pivot.prix !== undefined
+                                        ? `${prestation.pivot.prix} €`
+                                        : 'N/A';
+                                    return `<p class="text-gray-600"> ${prestation.nom} : ${price}</p>`; 
+                                }).join('') // <-- IMPORTANT: Join with an empty string
+                                : 'Non spécifié'
+                            }
+                        </p>
                     </a>`;
                     });
                 })
                 .catch(error => console.error('Erreur:', error));
         }
 
-        [searchInput, villeInput, prestationTypesInput].forEach(input => {
+        [searchInput, villeInput, prestationTypesInput, priceMinInput, priceMaxInput].forEach(input => {
             input.addEventListener('input', function () {
                 clearTimeout(timeout);
                 timeout = setTimeout(fetchDogSitters, 500);
