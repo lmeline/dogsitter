@@ -14,11 +14,18 @@
                 <div class="relative">
                     <select id="prestationTypes" name="prestationTypes"
                         class="w-full h-10 rounded-lg border border-gray-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-pink-500">
-                        <option value="">-- Sélectionnez un service --</option>
+                        <option value="">-- Sélectionnez un type de prestation --</option>
                         @foreach ($prestationtypes as $prestationtype)
                             <option value="{{ $prestationtype->id }}">{{ $prestationtype->nom }}</option>
                         @endforeach
                     </select>
+                </div>
+                <div class="relative">
+                    <label for="priceRange" class="block text-sm font-medium text-gray-700">Tarif maximum : <span id="priceValue"></span> €</label>
+                    <input type="range" id="priceRange" name="priceMax" min="0" max="100" value="100"
+                        class="w-full h-10 rounded-lg border border-gray-300 px-4 py-2 ">
+                    {{-- Vous pouvez ajuster min/max/value selon les prix attendus pour vos services --}}
+                    {{-- 'value' devrait être le max par défaut pour afficher tous les dogsitters --}}
                 </div>
             </div>
         </form>
@@ -60,6 +67,7 @@
     document.addEventListener('DOMContentLoaded', function () {
         const searchInput = document.getElementById('search');
         const villeInput = document.getElementById('ville');
+        const prestationTypesInput = document.getElementById('prestationTypes');
         const dogsittersContainer = document.getElementById('dogsittersContainer');
 
         let timeout = null;
@@ -67,8 +75,8 @@
         function fetchDogSitters() {
             const search = encodeURIComponent(searchInput.value.trim());
             const ville = encodeURIComponent(villeInput.value.trim());
-
-            const URL = `{{ route('search.dogsitters') }}?name=${search}&ville=${ville}`;
+            const prestationTypes = encodeURIComponent(prestationTypesInput.value);
+            const URL = `{{ route('search.dogsitters') }}?name=${search}&ville=${ville}&prestationTypes=${prestationTypes}`;
 
             fetch(URL, {
                 method: 'GET',
@@ -80,7 +88,6 @@
                 .then(data => {
                     console.log(data);
                     dogsittersContainer.innerHTML = '';
-
                     if (data.length === 0) {
                         dogsittersContainer.innerHTML = '<p class="text-gray-500">Aucun résultat trouvé.</p>';
                         return;
@@ -98,13 +105,18 @@
                             <img src="${dogsitter.photo}" alt="${dogsitter.name}" class="w-24 h-24 rounded-full object-cover ml-4 border-4 border-white"/>
                         </div>
                         <p class="text-gray-600 mt-2">Ville: ${dogsitter.ville.nom_de_la_commune}</p>
+                       <p class="text-gray-600 mt-2">Type de prestations: ${
+                            dogsitter.prestation_types && dogsitter.prestation_types.length > 0
+                                ? dogsitter.prestation_types.map(type => type.nom).join(', ') 
+                                : 'Non spécifié'
+                        }</p>
                     </a>`;
                     });
                 })
                 .catch(error => console.error('Erreur:', error));
         }
 
-        [searchInput, villeInput].forEach(input => {
+        [searchInput, villeInput, prestationTypesInput].forEach(input => {
             input.addEventListener('input', function () {
                 clearTimeout(timeout);
                 timeout = setTimeout(fetchDogSitters, 500);

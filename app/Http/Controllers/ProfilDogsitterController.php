@@ -58,20 +58,29 @@ class ProfilDogsitterController extends Controller
 
     public function search(Request $request)
     {
-        $query = User::query();
-        $query->where('role', 'dogsitter');
+        try {
+            $query = User::query();
+            $query->where('role', 'dogsitter');
 
-        if ($request->filled('name')) {
-            $query->where('name', 'LIKE', "{$request->name}%");
+            if ($request->filled('name')) {
+                $query->where('name', 'LIKE', "{$request->name}%");
+            }
+        
+            if ($request->filled('ville')) {
+                $query->whereHas('ville', function ($query) use ($request) {
+                    $query->where('nom_de_la_commune', 'LIKE', "{$request->ville}%");
+                });
+            }
+            if($request->filled('prestationTypes')) {
+                $query->whereHas('prestationTypes', function ($subQuery) use ($request) {
+                    $subQuery->where('prestations_types.id', $request->prestationTypes);
+                });
+            }
+            $users = $query->with('prestationTypes','ville')->get();
+            return response()->json($users);
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
         }
-    
-        if ($request->filled('ville')) {
-            $query->whereHas('ville', function ($query) use ($request) {
-                $query->where('nom_de_la_commune', 'LIKE', "{$request->ville}%");
-            });
-        }
-        $users = $query->with('ville')->get();
-        return response()->json($users);
     }
 
     public function updateDescription(Request $request){
